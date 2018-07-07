@@ -1,45 +1,40 @@
 <div class="container">
-  <div [hidden]="submitted">
-    <h1>Hero Form</h1>
-    <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name"
-               required
-               [(ngModel)]="model.name" name="name"
-               #name="ngModel">
-        <div [hidden]="name.valid || name.pristine"
-             class="alert alert-danger">
-          Name is required
-        </div>
+  <h1>Hero Form</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="p-3 bg-faded">
+    <div class="form-group row">
+      <label for="nombreEquipo" class="col-sm-2 col-form-label"><strong>Nombre Equipo</strong></label>
+      <div class="col-sm-10">
+        <input id="nombreEquipo" type="text" class="form-control" formControlName="nombreEquipo"
+               placeholder="Nombre del equipo" required="true"/>
       </div>
-
-      <div class="form-group">
-        <label for="alterEgo">Alter Ego</label>
-        <input type="text" class="form-control" id="alterEgo"
-               [(ngModel)]="model.alterEgo" name="alterEgo">
+    </div>
+    <div class="form-group row">
+      <label for="deporte" class="col-sm-2 col-form-label"><strong>Deporte</strong></label>
+      <div class="col-sm-10">
+        <p-dropdown id="deporte" [options]="deportes" formControlName="deporte" required="true"
+        placeholder="Seleccioná un deporte"></p-dropdown>
       </div>
+    </div>
 
-      <div class="form-group">
-        <label for="power">Hero Power</label>
-        <select class="form-control" id="power"
-                required
-                [(ngModel)]="model.power" name="power"
-                #power="ngModel">
-          <option *ngFor="let pow of powers" [value]="pow">{{pow}}</option>
-        </select>
-        <div [hidden]="power.valid || power.pristine" class="alert alert-danger">
-          Deporte is required
-        </div>
+    <div class="form-group row">
+      <label for="jugador" class="col-sm-2 col-form-label"><strong>Jugador a invitar</strong></label>
+      <div class="col-sm-10">
+        <input id="jugador" type="text" class="form-control" formControlName="jugador"
+               placeholder="Nombre del jugador" required="true"/>
       </div>
+    </div>
 
-      <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Submit</button>
-      <button type="button" class="btn btn-default" (click)="newHero(); heroForm.reset()">New Hero</button>
-      <i>with</i> reset
-
-      &nbsp;&nbsp;
-      <button type="button" class="btn btn-default" (click)="newHero()">New Hero</button>
-      <i>without</i> reset
-    </form>
-  </div>
+    <div class="row">
+      <div class="ui-grid-col-3"></div>
+      <div class="ui-grid-col-2">
+        <button pButton type="submit" label="SUBMIT" [disabled]="form.invalid"></button>
+      </div>
+      <div class="ui-grid-col-2">
+      </div>
+      <div class="ui-grid-col-2">
+        <button pButton type="button" label="CANCEL" (click)="form.reset()"></button>
+      </div>
+      <div class="ui-grid-col-3"></div>
+    </div>
+  </form>
 </div>
