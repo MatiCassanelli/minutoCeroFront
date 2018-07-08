@@ -20,7 +20,8 @@
       <label for="jugador" class="col-sm-2 col-form-label"><strong>Jugador a invitar</strong></label>
       <div class="col-sm-10">
         <p-autoComplete id="jugador" formControlName="jugador"
-                        [suggestions]="jugadores" (completeMethod)="getJugadores($event)"></p-autoComplete>
+                        [suggestions]="jugadores" (completeMethod)="getJugadores($event)"
+                        field="email" [multiple]="true"></p-autoComplete>
       </div>
     </div>
 

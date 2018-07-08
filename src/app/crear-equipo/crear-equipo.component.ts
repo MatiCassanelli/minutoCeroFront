@@ -16,9 +16,8 @@ export class CrearEquipoComponent implements OnInit {
   form: FormGroup;
   deportes: SelectItem[];
   jugadores: Array<Jugador>;
-  nombreJugadores: string[];
+  public nombreJugadores: Array<string>;
   equipo = new Equipo();
-  jug: Array<Jugador>;
 
   constructor(private fb: FormBuilder, private jugadorService: JugadorService) {
     this.deportes = [
@@ -38,19 +37,21 @@ export class CrearEquipoComponent implements OnInit {
   }
 
   getNombreJugadores(event) {
-    debugger;
-    this.getJugadores(event);
-    for (let i = 0; i < this.jugadores.length; i++) {
-      this.nombreJugadores.push(this.jugadores[i].nombre);
-    }
+    this.nombreJugadores = new Array<string>();
+    this.jugadorService.getJugadores(event.query).subscribe((resp) => {
+        for (let i = 0; i < resp.length; i++) {
+          this.nombreJugadores.push(resp[i].nombre);
+        }
+        console.log(this.nombreJugadores);
+    });
     return this.nombreJugadores;
   }
 
-  getJugadores(event) {
+  getJugadores(event): Array<Jugador> {
     this.jugadorService.getJugadores(event.query).subscribe((resp) => {
       this.jugadores = resp;
-      return this.jugadores;
       });
+    return this.jugadores;
   }
 
   onSubmit() {
