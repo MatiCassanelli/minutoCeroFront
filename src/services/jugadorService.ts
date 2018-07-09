@@ -16,8 +16,8 @@ export class JugadorService {
   constructor(private http: HttpClient) {
   }
 
-  getJugadores(nombre: any = NaN) {
-    if (nombre === NaN) {
+  getJugadores(nombre: any = null) {
+    if (nombre === null) {
       return this.http.get<Array<Jugador>>(this.api);
     } else {
       return this.http.get<Array<Jugador>>(this.api + 'buscar/' + nombre);
