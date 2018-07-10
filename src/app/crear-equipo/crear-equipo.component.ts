@@ -63,17 +63,39 @@ export class CrearEquipoComponent implements OnInit {
 
 
   onSubmit() {
+    // this.equipoService.createEquipo({
+    //   Nombre: this.form.get('nombreEquipo').value,
+    //   Deporte: this.form.get('deporte').value,
+    //   capitan: '5b2fe4488d58eae873cfedcd' // este es el _id del usuario q viene de la sesion
+    //   }).subscribe((res) => {
+    //     this.equipo = res;
+    //   console.log(this.equipo);
+    // }, error2 => console.log(error2));
+
     this.equipoService.createEquipo({
       Nombre: this.form.get('nombreEquipo').value,
       Deporte: this.form.get('deporte').value,
-      capitan: '5b2fe4488d58eae873cfedcd' // este es el id del usuario q viene de la sesion
-      }).subscribe((res) => {
-        this.equipo = res;
-      console.log(this.equipo);
-    }, error2 => console.log(error2));
+      capitan: '5b2fe4488d58eae873cfedcd' // este es el _id del usuario q viene de la sesion
+    }).toPromise().then(eq => {
+      let jug = new Array();
+      for (let a of this.form.get('jugador').value) {
+        jug.push(a.email);
+      }
+      this.equipoService.invitarJugadores({
+        _id: eq._id,
+        email: jug
+      }).subscribe(resp => {
+        console.log(resp);
+        return resp;
+      }, error1 => console.log(error1));
+      }
+    ).catch(err => {
+      console.log(err);
+      return err;
+    });
 
     // this.equipoService.invitarJugadores({
-    //   _id: this.equipo.id,
+    //   _id: this.equipo._id,
     //   email: this.form.get('jugador').value
     // }).subscribe(resp => {
     //   console.log(resp);

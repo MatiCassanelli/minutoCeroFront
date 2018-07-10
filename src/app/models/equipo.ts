@@ -1,7 +1,7 @@
 import {Jugador} from './jugador';
 
 export class Equipo {
-  id: string;
+  _id: string;
   nombre: string;
   deporte: string;
   capitan: string;

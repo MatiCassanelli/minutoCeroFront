@@ -21,6 +21,7 @@ export class EquipoService {
   }
 
   invitarJugadores(jugadores) {
+    debugger;
     return this.http.post<Equipo>(this.api + 'invitar', jugadores);
 
   }
