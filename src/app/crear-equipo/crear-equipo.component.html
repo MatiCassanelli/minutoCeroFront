@@ -19,9 +19,22 @@
     <div class="form-group row">
       <label for="jugador" class="col-sm-2 col-form-label"><strong>Jugador a invitar</strong></label>
       <div class="col-sm-10">
-        <p-autoComplete id="jugador" formControlName="jugador"
+        <span class="ui-fluid">
+        <p-autoComplete id="jugador" formControlName="jugador" field= "email"
                         [suggestions]="jugadores" (completeMethod)="getJugadores($event)"
-                        field="email" [multiple]="true"></p-autoComplete>
+                        [multiple]="true" emptyMessage="No existen jugadores" [forceSelection]="true">
+          <ng-template let-jugador pTemplate="item">
+            <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5;">
+              <div style="display:inline-block;">
+                {{jugador.nombre +' '+ jugador.apellido}}
+                <div style="font-size:12px">
+                {{jugador.email}}
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-autoComplete>
+        </span>
       </div>
     </div>
 
