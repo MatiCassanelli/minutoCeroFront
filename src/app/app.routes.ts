@@ -2,6 +2,7 @@ import { RouterModule, Routes} from '@angular/router';
 
 import { CrearEquipoComponent} from './crear-equipo/crear-equipo.component';
 import {InfoEquipoComponent} from './info-equipo/info-equipo.component';
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
   {
@@ -12,7 +13,7 @@ const appRoutes: Routes = [
       {path: 'info', component: InfoEquipoComponent}
     ]
   },
-  { path: '**', pathMatch: 'full', redirectTo: '' }
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 export const AppRouting = RouterModule.forRoot(appRoutes);

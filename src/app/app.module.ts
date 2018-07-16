@@ -15,17 +15,20 @@ import { ButtonModule } from 'primeng/primeng';
 import { RadioButtonModule } from 'primeng/primeng';
 import {DropdownModule} from 'primeng/dropdown';
 import {AutoCompleteModule} from 'primeng/primeng';
+import { CardModule} from 'primeng/primeng';
 
 // Components imports
 import { AppComponent } from './app.component';
 import { CrearEquipoComponent } from './crear-equipo/crear-equipo.component';
 import { InfoEquipoComponent } from './info-equipo/info-equipo.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CrearEquipoComponent,
-    InfoEquipoComponent
+    InfoEquipoComponent,
+    PageNotFoundComponent
   ],
   imports: [
     AppRouting,
@@ -39,7 +42,8 @@ import { InfoEquipoComponent } from './info-equipo/info-equipo.component';
     ButtonModule,
     RadioButtonModule,
     DropdownModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    CardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
