@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+// Routes imports
+import {AppRouting} from './app.routes';
 
 // PrimeNg imports
 import { AccordionModule } from 'primeng/primeng';
@@ -17,13 +19,16 @@ import {AutoCompleteModule} from 'primeng/primeng';
 // Components imports
 import { AppComponent } from './app.component';
 import { CrearEquipoComponent } from './crear-equipo/crear-equipo.component';
+import { InfoEquipoComponent } from './info-equipo/info-equipo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CrearEquipoComponent
+    CrearEquipoComponent,
+    InfoEquipoComponent
   ],
   imports: [
+    AppRouting,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,

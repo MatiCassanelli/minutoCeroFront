@@ -48,20 +48,6 @@ export class CrearEquipoComponent implements OnInit {
     return this.jugadores;
   }
 
-  // getNombreJugadores(event) {
-  //   this.jugadorService.getJugadores(event.query).subscribe((resp) => {
-  //     for (let j of resp) {
-  //       let s: string = j.nombre + ' ' + j.apellido;
-  //       this.nombreJugadores.push(s);
-  //     }
-  //     if (this.nombreJugadores.length === resp.length) {
-  //       console.log(this.nombreJugadores);
-  //       return this.nombreJugadores;
-  //     }
-  //   });
-  // }
-
-
   onSubmit() {
     // this.equipoService.createEquipo({
     //   Nombre: this.form.get('nombreEquipo').value,
@@ -75,12 +61,13 @@ export class CrearEquipoComponent implements OnInit {
     this.equipoService.createEquipo({
       Nombre: this.form.get('nombreEquipo').value,
       Deporte: this.form.get('deporte').value,
-      capitan: '5b2fe4488d58eae873cfedcd' // este es el _id del usuario q viene de la sesion
+      capitan: '5b2fe47c8d58eae873cfedf1' // este es el _id del usuario q viene de la sesion
     }).toPromise().then(eq => {
       let jug = new Array();
       for (let a of this.form.get('jugador').value) {
         jug.push(a.email);
       }
+      debugger;
       this.equipoService.invitarJugadores({
         _id: eq._id,
         email: jug
@@ -93,27 +80,5 @@ export class CrearEquipoComponent implements OnInit {
       console.log(err);
       return err;
     });
-
-    // this.equipoService.invitarJugadores({
-    //   _id: this.equipo._id,
-    //   email: this.form.get('jugador').value
-    // }).subscribe(resp => {
-    //   console.log(resp);
-    // }, error1 => console.log(error1));
   }
-
-
-
-
-  // nuevoEquipo() {
-  //   this.model = new Equipo(42, '', '', '');
-  // }
-  // deportes = ['Futbol 5', 'Futbol 7', 'Futbol 11'];
-  //
-  // model = new Equipo(18, '', this.deportes[0], '');
-  //
-  // submitted = false;
-  //
-  // onSubmit() { this.submitted = true; }
-
 }

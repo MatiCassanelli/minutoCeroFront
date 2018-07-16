@@ -25,7 +25,7 @@
                         [multiple]="true" emptyMessage="No existen jugadores" [forceSelection]="true">
           <ng-template let-jugador pTemplate="item">
             <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5;">
-              <div style="display:inline-block;">
+              <div>
                 {{jugador.nombre +' '+ jugador.apellido}}
                 <div style="font-size:12px">
                 {{jugador.email}}
