@@ -21,8 +21,11 @@ export class EquipoService {
   }
 
   invitarJugadores(jugadores) {
-    debugger;
     return this.http.post<Equipo>(this.api + 'invitar', jugadores);
-
   }
+
+  getEquipo(id) {
+    return this.http.get<Equipo>(this.api + id);
+  }
+
 }

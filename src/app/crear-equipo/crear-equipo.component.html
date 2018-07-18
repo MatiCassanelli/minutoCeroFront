@@ -46,7 +46,7 @@
       <div class="ui-grid-col-2">
       </div>
       <div class="ui-grid-col-2">
-        <button pButton type="button" label="CANCEL" (click)="form.reset()" routerLink="/equipo/info"></button>
+        <button pButton type="button" label="CANCEL" (click)="form.reset()" [routerLink]="['/equipo/info',this.equipo._id]"></button>
       </div>
       <div class="ui-grid-col-3"></div>
     </div>

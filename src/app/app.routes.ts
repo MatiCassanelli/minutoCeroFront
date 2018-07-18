@@ -10,7 +10,7 @@ const appRoutes: Routes = [
     children: [
       {path: '', redirectTo: '', pathMatch: 'full'},
       {path: 'crear', component: CrearEquipoComponent},
-      {path: 'info', component: InfoEquipoComponent}
+      {path: 'info/:id', component: InfoEquipoComponent}
     ]
   },
   { path: '**', component: PageNotFoundComponent }

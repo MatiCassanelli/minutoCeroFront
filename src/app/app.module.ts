@@ -4,6 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
 
 // Routes imports
 import {AppRouting} from './app.routes';
@@ -15,20 +17,23 @@ import { ButtonModule } from 'primeng/primeng';
 import { RadioButtonModule } from 'primeng/primeng';
 import {DropdownModule} from 'primeng/dropdown';
 import {AutoCompleteModule} from 'primeng/primeng';
-import { CardModule} from 'primeng/primeng';
+import {CardModule} from 'primeng/primeng';
+import {RatingModule} from 'primeng/rating';
 
 // Components imports
 import { AppComponent } from './app.component';
 import { CrearEquipoComponent } from './crear-equipo/crear-equipo.component';
 import { InfoEquipoComponent } from './info-equipo/info-equipo.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { EstrellasJugadorComponent } from './estrellas-jugador/estrellas-jugador.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CrearEquipoComponent,
     InfoEquipoComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    EstrellasJugadorComponent
   ],
   imports: [
     AppRouting,
@@ -37,13 +42,15 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    AngularFontAwesomeModule,
     AccordionModule,
     PanelModule,
     ButtonModule,
     RadioButtonModule,
     DropdownModule,
     AutoCompleteModule,
-    CardModule
+    CardModule,
+    RatingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -61,17 +61,17 @@ export class CrearEquipoComponent implements OnInit {
     this.equipoService.createEquipo({
       Nombre: this.form.get('nombreEquipo').value,
       Deporte: this.form.get('deporte').value,
-      capitan: '5b2fe47c8d58eae873cfedf1' // este es el _id del usuario q viene de la sesion
+      capitan: '5b2fe4708d58eae873cfede9' // este es el _id del usuario q viene de la sesion
     }).toPromise().then(eq => {
       let jug = new Array();
       for (let a of this.form.get('jugador').value) {
         jug.push(a.email);
       }
-      debugger;
       this.equipoService.invitarJugadores({
         _id: eq._id,
         email: jug
       }).subscribe(resp => {
+        this.equipo = eq;
         console.log(resp);
         return resp;
       }, error1 => console.log(error1));
