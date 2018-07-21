@@ -19,6 +19,11 @@ import {DropdownModule} from 'primeng/dropdown';
 import {AutoCompleteModule} from 'primeng/primeng';
 import {CardModule} from 'primeng/primeng';
 import {RatingModule} from 'primeng/rating';
+import {TooltipModule} from 'primeng/tooltip';
+import {DialogModule} from 'primeng/dialog';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
+
 
 // Components imports
 import { AppComponent } from './app.component';
@@ -52,7 +57,10 @@ import { InvitarJugadoresComponent } from './invitar-jugadores/invitar-jugadores
     DropdownModule,
     AutoCompleteModule,
     CardModule,
-    RatingModule
+    RatingModule,
+    TooltipModule,
+    DialogModule,
+    ConfirmDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

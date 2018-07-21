@@ -15,8 +15,10 @@ export class InvitarJugadoresComponent implements OnInit {
   jugadores: Jugador[];
   jugadoresSeleccionados: Jugador[];
   @Output() notifyParent: EventEmitter<Array<Jugador>> = new EventEmitter<Array<Jugador>>();
+  @Output() jugadoresInvitados: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   sendJugadores() {
+    this.jugadoresInvitados.emit(true);
     this.notifyParent.emit(this.jugadoresSeleccionados);
   }
   constructor(private fb: FormBuilder,
@@ -42,11 +44,11 @@ export class InvitarJugadoresComponent implements OnInit {
   agregarJug(value) {
     console.log('agregando', value);
     this.jugadoresSeleccionados.push(value);
-    console.log('this.jugadoresSeleccionados',this.jugadoresSeleccionados);
+    console.log('this.jugadoresSeleccionados', this.jugadoresSeleccionados);
   }
   eliminarJug(value) {
     console.log('eliminando', value);
     this.jugadoresSeleccionados.splice(this.jugadoresSeleccionados.indexOf(value), 1);
-    console.log('this.jugadoresSeleccionados',this.jugadoresSeleccionados);
+    console.log('this.jugadoresSeleccionados', this.jugadoresSeleccionados);
   }
 }

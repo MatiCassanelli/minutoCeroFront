@@ -6,15 +6,17 @@ import {Equipo} from '../models/equipo';
 import {JugadorService} from '../../services/jugadorService';
 import {Jugador} from '../models/jugador';
 import { Router} from '@angular/router';
+import {ConfirmationService} from 'primeng/api';
 
 @Component({
   selector: 'app-crear-equipo',
   templateUrl: './crear-equipo.component.html',
   styleUrls: ['./crear-equipo.component.css'],
-  providers: [JugadorService, EquipoService]
+  providers: [JugadorService, EquipoService, ConfirmationService]
 })
 export class CrearEquipoComponent implements OnInit {
 
+  jugadoresInvitados: boolean;
   form: FormGroup;
   deportes: SelectItem[];
   jugadores: Array<Jugador>;
@@ -24,7 +26,8 @@ export class CrearEquipoComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private router: Router,
               private jugadorService: JugadorService,
-              private equipoService: EquipoService) {
+              private equipoService: EquipoService,
+              private confirmationService: ConfirmationService) {
     this.deportes = [
       {label: 'Futbol 5', value: 'Futbol 5'},
       {label: 'Futbol 7', value: 'Futbol 7'},
@@ -32,13 +35,14 @@ export class CrearEquipoComponent implements OnInit {
       ];
     this.jugadores = new Array<Jugador>();
     this.nombreJugadores = new Array();
+    this.jugadoresInvitados = false;
   }
 
   ngOnInit() {
     this.form = this.fb.group ({
-      nombreEquipo: '',
-      deporte: '',
-      jugador: ''
+      nombreEquipo: null,
+      deporte: null,
+      jugador: null
     });
   }
 
@@ -57,6 +61,19 @@ export class CrearEquipoComponent implements OnInit {
   //   });
   //   return this.jugadores;
   // }
+
+  confirm() {
+    this.confirmationService.confirm({
+      message: '¿Estás seguro de continuar sin invitar jugadores para que formen parte de tu equipo?',
+      accept: () => {
+        console.log(this.form.valid);
+        if (this.form.valid) {
+          console.log('entro');
+          this.onSubmit();
+        }
+      }
+    });
+  }
 
   onSubmit() {
     this.equipoService.createEquipo({
@@ -83,5 +100,9 @@ export class CrearEquipoComponent implements OnInit {
     });
   }
 
+
+  setChecked(event){
+    this.jugadoresInvitados = event;
+  }
 
 }

@@ -15,7 +15,7 @@
         placeholder="Seleccioná un deporte" [showClear]="true"></p-dropdown>
       </div>
     </div>
-    <app-invitar-jugadores (notifyParent)="getJugadores($event)"></app-invitar-jugadores>
+    <app-invitar-jugadores (notifyParent)="getJugadores($event)" (jugadoresInvitados)="setChecked($event)"></app-invitar-jugadores>
     <!--<div class="form-group row">-->
       <!--<label for="jugador" class="col-sm-2 col-form-label"><strong>Jugador a invitar</strong></label>-->
       <!--<div class="col-sm-10">-->
@@ -40,13 +40,24 @@
 
     <div class="row">
       <div class="ui-grid-col-3"></div>
+      <div class="ui-grid-col-2" *ngIf="jugadoresInvitados; else isFalse">
+        <button pButton type="submit" icon="pi pi-check" label="Confirm" [disabled]="form.invalid"></button>
+      </div>
+      <ng-template #isFalse>
+        <div class="ui-grid-col-2">
+          <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425" #cd>
+            <p-footer>
+              <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+              <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+            </p-footer>
+          </p-confirmDialog>
+          <button type="button" (click)="confirm()" pButton icon="pi pi-check" label="Confirm"></button>
+        </div>
+      </ng-template>
       <div class="ui-grid-col-2">
-        <button pButton type="submit" label="SUBMIT" [disabled]="form.invalid"></button>
       </div>
       <div class="ui-grid-col-2">
-      </div>
-      <div class="ui-grid-col-2">
-        <button pButton type="button" label="CANCEL" (click)="form.reset()" [routerLink]="['/equipo/info',this.equipo._id]"></button>
+        <button pButton type="button" icon="pi pi-times" label="Cancelar" (click)="form.reset()"></button>
       </div>
       <div class="ui-grid-col-3"></div>
     </div>
