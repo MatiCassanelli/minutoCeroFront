@@ -5,6 +5,7 @@ import {EquipoService} from '../../services/equipoService';
 import {Equipo} from '../models/equipo';
 import {JugadorService} from '../../services/jugadorService';
 import {Jugador} from '../models/jugador';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-crear-equipo',
@@ -21,6 +22,7 @@ export class CrearEquipoComponent implements OnInit {
   equipo = new Equipo();
 
   constructor(private fb: FormBuilder,
+              private router: Router,
               private jugadorService: JugadorService,
               private equipoService: EquipoService) {
     this.deportes = [
@@ -40,40 +42,39 @@ export class CrearEquipoComponent implements OnInit {
     });
   }
 
-  getJugadores(event): Array<Jugador> {
-    this.jugadorService.getJugadores(event.query).subscribe((resp) => {
-      console.log(resp);
-      this.jugadores = resp;
-    });
-    return this.jugadores;
+  getJugadores(event) {
+    this.jugadores = event;
+    console.log('recibiendo', event);
+    console.log('this.jugadores', this.jugadores);
+
   }
 
-  onSubmit() {
-    // this.equipoService.createEquipo({
-    //   Nombre: this.form.get('nombreEquipo').value,
-    //   Deporte: this.form.get('deporte').value,
-    //   capitan: '5b2fe4488d58eae873cfedcd' // este es el _id del usuario q viene de la sesion
-    //   }).subscribe((res) => {
-    //     this.equipo = res;
-    //   console.log(this.equipo);
-    // }, error2 => console.log(error2));
+  // // esto es para las sugerencias
+  // getJugadores(event): Array<Jugador> {
+  //   this.jugadorService.getJugadores(event.query).subscribe((resp) => {
+  //     console.log(resp);
+  //     this.jugadores = resp;
+  //   });
+  //   return this.jugadores;
+  // }
 
+  onSubmit() {
     this.equipoService.createEquipo({
       Nombre: this.form.get('nombreEquipo').value,
       Deporte: this.form.get('deporte').value,
       capitan: '5b2fe4708d58eae873cfede9' // este es el _id del usuario q viene de la sesion
     }).toPromise().then(eq => {
       let jug = new Array();
-      for (let a of this.form.get('jugador').value) {
+      for (let a of this.jugadores) {
         jug.push(a.email);
       }
       this.equipoService.invitarJugadores({
         _id: eq._id,
         email: jug
       }).subscribe(resp => {
-        this.equipo = eq;
-        console.log(resp);
-        return resp;
+        this.equipo = resp;
+        console.log(this.equipo);
+        return this.router.navigateByUrl('/equipo/info/' + this.equipo._id);
       }, error1 => console.log(error1));
       }
     ).catch(err => {
@@ -81,4 +82,6 @@ export class CrearEquipoComponent implements OnInit {
       return err;
     });
   }
+
+
 }

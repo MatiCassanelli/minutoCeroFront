@@ -1,1 +1,6 @@
-<app-estrellas-jugador></app-estrellas-jugador>
+<div class="container">
+  <h2>{{equipo.nombre}}</h2>
+  <ul *ngFor="let jug of this.jugadores">
+    <app-estrellas-jugador [nombre] = jug.nombre [apellido]=jug.apellido [email]=jug.email></app-estrellas-jugador>
+  </ul>
+</div>

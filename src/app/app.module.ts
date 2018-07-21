@@ -26,6 +26,7 @@ import { CrearEquipoComponent } from './crear-equipo/crear-equipo.component';
 import { InfoEquipoComponent } from './info-equipo/info-equipo.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EstrellasJugadorComponent } from './estrellas-jugador/estrellas-jugador.component';
+import { InvitarJugadoresComponent } from './invitar-jugadores/invitar-jugadores.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { EstrellasJugadorComponent } from './estrellas-jugador/estrellas-jugador
     CrearEquipoComponent,
     InfoEquipoComponent,
     PageNotFoundComponent,
-    EstrellasJugadorComponent
+    EstrellasJugadorComponent,
+    InvitarJugadoresComponent
   ],
   imports: [
     AppRouting,

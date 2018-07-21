@@ -1,8 +1,16 @@
 <div class="container p-3 bg-faded">
-  <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+  <!--<div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">-->
+  <div>
     <img class="rounded-circle" src="http://placehold.it/60x60" alt="">
-    <div style="display: inline-block; vertical-align: top;">
-      Nombre usuario
+    <div style="display: inline-block; vertical-align: top;" >
+      <div>
+        <div>
+          <input [(ngModel)]="nombre + ' ' + apellido" readonly="true" style="background-color: transparent; border: none"/>
+          <div style="font-size:12px">
+            <input [(ngModel)]="email" readonly="true" style="background-color: transparent; border: none"/>
+          </div>
+        </div>
+      </div>
       <div>
         <p-rating [ngModel]="3" [cancel]="false" readonly="true"></p-rating>
       </div>

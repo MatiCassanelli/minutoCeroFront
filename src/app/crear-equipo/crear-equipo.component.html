@@ -15,28 +15,28 @@
         placeholder="Seleccioná un deporte" [showClear]="true"></p-dropdown>
       </div>
     </div>
-
-    <div class="form-group row">
-      <label for="jugador" class="col-sm-2 col-form-label"><strong>Jugador a invitar</strong></label>
-      <div class="col-sm-10">
-        <span class="ui-fluid">
-        <p-autoComplete id="jugador" formControlName="jugador" field= "email"
-                        [suggestions]="jugadores" (completeMethod)="getJugadores($event)"
-                        [multiple]="true" emptyMessage="No existen jugadores" [forceSelection]="true">
-          <ng-template let-jugador pTemplate="item">
-            <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5;">
-              <div>
-                {{jugador.nombre +' '+ jugador.apellido}}
-                <div style="font-size:12px">
-                {{jugador.email}}
-                </div>
-              </div>
-            </div>
-          </ng-template>
-        </p-autoComplete>
-        </span>
-      </div>
-    </div>
+    <app-invitar-jugadores (notifyParent)="getJugadores($event)"></app-invitar-jugadores>
+    <!--<div class="form-group row">-->
+      <!--<label for="jugador" class="col-sm-2 col-form-label"><strong>Jugador a invitar</strong></label>-->
+      <!--<div class="col-sm-10">-->
+        <!--<span class="ui-fluid">-->
+        <!--<p-autoComplete id="jugador" formControlName="jugador" field= "email"-->
+                        <!--[suggestions]="jugadores" (completeMethod)="getJugadores($event)"-->
+                        <!--[multiple]="true" emptyMessage="No existen jugadores" [forceSelection]="true">-->
+          <!--<ng-template let-jugador pTemplate="item">-->
+            <!--<div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5;">-->
+              <!--<div>-->
+                <!--{{jugador.nombre +' '+ jugador.apellido}}-->
+                <!--<div style="font-size:12px">-->
+                <!--{{jugador.email}}-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</ng-template>-->
+        <!--</p-autoComplete>-->
+        <!--</span>-->
+      <!--</div>-->
+    <!--</div>-->
 
     <div class="row">
       <div class="ui-grid-col-3"></div>
