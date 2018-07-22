@@ -5,5 +5,6 @@ export class Equipo {
   nombre: string;
   deporte: string;
   capitan: string;
-  jugadores: Jugador;
+  // jugadores: Jugador;
+  jugadores: Array<Jugador>;
 }

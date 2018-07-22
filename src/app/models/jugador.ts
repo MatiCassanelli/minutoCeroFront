@@ -3,5 +3,6 @@ export class Jugador {
   apellido: string;
   email: string;
   _id: string;
+  imagen: any;
 }
 

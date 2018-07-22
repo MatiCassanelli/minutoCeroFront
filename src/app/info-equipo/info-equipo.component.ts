@@ -14,9 +14,12 @@ import {JugadorService} from '../../services/jugadorService';
 export class InfoEquipoComponent implements OnInit {
 
   jugadores: Array<Jugador>;
+  capitan: Jugador;
   routeSub: any;
   equipo: Equipo;
   id: string;
+  display: boolean;
+
 
   constructor(private route: ActivatedRoute,
               private equipoService: EquipoService,
@@ -27,12 +30,21 @@ export class InfoEquipoComponent implements OnInit {
       console.log(this.id);
       this.equipoService.getEquipo(this.id).subscribe(eq => {
         this.equipo = eq[0];
+        this.jugadorService.getJugadorById(this.equipo.capitan).toPromise().then(cap => {
+          this.capitan = cap[0];
+        });
         this.jugadores = this.getJugadoresOfEquipo(this.equipo.jugadores);
+        console.log(this.equipo.capitan);
       });
     });
+    this.display = false;
   }
 
   ngOnInit() {
+  }
+
+  showDialog() {
+    this.display = true;
   }
 
   getJugadoresOfEquipo(jugadores): Array<Jugador> {
@@ -46,4 +58,18 @@ export class InfoEquipoComponent implements OnInit {
     return array;
   }
 
+  agregarNuevosJugadores(event) {
+    let jug = new Array();
+    for (let a of event) {
+      jug.push(a.email);
+    }
+    this.equipoService.invitarJugadores({
+      _id: this.equipo._id,
+      email: jug
+    }).subscribe(resp => {
+      this.equipo = resp;
+      console.log(this.equipo);
+      return window.location.reload();
+    }, error1 => console.log(error1));
+  }
 }

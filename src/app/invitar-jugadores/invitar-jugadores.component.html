@@ -18,9 +18,10 @@
           </div>
         </ng-template>
       </p-autoComplete>
-      <button pButton type="button" icon="pi pi-check" class="ui-button-success" (click)="sendJugadores()"></button>
+      <div *ngIf="jugadoresSeleccionados.length > 0">
+        <button pButton type="button" icon="pi pi-check" class="ui-button-success" (click)="sendJugadores()"></button>
+      </div>
     </span>
     </div>
   </div>
 </form>
-<!--<button (click)="sendJugadores($event)">Notify my parent!</button>-->

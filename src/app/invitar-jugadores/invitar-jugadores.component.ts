@@ -11,19 +11,17 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 })
 export class InvitarJugadoresComponent implements OnInit {
 
+  checked: boolean;
   form: FormGroup;
   jugadores: Jugador[];
   jugadoresSeleccionados: Jugador[];
   @Output() notifyParent: EventEmitter<Array<Jugador>> = new EventEmitter<Array<Jugador>>();
   @Output() jugadoresInvitados: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  sendJugadores() {
-    this.jugadoresInvitados.emit(true);
-    this.notifyParent.emit(this.jugadoresSeleccionados);
-  }
   constructor(private fb: FormBuilder,
               private jugadorService: JugadorService) {
     this.jugadoresSeleccionados = new Array<Jugador>();
+    this.checked = false;
   }
 
   ngOnInit() {
@@ -41,14 +39,23 @@ export class InvitarJugadoresComponent implements OnInit {
     return this.jugadores;
   }
 
+  sendJugadores() {
+    this.jugadoresInvitados.emit(this.checked);
+    this.notifyParent.emit(this.jugadoresSeleccionados);
+  }
   agregarJug(value) {
     console.log('agregando', value);
     this.jugadoresSeleccionados.push(value);
     console.log('this.jugadoresSeleccionados', this.jugadoresSeleccionados);
+    this.checked = true;
   }
   eliminarJug(value) {
     console.log('eliminando', value);
     this.jugadoresSeleccionados.splice(this.jugadoresSeleccionados.indexOf(value), 1);
     console.log('this.jugadoresSeleccionados', this.jugadoresSeleccionados);
+    if(this.jugadoresSeleccionados.length === 0){
+      this.checked = false;
+
+    }
   }
 }
