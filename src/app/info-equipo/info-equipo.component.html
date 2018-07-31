@@ -1,19 +1,21 @@
 <div class="container">
   <h2>{{equipo.nombre}}</h2>
-  <!--<app-estrellas-jugador [nombre]=capitan.nombre [apellido]=capitan.apellido [email]=capitan.email></app-estrellas-jugador>-->
   <div class="container">
-    <h4>Capitan</h4>
+    <h4>Capitán</h4>
     <app-estrellas-jugador [jugador]=capitan></app-estrellas-jugador>
   </div>
   <div class="container">
     <h4>Jugadores</h4>
     <div>
       <ul *ngFor="let jug of this.jugadores">
-        <app-estrellas-jugador [jugador]=jug></app-estrellas-jugador>
+        <a routerLink="/equipo/crear" style="border: none;">
+          <app-estrellas-jugador [jugador]=jug></app-estrellas-jugador>
+        </a>
       </ul>
     </div>
   </div>
 </div>
+
 <!--Dialog pop up-->
 <div class="container">
   <p-dialog header="Invitar un nuevo jugador" [(visible)]="display"

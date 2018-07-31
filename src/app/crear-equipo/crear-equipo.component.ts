@@ -53,14 +53,6 @@ export class CrearEquipoComponent implements OnInit {
 
   }
 
-  // // esto es para las sugerencias
-  // getJugadores(event): Array<Jugador> {
-  //   this.jugadorService.getJugadores(event.query).subscribe((resp) => {
-  //     console.log(resp);
-  //     this.jugadores = resp;
-  //   });
-  //   return this.jugadores;
-  // }
 
   confirm() {
     this.confirmationService.confirm({
@@ -79,7 +71,7 @@ export class CrearEquipoComponent implements OnInit {
     this.equipoService.createEquipo({
       Nombre: this.form.get('nombreEquipo').value,
       Deporte: this.form.get('deporte').value,
-      capitan: '5b2fe4708d58eae873cfede9' // este es el _id del usuario q viene de la sesion
+      capitan: '5b2fe4488d58eae873cfedcd' // este es el _id del usuario q viene de la sesion
     }).toPromise().then(eq => {
       let jug = new Array();
       for (let a of this.jugadores) {
