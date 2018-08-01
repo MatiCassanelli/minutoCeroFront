@@ -4,14 +4,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 // Routes imports
 import {AppRouting} from './app.routes';
 
 // PrimeNg imports
-import { AccordionModule } from 'primeng/primeng';
+import {AccordionModule, MenubarModule} from 'primeng/primeng';
 import { PanelModule } from 'primeng/primeng';
 import { ButtonModule } from 'primeng/primeng';
 import { RadioButtonModule } from 'primeng/primeng';
@@ -22,6 +22,8 @@ import {RatingModule} from 'primeng/rating';
 import {TooltipModule} from 'primeng/tooltip';
 import {DialogModule} from 'primeng/dialog';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {MenuModule} from 'primeng/menu';
+import {SidebarModule} from 'primeng/sidebar';
 import {ConfirmationService} from 'primeng/api';
 
 
@@ -32,6 +34,7 @@ import { InfoEquipoComponent } from './info-equipo/info-equipo.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EstrellasJugadorComponent } from './estrellas-jugador/estrellas-jugador.component';
 import { InvitarJugadoresComponent } from './invitar-jugadores/invitar-jugadores.component';
+import { NavBarComponent} from './nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
@@ -40,16 +43,17 @@ import { InvitarJugadoresComponent } from './invitar-jugadores/invitar-jugadores
     InfoEquipoComponent,
     PageNotFoundComponent,
     EstrellasJugadorComponent,
-    InvitarJugadoresComponent
+    InvitarJugadoresComponent,
+    NavBarComponent
   ],
   imports: [
     AppRouting,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    NgbModule.forRoot(),
     HttpClientModule,
     ReactiveFormsModule,
-    AngularFontAwesomeModule,
     AccordionModule,
     PanelModule,
     ButtonModule,
@@ -60,7 +64,10 @@ import { InvitarJugadoresComponent } from './invitar-jugadores/invitar-jugadores
     RatingModule,
     TooltipModule,
     DialogModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    MenuModule,
+    MenubarModule,
+    SidebarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

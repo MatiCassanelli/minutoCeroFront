@@ -12,6 +12,7 @@ const httpOptions = {
 export class EquipoService {
 
   private api = 'http://192.168.0.172:3000/equipo/';
+  // private api = 'http://192.168.100:3000/equipo/';
 
   constructor(private http: HttpClient) {
   }
