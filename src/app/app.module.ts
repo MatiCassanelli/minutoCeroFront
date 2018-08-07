@@ -25,6 +25,10 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {MenuModule} from 'primeng/menu';
 import {SidebarModule} from 'primeng/sidebar';
 import {ConfirmationService} from 'primeng/api';
+import {InputMaskModule} from 'primeng/inputmask';
+import {CalendarModule} from 'primeng/calendar';
+import {GMapModule} from 'primeng/gmap';
+import {CarouselModule} from 'primeng/carousel';
 
 
 // Components imports
@@ -35,6 +39,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { EstrellasJugadorComponent } from './estrellas-jugador/estrellas-jugador.component';
 import { InvitarJugadoresComponent } from './invitar-jugadores/invitar-jugadores.component';
 import { NavBarComponent} from './nav-bar/nav-bar.component';
+import { RegistrarPredioComponent } from './registrar-predio/registrar-predio.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +49,8 @@ import { NavBarComponent} from './nav-bar/nav-bar.component';
     PageNotFoundComponent,
     EstrellasJugadorComponent,
     InvitarJugadoresComponent,
-    NavBarComponent
+    NavBarComponent,
+    RegistrarPredioComponent
   ],
   imports: [
     AppRouting,
@@ -67,7 +73,11 @@ import { NavBarComponent} from './nav-bar/nav-bar.component';
     ConfirmDialogModule,
     MenuModule,
     MenubarModule,
-    SidebarModule
+    SidebarModule,
+    InputMaskModule,
+    CalendarModule,
+    GMapModule,
+    CarouselModule
   ],
   providers: [],
   bootstrap: [AppComponent]
