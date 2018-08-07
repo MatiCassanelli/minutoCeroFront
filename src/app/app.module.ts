@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
+// import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 
 // Routes imports
@@ -32,6 +32,7 @@ import { InfoEquipoComponent } from './info-equipo/info-equipo.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EstrellasJugadorComponent } from './estrellas-jugador/estrellas-jugador.component';
 import { InvitarJugadoresComponent } from './invitar-jugadores/invitar-jugadores.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { InvitarJugadoresComponent } from './invitar-jugadores/invitar-jugadores
     InfoEquipoComponent,
     PageNotFoundComponent,
     EstrellasJugadorComponent,
-    InvitarJugadoresComponent
+    InvitarJugadoresComponent,
+    LoginComponent
   ],
   imports: [
     AppRouting,
@@ -49,7 +51,7 @@ import { InvitarJugadoresComponent } from './invitar-jugadores/invitar-jugadores
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AngularFontAwesomeModule,
+    // AngularFontAwesomeModule,
     AccordionModule,
     PanelModule,
     ButtonModule,

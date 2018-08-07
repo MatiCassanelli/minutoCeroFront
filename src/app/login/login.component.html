@@ -1,0 +1,24 @@
+<div class="container-fluid cuerpo ui-xl-4 ui-lg-4 ui-md-6 ui-sm-9">
+  <p-card class="ui-xl-4 ui-lg-4 ui-md-4 ui-sm-12" title="Login">
+    <div class="container ui-fluid">
+      <div class="row">
+        <button pButton type="button" class="ui-button facebook" label="Facebook"
+                onclick="location.href='http://localhost:3000/auth/login/facebook/jugador/'"></button>
+      </div>
+      <div class="row">
+        <button pButton type="button" class="ui-button google" label="Google"
+          onclick="location.href='http://localhost:3000/auth/login/google/jugador/'"></button>
+      </div>
+      <br>
+      <div class="row">
+        <button pButton type="button" class="ui-button-secondary" label="Logout"
+          onclick="location.href='http://localhost:3000/auth/logout'" type="button"></button>
+      </div>
+    </div>
+  </p-card>
+  <br>
+  <div class="ui-fluid">
+    <p>{{rta}}</p>
+  </div>
+
+</div>
