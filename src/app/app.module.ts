@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 // import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 
@@ -11,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {AppRouting} from './app.routes';
 
 // PrimeNg imports
-import { AccordionModule } from 'primeng/primeng';
+import {AccordionModule, MenubarModule} from 'primeng/primeng';
 import { PanelModule } from 'primeng/primeng';
 import { ButtonModule } from 'primeng/primeng';
 import { RadioButtonModule } from 'primeng/primeng';
@@ -22,7 +23,13 @@ import {RatingModule} from 'primeng/rating';
 import {TooltipModule} from 'primeng/tooltip';
 import {DialogModule} from 'primeng/dialog';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {MenuModule} from 'primeng/menu';
+import {SidebarModule} from 'primeng/sidebar';
 import {ConfirmationService} from 'primeng/api';
+import {InputMaskModule} from 'primeng/inputmask';
+import {CalendarModule} from 'primeng/calendar';
+import {GMapModule} from 'primeng/gmap';
+import {CarouselModule} from 'primeng/carousel';
 
 
 // Components imports
@@ -32,6 +39,8 @@ import { InfoEquipoComponent } from './info-equipo/info-equipo.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EstrellasJugadorComponent } from './estrellas-jugador/estrellas-jugador.component';
 import { InvitarJugadoresComponent } from './invitar-jugadores/invitar-jugadores.component';
+import { NavBarComponent} from './nav-bar/nav-bar.component';
+import { RegistrarPredioComponent } from './registrar-predio/registrar-predio.component';
 import { LoginComponent } from './login/login.component';
 
 @NgModule({
@@ -42,6 +51,9 @@ import { LoginComponent } from './login/login.component';
     PageNotFoundComponent,
     EstrellasJugadorComponent,
     InvitarJugadoresComponent,
+    InvitarJugadoresComponent,
+    NavBarComponent,
+    RegistrarPredioComponent,
     LoginComponent
   ],
   imports: [
@@ -49,6 +61,7 @@ import { LoginComponent } from './login/login.component';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    NgbModule.forRoot(),
     HttpClientModule,
     ReactiveFormsModule,
     // AngularFontAwesomeModule,
@@ -62,7 +75,14 @@ import { LoginComponent } from './login/login.component';
     RatingModule,
     TooltipModule,
     DialogModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    MenuModule,
+    MenubarModule,
+    SidebarModule,
+    InputMaskModule,
+    CalendarModule,
+    GMapModule,
+    CarouselModule
   ],
   providers: [],
   bootstrap: [AppComponent]

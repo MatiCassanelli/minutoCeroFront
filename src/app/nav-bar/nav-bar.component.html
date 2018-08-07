@@ -1,0 +1,30 @@
+<nav class="navbar navbar-toggleable-sm navbar-light bg-faded">
+  <button type="button" class="navbar-toggler navbar-toggler-right" (click)="isExpanded = !isExpanded" attr.aria-expanded="!isExpanded" aria-controls="navbarContent">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" [routerLink]="['/home']">Minuto Cero</a>
+
+  <div [ngbCollapse]="isExpanded" class="collapse navbar-collapse" id="navbarContent">
+    <!--<ul class="navbar-nav mr-auto">-->
+      <!--<li class="nav-item"><a class='nav-link' [routerLink]="['/page1']">Page 1</a></li>-->
+      <!--<li class="nav-item"><a class='nav-link' [routerLink]="['/page2']">Page 2</a></li>-->
+    <!--</ul>-->
+    <!--<ul class="navbar-nav navbar-right">-->
+      <!--<li><a (click)='signOut()' style='cursor: pointer;'><span class="glyphicon glyphicon-log-in"></span> Sign Out</a></li>-->
+    <!--</ul>-->
+    <a class="nav-item nav-link" routerLink="" routerLinkActive="active">Home</a>
+    <a class="nav-item nav-link" routerLink="/about" routerLinkActive="active">About</a>
+    <div class="nav-item dropdown" ngbDropdown>
+      <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" ngbDropdownToggle>
+        Dropdown
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownBasic1">
+        <button class="dropdown-item">Action - 1</button>
+        <button class="dropdown-item">Another Action</button>
+        <button class="dropdown-item">Something else is here</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
