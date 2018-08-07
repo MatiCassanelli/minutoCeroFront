@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-
+import * as global from '../app/app.global'
 import {Jugador} from '../app/models/jugador';
 
 const httpOptions = {
@@ -11,7 +11,7 @@ const httpOptions = {
 
 @Injectable()
 export class JugadorService {
-  private api = 'http://192.168.0.172:3000/jugador/';
+  private api = global.serverURL + '/jugador/';
 
   constructor(private http: HttpClient) {
   }
