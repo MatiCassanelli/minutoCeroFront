@@ -42,6 +42,7 @@ import { InvitarJugadoresComponent } from './invitar-jugadores/invitar-jugadores
 import { NavBarComponent} from './nav-bar/nav-bar.component';
 import { RegistrarPredioComponent } from './registrar-predio/registrar-predio.component';
 import { LoginComponent } from './login/login.component';
+import { CrearCanchaComponent } from './crear-cancha/crear-cancha.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { LoginComponent } from './login/login.component';
     InvitarJugadoresComponent,
     NavBarComponent,
     RegistrarPredioComponent,
-    LoginComponent
+    LoginComponent,
+    CrearCanchaComponent
   ],
   imports: [
     AppRouting,

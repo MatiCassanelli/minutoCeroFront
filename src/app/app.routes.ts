@@ -5,6 +5,7 @@ import {InfoEquipoComponent} from './info-equipo/info-equipo.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {RegistrarPredioComponent} from './registrar-predio/registrar-predio.component';
 import {LoginComponent} from "./login/login.component";
+import {CrearCanchaComponent} from "./crear-cancha/crear-cancha.component";
 
 const appRoutes: Routes = [
   {
@@ -21,6 +22,7 @@ const appRoutes: Routes = [
     children: [
       {path: '', redirectTo: '', pathMatch: 'full'},
       {path: 'registro', component: RegistrarPredioComponent},
+      {path: 'cancha', component: CrearCanchaComponent},
     ]
   },
   { path: '**', component: PageNotFoundComponent },
