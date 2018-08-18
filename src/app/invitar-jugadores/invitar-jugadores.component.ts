@@ -26,7 +26,7 @@ export class InvitarJugadoresComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group ({
-      jugador: ''
+      jugador: null
     });
   }
 
@@ -39,23 +39,32 @@ export class InvitarJugadoresComponent implements OnInit {
     return this.jugadores;
   }
 
-  sendJugadores() {
-    this.jugadoresInvitados.emit(this.checked);
+  // sendJugadores() {
+  //   this.jugadoresInvitados.emit(this.checked);
+  //   this.notifyParent.emit(this.jugadoresSeleccionados);
+  // }
+  // agregarJug(value) {
+  //   console.log('agregando', value);
+  //   this.jugadoresSeleccionados.push(value);
+  //   console.log('this.jugadoresSeleccionados', this.jugadoresSeleccionados);
+  //   // this.checked = true;
+  //   // this.notifyParent.emit(this.jugadoresSeleccionados);
+  // }
+  // eliminarJug(value) {
+  //   console.log('eliminando', value);
+  //   this.jugadoresSeleccionados.splice(this.jugadoresSeleccionados.indexOf(value), 1);
+  //   console.log('this.jugadoresSeleccionados', this.jugadoresSeleccionados);
+  //   // if(this.jugadoresSeleccionados.length === 0){
+  //   //   this.checked = false;
+  //   // }
+  //   // this.notifyParent.emit(this.jugadoresSeleccionados);
+  // }
+  agregarJug(value) {
+    this.jugadoresSeleccionados.push(value);
     this.notifyParent.emit(this.jugadoresSeleccionados);
   }
-  agregarJug(value) {
-    console.log('agregando', value);
-    this.jugadoresSeleccionados.push(value);
-    console.log('this.jugadoresSeleccionados', this.jugadoresSeleccionados);
-    this.checked = true;
-  }
   eliminarJug(value) {
-    console.log('eliminando', value);
     this.jugadoresSeleccionados.splice(this.jugadoresSeleccionados.indexOf(value), 1);
-    console.log('this.jugadoresSeleccionados', this.jugadoresSeleccionados);
-    if(this.jugadoresSeleccionados.length === 0){
-      this.checked = false;
-
-    }
+    this.notifyParent.emit(this.jugadoresSeleccionados);
   }
 }

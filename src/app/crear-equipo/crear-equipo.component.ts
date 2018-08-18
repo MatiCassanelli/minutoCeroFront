@@ -53,25 +53,11 @@ export class CrearEquipoComponent implements OnInit {
 
   }
 
-
-  confirm() {
-    this.confirmationService.confirm({
-      message: '¿Estás seguro de continuar sin invitar jugadores para que formen parte de tu equipo?',
-      accept: () => {
-        console.log(this.form.valid);
-        if (this.form.valid) {
-          console.log('entro');
-          this.onSubmit();
-        }
-      }
-    });
-  }
-
   onSubmit() {
     this.equipoService.createEquipo({
       Nombre: this.form.get('nombreEquipo').value,
       Deporte: this.form.get('deporte').value,
-      capitan: '5b2fe4488d58eae873cfedcd' // este es el _id del usuario q viene de la sesion
+      capitan: '5b5e5648b7e1c6236f5c7339' // este es el _id del usuario q viene de la sesion
     }).toPromise().then(eq => {
       let jug = new Array();
       for (let a of this.jugadores) {
