@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Jugador} from "../models/jugador";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import * as global from "../app.global";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   comprobar() {
-    this.http.get<Jugador>('http://localhost:3000/usuario/usuarioInfo', httpOptions).subscribe((res:Jugador)=>{
+    this.http.get<Jugador>(global.serverURL + '/usuario/usuarioInfo', httpOptions).subscribe((res:Jugador)=>{
       this.jugador = res;
       if(!this.jugador.nombre)
         this.rta = res.toString();

@@ -3,16 +3,16 @@
     <div class="container ui-fluid">
       <div class="row">
         <button pButton type="button" class="ui-button facebook" label="Facebook"
-                onclick="location.href='http://localhost:3000/auth/login/facebook/jugador/'"></button>
+                onclick="location.href= global.serverURL + '/auth/login/facebook/jugador/'"></button>
       </div>
       <div class="row">
         <button pButton type="button" class="ui-button google" label="Google"
-          onclick="location.href='http://localhost:3000/auth/login/google/jugador/'"></button>
+          onclick="location.href= global.serverURL + '/auth/login/google/jugador/'"></button>
       </div>
       <br>
       <div class="row">
         <button pButton type="button" class="ui-button-secondary" label="Logout"
-          onclick="location.href='http://localhost:3000/auth/logout'" type="button"></button>
+          onclick="location.href= global.serverURL + '/auth/logout'" type="button"></button>
       </div>
     </div>
   </p-card>
