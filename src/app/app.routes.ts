@@ -3,8 +3,8 @@ import { RouterModule, Routes} from '@angular/router';
 import { CrearEquipoComponent} from './crear-equipo/crear-equipo.component';
 import {InfoEquipoComponent} from './info-equipo/info-equipo.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
-import {RegistrarPredioComponent} from './registrar-predio/registrar-predio.component';
-import {LoginComponent} from "./login/login.component";
+import {RegistrarPredio1Component} from './registrar-predio1/registrar-predio1.component';
+import {LoginComponent} from './login/login.component';
 
 const appRoutes: Routes = [
   {
@@ -20,7 +20,7 @@ const appRoutes: Routes = [
     path: 'predio',
     children: [
       {path: '', redirectTo: '', pathMatch: 'full'},
-      {path: 'registro', component: RegistrarPredioComponent},
+      {path: 'registro', component: RegistrarPredio1Component},
     ]
   },
   { path: '**', component: PageNotFoundComponent },

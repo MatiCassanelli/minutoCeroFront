@@ -1,0 +1,71 @@
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {SelectItem} from 'primeng/api';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { SwiperComponent, SwiperDirective, SwiperConfigInterface,
+  SwiperScrollbarInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
+import {debug} from 'util';
+import {Jugador} from '../models/jugador';
+
+@Component({
+  selector: 'app-fecha-carousel',
+  templateUrl: './fecha-carousel.component.html',
+  styleUrls: ['./fecha-carousel.component.css']
+})
+export class FechaCarouselComponent implements OnInit {
+
+  // horariosForm: FormGroup;
+  // // horarios: FormArray;
+
+  dias: string[];
+  horarios: Array<any>;
+  @Output() notifyParent: EventEmitter<Array<Jugador>> = new EventEmitter<Array<Jugador>>();
+  @Output() jugadoresInvitados: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+
+  constructor() {
+    this.horarios = new Array();
+    this.dias = [ 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+    for (let i = 0; i < this.dias.length; i++) {
+      this.horarios.push({
+        'dia': this.dias[i], 'desde': null, 'hasta': null
+      });
+    }
+    // this.horario = { 'dia': 'Lunes', 'desde': null, 'hasta': null};
+  }
+
+  ngOnInit() {
+  }
+
+  addHorario() {
+    console.log(this.horarios);
+  }
+
+  sendHorarios() {
+    // this.jugadoresInvitados.emit(this.horarios);
+    this.notifyParent.emit(this.horarios);
+  }
+}
+
+// this.dias = [ 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+// public config: SwiperConfigInterface = {
+//   a11y: true,
+//   direction: 'horizontal',
+//   slidesPerView: 1,
+//   keyboard: true,
+//   mousewheel: true,
+//   scrollbar: false,
+//   navigation: false,
+//   pagination: true
+// };
+//
+// private scrollbar: SwiperScrollbarInterface = {
+//   el: '.swiper-scrollbar',
+//   hide: false,
+//   draggable: true
+// };
+//
+// private pagination: SwiperPaginationInterface = {
+//   el: '.swiper-pagination',
+//   clickable: true,
+//   hideOnClick: false
+// };
