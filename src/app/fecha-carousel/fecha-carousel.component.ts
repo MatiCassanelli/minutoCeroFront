@@ -1,8 +1,10 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {SelectItem} from 'primeng/api';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import { SwiperComponent, SwiperDirective, SwiperConfigInterface,
-  SwiperScrollbarInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
+import {FormBuilder, FormGroup, FormArray} from '@angular/forms';
+import {
+  SwiperComponent, SwiperDirective, SwiperConfigInterface,
+  SwiperScrollbarInterface, SwiperPaginationInterface
+} from 'ngx-swiper-wrapper';
 import {debug} from 'util';
 import {Jugador} from '../models/jugador';
 
@@ -24,10 +26,10 @@ export class FechaCarouselComponent implements OnInit {
 
   constructor() {
     this.horarios = new Array();
-    this.dias = [ 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+    this.dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
     for (let i = 0; i < this.dias.length; i++) {
       this.horarios.push({
-        'dia': this.dias[i], 'desde': null, 'hasta': null
+        'dia': this.dias[i], 'horario': {'desde': null, 'hasta': null}
       });
     }
     // this.horario = { 'dia': 'Lunes', 'desde': null, 'hasta': null};

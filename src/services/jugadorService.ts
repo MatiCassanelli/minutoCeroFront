@@ -11,12 +11,7 @@ const httpOptions = {
 
 @Injectable()
 export class JugadorService {
-<<<<<<< HEAD
   private api = global.serverURL + '/jugador/';
-=======
-  private api = 'http://192.168.0.172:3000/jugador/';
-  // private api = 'http://192.168.100:3000/jugador/';
->>>>>>> cc11b42faff847b524e6b7fe0d73eda76b2f7186
 
   constructor(private http: HttpClient) {
   }

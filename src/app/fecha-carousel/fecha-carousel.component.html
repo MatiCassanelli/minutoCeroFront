@@ -4,19 +4,19 @@
       <div class="form-group">
         <label for="Desde{{dia}}" class="col-sm-2 col-form-label"><strong>Desde</strong></label>
         <p-calendar id="Desde{{dia}}" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"
-                    ondragover="true" class="col-sm-10" touchUI="true" [(ngModel)]="horarios[i].desde"
-                    (onSelect)="addHorario()"></p-calendar>
+                    ondragover="true" class="col-sm-10" touchUI="true" [(ngModel)]="horarios[i].horario.desde"
+                    (onSelect)="sendHorarios()"></p-calendar>
       </div>
       <div class="form-group">
         <label for="Hasta{{dia}}" class="col-sm-2 col-form-label"><strong>Hasta</strong></label>
         <p-calendar id="Hasta{{dia}}" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"
-                    ondragover="true" class="col-sm-10" touchUI="true" [(ngModel)]="horarios[i].hasta"
-                    (onSelect)="addHorario()"></p-calendar>
+                    ondragover="true" class="col-sm-10" touchUI="true" [(ngModel)]="horarios[i].horario.hasta"
+                    (onSelect)="sendHorarios()"></p-calendar>
       </div>
     </p-accordionTab>
   </p-accordion>
 
-  <p-button icon="pi pi-check" label="Click" (onClick)="sendHorarios()"></p-button>
+  <!--<p-button icon="pi pi-check" label="Click" (onClick)="sendHorarios()"></p-button>-->
 </div>
 
 
