@@ -38,12 +38,12 @@ export class FechaCarouselComponent implements OnInit {
   ngOnInit() {
   }
 
-  addHorario(value) {
-    this.horarios.push(value);
-  }
-  removeHorario(value) {
-    this.horarios.splice(this.horarios.indexOf(value.dia), 1);
-  }
+  // addHorario(value) {
+  //   this.horarios.push(value);
+  // }
+  // removeHorario(value) {
+  //   this.horarios.splice(this.horarios.indexOf(value.dia), 1);
+  // }
 
   sendHorarios() {
     // this.jugadoresInvitados.emit(this.horarios);

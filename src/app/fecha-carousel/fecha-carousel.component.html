@@ -5,7 +5,7 @@
         <label for="Desde{{dia}}" class="col-sm-2 col-form-label"><strong>Desde</strong></label>
         <p-calendar id="Desde{{dia}}" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"
                     ondragover="true" class="col-sm-10" touchUI="true" [(ngModel)]="horarios[i].horario.desde"
-                    (onSelect)="addHorario($event)"></p-calendar>
+                    (onSelect)="sendHorarios()"></p-calendar>
       </div>
       <div class="form-group">
         <label for="Hasta{{dia}}" class="col-sm-2 col-form-label"><strong>Hasta</strong></label>
