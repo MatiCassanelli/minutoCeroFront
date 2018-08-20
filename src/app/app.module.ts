@@ -51,6 +51,7 @@ import { RegistrarPredio1Component } from './registrar-predio1/registrar-predio1
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { MapsComponent } from './maps/maps.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -69,7 +70,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     NavBarComponent,
     LoginComponent,
     FechaCarouselComponent,
-    RegistrarPredio1Component
+    RegistrarPredio1Component,
+    MapsComponent
   ],
   imports: [
     AppRouting,
@@ -102,7 +104,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     SelectButtonModule,
     DragScrollModule,
     // SlickModule.forRoot(),
-    SwiperModule
+    SwiperModule,
   ],
   providers: [
     {

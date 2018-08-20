@@ -25,7 +25,7 @@ export class FechaCarouselComponent implements OnInit {
 
 
   constructor() {
-    this.horarios = new Array();
+    this.horarios = [];
     this.dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
     for (let i = 0; i < this.dias.length; i++) {
       this.horarios.push({
@@ -38,8 +38,11 @@ export class FechaCarouselComponent implements OnInit {
   ngOnInit() {
   }
 
-  addHorario() {
-    console.log(this.horarios);
+  addHorario(value) {
+    this.horarios.push(value);
+  }
+  removeHorario(value) {
+    this.horarios.splice(this.horarios.indexOf(value.dia), 1);
   }
 
   sendHorarios() {

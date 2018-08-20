@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Predio} from '../models/predio';
 import {PredioService} from '../../services/predioService';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -17,9 +18,9 @@ export class RegistrarPredio1Component implements OnInit {
   form: FormGroup;
   horarios: Array<any>;
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: FormBuilder, private router: Router,
               private predioService: PredioService) {
-    this.horarios = new Array();
+    this.horarios = [];
     // this.dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
     // this.dias = ['Lunes', 'Martes', 'Miercoles'];
   }
@@ -36,7 +37,7 @@ export class RegistrarPredio1Component implements OnInit {
 
   onSubmit() {
     this.predioService.createPredio({
-      id: '5b5e5661b7e1c6236f5c733d',
+      id: '5b5e5661b7e1c6236f5c733d', // es el id del predio q viene de la sesion
       nombre: this.form.get('nombrePredio').value,
       telefono: this.form.get('telefono').value,
       ubicacion: null,
@@ -44,6 +45,7 @@ export class RegistrarPredio1Component implements OnInit {
     }).subscribe(resp => {
       this.predio = resp;
       console.log(this.predio);
+      this.router.navigateByUrl('/predio/registro/2');
     }, error1 => console.log(error1));
   }
 }

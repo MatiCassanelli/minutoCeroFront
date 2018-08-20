@@ -22,4 +22,9 @@ export class PredioService {
   createPredio(predio) {
     return this.http.post<Predio>(this.api + 'crear', predio);
   }
+
+  setUbicacion(predio, ub) {
+    console.log(ub);
+    return this.http.put<Predio>(this.api + predio + '/ubicacion', ub);
+  }
 }
