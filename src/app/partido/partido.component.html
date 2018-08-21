@@ -1,11 +1,18 @@
 <div class="centrado">
   <p-card title="Crear Partido" [style]="{width: '100%'}" styleClass="ui-card-shadow">
     <div class="container ui-fluid">
-      <div class="row">
-        <p-dropdown [options]="tiposCancha" placeholder="Tipo de cancha" [(ngModel)]="canchaSeleccionada" [showClear]="true"></p-dropdown>
+      <div class="form-group row">
+        <label for="cancha" class="col-sm-2 col-form-label"><strong>Tipo de Cancha</strong></label>
+        <div class="col-sm-10">
+          <p-dropdown id="cancha" [options]="tiposCancha" placeholder="Tipo de cancha" [(ngModel)]="canchaSeleccionada" [showClear]="true"></p-dropdown>
+
+        </div>
       </div>
-      <div class="row">
-        <p-calendar [stepMinute]="30" [(ngModel)]="value" [showIcon]="true" dateFormat="dd.mm.yy" showTime="true" hourFormat="24"></p-calendar>
+      <div class="form-group row">
+        <label for="horario" class="col-sm-2 col-form-label"><strong>Fecha y hora</strong></label>
+        <div class="col-sm-10">
+          <p-calendar id="horario" [stepMinute]="30" [(ngModel)]="value" [showIcon]="true" dateFormat="dd.mm.yy" showTime="true" hourFormat="24"></p-calendar>
+        </div>
       </div>
       <div class="row">
         <div class="ui-g-5">
@@ -16,7 +23,7 @@
         <div class="ui-g-2 text-center">
           <p>vs.</p>
         </div>
-        <div class="ui-g-5 text-right">
+        <div class="ui-g-5 ">
           <p-scrollPanel [style]="{width: '100%', height: '200px'}">
             <p *ngFor="let j of plantelVisitante.jugadoresConfirmados">{{j.nombre}} {{j.apellido}}</p>
           </p-scrollPanel>
@@ -27,20 +34,32 @@
           <p-dropdown *ngIf="localInvitados" [showClear]="true" [style]="{width:'100%'}" [(ngModel)]="localSeleccionado" [options]="plantelLocal.jugadores" placeholder="Invitados" optionLabel="nombre"></p-dropdown>
         </div>
         <div class="ui-g-2"></div>
-        <div class="ui-g-5 text-right">
+        <div class="ui-g-5 ">
           <p-dropdown *ngIf="visitanteInvitados" [showClear]="true" [style]="{width:'100%'}" [(ngModel)]="visitanteSeleccionado" [options]="plantelVisitante.jugadores" placeholder="Invitados" optionLabel="nombre"></p-dropdown>
         </div>
       </div>
     </div>
     <div class="row" *ngIf="localSeleccionado || visitanteSeleccionado">
-      <div class="ui-g-12 text-right">
+      <div class="ui-g-12 ">
         <button (click)="addJugadorConfirmado()" pButton type="button" label="Confirmar"></button>
       </div>
     </div>
 
     <p-footer>
-        <button pButton type="button" label="Crear" icon="pi pi-check"></button>
-        <button pButton type="button" label="Cancelar" icon="pi pi-times" class="ui-button-secondary"></button>
+      <div class="row">
+        <div class="ui-grid-col-3"></div>
+        <div class="ui-grid-col-2">
+          <button pButton type="button" label="Crear" icon="pi pi-check"></button>
+        </div>
+        <div class="ui-grid-col-2">
+        </div>
+        <div class="ui-grid-col-2">
+          <button pButton type="button" label="Cancelar" icon="pi pi-times" class="ui-button-secondary"></button>
+        </div>
+        <div class="ui-grid-col-3"></div>
+      </div>
+        <!--<button pButton type="button" label="Crear" icon="pi pi-check"></button>-->
+        <!--<button pButton type="button" label="Cancelar" icon="pi pi-times" class="ui-button-secondary"></button>-->
     </p-footer>
   </p-card>
 </div>
