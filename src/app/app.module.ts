@@ -119,7 +119,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
       provide: SWIPER_CONFIG,
       useValue: DEFAULT_SWIPER_CONFIG
     }
-  ],
-  bootstrap: [AppComponent]
+  ]
 })
 export class AppModule { }
