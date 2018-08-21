@@ -2,17 +2,20 @@
   <p-card class="ui-xl-4 ui-lg-4 ui-md-4 ui-sm-12" title="Login">
     <div class="container ui-fluid">
       <div class="row">
-        <button pButton type="button" class="ui-button facebook" label="Facebook"
-                onclick="location.href= global.serverURL + '/auth/login/facebook/jugador/'"></button>
+        <!--<button pButton type="button" class="ui-button facebook" label="Facebook"-->
+                <!--onclick="location.href= global.serverURL + '/auth/login/facebook/jugador/'"></button>-->
+        <a href="{{facebook}}" class="ui-button facebook">Facebook</a>
       </div>
       <div class="row">
-        <button pButton type="button" class="ui-button google" label="Google"
-          onclick="location.href= global.serverURL + '/auth/login/google/jugador/'"></button>
+        <!--<button pButton type="button" class="ui-button google" label="Google"-->
+          <!--onclick="location.href= global.serverURL + '/auth/login/google/jugador/'"></button>-->
+        <a href="{{google}}" class="ui-button google">Google</a>
       </div>
       <br>
       <div class="row">
-        <button pButton type="button" class="ui-button-secondary" label="Logout"
-          onclick="location.href= global.serverURL + '/auth/logout'" type="button"></button>
+        <!--<button pButton type="button" class="ui-button-secondary" label="Logout"-->
+          <!--onclick="location.href= global.serverURL + '/auth/logout'" type="button"></button>-->
+        <a href="{{logout}}" type="button" class="ui-button ui-button-secondary">Logout</a>
       </div>
     </div>
   </p-card>

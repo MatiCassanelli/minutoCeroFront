@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -30,6 +30,7 @@ import {InputMaskModule} from 'primeng/inputmask';
 import {CalendarModule} from 'primeng/calendar';
 import {GMapModule} from 'primeng/gmap';
 import {CarouselModule} from 'primeng/carousel';
+import {ScrollPanelModule} from "primeng/primeng";
 
 
 // Components imports
@@ -42,7 +43,7 @@ import { InvitarJugadoresComponent } from './invitar-jugadores/invitar-jugadores
 import { NavBarComponent} from './nav-bar/nav-bar.component';
 import { RegistrarPredioComponent } from './registrar-predio/registrar-predio.component';
 import { LoginComponent } from './login/login.component';
-import { CrearCanchaComponent } from './crear-cancha/crear-cancha.component';
+import { PartidoComponent } from './partido/partido.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,7 @@ import { CrearCanchaComponent } from './crear-cancha/crear-cancha.component';
     NavBarComponent,
     RegistrarPredioComponent,
     LoginComponent,
-    CrearCanchaComponent
+    PartidoComponent
   ],
   imports: [
     AppRouting,
@@ -84,9 +85,11 @@ import { CrearCanchaComponent } from './crear-cancha/crear-cancha.component';
     InputMaskModule,
     CalendarModule,
     GMapModule,
-    CarouselModule
+    CarouselModule,
+    ScrollPanelModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

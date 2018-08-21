@@ -18,7 +18,13 @@ const httpOptions = {
 export class LoginComponent implements OnInit {
   jugador: Jugador;
   rta: string;
+  facebook: string;
+  google: string;
+  logout: string;
   constructor(private http: HttpClient) {
+    this.facebook = global.serverURL + '/auth/login/facebook/jugador/';
+    this.google = global.serverURL + '/auth/login/google/jugador/';
+    this.logout = global.serverURL + '/auth/logout';
   }
 
   ngOnInit() {

@@ -11,3 +11,11 @@
 .cuerpo{
   margin-top: 20px;
 }
+
+a.ui-button {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+  color: white;
+}

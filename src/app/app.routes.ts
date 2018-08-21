@@ -1,11 +1,10 @@
 import { RouterModule, Routes} from '@angular/router';
-
-import { CrearEquipoComponent} from './crear-equipo/crear-equipo.component';
+import {PartidoComponent} from "./partido/partido.component";
+import {CrearEquipoComponent} from './crear-equipo/crear-equipo.component';
 import {InfoEquipoComponent} from './info-equipo/info-equipo.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {RegistrarPredioComponent} from './registrar-predio/registrar-predio.component';
 import {LoginComponent} from "./login/login.component";
-import {CrearCanchaComponent} from "./crear-cancha/crear-cancha.component";
 
 const appRoutes: Routes = [
   {
@@ -17,12 +16,12 @@ const appRoutes: Routes = [
     ]
   },
   { path: 'login', component: LoginComponent },
+  { path: 'partido', component: PartidoComponent },
   {
     path: 'predio',
     children: [
       {path: '', redirectTo: '', pathMatch: 'full'},
-      {path: 'registro', component: RegistrarPredioComponent},
-      {path: 'cancha', component: CrearCanchaComponent},
+      {path: 'registro', component: RegistrarPredioComponent}
     ]
   },
   { path: '**', component: PageNotFoundComponent },
