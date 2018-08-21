@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegistrarPredioComponent } from './registrar-predio.component';
+import { RegistrarPredio1Component } from './registrar-predio1.component';
 
-describe('RegistrarPredioComponent', () => {
-  let component: RegistrarPredioComponent;
-  let fixture: ComponentFixture<RegistrarPredioComponent>;
+describe('RegistrarPredio1Component', () => {
+  let component: RegistrarPredio1Component;
+  let fixture: ComponentFixture<RegistrarPredio1Component>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RegistrarPredioComponent ]
+      declarations: [ RegistrarPredio1Component ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RegistrarPredioComponent);
+    fixture = TestBed.createComponent(RegistrarPredio1Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -19,20 +19,9 @@
 
     <div class="row">
       <div class="ui-grid-col-3"></div>
-      <div class="ui-grid-col-2" *ngIf="jugadoresInvitados; else isFalse">
+      <div class="ui-grid-col-2">
         <button pButton type="submit" icon="pi pi-check" label="Confirm" [disabled]="form.invalid"></button>
       </div>
-      <ng-template #isFalse>
-        <div class="ui-grid-col-2">
-          <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425" #cd>
-            <p-footer>
-              <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
-              <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
-            </p-footer>
-          </p-confirmDialog>
-          <button type="button" (click)="confirm()" pButton icon="pi pi-check" label="Confirm"></button>
-        </div>
-      </ng-template>
       <div class="ui-grid-col-2">
       </div>
       <div class="ui-grid-col-2">

@@ -14,7 +14,6 @@ export class JugadorService {
 
   private api = global.serverURL + '/jugador/';
 
-
   constructor(private http: HttpClient) {
   }
 

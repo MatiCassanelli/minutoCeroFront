@@ -31,9 +31,12 @@ import {CalendarModule} from 'primeng/calendar';
 import {GMapModule} from 'primeng/gmap';
 import {CarouselModule} from 'primeng/carousel';
 import {ScrollPanelModule} from "primeng/primeng";
+import {CheckboxModule} from 'primeng/primeng';
+import {SelectButtonModule} from 'primeng/primeng';
 
 
 // Components imports
+import { DragScrollModule } from 'ngx-drag-scroll';
 import { AppComponent } from './app.component';
 import { CrearEquipoComponent } from './crear-equipo/crear-equipo.component';
 import { InfoEquipoComponent } from './info-equipo/info-equipo.component';
@@ -41,9 +44,21 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { EstrellasJugadorComponent } from './estrellas-jugador/estrellas-jugador.component';
 import { InvitarJugadoresComponent } from './invitar-jugadores/invitar-jugadores.component';
 import { NavBarComponent} from './nav-bar/nav-bar.component';
-import { RegistrarPredioComponent } from './registrar-predio/registrar-predio.component';
 import { LoginComponent } from './login/login.component';
 import { PartidoComponent } from './partido/partido.component';
+import { FechaCarouselComponent } from './fecha-carousel/fecha-carousel.component';
+import { RegistrarPredio1Component } from './registrar-predio1/registrar-predio1.component';
+
+// Swiper-wrapper library
+import { SwiperModule } from 'ngx-swiper-wrapper';
+import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { MapsComponent } from './maps/maps.component';
+
+const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
+  direction: 'horizontal',
+  slidesPerView: 'auto'
+};
 
 @NgModule({
   declarations: [
@@ -55,9 +70,12 @@ import { PartidoComponent } from './partido/partido.component';
     InvitarJugadoresComponent,
     InvitarJugadoresComponent,
     NavBarComponent,
-    RegistrarPredioComponent,
     LoginComponent,
-    PartidoComponent
+    PartidoComponent,
+    LoginComponent,
+    FechaCarouselComponent,
+    RegistrarPredio1Component,
+    MapsComponent
   ],
   imports: [
     AppRouting,
@@ -88,8 +106,20 @@ import { PartidoComponent } from './partido/partido.component';
     CarouselModule,
     ScrollPanelModule
   ],
-  providers: [],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [
+    CheckboxModule,
+    SelectButtonModule,
+    DragScrollModule,
+    // SlickModule.forRoot(),
+    SwiperModule
+  ],
+  providers: [
+    {
+      provide: SWIPER_CONFIG,
+      useValue: DEFAULT_SWIPER_CONFIG
+    }
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

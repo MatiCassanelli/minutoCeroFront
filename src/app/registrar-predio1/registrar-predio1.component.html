@@ -1,0 +1,25 @@
+<div class="container form-group">
+  <h1 style="text-align: center">Registrar Predio</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="p-3 bg-faded">
+    <div class="form-group row">
+      <label for="nombrePredio" class="col-sm-2 col-form-label"><strong>Nombre Predio</strong></label>
+      <div class="col-sm-10">
+        <input id="nombrePredio" type="text" class="form-control" formControlName="nombrePredio"
+               placeholder="Nombre del Predio" required="true"/>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="telefono" class="col-sm-2 col-form-label"><strong>Telefono</strong></label>
+      <div class="col-sm-10">
+        <p-inputMask id="telefono" mask="(999) 999-9999" placeholder="(999) 999-9999" type="text"
+                     formControlName="telefono" required="true"></p-inputMask>
+      </div>
+    </div>
+    <!--<h3>ACA IRIA EL MAPA DE GOOGLE MAPS</h3>-->
+    <label><strong>Horarios</strong></label>
+    <app-fecha-carousel (notifyParent)="agregarHorarios($event)"></app-fecha-carousel>
+  </form>
+  <button pButton type="button" icon="pi pi-arrow-circle-right" class="rounded-circle"
+          style="float: right;" (click)="onSubmit()"></button>
+</div>
+<!--<app-fecha-carousel></app-fecha-carousel>-->
