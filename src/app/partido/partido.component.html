@@ -55,7 +55,8 @@
               <span style="padding: 0px 0px 15px;">No Confirmados</span>
             </div>
             <div *ngFor="let j of plantelLocal.jugadores">
-              <a (click)="addJugadorConfirmado(j, 'local')">{{j.nombre}} {{j.apellido}}</a>
+              <!--<a (click)="addJugadorConfirmado(j, 'local')">{{j.nombre}} {{j.apellido}}</a>-->
+              <a (click)="confirm1(j, 'local')">{{j.nombre}} {{j.apellido}}</a>
             </div>
           </p-scrollPanel>
         </div>
@@ -72,7 +73,8 @@
               <span style="padding: 0px 0px 15px;">Confirmados</span>
             </div>
             <div *ngFor="let j of plantelVisitante.jugadores">
-              <a (click)="addJugadorConfirmado()">{{j.nombre}} {{j.apellido}}</a>
+              <!--<a (click)="addJugadorConfirmado()">{{j.nombre}} {{j.apellido}}</a>-->
+              <a (click)="confirm1(j, 'visitante')">{{j.nombre}} {{j.apellido}}</a>
             </div>
           </p-scrollPanel>
         </div>
@@ -117,3 +119,5 @@
 <p-dialog header="Title" [(visible)]="displayDialog">
   <app-maps posicion="ubicacion"></app-maps>
 </p-dialog>
+
+<p-confirmDialog acceptLabel="Sí" rejectLabel="No"></p-confirmDialog>

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {SelectItem} from 'primeng/api';
+import {ConfirmationService, SelectItem} from 'primeng/api';
 import {PlantelService} from 'services/plantelService';
 import {Jugador} from '../models/jugador';
 import {Plantel} from '../models/plantel';
@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
   selector: 'app-partido',
   templateUrl: './partido.component.html',
   styleUrls: ['./partido.component.css'],
-  providers: [PlantelService]
+  providers: [ConfirmationService, PlantelService]
 })
 
 export class PartidoComponent implements OnInit {
@@ -31,7 +31,9 @@ export class PartidoComponent implements OnInit {
   ubicacion: any;
   resetForm = false;
 
-  constructor(private plantelService: PlantelService, private router: Router) {
+  constructor(private plantelService: PlantelService,
+              private router: Router,
+              private confirmationService: ConfirmationService,) {
     this.tiposCancha = [
       {label: 'Futbol 5', value: 'Futbol 5'},
       {label: 'Futbol 7', value: 'Futbol 7'},
@@ -117,5 +119,21 @@ export class PartidoComponent implements OnInit {
       if (this.disabled === true)
         this.disabled = !this.disabled;
     }
+  }
+
+  confirm1(jugador, localia) {
+    this.confirmationService.confirm({
+      message: 'Invitar a ' + jugador.nombre + jugador.apellido + ' al partido?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        console.log('entrando...');
+        // this.predioService.setUbicacion('5b5e5661b7e1c6236f5c733d', {"lat": ubicacion.lat(), "lng": ubicacion.lng()})
+        this.addJugadorConfirmado(jugador, localia);
+      },
+      reject: () => {
+        alert('No aceptado');
+      }
+    });
   }
 }
