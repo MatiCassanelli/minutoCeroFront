@@ -30,7 +30,7 @@ import {InputMaskModule} from 'primeng/inputmask';
 import {CalendarModule} from 'primeng/calendar';
 import {GMapModule} from 'primeng/gmap';
 import {CarouselModule} from 'primeng/carousel';
-import {ScrollPanelModule} from "primeng/primeng";
+import {ScrollPanelModule} from 'primeng/primeng';
 import {CheckboxModule} from 'primeng/primeng';
 import {SelectButtonModule} from 'primeng/primeng';
 
@@ -104,7 +104,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     CalendarModule,
     GMapModule,
     CarouselModule,
-    ScrollPanelModule
+    ScrollPanelModule,
+    SelectButtonModule
   ],
   bootstrap: [AppComponent],
   schemas: [

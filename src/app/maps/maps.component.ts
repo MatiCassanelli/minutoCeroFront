@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {} from '@types/googlemaps';
 import {HttpClient} from '@angular/common/http';
 import {ConfirmationService} from 'primeng/api';
@@ -15,12 +15,13 @@ export class MapsComponent implements OnInit {
 
   @ViewChild('gmap') gmapElement: any;
   map: google.maps.Map;
+  @Input() posicion: any;
+
 
   options: any;
   overlays: any[];
   direccionCompleta: string;
   direccionLinda: string;
-  posicion: any;
 
   infoWindow: any;
 
@@ -34,10 +35,10 @@ export class MapsComponent implements OnInit {
     this.overlays = [];
     this.findMe();
     // this.getGeoLocation();
-    // this.options = {
-    //   center: {lat: -31.369994, lng: -64.284615}, // deberia cambiarse por la ubicacion definida x el navegador
-    //   zoom: 12
-    // };
+    this.options = {
+      center: {lat: -31.369994, lng: -64.284615}, // deberia cambiarse por la ubicacion definida x el navegador
+      zoom: 12
+    };
     this.infoWindow = new google.maps.InfoWindow();
   }
 

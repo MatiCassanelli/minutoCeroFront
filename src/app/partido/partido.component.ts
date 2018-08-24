@@ -23,6 +23,13 @@ export class PartidoComponent implements OnInit {
   visitanteSeleccionado: Jugador;
   localInvitados: boolean;
   visitanteInvitados: boolean;
+  localidad: string;
+  disabled = true;
+  traeJugadores = false;
+  jugadoresAInvitar: Array<Jugador>;
+  displayDialog = false;
+  ubicacion: any;
+  resetForm = false;
 
   constructor(private plantelService: PlantelService, private router: Router) {
     this.tiposCancha = [
@@ -30,6 +37,7 @@ export class PartidoComponent implements OnInit {
       {label: 'Futbol 7', value: 'Futbol 7'},
       {label: 'Futbol 11', value: 'Futbol 11'}
     ];
+
     this.plantelLocal = new Plantel('5b6e5ed68cbb1b4f61e0b9e4');
     this.plantelVisitante = new Plantel('5b786b8434d41f28d880bffd');
     this.localInvitados = false;
@@ -37,8 +45,35 @@ export class PartidoComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.ubicacion = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      });
+      console.log(this.ubicacion);
+    }
     this.getJugadoresPlantel(this.plantelLocal, 'local');
     this.getJugadoresPlantel(this.plantelVisitante, 'visitante');
+  }
+
+  getJugadores(event) {
+    this.traeJugadores = true;
+    this.jugadoresAInvitar = event;
+  }
+
+  invitarJugadores() {
+    if (this.localidad === 'local') {
+      // this.plantelLocal.jugadores = this.jugadoresAInvitar;
+      for (let j of this.jugadoresAInvitar) {
+        this.plantelLocal.jugadores.push(j);
+      }
+    }
+    if (this.localidad === 'visitante') {
+      // this.plantelLocal.jugadores = this.jugadoresAInvitar;
+      for (let j of this.jugadoresAInvitar) {
+        this.plantelVisitante.jugadores.push(j);
+      }
+    }
+    this.resetForm = !this.resetForm;
   }
 
   getJugadoresPlantel(plantel, condicion) {
@@ -54,24 +89,33 @@ export class PartidoComponent implements OnInit {
       if (condicion === 'visitante' && res.jugadores.length > 0) {
         this.visitanteInvitados = true;
       }
-
     });
   }
 
-  addJugadorConfirmado() {
-    if (this.localSeleccionado) {
-      return this.plantelService.addJugadorConfirmado(this.plantelLocal.id, this.localSeleccionado._id).subscribe(res => {
+  addJugadorConfirmado(jugador, localia: string) {
+    if (localia === 'local') {
+      const index: number = this.plantelLocal.jugadores.indexOf(jugador);
+      return this.plantelService.addJugadorConfirmado(this.plantelLocal.id, jugador._id).subscribe(res => {
         this.plantelLocal.jugadoresConfirmados = res.jugadoresConfirmados;
-        this.plantelLocal.jugadores = res.jugadores;
+        this.plantelLocal.jugadores.splice(index, 1);
         this.localSeleccionado = null;
       });
     }
-    if (this.visitanteSeleccionado) {
+    if (localia === 'visitante') {
+      const index: number = this.plantelVisitante.jugadores.indexOf(jugador);
       return this.plantelService.addJugadorConfirmado(this.plantelVisitante.id, this.visitanteSeleccionado._id).subscribe(res => {
         this.plantelVisitante.jugadoresConfirmados = res.jugadoresConfirmados;
-        this.plantelVisitante.jugadores = res.jugadores;
+        this.plantelVisitante.jugadores.splice(index, 1);
         this.visitanteSeleccionado = null;
       });
+    }
+  }
+
+  activarComponent(localidad) {
+    if (this.localidad !== localidad) {
+      this.localidad = localidad;
+      if (this.disabled === true)
+        this.disabled = !this.disabled;
     }
   }
 }

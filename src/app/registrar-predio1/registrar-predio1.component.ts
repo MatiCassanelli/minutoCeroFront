@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {Predio} from '../models/predio';
 import {PredioService} from '../../services/predioService';
 import {Router} from '@angular/router';
+import {MapsComponent} from '../maps/maps.component';
 
 
 @Component({
@@ -45,7 +46,7 @@ export class RegistrarPredio1Component implements OnInit {
     }).subscribe(resp => {
       this.predio = resp;
       console.log(this.predio);
-      this.router.navigateByUrl('/predio/registro/2');
+      // this.router.navigateByUrl('/predio/registro/2');
     }, error1 => console.log(error1));
   }
 }

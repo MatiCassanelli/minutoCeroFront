@@ -24,10 +24,10 @@ export class PlantelService {
     return this.http.get<Plantel>(this.api + idPlantel, httpOptions);
   }
 
-  addJugadorConfirmado(idPlantel, idJugador){
+  addJugadorConfirmado(idPlantel, idJugador) {
     return this.http.put<Plantel>(this.api + idPlantel, {
-      'jugadoresConfirmados':[idJugador]
-    }, httpOptions)
+      'jugadoresConfirmados': [idJugador]
+    }, httpOptions);
   }
 
 }

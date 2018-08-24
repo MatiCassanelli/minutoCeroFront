@@ -7,5 +7,7 @@ export class Plantel {
 
   constructor(id){
     this.id = id;
+    this.jugadores = [];
+    this.jugadoresConfirmados = [];
   }
 }
