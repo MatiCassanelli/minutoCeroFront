@@ -33,6 +33,8 @@ import {CarouselModule} from 'primeng/carousel';
 import {ScrollPanelModule} from 'primeng/primeng';
 import {CheckboxModule} from 'primeng/primeng';
 import {SelectButtonModule} from 'primeng/primeng';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+
 
 
 // Components imports
@@ -48,12 +50,14 @@ import { LoginComponent } from './login/login.component';
 import { PartidoComponent } from './partido/partido.component';
 import { FechaCarouselComponent } from './fecha-carousel/fecha-carousel.component';
 import { RegistrarPredio1Component } from './registrar-predio1/registrar-predio1.component';
+import { MapComponent } from './map/map.component';
+import { RegistroPredioMapaComponent } from './views/registro-predio-mapa/registro-predio-mapa.component';
+import {HomePredioComponent} from './views/home-predio/home-predio.component';
 
 // Swiper-wrapper library
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
-import { MapsComponent } from './maps/maps.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -75,7 +79,9 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     LoginComponent,
     FechaCarouselComponent,
     RegistrarPredio1Component,
-    MapsComponent
+    MapComponent,
+    RegistroPredioMapaComponent,
+    HomePredioComponent
   ],
   imports: [
     AppRouting,
@@ -105,7 +111,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     GMapModule,
     CarouselModule,
     ScrollPanelModule,
-    SelectButtonModule
+    SelectButtonModule,
+    OverlayPanelModule
   ],
   bootstrap: [AppComponent],
   schemas: [

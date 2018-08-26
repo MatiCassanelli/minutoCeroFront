@@ -27,4 +27,8 @@ export class PredioService {
     console.log(ub);
     return this.http.put<Predio>(this.api + predio + '/ubicacion', ub);
   }
+
+  getAllPredios() {
+    return this.http.get<Array<Predio>>(this.api + '/all', httpOptions);
+  }
 }

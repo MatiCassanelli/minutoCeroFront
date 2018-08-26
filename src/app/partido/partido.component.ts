@@ -4,17 +4,21 @@ import {PlantelService} from 'services/plantelService';
 import {Jugador} from '../models/jugador';
 import {Plantel} from '../models/plantel';
 import {Router} from '@angular/router';
+import {PredioService} from '../../services/predioService';
+import {Predio} from '../models/predio';
 
 @Component({
   selector: 'app-partido',
   templateUrl: './partido.component.html',
   styleUrls: ['./partido.component.css'],
-  providers: [ConfirmationService, PlantelService]
+  providers: [ConfirmationService, PlantelService, PredioService]
 })
 
 export class PartidoComponent implements OnInit {
 
   tiposCancha: SelectItem[];
+  predios: Predio[];
+  selectedPredio: Predio;
   canchaSeleccionada: any;
   value: Date;
   plantelLocal: Plantel;
@@ -28,12 +32,16 @@ export class PartidoComponent implements OnInit {
   traeJugadores = false;
   jugadoresAInvitar: Array<Jugador>;
   displayDialog = false;
-  ubicacion: any;
   resetForm = false;
+  ubicacion = {
+    lat: String,
+    lng: String
+  };
 
   constructor(private plantelService: PlantelService,
+              private predioService: PredioService,
               private router: Router,
-              private confirmationService: ConfirmationService,) {
+              private confirmationService: ConfirmationService) {
     this.tiposCancha = [
       {label: 'Futbol 5', value: 'Futbol 5'},
       {label: 'Futbol 7', value: 'Futbol 7'},
@@ -47,12 +55,9 @@ export class PartidoComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.ubicacion = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      });
-      console.log(this.ubicacion);
-    }
+    this.predioService.getAllPredios().subscribe(predios => {
+      this.predios = predios;
+    });
     this.getJugadoresPlantel(this.plantelLocal, 'local');
     this.getJugadoresPlantel(this.plantelVisitante, 'visitante');
   }
@@ -128,12 +133,25 @@ export class PartidoComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         console.log('entrando...');
-        // this.predioService.setUbicacion('5b5e5661b7e1c6236f5c733d', {"lat": ubicacion.lat(), "lng": ubicacion.lng()})
+        // this.predioService.setUbicacion('5b5e5661b7e1c6236f5c733d', {"latitude": ubicacion.latitude(), "longitude": ubicacion.longitude()})
         this.addJugadorConfirmado(jugador, localia);
       },
       reject: () => {
         alert('No aceptado');
       }
     });
+  }
+
+  getUbicacionSeleccionada(event) {
+    this.ubicacion.lat = event.lat();
+    this.ubicacion.lng = event.lng();
+    console.log(this.ubicacion);
+  }
+
+  definirPredio(event) {
+    console.log(this.selectedPredio);
+    this.selectedPredio = event;
+    console.log(this.selectedPredio);
+    // this.displayDialog = false;
   }
 }
