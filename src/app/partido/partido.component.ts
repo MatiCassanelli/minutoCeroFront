@@ -10,7 +10,7 @@ import {Partido} from '../models/partido';
 import {PartidoService} from '../../services/partidoService';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {DeporteService} from '../../services/deporteService';
-import { forkJoin } from "rxjs/observable/forkJoin";
+import {forkJoin} from 'rxjs/observable/forkJoin';
 
 
 @Component({
@@ -179,23 +179,23 @@ export class PartidoComponent implements OnInit {
   crearPartido() {
     console.log(this.canchaSeleccionada, this.fechaPartido);
     let cancha: any;
-      forkJoin(this.predioService.getCanchas(this.selectedPredio._id),
-        this.plantelService.createPlantel(this.plantelLocal, 'Local'),
-        this.plantelService.createPlantel(this.plantelVisitante, 'Visitante')).subscribe(res => {
-        cancha = res[0][0];
-        const local = res[1];
-        const visitante = res[2];
-        debugger;
-        this.partidoService.createPartido({
-          deporte: this.canchaSeleccionada,
-          grupoLocal: local,
-          grupoVisitante: visitante,
-          dia: this.fechaPartido,
-          cancha: cancha._id,
-          horasDeJuego: 1
-        }).subscribe(partido => {
-          console.log('resultado', partido);
-        });
+    forkJoin(this.predioService.getCanchas(this.selectedPredio._id),
+      this.plantelService.createPlantel(this.plantelLocal, 'Local'),
+      this.plantelService.createPlantel(this.plantelVisitante, 'Visitante')).subscribe(res => {
+      cancha = res[0][0];
+      const local = res[1];
+      const visitante = res[2];
+      debugger;
+      this.partidoService.createPartido({
+        deporte: this.canchaSeleccionada,
+        grupoLocal: local,
+        grupoVisitante: visitante,
+        dia: this.fechaPartido,
+        cancha: cancha._id,
+        horasDeJuego: 1
+      }).subscribe(partido => {
+        console.log('resultado', partido);
       });
+    });
   }
 }

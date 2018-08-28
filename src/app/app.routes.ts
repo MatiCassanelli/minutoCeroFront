@@ -1,4 +1,4 @@
-import { RouterModule, Routes} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {PartidoComponent} from './partido/partido.component';
 import {CrearEquipoComponent} from './crear-equipo/crear-equipo.component';
 import {InfoEquipoComponent} from './info-equipo/info-equipo.component';
@@ -9,6 +9,7 @@ import {FechaCarouselComponent} from './fecha-carousel/fecha-carousel.component'
 import {MapComponent} from './map/map.component';
 import {RegistroPredioMapaComponent} from './views/registro-predio-mapa/registro-predio-mapa.component';
 import {HomePredioComponent} from './views/home-predio/home-predio.component';
+import {HomeJugadorComponent} from './views/home-jugador/home-jugador.component';
 
 const appRoutes: Routes = [
   {
@@ -19,8 +20,14 @@ const appRoutes: Routes = [
       {path: 'info/:id', component: InfoEquipoComponent}
     ]
   },
-  { path: 'login', component: LoginComponent },
-  { path: 'partido', component: PartidoComponent },
+  {
+    path: 'partido',
+    children: [
+      {path: '', component: HomeJugadorComponent},
+      {path: 'organizar', component: PartidoComponent}
+    ]
+  },
+  {path: 'login', component: LoginComponent},
   {
     path: 'predio',
     children: [
@@ -29,7 +36,7 @@ const appRoutes: Routes = [
       {path: 'registro/2', component: RegistroPredioMapaComponent}
     ]
   },
-  { path: '**', component: PageNotFoundComponent },
+  {path: '**', component: PageNotFoundComponent},
 ];
 
 export const AppRouting = RouterModule.forRoot(appRoutes);

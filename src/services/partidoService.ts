@@ -27,4 +27,8 @@ export class PartidoService {
     return this.http.post<Partido>(this.api, partido, httpOptions);
   }
 
+  getPartidos(estado) {
+    return this.http.get<Array<Partido>>(this.api + estado, httpOptions);
+  }
+
 }
