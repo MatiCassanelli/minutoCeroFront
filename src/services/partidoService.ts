@@ -3,14 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as global from '../app/app.global';
 import {Partido} from '../app/models/partido';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  }),
-  withCredentials: true
-};
-
-
 @Injectable()
 export class PartidoService {
 
@@ -21,11 +13,11 @@ export class PartidoService {
 
   createPartido(partido) {
     console.log(partido);
-    return this.http.post<Partido>(this.api, partido, httpOptions);
+    return this.http.post<Partido>(this.api, partido, global.httpOptions);
   }
 
   getPartidos(estado) {
-    return this.http.get<Array<Partido>>(this.api + estado, httpOptions);
+    return this.http.get<Array<Partido>>(this.api + estado, global.httpOptions);
   }
 
 }

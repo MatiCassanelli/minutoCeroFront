@@ -3,13 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as global from '../app/app.global';
 import {Equipo} from '../app/models/equipo';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  }),
-  withCredentials: true
-};
-
 @Injectable()
 export class EquipoService {
 
@@ -19,15 +12,15 @@ export class EquipoService {
   }
 
   createEquipo(equipo) {
-    return this.http.post<Equipo>(this.api, equipo, httpOptions);
+    return this.http.post<Equipo>(this.api, equipo, global.httpOptions);
   }
 
   invitarJugadores(jugadores) {
-    return this.http.post<Equipo>(this.api + 'invitar', jugadores, httpOptions);
+    return this.http.post<Equipo>(this.api + 'invitar', jugadores, global.httpOptions);
   }
 
   getEquipo(id) {
-    return this.http.get<Equipo>(this.api + id, httpOptions);
+    return this.http.get<Equipo>(this.api + id, global.httpOptions);
   }
 
 }

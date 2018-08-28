@@ -3,14 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as global from '../app/app.global';
 import {Jugador} from '../app/models/jugador';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  }),
-  withCredentials: true
-};
-
-
 @Injectable()
 export class JugadorService {
 
@@ -21,14 +13,14 @@ export class JugadorService {
 
   getJugadores(nombre: any = null) {
     if (nombre === null) {
-      return this.http.get<Array<Jugador>>(this.api, httpOptions);
+      return this.http.get<Array<Jugador>>(this.api, global.httpOptions);
     } else {
-      return this.http.get<Array<Jugador>>(this.api + 'buscar/' + nombre, httpOptions);
+      return this.http.get<Array<Jugador>>(this.api + 'buscar/' + nombre, global.httpOptions);
     }
   }
 
   getJugadorById(id: string) {
-    return this.http.get<Jugador>(this.api + id, httpOptions);
+    return this.http.get<Jugador>(this.api + id, global.httpOptions);
   }
 
 

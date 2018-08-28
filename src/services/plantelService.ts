@@ -3,14 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as global from '../app/app.global';
 import {Plantel} from '../app/models/plantel';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  }),
-  withCredentials: true
-};
-
-
 @Injectable()
 export class PlantelService {
 
@@ -20,13 +12,13 @@ export class PlantelService {
   }
 
   getPlantel(idPlantel) {
-    return this.http.get<Plantel>(this.api + idPlantel, httpOptions);
+    return this.http.get<Plantel>(this.api + idPlantel, global.httpOptions);
   }
 
   addJugadorConfirmado(idPlantel, idJugador) {
     return this.http.put<Plantel>(this.api + idPlantel, {
       'jugadoresConfirmados': [idJugador]
-    }, httpOptions);
+    }, global.httpOptions);
   }
 
   createPlantel(plantel, localidad) {
@@ -34,7 +26,7 @@ export class PlantelService {
       'jugadoresConfirmados': plantel.jugadoresConfirmados,
       'jugadores': plantel.jugadores,
       'localidad': localidad
-    }, httpOptions);
+    }, global.httpOptions);
   }
 
 }
