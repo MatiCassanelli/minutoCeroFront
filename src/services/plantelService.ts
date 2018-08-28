@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import * as global from "../app/app.global";
-import {Plantel} from "../app/models/plantel";
+import * as global from '../app/app.global';
+import {Plantel} from '../app/models/plantel';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    "Content-Type":'application/json'
+    'Content-Type': 'application/json'
   }),
   withCredentials: true
 };

@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
 import * as global from '../app/app.global';
 import {Equipo} from '../app/models/equipo';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  }),
+  withCredentials: true
 };
 
 @Injectable()
@@ -17,15 +19,15 @@ export class EquipoService {
   }
 
   createEquipo(equipo) {
-    return this.http.post<Equipo>(this.api, equipo);
+    return this.http.post<Equipo>(this.api, equipo, httpOptions);
   }
 
   invitarJugadores(jugadores) {
-    return this.http.post<Equipo>(this.api + 'invitar', jugadores);
+    return this.http.post<Equipo>(this.api + 'invitar', jugadores, httpOptions);
   }
 
   getEquipo(id) {
-    return this.http.get<Equipo>(this.api + id);
+    return this.http.get<Equipo>(this.api + id, httpOptions);
   }
 
 }
