@@ -1,2 +1,8 @@
-<app-nav-bar></app-nav-bar>
-<router-outlet></router-outlet>
+<div *ngIf="loggedIn; else notShow">
+  <app-nav-bar></app-nav-bar>
+  <router-outlet></router-outlet>
+</div>
+
+<ng-template #notShow>
+  <app-login></app-login>
+</ng-template>
