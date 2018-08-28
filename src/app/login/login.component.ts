@@ -32,18 +32,19 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.comprobar();
+    // this.comprobar();
   }
 
-  comprobar() {
-    this.http.get<Jugador>(global.serverURL + '/usuario/usuarioInfo', httpOptions).subscribe((res: Jugador) => {
-      this.jugador = res;
-      if (!this.jugador.nombre)
-        this.rta = res.toString();
-      else
-        this.router.navigateByUrl('/partido');
-    });
-  }
+  // comprobar() {
+  //   this.http.get<Jugador>(global.serverURL + '/usuario/usuarioInfo', httpOptions).subscribe((res:Jugador)=>{
+  //     this.jugador = res;
+  //     if(!this.jugador.nombre)
+  //       this.rta = res.toString();
+  //     else
+  //       this.rta = "Bienvenido "+this.jugador.nombre;
+  //   })
+  //
+  // }
 
 }
 
