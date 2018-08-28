@@ -9,9 +9,7 @@
       <h4>Jugadores</h4>
       <div>
         <ul *ngFor="let jug of this.jugadores">
-          <a routerLink="/equipo/crear" style="border: none;">
             <app-estrellas-jugador [jugador]=jug></app-estrellas-jugador>
-          </a>
         </ul>
       </div>
     </div>
@@ -20,7 +18,7 @@
   <!--Dialog pop up-->
   <div class="container">
     <p-dialog header="Invitar un nuevo jugador" [(visible)]="display"
-              [contentStyle]="{'overflow':'visible'}">
+              [contentStyle]="{'overflow':'visible'}" (onHide)="actualizarPantalla()">
       <app-invitar-jugadores (notifyParent)="agregarNuevosJugadores($event)"></app-invitar-jugadores>
     </p-dialog>
     <button pButton type="button" icon="pi pi-plus" class="rounded-circle"

@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import {Jugador} from "../models/jugador";
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import * as global from "../app.global";
+import {Component, OnInit} from '@angular/core';
+import {Jugador} from '../models/jugador';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import * as global from '../app.global';
+import {Router} from '@angular/router';
+import {HomeJugadorComponent} from '../views/home-jugador/home-jugador.component';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    "Content-Type":'application/json'
+    'Content-Type': 'application/json'
   }),
   withCredentials: true
 };
@@ -21,7 +23,9 @@ export class LoginComponent implements OnInit {
   facebook: string;
   google: string;
   logout: string;
-  constructor(private http: HttpClient) {
+
+  constructor(private http: HttpClient,
+              private router: Router) {
     this.facebook = global.serverURL + '/auth/login/facebook/jugador/';
     this.google = global.serverURL + '/auth/login/google/jugador/';
     this.logout = global.serverURL + '/auth/logout';
@@ -32,14 +36,13 @@ export class LoginComponent implements OnInit {
   }
 
   comprobar() {
-    this.http.get<Jugador>(global.serverURL + '/usuario/usuarioInfo', httpOptions).subscribe((res:Jugador)=>{
+    this.http.get<Jugador>(global.serverURL + '/usuario/usuarioInfo', httpOptions).subscribe((res: Jugador) => {
       this.jugador = res;
-      if(!this.jugador.nombre)
+      if (!this.jugador.nombre)
         this.rta = res.toString();
       else
-        this.rta = "Bienvenido "+this.jugador.nombre;
-    })
-
+        this.router.navigateByUrl('/partido');
+    });
   }
 
 }

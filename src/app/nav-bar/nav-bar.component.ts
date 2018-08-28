@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import {MenuItem} from 'primeng/components/common/menuitem';
+import * as global from 'app/app.global';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css'],
 })
+
+
 export class NavBarComponent implements OnInit {
 
   items: MenuItem[];
   isExpanded = true;
+  logoutApi = global.serverURL + '/auth/logout';
 
   ngOnInit() {
     this.items = [{

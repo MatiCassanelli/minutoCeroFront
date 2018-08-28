@@ -48,11 +48,13 @@ export class InfoEquipoComponent implements OnInit {
   }
 
   getJugadoresOfEquipo(jugadores): Array<Jugador> {
-    let array = new Array<Jugador>();
+    let array = [];
     for (let jug of jugadores) {
-      this.jugadorService.getJugadorById(jug).subscribe(resp => {
-        array.push(resp[0]);
-      });
+      if (jug !== this.equipo.capitan) {
+        this.jugadorService.getJugadorById(jug).subscribe(resp => {
+          array.push(resp[0]);
+        });
+      }
     }
     console.log(array);
     return array;
@@ -69,7 +71,10 @@ export class InfoEquipoComponent implements OnInit {
     }).subscribe(resp => {
       this.equipo = resp;
       console.log(this.equipo);
-      return window.location.reload();
     }, error1 => console.log(error1));
+  }
+
+  actualizarPantalla() {
+    return window.location.reload();
   }
 }

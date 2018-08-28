@@ -1,4 +1,5 @@
 <div class="container">
+  <button pButton (click)="crearPartido()">Crear Partido</button>
   <div *ngFor="let partidoIncompleto of partidosIncompletos">
     {{partidoIncompleto.grupoLocal}}
     {{partidoIncompleto.grupoVisitante}}

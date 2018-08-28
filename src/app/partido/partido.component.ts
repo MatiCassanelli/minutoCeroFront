@@ -185,7 +185,6 @@ export class PartidoComponent implements OnInit {
       cancha = res[0][0];
       const local = res[1];
       const visitante = res[2];
-      debugger;
       this.partidoService.createPartido({
         deporte: this.canchaSeleccionada,
         grupoLocal: local,
@@ -194,7 +193,7 @@ export class PartidoComponent implements OnInit {
         cancha: cancha._id,
         horasDeJuego: 1
       }).subscribe(partido => {
-        console.log('resultado', partido);
+        this.router.navigateByUrl('/partido');
       });
     });
   }

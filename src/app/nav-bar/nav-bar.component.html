@@ -2,7 +2,7 @@
   <button type="button" class="navbar-toggler navbar-toggler-right" (click)="isExpanded = !isExpanded" attr.aria-expanded="!isExpanded" aria-controls="navbarContent">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" [routerLink]="['/home']">Minuto Cero</a>
+  <a class="navbar-brand" [routerLink]="['/partido']">Minuto Cero</a>
 
   <div [ngbCollapse]="isExpanded" class="collapse navbar-collapse" id="navbarContent">
     <!--<ul class="navbar-nav mr-auto">-->
@@ -12,8 +12,9 @@
     <!--<ul class="navbar-nav navbar-right">-->
       <!--<li><a (click)='signOut()' style='cursor: pointer;'><span class="glyphicon glyphicon-log-in"></span> Sign Out</a></li>-->
     <!--</ul>-->
-    <a class="nav-item nav-link" routerLink="" routerLinkActive="active">Home</a>
-    <a class="nav-item nav-link" routerLink="/about" routerLinkActive="active">About</a>
+    <a class="nav-item nav-link" routerLink="/partido" routerLinkActive="active">Home</a>
+    <a class="nav-item nav-link" routerLink="/equipo/crear" routerLinkActive="active">Crear Equipo</a>
+    <a class="nav-item nav-link"  [href]="logoutApi" routerLinkActive="active">Log Out</a>
     <div class="nav-item dropdown" ngbDropdown>
       <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" ngbDropdownToggle>
         Dropdown

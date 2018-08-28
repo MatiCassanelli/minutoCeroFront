@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Partido} from '../../models/partido';
 import {PartidoService} from '../../../services/partidoService';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home-jugador',
@@ -11,7 +12,8 @@ import {PartidoService} from '../../../services/partidoService';
 export class HomeJugadorComponent implements OnInit {
 
   partidosIncompletos: Partido[];
-  constructor(private partidoService: PartidoService) {
+  constructor(private partidoService: PartidoService,
+              private router: Router) {
     this.partidoService.getPartidos('Incompleto').subscribe(incompletos => {
       console.log(incompletos);
       this.partidosIncompletos = incompletos;
@@ -21,4 +23,7 @@ export class HomeJugadorComponent implements OnInit {
   ngOnInit() {
   }
 
+  crearPartido() {
+    this.router.navigateByUrl('/partido/organizar');
+  }
 }
