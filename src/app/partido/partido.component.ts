@@ -1,26 +1,37 @@
 import {Component, OnInit} from '@angular/core';
 import {ConfirmationService, SelectItem} from 'primeng/api';
-import {PlantelService} from 'services/plantelService';
+import {PlantelService} from '../../services/plantelService';
 import {Jugador} from '../models/jugador';
 import {Plantel} from '../models/plantel';
 import {Router} from '@angular/router';
 import {PredioService} from '../../services/predioService';
 import {Predio} from '../models/predio';
+import {Partido} from '../models/partido';
+import {PartidoService} from '../../services/partidoService';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {DeporteService} from '../../services/deporteService';
+import { forkJoin } from "rxjs/observable/forkJoin";
+
 
 @Component({
   selector: 'app-partido',
   templateUrl: './partido.component.html',
   styleUrls: ['./partido.component.css'],
-  providers: [ConfirmationService, PlantelService, PredioService]
+  providers: [ConfirmationService,
+    PlantelService,
+    PredioService,
+    PartidoService,
+    DeporteService]
 })
 
 export class PartidoComponent implements OnInit {
 
+  form: FormGroup;
   tiposCancha: SelectItem[];
   predios: Predio[];
   selectedPredio: Predio;
   canchaSeleccionada: any;
-  value: Date;
+  fechaPartido: Date;
   plantelLocal: Plantel;
   plantelVisitante: Plantel;
   localSeleccionado: Jugador;
@@ -38,15 +49,13 @@ export class PartidoComponent implements OnInit {
     lng: String
   };
 
-  constructor(private plantelService: PlantelService,
+  constructor(private fb: FormBuilder,
+              private plantelService: PlantelService,
               private predioService: PredioService,
+              private partidoService: PartidoService,
+              private deporteService: DeporteService,
               private router: Router,
               private confirmationService: ConfirmationService) {
-    this.tiposCancha = [
-      {label: 'Futbol 5', value: 'Futbol 5'},
-      {label: 'Futbol 7', value: 'Futbol 7'},
-      {label: 'Futbol 11', value: 'Futbol 11'}
-    ];
 
     this.plantelLocal = new Plantel('5b6e5ed68cbb1b4f61e0b9e4');
     this.plantelVisitante = new Plantel('5b786b8434d41f28d880bffd');
@@ -55,6 +64,19 @@ export class PartidoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.deporteService.getDeportes().subscribe(res => {
+      this.tiposCancha = [];
+      for (let cancha of res) {
+        this.tiposCancha.push({
+          label: cancha.nombre,
+          value: cancha._id
+        });
+      }
+    });
+    // this.form = this.fb.group({
+    //   canchaSeleccionada: null,
+    //   fechaPartido: null
+    // });
     this.predioService.getAllPredios().subscribe(predios => {
       this.predios = predios;
     });
@@ -80,7 +102,7 @@ export class PartidoComponent implements OnInit {
         this.plantelVisitante.jugadores.push(j);
       }
     }
-    this.resetForm = !this.resetForm;
+    this.resetForm = !this.resetForm; // esto es para q entre en el onchanged del componente
   }
 
   getJugadoresPlantel(plantel, condicion) {
@@ -149,9 +171,31 @@ export class PartidoComponent implements OnInit {
   }
 
   definirPredio(event) {
-    console.log(this.selectedPredio);
     this.selectedPredio = event;
     console.log(this.selectedPredio);
-    // this.displayDialog = false;
+    this.displayDialog = false;
+  }
+
+  crearPartido() {
+    console.log(this.canchaSeleccionada, this.fechaPartido);
+    let cancha: any;
+      forkJoin(this.predioService.getCanchas(this.selectedPredio._id),
+        this.plantelService.createPlantel(this.plantelLocal, 'Local'),
+        this.plantelService.createPlantel(this.plantelVisitante, 'Visitante')).subscribe(res => {
+        cancha = res[0][0];
+        const local = res[1];
+        const visitante = res[2];
+        debugger;
+        this.partidoService.createPartido({
+          deporte: this.canchaSeleccionada,
+          grupoLocal: local,
+          grupoVisitante: visitante,
+          dia: this.fechaPartido,
+          cancha: cancha._id,
+          horasDeJuego: 1
+        }).subscribe(partido => {
+          console.log('resultado', partido);
+        });
+      });
   }
 }

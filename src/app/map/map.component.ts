@@ -11,7 +11,6 @@ declare var google: any;
 })
 export class MapComponent implements OnInit, AfterContentInit {
 
-
   @ViewChild('gmap') gmapElement: any;
   map: google.maps.Map;
   latitude = -31.416798;
@@ -20,6 +19,12 @@ export class MapComponent implements OnInit, AfterContentInit {
   @Output() sendUbicacion = new EventEmitter();
   @Output() sendInfo = new EventEmitter();
 
+  iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+  icons = {
+    library: {
+      icon: this.iconBase + 'library_maps.png'
+    }
+  };
   constructor() {
 
   }
@@ -56,7 +61,7 @@ export class MapComponent implements OnInit, AfterContentInit {
     this.setCenter(lat, lng);
     let location = new google.maps.LatLng(lat, lng);
     let marker = this.newMarker(location);
-    marker.setTitle('asd');
+    marker.setTitle('Estás acá ');
   }
 
   newMarker(position, predio: Predio = null): google.maps.Marker {
@@ -66,12 +71,16 @@ export class MapComponent implements OnInit, AfterContentInit {
       infoPredio: predio
     });
     marker.addListener('click', () => {
-      this.infoMarker(marker, marker.getTitle());
+      if (predio !== null) {
+        this.infoMarker(marker, marker.infoPredio.nombrePredio);
+      }
+      else {
+        this.infoMarker(marker, 'Estás acá');
+        marker.setIcon(this.icons.library.icon);
+      }
     });
     marker.addListener('dblclick', () => {
       // const res = this.geocodeLatLng(marker.getPosition());
-      // console.log('Confirmar ' + res[0] + ' como direccion?');
-      // console.log(marker.infoPredio);
       this.sendUbicacion.emit(marker.getPosition());
       this.sendInfo.emit(marker.infoPredio);
     });

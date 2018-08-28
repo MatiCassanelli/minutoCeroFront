@@ -31,4 +31,8 @@ export class PredioService {
   getAllPredios() {
     return this.http.get<Array<Predio>>(this.api + '/all', httpOptions);
   }
+
+  getCanchas(idPredio) {
+    return this.http.get(this.api + idPredio + '/canchas', httpOptions);
+  }
 }

@@ -30,4 +30,12 @@ export class PlantelService {
     }, httpOptions);
   }
 
+  createPlantel(plantel, localidad) {
+    return this.http.post<Plantel>(this.api, {
+      'jugadoresConfirmados': plantel.jugadoresConfirmados,
+      'jugadores': plantel.jugadores,
+      'localidad': localidad
+    }, httpOptions);
+  }
+
 }
