@@ -34,6 +34,8 @@ import {ScrollPanelModule} from 'primeng/primeng';
 import {CheckboxModule} from 'primeng/primeng';
 import {SelectButtonModule} from 'primeng/primeng';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {TabViewModule} from 'primeng/tabview';
+
 
 
 
@@ -116,7 +118,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     CarouselModule,
     ScrollPanelModule,
     SelectButtonModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    TabViewModule
   ],
   bootstrap: [AppComponent],
   schemas: [

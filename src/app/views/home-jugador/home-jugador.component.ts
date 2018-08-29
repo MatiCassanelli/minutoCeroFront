@@ -23,6 +23,10 @@ export class HomeJugadorComponent implements OnInit {
   ngOnInit() {
   }
 
+  onTabChange(event) {
+    console.log({severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index});
+  }
+
   crearPartido() {
     this.router.navigateByUrl('/partido/organizar');
   }
