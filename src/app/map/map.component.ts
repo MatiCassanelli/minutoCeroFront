@@ -1,4 +1,4 @@
-import {AfterContentInit, AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, EventEmitter, Input, OnInit, Optional, Output, ViewChild} from '@angular/core';
 import {} from '@types/googlemaps';
 import {Predio} from '../models/predio';
 
@@ -16,6 +16,7 @@ export class MapComponent implements OnInit, AfterContentInit {
   latitude = -31.416798;
   longitude = -64.183674;
   @Input() direccion: string;
+  @Input() geoposicion: boolean;
   @Output() sendUbicacion = new EventEmitter();
   @Output() sendInfo = new EventEmitter();
 
@@ -25,6 +26,7 @@ export class MapComponent implements OnInit, AfterContentInit {
       icon: this.iconBase + 'library_maps.png'
     }
   };
+
   constructor() {
 
   }
@@ -35,6 +37,7 @@ export class MapComponent implements OnInit, AfterContentInit {
   ngAfterContentInit() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
+        console.log('Hay geoposicion');
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
         let mapProp = {
@@ -47,6 +50,7 @@ export class MapComponent implements OnInit, AfterContentInit {
       });
     }
     else {
+      console.log('No hay geoposicion');
       let mapProp = {
         center: new google.maps.LatLng(this.latitude, this.longitude),
         zoom: 15,
@@ -58,9 +62,9 @@ export class MapComponent implements OnInit, AfterContentInit {
   }
 
   initMap(lat, lng) {
-    this.setCenter(lat, lng);
     let location = new google.maps.LatLng(lat, lng);
     let marker = this.newMarker(location);
+    this.setCenter(lat, lng);
     marker.setTitle('Estás acá ');
   }
 
@@ -73,17 +77,22 @@ export class MapComponent implements OnInit, AfterContentInit {
     marker.addListener('click', () => {
       if (predio !== null) {
         this.infoMarker(marker, marker.infoPredio.nombrePredio);
-      }
-      else {
+      } else {
         this.infoMarker(marker, 'Estás acá');
         marker.setIcon(this.icons.library.icon);
       }
     });
-    marker.addListener('dblclick', () => {
-      // const res = this.geocodeLatLng(marker.getPosition());
-      this.sendUbicacion.emit(marker.getPosition());
-      this.sendInfo.emit(marker.infoPredio);
-    });
+    if (predio !== null) {
+      marker.addListener('dblclick', () => {
+        // const res = this.geocodeLatLng(marker.getPosition());
+        this.sendUbicacion.emit(marker.getPosition());
+        this.sendInfo.emit(marker.infoPredio);
+      });
+    }else {
+      marker.addListener('dblclick', () => {
+        this.sendUbicacion.emit(marker.getPosition());
+      });
+    }
     this.map.panTo(position);
     return marker;
   }
@@ -137,6 +146,6 @@ export class MapComponent implements OnInit, AfterContentInit {
       this.newMarker(new google.maps.LatLng(predio.ubicacionMaps.lat, predio.ubicacionMaps.lng), predio);
     }
     // this.newMarker(new google.maps.LatLng(), false);
-    this.setCenter(this.latitude, this.longitude);
+    // this.setCenter(this.latitude, this.longitude);
   }
 }

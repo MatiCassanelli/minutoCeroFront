@@ -16,6 +16,7 @@ export class RegistroPredioMapaComponent implements OnInit {
     lat: String,
     lng: String
   };
+  geoposicion: boolean;
 
   constructor(private predioService: PredioService,
               private confirmationService: ConfirmationService,

@@ -23,9 +23,11 @@ export class LoginComponent implements OnInit {
   facebook: string;
   google: string;
   logout: string;
+  predio = false;
 
   constructor(private http: HttpClient,
               private router: Router) {
+    this.predio = false;
     this.facebook = global.serverURL + '/auth/login/facebook/jugador/';
     this.google = global.serverURL + '/auth/login/google/jugador/';
     this.logout = global.serverURL + '/auth/logout';
@@ -45,6 +47,18 @@ export class LoginComponent implements OnInit {
   //   })
   //
   // }
+  setPredio(bool) {
+    if (bool === 'predio') {
+      this.predio = false;
+      this.facebook = global.serverURL + '/auth/login/facebook/predio/';
+      this.google = global.serverURL + '/auth/login/google/predio/';
+    }
+    if (bool === 'jugador') {
+      this.predio = true;
+      this.facebook = global.serverURL + '/auth/login/facebook/jugador/';
+      this.google = global.serverURL + '/auth/login/google/jugador/';
+    }
+  }
 
 }
 

@@ -3,18 +3,18 @@
     <div class="container ui-fluid">
       <div class="row">
         <!--<button pButton type="button" class="ui-button facebook" label="Facebook"-->
-                <!--onclick="location.href= global.serverURL + '/auth/login/facebook/jugador/'"></button>-->
+        <!--onclick="location.href= global.serverURL + '/auth/login/facebook/jugador/'"></button>-->
         <a href="{{facebook}}" class="ui-button facebook">Facebook</a>
       </div>
       <div class="row">
         <!--<button pButton type="button" class="ui-button google" label="Google"-->
-          <!--onclick="location.href= global.serverURL + '/auth/login/google/jugador/'"></button>-->
+        <!--onclick="location.href= global.serverURL + '/auth/login/google/jugador/'"></button>-->
         <a href="{{google}}" class="ui-button google">Google</a>
       </div>
       <br>
       <div class="row">
         <!--<button pButton type="button" class="ui-button-secondary" label="Logout"-->
-          <!--onclick="location.href= global.serverURL + '/auth/logout'" type="button"></button>-->
+        <!--onclick="location.href= global.serverURL + '/auth/logout'" type="button"></button>-->
         <a href="{{logout}}" type="button" class="ui-button ui-button-secondary">Logout</a>
       </div>
     </div>
@@ -23,5 +23,12 @@
   <div class="ui-fluid">
     <p>{{rta}}</p>
   </div>
+
+  <div *ngIf="predio; else SiPredio">
+    <p-button (click)="setPredio('predio')">Ingresar como Predio</p-button>
+  </div>
+  <ng-template #SiPredio>
+    <p-button type="button" (click)="setPredio('jugador')">Ingresar como Jugador</p-button>
+  </ng-template>
 
 </div>
