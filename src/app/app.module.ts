@@ -60,6 +60,7 @@ import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { HomeJugadorComponent } from './views/home-jugador/home-jugador.component';
 import {AuthService} from "../services/auth.service";
+import {AuthGuardService} from "../services/auth.guard";
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -131,7 +132,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
       provide: SWIPER_CONFIG,
       useValue: DEFAULT_SWIPER_CONFIG
     },
-    AuthService
+    AuthService,
+    AuthGuardService
   ]
 })
 export class AppModule { }

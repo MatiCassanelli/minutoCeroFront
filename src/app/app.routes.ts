@@ -10,6 +10,7 @@ import {MapComponent} from './map/map.component';
 import {RegistroPredioMapaComponent} from './views/registro-predio-mapa/registro-predio-mapa.component';
 import {HomePredioComponent} from './views/home-predio/home-predio.component';
 import {HomeJugadorComponent} from './views/home-jugador/home-jugador.component';
+import {AuthGuardService} from "../services/auth.guard";
 
 const appRoutes: Routes = [
   {
@@ -18,14 +19,16 @@ const appRoutes: Routes = [
       {path: '', redirectTo: '', pathMatch: 'full'},
       {path: 'crear', component: CrearEquipoComponent},
       {path: 'info/:id', component: InfoEquipoComponent}
-    ]
+    ],
+    canActivate: [AuthGuardService]
   },
   {
     path: 'partido',
     children: [
       {path: '', component: HomeJugadorComponent},
       {path: 'organizar', component: PartidoComponent}
-    ]
+    ],
+    canActivate: [AuthGuardService]
   },
   {path: 'login', component: LoginComponent},
   {
@@ -34,7 +37,8 @@ const appRoutes: Routes = [
       {path: '', component: HomePredioComponent},
       {path: 'registro/1', component: RegistrarPredio1Component},
       {path: 'registro/2', component: RegistroPredioMapaComponent}
-    ]
+    ],
+    canActivate: [AuthGuardService]
   },
   {path: '**', component: PageNotFoundComponent},
 ];

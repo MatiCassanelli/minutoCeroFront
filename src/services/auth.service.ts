@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as global from '../app/app.global';
+import {Router} from "@angular/router";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -18,8 +19,8 @@ export class AuthService {
 
   }
 
-  isLoggedIn() {
-    return this.http.get<boolean>(this.api + 'usuarioInfo2', httpOptions)
+  isLoggedIn(){
+    return this.http.get(this.api + 'usuarioInfo', httpOptions);
   }
 
 }

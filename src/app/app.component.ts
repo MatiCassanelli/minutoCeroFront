@@ -10,24 +10,11 @@ import {AuthService} from "../services/auth.service";
 })
 export class AppComponent {
   title = 'app';
-  loggedIn: boolean;
 
-  constructor(private http: HttpClient, private authService: AuthService){
+  constructor(){
 
   }
 
-  ngOnInit() {
-    this.comprobar();
-  }
-
-  comprobar(){
-    this.authService.isLoggedIn().subscribe(res => {
-      if(!res){
-        this.loggedIn = false;
-      }
-      else
-        this.loggedIn = true;
-    })
-  }
+  ngOnInit() {}
 
 }
