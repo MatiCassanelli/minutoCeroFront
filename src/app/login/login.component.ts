@@ -18,15 +18,12 @@ const httpOptions = {
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  jugador: Jugador;
-  rta: string;
   facebook: string;
   google: string;
   logout: string;
   predio = false;
 
-  constructor(private http: HttpClient,
-              private router: Router) {
+  constructor() {
     this.predio = false;
     this.facebook = global.serverURL + '/auth/login/facebook/jugador/';
     this.google = global.serverURL + '/auth/login/google/jugador/';
@@ -34,19 +31,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.comprobar();
   }
 
-  // comprobar() {
-  //   this.http.get<Jugador>(global.serverURL + '/usuario/usuarioInfo', httpOptions).subscribe((res:Jugador)=>{
-  //     this.jugador = res;
-  //     if(!this.jugador.nombre)
-  //       this.rta = res.toString();
-  //     else
-  //       this.rta = "Bienvenido "+this.jugador.nombre;
-  //   })
-  //
-  // }
   setPredio(bool) {
     if (bool === 'predio') {
       this.predio = false;
