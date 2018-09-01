@@ -12,8 +12,10 @@
     <!--<ul class="navbar-nav navbar-right">-->
       <!--<li><a (click)='signOut()' style='cursor: pointer;'><span class="glyphicon glyphicon-log-in"></span> Sign Out</a></li>-->
     <!--</ul>-->
-    <a class="nav-item nav-link" routerLink="/partido" routerLinkActive="active">Home</a>
-    <a class="nav-item nav-link" routerLink="/equipo/crear" routerLinkActive="active">Crear Equipo</a>
+    <a class="nav-item nav-link" routerLink="/partido" routerLinkActive="active"
+       (click)="isExpanded = !isExpanded" attr.aria-expanded="!isExpanded" aria-controls="navbarContent">Home</a>
+    <a class="nav-item nav-link" routerLink="/equipo/crear" routerLinkActive="active"
+       (click)="isExpanded = !isExpanded" attr.aria-expanded="!isExpanded" aria-controls="navbarContent">Crear Equipo</a>
     <a class="nav-item nav-link"  [href]="logoutApi" routerLinkActive="active">Log Out</a>
     <div class="nav-item dropdown" ngbDropdown>
       <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" ngbDropdownToggle>
