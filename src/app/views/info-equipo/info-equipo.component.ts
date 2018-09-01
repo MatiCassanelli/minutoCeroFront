@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {EquipoService} from '../../services/equipoService';
-import {Equipo} from '../models/equipo';
-import {Jugador} from '../models/jugador';
-import {JugadorService} from '../../services/jugadorService';
+import {EquipoService} from '../../../services/equipoService';
+import {Equipo} from '../../models/equipo';
+import {Jugador} from '../../models/jugador';
+import {JugadorService} from '../../../services/jugadorService';
 
 @Component({
   selector: 'app-info-equipo',
@@ -14,6 +14,7 @@ import {JugadorService} from '../../services/jugadorService';
 export class InfoEquipoComponent implements OnInit {
 
   jugadores: Array<Jugador>;
+  jugadoresPorInvitar: Jugador[];
   capitan: Jugador;
   routeSub: any;
   equipo: Equipo;
@@ -60,9 +61,9 @@ export class InfoEquipoComponent implements OnInit {
     return array;
   }
 
-  agregarNuevosJugadores(event) {
-    let jug = new Array();
-    for (let a of event) {
+  agregarNuevosJugadores() {
+    let jug = [];
+    for (let a of this.jugadoresPorInvitar) {
       jug.push(a.email);
     }
     this.equipoService.invitarJugadores({
@@ -71,10 +72,11 @@ export class InfoEquipoComponent implements OnInit {
     }).subscribe(resp => {
       this.equipo = resp;
       console.log(this.equipo);
+      return window.location.reload();
     }, error1 => console.log(error1));
   }
 
-  actualizarPantalla() {
-    return window.location.reload();
+  getJugadoresPorInvitar(event) {
+    this.jugadoresPorInvitar = event;
   }
 }

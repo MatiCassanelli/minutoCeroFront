@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, FormBuilder} from '@angular/forms';
 import {SelectItem} from 'primeng/api';
-import {EquipoService} from '../../services/equipoService';
-import {Equipo} from '../models/equipo';
-import {JugadorService} from '../../services/jugadorService';
-import {Jugador} from '../models/jugador';
+import {EquipoService} from '../../../services/equipoService';
+import {Equipo} from '../../models/equipo';
+import {JugadorService} from '../../../services/jugadorService';
+import {Jugador} from '../../models/jugador';
 import { Router} from '@angular/router';
 import {ConfirmationService} from 'primeng/api';
 

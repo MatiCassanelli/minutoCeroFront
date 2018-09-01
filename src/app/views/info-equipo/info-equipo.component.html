@@ -18,8 +18,9 @@
   <!--Dialog pop up-->
   <div class="container">
     <p-dialog header="Invitar un nuevo jugador" [(visible)]="display"
-              [contentStyle]="{'overflow':'visible'}" (onHide)="actualizarPantalla()">
-      <app-invitar-jugadores (notifyParent)="agregarNuevosJugadores($event)"></app-invitar-jugadores>
+              [contentStyle]="{'overflow':'visible'}">
+      <app-invitar-jugadores (notifyParent)="getJugadoresPorInvitar($event)"></app-invitar-jugadores>
+      <button pButton type="button" (click)="agregarNuevosJugadores()">Aceptar</button>
     </p-dialog>
     <button pButton type="button" icon="pi pi-plus" class="rounded-circle"
             style="float: right;" (click)="showDialog()"></button>

@@ -42,17 +42,17 @@ import {TabViewModule} from 'primeng/tabview';
 // Components imports
 import { DragScrollModule } from 'ngx-drag-scroll';
 import { AppComponent } from './app.component';
-import { CrearEquipoComponent } from './crear-equipo/crear-equipo.component';
-import { InfoEquipoComponent } from './info-equipo/info-equipo.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { EstrellasJugadorComponent } from './estrellas-jugador/estrellas-jugador.component';
-import { InvitarJugadoresComponent } from './invitar-jugadores/invitar-jugadores.component';
-import { NavBarComponent} from './nav-bar/nav-bar.component';
+import { CrearEquipoComponent } from './views/crear-equipo/crear-equipo.component';
+import { InfoEquipoComponent } from './views/info-equipo/info-equipo.component';
+import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component';
+import { EstrellasJugadorComponent } from './component/estrellas-jugador/estrellas-jugador.component';
+import { InvitarJugadoresComponent } from './component/invitar-jugadores/invitar-jugadores.component';
+import { NavBarComponent} from './component/nav-bar/nav-bar.component';
 import { LoginComponent } from './login/login.component';
 import { PartidoComponent } from './partido/partido.component';
-import { FechaCarouselComponent } from './fecha-carousel/fecha-carousel.component';
+import { FechaCarouselComponent } from './component/fecha-carousel/fecha-carousel.component';
 import { RegistrarPredio1Component } from './registrar-predio1/registrar-predio1.component';
-import { MapComponent } from './map/map.component';
+import { MapComponent } from './component/map/map.component';
 import { RegistroPredioMapaComponent } from './views/registro-predio-mapa/registro-predio-mapa.component';
 import {HomePredioComponent} from './views/home-predio/home-predio.component';
 
@@ -63,6 +63,8 @@ import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { HomeJugadorComponent } from './views/home-jugador/home-jugador.component';
 import {AuthService} from "../services/auth.service";
 import {AuthGuardService} from "../services/auth.guard";
+import { ComponentComponent } from './component/component.component';
+import { ViewsComponent } from './views/views.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -88,7 +90,9 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MapComponent,
     RegistroPredioMapaComponent,
     HomePredioComponent,
-    HomeJugadorComponent
+    HomeJugadorComponent,
+    ComponentComponent,
+    ViewsComponent
   ],
   imports: [
     AppRouting,

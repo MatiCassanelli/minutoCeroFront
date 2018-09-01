@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Jugador} from '../models/jugador';
+import {Jugador} from '../../models/jugador';
 
 @Component({
   selector: 'app-estrellas-jugador',

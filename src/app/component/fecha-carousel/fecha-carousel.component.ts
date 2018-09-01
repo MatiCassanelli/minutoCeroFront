@@ -6,7 +6,7 @@ import {
   SwiperScrollbarInterface, SwiperPaginationInterface
 } from 'ngx-swiper-wrapper';
 import {debug} from 'util';
-import {Jugador} from '../models/jugador';
+import {Jugador} from '../../models/jugador';
 
 @Component({
   selector: 'app-fecha-carousel',

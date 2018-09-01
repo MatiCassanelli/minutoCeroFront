@@ -1,7 +1,7 @@
 import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
-import { Jugador} from '../models/jugador';
-import {JugadorService} from '../../services/jugadorService';
-import {EquipoService} from '../../services/equipoService';
+import { Jugador} from '../../models/jugador';
+import {JugadorService} from '../../../services/jugadorService';
+import {EquipoService} from '../../../services/equipoService';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import { ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';

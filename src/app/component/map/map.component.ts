@@ -1,6 +1,6 @@
 import {AfterContentInit, AfterViewInit, Component, EventEmitter, Input, OnInit, Optional, Output, ViewChild} from '@angular/core';
 import {} from '@types/googlemaps';
-import {Predio} from '../models/predio';
+import {Predio} from '../../models/predio';
 
 declare var google: any;
 
