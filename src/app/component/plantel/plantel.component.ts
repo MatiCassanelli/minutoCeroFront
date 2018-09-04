@@ -136,6 +136,30 @@ export class PlantelComponent implements OnInit {
     });
   }
 
+  remove(jugador, localia) {
+    this.confirmationService.confirm({
+      message: 'Eliminar a ' + jugador.nombre + jugador.apellido + ' del partido?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        console.log('entrando...');
+        this.removeConfirmado(jugador, localia);
+      },
+      reject: () => {
+      }
+    });
+  }
+  removeConfirmado(jugador, localia) {
+    if(localia === 'local') {
+      const index: number = this.plantelLocal.jugadores.indexOf(jugador);
+      this.plantelLocal.jugadoresConfirmados.splice(index, 1);
+    }
+    if(localia === 'visitante') {
+      const index: number = this.plantelVisitante.jugadores.indexOf(jugador);
+      this.plantelVisitante.jugadoresConfirmados.splice(index, 1);
+    }
+  }
+
   getJugadores(event) {
     this.traeJugadores = true;
     this.jugadoresAInvitar = event;
