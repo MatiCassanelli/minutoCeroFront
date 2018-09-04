@@ -1,9 +1,8 @@
 import {RouterModule, Routes} from '@angular/router';
-import {PartidoComponent} from './partido/partido.component';
 import {CrearEquipoComponent} from './views/crear-equipo/crear-equipo.component';
 import {InfoEquipoComponent} from './views/info-equipo/info-equipo.component';
 import {PageNotFoundComponent} from './views/page-not-found/page-not-found.component';
-import {RegistrarPredio1Component} from './registrar-predio1/registrar-predio1.component';
+import {RegistrarPredio1Component} from './views/registrar-predio1/registrar-predio1.component';
 import {LoginComponent} from './login/login.component';
 import {FechaCarouselComponent} from './component/fecha-carousel/fecha-carousel.component';
 import {MapComponent} from './component/map/map.component';
@@ -11,6 +10,7 @@ import {RegistroPredioMapaComponent} from './views/registro-predio-mapa/registro
 import {HomePredioComponent} from './views/home-predio/home-predio.component';
 import {HomeJugadorComponent} from './views/home-jugador/home-jugador.component';
 import {AuthGuardService} from "../services/auth.guard";
+import {OrganizarPartidoComponent} from './views/organizar-partido/organizar-partido.component';
 
 const appRoutes: Routes = [
   {
@@ -26,7 +26,7 @@ const appRoutes: Routes = [
     path: 'partido',
     children: [
       {path: '', component: HomeJugadorComponent},
-      {path: 'organizar', component: PartidoComponent}
+      {path: 'organizar', component: OrganizarPartidoComponent}
     ],
     canActivate: [AuthGuardService]
   },

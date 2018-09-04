@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Predio} from '../models/predio';
-import {PredioService} from '../../services/predioService';
+import {Predio} from '../../models/predio';
+import {PredioService} from '../../../services/predioService';
 import {Router} from '@angular/router';
 
 

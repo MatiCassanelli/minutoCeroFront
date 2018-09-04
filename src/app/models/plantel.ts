@@ -1,13 +1,14 @@
 import {Jugador} from './jugador';
 
 export class Plantel {
-  id: string;
-  jugadoresConfirmados: Jugador[];
-  jugadores: Jugador[];
+  _id: string;
+  jugadoresConfirmados: Array<Jugador>;
+  jugadores: Array<Jugador>;
 
-  constructor(id){
-    this.id = id;
-    this.jugadores = [];
-    this.jugadoresConfirmados = [];
+  constructor(id = null) {
+    if (id)
+      this._id = id;
+    this.jugadores = new Array<Jugador>();
+    this.jugadoresConfirmados = new Array<Jugador>();
   }
 }

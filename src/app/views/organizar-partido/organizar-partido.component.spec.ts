@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PartidoComponent } from './partido.component';
+import { OrganizarPartidoComponent } from './organizar-partido.component';
 
-describe('PartidoComponent', () => {
-  let component: PartidoComponent;
-  let fixture: ComponentFixture<PartidoComponent>;
+describe('OrganizarPartidoComponent', () => {
+  let component: OrganizarPartidoComponent;
+  let fixture: ComponentFixture<OrganizarPartidoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PartidoComponent ]
+      declarations: [ OrganizarPartidoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PartidoComponent);
+    fixture = TestBed.createComponent(OrganizarPartidoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

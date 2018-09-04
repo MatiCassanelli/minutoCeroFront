@@ -88,7 +88,7 @@ export class MapComponent implements OnInit, AfterContentInit {
         this.sendUbicacion.emit(marker.getPosition());
         this.sendInfo.emit(marker.infoPredio);
       });
-    }else {
+    } else {
       marker.addListener('dblclick', () => {
         this.sendUbicacion.emit(marker.getPosition());
       });
@@ -144,8 +144,8 @@ export class MapComponent implements OnInit, AfterContentInit {
   setAll(predios) {
     for (let predio of predios) {
       this.newMarker(new google.maps.LatLng(predio.ubicacionMaps.lat, predio.ubicacionMaps.lng), predio);
+      this.setCenter(this.latitude, this.longitude);
     }
     // this.newMarker(new google.maps.LatLng(), false);
-    // this.setCenter(this.latitude, this.longitude);
   }
 }

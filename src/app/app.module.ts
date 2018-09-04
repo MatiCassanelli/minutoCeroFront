@@ -35,6 +35,7 @@ import {CheckboxModule} from 'primeng/primeng';
 import {SelectButtonModule} from 'primeng/primeng';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {TabViewModule} from 'primeng/tabview';
+import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 
 
 
@@ -49,9 +50,8 @@ import { EstrellasJugadorComponent } from './component/estrellas-jugador/estrell
 import { InvitarJugadoresComponent } from './component/invitar-jugadores/invitar-jugadores.component';
 import { NavBarComponent} from './component/nav-bar/nav-bar.component';
 import { LoginComponent } from './login/login.component';
-import { PartidoComponent } from './partido/partido.component';
 import { FechaCarouselComponent } from './component/fecha-carousel/fecha-carousel.component';
-import { RegistrarPredio1Component } from './registrar-predio1/registrar-predio1.component';
+import { RegistrarPredio1Component } from './views/registrar-predio1/registrar-predio1.component';
 import { MapComponent } from './component/map/map.component';
 import { RegistroPredioMapaComponent } from './views/registro-predio-mapa/registro-predio-mapa.component';
 import {HomePredioComponent} from './views/home-predio/home-predio.component';
@@ -65,6 +65,9 @@ import {AuthService} from "../services/auth.service";
 import {AuthGuardService} from "../services/auth.guard";
 import { ComponentComponent } from './component/component.component';
 import { ViewsComponent } from './views/views.component';
+import { DeporteCanchaPartidoComponent } from './component/deporte-cancha-partido/deporte-cancha-partido.component';
+import { PlantelComponent } from './component/plantel/plantel.component';
+import { OrganizarPartidoComponent } from './views/organizar-partido/organizar-partido.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -83,7 +86,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     InvitarJugadoresComponent,
     NavBarComponent,
     LoginComponent,
-    PartidoComponent,
     LoginComponent,
     FechaCarouselComponent,
     RegistrarPredio1Component,
@@ -92,7 +94,10 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     HomePredioComponent,
     HomeJugadorComponent,
     ComponentComponent,
-    ViewsComponent
+    ViewsComponent,
+    DeporteCanchaPartidoComponent,
+    PlantelComponent,
+    OrganizarPartidoComponent
   ],
   imports: [
     AppRouting,
@@ -124,7 +129,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     ScrollPanelModule,
     SelectButtonModule,
     OverlayPanelModule,
-    TabViewModule
+    TabViewModule,
+    AngularDateTimePickerModule
   ],
   bootstrap: [AppComponent],
   schemas: [
