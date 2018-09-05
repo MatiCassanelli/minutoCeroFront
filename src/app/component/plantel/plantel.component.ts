@@ -6,6 +6,7 @@ import {PartidoService} from '../../../services/partidoService';
 import {ConfirmationService} from 'primeng/api';
 import {Jugador} from '../../models/jugador';
 import {forkJoin} from 'rxjs/observable/forkJoin';
+import {Partido} from '../../models/partido';
 
 @Component({
   selector: 'app-plantel',
@@ -28,6 +29,7 @@ export class PlantelComponent implements OnInit {
   resetForm = false;
   noIds = false;
   idPartido: string;
+  idOrganizador: string;
 
   @Input()
   set setIdPartido(name: string) {
@@ -47,14 +49,23 @@ export class PlantelComponent implements OnInit {
     console.log(this.idPartido);
     if (this.idPartido) {
       this.partidoService.getPartido(this.idPartido).subscribe(partido => {
-        forkJoin(this.plantelService.getPlantel(partido.grupoLocal),
-          this.plantelService.getPlantel(partido.grupoVisitante)).subscribe(res => {
-          this.plantelLocal = res[0];
-          this.plantelVisitante = res[1];
-          this.getJugadoresPlantel(this.plantelLocal, 'local');
-          this.getJugadoresPlantel(this.plantelVisitante, 'visitante');
-        });
+        this.plantelLocal = partido.grupoLocal;
+        this.plantelVisitante = partido.grupoVisitante;
+        this.idOrganizador = partido.organizador._id;
+        this.getJugadoresPlantel(this.plantelLocal, 'local');
+        this.getJugadoresPlantel(this.plantelVisitante, 'visitante');
       });
+
+      // this.partidoService.getPartido(this.idPartido).subscribe(partido => {
+      //   debugger;
+      //   forkJoin(this.plantelService.getPlantel(partido.grupoLocal),
+      //     this.plantelService.getPlantel(partido.grupoVisitante)).subscribe(res => {
+      //     this.plantelLocal = res[0];
+      //     this.plantelVisitante = res[1];
+      //     this.getJugadoresPlantel(this.plantelLocal, 'local');
+      //     this.getJugadoresPlantel(this.plantelVisitante, 'visitante');
+      //   });
+      // });
     } else {
       console.log('else idpartido');
       this.noIds = true;
@@ -123,6 +134,7 @@ export class PlantelComponent implements OnInit {
   }
 
   confirm1(jugador, localia) {
+    // if (this.idOrganizador === idSession)
     this.confirmationService.confirm({
       message: 'Invitar a ' + jugador.nombre + jugador.apellido + ' al partido?',
       header: 'Confirmation',
@@ -169,7 +181,8 @@ export class PlantelComponent implements OnInit {
   invitarJugadores() {
     if (this.localidad === 'local') {
       for (let j of this.jugadoresAInvitar) {
-        if (!this.plantelLocal.jugadores.includes(j))
+        console.log(this.plantelLocal.jugadores.indexOf(j));
+        if (this.plantelLocal.jugadores.indexOf(j) === -1)
           this.plantelLocal.jugadores.push(j);
       }
     }

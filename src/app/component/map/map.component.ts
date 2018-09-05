@@ -148,4 +148,17 @@ export class MapComponent implements OnInit, AfterContentInit {
     }
     // this.newMarker(new google.maps.LatLng(), false);
   }
+
+  setUbicacion(predio) {
+    let marker = new google.maps.Marker({
+      position: predio.ubicacionMaps,
+      map: this.map,
+      infoPredio: predio
+    });
+    marker.addListener('click', () => {
+        this.infoMarker(marker, marker.infoPredio.nombrePredio);
+    });
+    this.map.panTo(marker.getPosition());
+    return marker;
+  }
 }
