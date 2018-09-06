@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
+import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot} from "@angular/router";
 import {AuthService} from "./auth.service";
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/map'
@@ -7,17 +7,23 @@ import 'rxjs/add/operator/map'
 
 
 @Injectable()
-export class AuthGuardService implements CanActivate {
-  constructor(public auth: AuthService, public router: Router) {}
+export class AuthGuardService implements CanActivate, CanActivateChild {
+  constructor(public authService: AuthService, public router: Router) {}
 
-  canActivate(route:ActivatedRouteSnapshot, state:RouterStateSnapshot):Observable<boolean>|boolean {
-    return this.auth.isLoggedIn().map((res) => {
-      if (res) {
-        return true;
-      }
-      else {
-        this.router.navigateByUrl('/login');
-        return false;
-      }
-    })
-  }}
+  canActivate(route:ActivatedRouteSnapshot, state:RouterStateSnapshot):boolean {
+    if(this.authService.isLoggedIn()){
+      return true;
+    }
+    this.router.navigateByUrl('/login');
+    return false;
+  }
+
+  canActivateChild(route:ActivatedRouteSnapshot, state:RouterStateSnapshot):boolean{
+    debugger;
+    if(this.authService.isLoggedIn()){
+      return true;
+    }
+    this.router.navigateByUrl('/login');
+    return false;
+  }
+}

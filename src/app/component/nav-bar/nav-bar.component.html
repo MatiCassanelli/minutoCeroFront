@@ -16,17 +16,17 @@
        (click)="isExpanded = !isExpanded" attr.aria-expanded="!isExpanded" aria-controls="navbarContent">Home</a>
     <a class="nav-item nav-link" routerLink="/equipo/crear" routerLinkActive="active"
        (click)="isExpanded = !isExpanded" attr.aria-expanded="!isExpanded" aria-controls="navbarContent">Crear Equipo</a>
-    <a class="nav-item nav-link"  [href]="logoutApi" routerLinkActive="active">Log Out</a>
-    <div class="nav-item dropdown" ngbDropdown>
-      <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" ngbDropdownToggle>
-        Dropdown
-      </a>
-      <div class="dropdown-menu" aria-labelledby="dropdownBasic1">
-        <button class="dropdown-item">Action - 1</button>
-        <button class="dropdown-item">Another Action</button>
-        <button class="dropdown-item">Something else is here</button>
-      </div>
-    </div>
+    <a class="nav-item" (click)="logOut()">Log Out</a>
+    <!--<div class="nav-item dropdown" ngbDropdown>-->
+      <!--<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" ngbDropdownToggle>-->
+        <!--Dropdown-->
+      <!--</a>-->
+      <!--<div class="dropdown-menu" aria-labelledby="dropdownBasic1">-->
+        <!--<button class="dropdown-item">Action - 1</button>-->
+        <!--<button class="dropdown-item">Another Action</button>-->
+        <!--<button class="dropdown-item">Something else is here</button>-->
+      <!--</div>-->
+    <!--</div>-->
   </div>
 </nav>
 

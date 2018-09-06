@@ -68,6 +68,9 @@ import { ViewsComponent } from './views/views.component';
 import { DeporteCanchaPartidoComponent } from './component/deporte-cancha-partido/deporte-cancha-partido.component';
 import { PlantelComponent } from './component/plantel/plantel.component';
 import { OrganizarPartidoComponent } from './views/organizar-partido/organizar-partido.component';
+import { UnauthorizedComponent } from './views/unauthorized/unauthorized.component';
+import { RoleGuardService } from "../services/role.guard";
+import {RoleService} from "../services/role.service";
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -97,7 +100,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     ViewsComponent,
     DeporteCanchaPartidoComponent,
     PlantelComponent,
-    OrganizarPartidoComponent
+    OrganizarPartidoComponent,
+    UnauthorizedComponent
   ],
   imports: [
     AppRouting,
@@ -146,7 +150,9 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
       useValue: DEFAULT_SWIPER_CONFIG
     },
     AuthService,
-    AuthGuardService
+    RoleService,
+    AuthGuardService,
+    RoleGuardService
   ]
 })
 export class AppModule { }

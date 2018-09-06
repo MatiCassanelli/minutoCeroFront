@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MenuItem} from 'primeng/components/common/menuitem';
 import * as global from 'app/app.global';
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-nav-bar',
@@ -15,6 +16,9 @@ export class NavBarComponent implements OnInit {
   isExpanded = true;
   logoutApi = global.serverURL + '/auth/logout';
 
+  constructor(private authService: AuthService){
+  }
+
   ngOnInit() {
     this.items = [{
       label: 'File',
@@ -26,4 +30,9 @@ export class NavBarComponent implements OnInit {
     }];
   }
 
+  logOut(){
+    debugger;
+    this.authService.logOut();
+    window.location.href = this.logoutApi;
+  }
 }
