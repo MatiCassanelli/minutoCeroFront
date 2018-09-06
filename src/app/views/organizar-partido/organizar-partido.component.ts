@@ -33,15 +33,12 @@ export class OrganizarPartidoComponent implements OnInit {
   fechaPartido: Date;
   plantelLocal: Plantel;
   plantelVisitante: Plantel;
-  traeJugadores = false;
-  jugadoresAInvitar: Array<Jugador>;
   displayDialog = false;
   ubicacion = {
     lat: String,
     lng: String
   };
   mostrarLabel = false;
-  // idPartido = '5b8dec9464690c0ca07d3da8';
   idPartido = null;
 
   constructor(private fb: FormBuilder,
@@ -66,13 +63,6 @@ export class OrganizarPartidoComponent implements OnInit {
     this.predioService.getAllPredios().subscribe(predios => {
       this.predios = predios;
     });
-    // this.getJugadoresPlantel(this.plantelLocal, 'local');
-    // this.getJugadoresPlantel(this.plantelVisitante, 'visitante');
-  }
-
-  getJugadores(event) {
-    this.traeJugadores = true;
-    this.jugadoresAInvitar = event;
   }
 
   getPlanteles(event) {

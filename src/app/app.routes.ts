@@ -13,6 +13,8 @@ import {AuthGuardService} from "../services/auth.guard";
 import {OrganizarPartidoComponent} from './views/organizar-partido/organizar-partido.component';
 import {UnauthorizedComponent} from "./views/unauthorized/unauthorized.component";
 import {RoleGuardService} from "../services/role.guard";
+import {PartidoService} from '../services/partidoService';
+import {PartidoComponent} from './views/partido/partido.component';
 
 const appRoutes: Routes = [
   {
@@ -31,6 +33,8 @@ const appRoutes: Routes = [
     data:{type: 'Jugador'},
     children: [
       {path: '', component: HomeJugadorComponent},
+      {path: 'organizar', component: OrganizarPartidoComponent},
+      {path: ':id', component: PartidoComponent},
       {path: 'organizar', component: OrganizarPartidoComponent, canActivate:[AuthGuardService, RoleGuardService]}
     ],
   },
@@ -41,8 +45,8 @@ const appRoutes: Routes = [
     data: { type: 'Predio'},
     children: [
       {path: '', component: HomePredioComponent},
-      {path: 'registro/1', component: RegistrarPredio1Component, canActivate:[AuthGuardService, RoleGuardService]},
-      {path: 'registro/2', component: RegistroPredioMapaComponent, canActivate:[AuthGuardService, RoleGuardService]}
+      {path: 'registro/1', component: RegistrarPredio1Component, canActivate: [AuthGuardService, RoleGuardService]},
+      {path: 'registro/2', component: RegistroPredioMapaComponent, canActivate: [AuthGuardService, RoleGuardService]}
     ],
   },
   {path: '**', component: PageNotFoundComponent},
