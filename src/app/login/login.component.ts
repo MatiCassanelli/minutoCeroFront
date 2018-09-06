@@ -4,6 +4,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import * as global from '../app.global';
 import {Router} from '@angular/router';
 import {HomeJugadorComponent} from '../views/home-jugador/home-jugador.component';
+import {AuthService} from "../../services/auth.service";
+import {RoleService} from "../../services/role.service";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -23,7 +25,9 @@ export class LoginComponent implements OnInit {
   logout: string;
   predio = false;
 
-  constructor() {
+  constructor(private authService: AuthService,
+              private router: Router,
+              private roleService: RoleService) {
     this.predio = false;
     this.facebook = global.serverURL + '/auth/login/facebook/jugador/';
     this.google = global.serverURL + '/auth/login/google/jugador/';
@@ -31,6 +35,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(this.authService.isLoggedIn()){
+      this.roleService.redirectToHome();
+    }
   }
 
   setPredio(bool) {

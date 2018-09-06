@@ -11,6 +11,8 @@ import {HomePredioComponent} from './views/home-predio/home-predio.component';
 import {HomeJugadorComponent} from './views/home-jugador/home-jugador.component';
 import {AuthGuardService} from "../services/auth.guard";
 import {OrganizarPartidoComponent} from './views/organizar-partido/organizar-partido.component';
+import {UnauthorizedComponent} from "./views/unauthorized/unauthorized.component";
+import {RoleGuardService} from "../services/role.guard";
 
 const appRoutes: Routes = [
   {
@@ -20,25 +22,28 @@ const appRoutes: Routes = [
       {path: 'crear', component: CrearEquipoComponent},
       {path: 'info/:id', component: InfoEquipoComponent}
     ],
-    canActivate: [AuthGuardService]
+    data:{type: 'Jugador'},
+    canActivate: [AuthGuardService, RoleGuardService],
+    canActivateChild: [AuthGuardService, RoleGuardService]
   },
   {
     path: 'partido',
+    data:{type: 'Jugador'},
     children: [
       {path: '', component: HomeJugadorComponent},
-      {path: 'organizar', component: OrganizarPartidoComponent}
+      {path: 'organizar', component: OrganizarPartidoComponent, canActivate:[AuthGuardService, RoleGuardService]}
     ],
-    canActivate: [AuthGuardService]
   },
   {path: 'login', component: LoginComponent},
+  {path: 'unauthorized', component: UnauthorizedComponent},
   {
     path: 'predio',
+    data: { type: 'Predio'},
     children: [
       {path: '', component: HomePredioComponent},
-      {path: 'registro/1', component: RegistrarPredio1Component},
-      {path: 'registro/2', component: RegistroPredioMapaComponent}
+      {path: 'registro/1', component: RegistrarPredio1Component, canActivate:[AuthGuardService, RoleGuardService]},
+      {path: 'registro/2', component: RegistroPredioMapaComponent, canActivate:[AuthGuardService, RoleGuardService]}
     ],
-    canActivate: [AuthGuardService]
   },
   {path: '**', component: PageNotFoundComponent},
 ];
