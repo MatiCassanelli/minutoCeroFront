@@ -27,4 +27,8 @@ export class PredioService {
   getCanchas(idPredio) {
     return this.http.get(this.api + idPredio + '/canchas', global.httpOptions);
   }
+
+  getPredio(idPredio) {
+    return this.http.get<Predio>(this.api + idPredio, global.httpOptions);
+  }
 }

@@ -36,7 +36,16 @@ import {SelectButtonModule} from 'primeng/primeng';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {TabViewModule} from 'primeng/tabview';
 import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
+import { DataViewModule} from 'primeng/dataview';
+import {OrderListModule} from 'primeng/primeng';
+import {DataScrollerModule} from 'primeng/datascroller';
 
+
+// Material Design Components
+import {MatDividerModule} from '@angular/material/divider';
+import {MatListModule} from '@angular/material/list';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 
@@ -68,6 +77,8 @@ import { ViewsComponent } from './views/views.component';
 import { DeporteCanchaPartidoComponent } from './component/deporte-cancha-partido/deporte-cancha-partido.component';
 import { PlantelComponent } from './component/plantel/plantel.component';
 import { OrganizarPartidoComponent } from './views/organizar-partido/organizar-partido.component';
+import { PartidoComponent } from './views/partido/partido.component';
+import { ListadoPartidosComponent } from './component/listado-partidos/listado-partidos.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -83,7 +94,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     PageNotFoundComponent,
     EstrellasJugadorComponent,
     InvitarJugadoresComponent,
-    InvitarJugadoresComponent,
     NavBarComponent,
     LoginComponent,
     LoginComponent,
@@ -97,7 +107,9 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     ViewsComponent,
     DeporteCanchaPartidoComponent,
     PlantelComponent,
-    OrganizarPartidoComponent
+    OrganizarPartidoComponent,
+    PartidoComponent,
+    ListadoPartidosComponent,
   ],
   imports: [
     AppRouting,
@@ -113,6 +125,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     ButtonModule,
     RadioButtonModule,
     DropdownModule,
+    DataViewModule,
     AutoCompleteModule,
     CardModule,
     RatingModule,
@@ -120,6 +133,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     DialogModule,
     ConfirmDialogModule,
     MenuModule,
+    OrderListModule,
+    DataScrollerModule,
     MenubarModule,
     SidebarModule,
     InputMaskModule,
@@ -130,7 +145,11 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     SelectButtonModule,
     OverlayPanelModule,
     TabViewModule,
-    AngularDateTimePickerModule
+    AngularDateTimePickerModule,
+    MatDividerModule,
+    MatListModule,
+    MatIconModule,
+    MatTabsModule
   ],
   bootstrap: [AppComponent],
   schemas: [

@@ -11,6 +11,8 @@ import {HomePredioComponent} from './views/home-predio/home-predio.component';
 import {HomeJugadorComponent} from './views/home-jugador/home-jugador.component';
 import {AuthGuardService} from "../services/auth.guard";
 import {OrganizarPartidoComponent} from './views/organizar-partido/organizar-partido.component';
+import {PartidoService} from '../services/partidoService';
+import {PartidoComponent} from './views/partido/partido.component';
 
 const appRoutes: Routes = [
   {
@@ -26,7 +28,8 @@ const appRoutes: Routes = [
     path: 'partido',
     children: [
       {path: '', component: HomeJugadorComponent},
-      {path: 'organizar', component: OrganizarPartidoComponent}
+      {path: 'organizar', component: OrganizarPartidoComponent},
+      {path: ':id', component: PartidoComponent}
     ],
     canActivate: [AuthGuardService]
   },
