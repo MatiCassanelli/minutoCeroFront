@@ -19,7 +19,7 @@ export class PartidoComponent implements OnInit {
   idPartido: string;
   partido: Partido;
   displayDialog = false;
-  predio: Predio;
+  predio: Predio = new Predio();
   plantelLocal: Plantel;
   plantelVisitante: Plantel;
 

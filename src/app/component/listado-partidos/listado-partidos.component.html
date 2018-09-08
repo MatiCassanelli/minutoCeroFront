@@ -14,9 +14,9 @@
     <!--<img mat-card-image class="rounded-circle" src="http://placehold.it/60x60" alt="">-->
     <img matListAvatar class="rounded-circle" src="http://placehold.it/60x60" alt="">
 
-    <h4 mat-line style="text-align: center"><b>{{partido.dia | date:'HH:mm'}}</b></h4>
-    <p mat-line style="text-align: center"> {{partido.dia | date:'dd/MM/yyyy'}}</p>
-    <p mat-line style="text-align: center">{{predios[i].nombrePredio}}</p>
+    <h4 mat-line style="text-align: center"><b>{{partido?.dia | date:'HH:mm'}}</b></h4>
+    <p mat-line style="text-align: center"> {{partido?.dia | date:'dd/MM/yyyy'}}</p>
+    <p mat-line style="text-align: center">{{predios[i]?.nombrePredio}}</p>
 
     <img mat-card-image class="rounded-circle" src="http://placehold.it/60x60" alt="">
     <mat-divider></mat-divider>
