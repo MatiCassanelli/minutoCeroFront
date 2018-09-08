@@ -40,7 +40,6 @@ export class AuthService {
     else {
       this.http.get<Usuario>(this.api + 'usuarioInfo', httpOptions).subscribe(res => {
         if (res) {
-          debugger;
           localStorage.setItem('usuario', JSON.stringify(res));
           localStorage.setItem('type', res.type);
           localStorage.setItem('id', res._id);
@@ -50,7 +49,6 @@ export class AuthService {
           return;
         }
         else {
-          debugger;
           this.router.navigateByUrl('/login');
           return;
         }

@@ -23,7 +23,6 @@ export class HomeJugadorComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger;
     this.authService.logIn('Jugador');
     // if(!this.roleServie.isAllowed('Jugador'))
     //   this.router.navigateByUrl('/unauthorized');

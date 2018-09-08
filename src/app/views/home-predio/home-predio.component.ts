@@ -15,7 +15,6 @@ export class HomePredioComponent implements OnInit {
               private roleService: RoleService) { }
 
   ngOnInit() {
-    debugger;
     this.authService.logIn('Predio');
     // if(!this.roleService.isAllowed('Predio'))
     //   this.router.navigateByUrl('/unauthorized');
