@@ -35,7 +35,6 @@ export class RoleService {
   }
 
   checkType(type){
-    debugger;
     if(localStorage.getItem('usuario')){
       if(type === JSON.parse(localStorage.getItem('usuario')).type){
         return true;

@@ -6,14 +6,14 @@
         <div class="form-group row">
           <label for="cancha" class="col-sm-2 col-form-label"><strong>Tipo de Cancha</strong></label>
           <div class="col-sm-10">
-            <p id="cancha">{{partido.deporte.nombre}}</p>
+            <p id="cancha">{{partido.deporte.nombre}}</p> <!--aca tira error-->
 
           </div>
         </div>
         <div class="form-group row">
           <label for="horario" class="col-sm-2 col-form-label"><strong>Fecha y hora</strong></label>
           <div class="col-sm-10">
-            <p id="horario">{{partido.dia | date:'dd/MM/yyyy - HH:mm'}}</p>
+            <p id="horario">{{partido.dia | date:'dd/MM/yyyy - HH:mm'}}</p> <!--aca tira error-->
           </div>
         </div>
       </div>
@@ -24,7 +24,7 @@
                   (click)="displayDialog=true; mapa.setUbicacion(predio)"></button>
           <!--<button type="text" pButton label="Basic" (click)="op1.toggle($event)"></button>-->
         </div>
-        <label class="col-12 col-form-label"><strong>Predio: </strong>{{predio.nombrePredio}}</label>
+        <label class="col-12 col-form-label"><strong>Predio: </strong>{{predio.nombrePredio}}</label> <!--aca tira error-->
       </div>
       <app-plantel [setIdPartido]="idPartido" (sendPlantel)="getPlanteles($event)"></app-plantel>
     </div>

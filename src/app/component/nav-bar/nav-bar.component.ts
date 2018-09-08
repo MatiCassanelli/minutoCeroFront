@@ -31,7 +31,6 @@ export class NavBarComponent implements OnInit {
   }
 
   logOut(){
-    debugger;
     this.authService.logOut();
     window.location.href = this.logoutApi;
   }

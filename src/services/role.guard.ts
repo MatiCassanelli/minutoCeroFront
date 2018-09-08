@@ -10,7 +10,6 @@ export class RoleGuardService implements CanActivate{
               private roleService: RoleService){}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    debugger;
     if(this.roleService.checkType(route.data["type"]))
       return true;
     else{

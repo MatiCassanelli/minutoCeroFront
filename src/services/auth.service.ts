@@ -40,7 +40,6 @@ export class AuthService {
     else {
       this.http.get<Usuario>(this.api + 'usuarioInfo', httpOptions).subscribe(res => {
         if (res) {
-          debugger;
           localStorage.setItem('usuario', JSON.stringify(res));
           // this.roleService.redirectToHome();
           if (!this.roleService.isAllowed(type))
@@ -48,7 +47,6 @@ export class AuthService {
           return;
         }
         else {
-          debugger;
           this.router.navigateByUrl('/login');
           return;
         }

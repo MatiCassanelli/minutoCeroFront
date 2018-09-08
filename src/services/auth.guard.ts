@@ -19,7 +19,6 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
   }
 
   canActivateChild(route:ActivatedRouteSnapshot, state:RouterStateSnapshot):boolean{
-    debugger;
     if(this.authService.isLoggedIn()){
       return true;
     }
