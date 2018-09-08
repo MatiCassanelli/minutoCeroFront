@@ -1,10 +1,10 @@
 import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
-import { Jugador} from '../../models/jugador';
+import {Jugador} from '../../models/jugador';
 import {JugadorService} from '../../../services/jugadorService';
 import {EquipoService} from '../../../services/equipoService';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import { ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import {ViewChild} from '@angular/core';
+import {NgForm} from '@angular/forms';
 
 
 @Component({
@@ -33,7 +33,7 @@ export class InvitarJugadoresComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.form = this.fb.group ({
+    this.form = this.fb.group({
       jugador: null
     });
   }
@@ -71,16 +71,17 @@ export class InvitarJugadoresComponent implements OnInit {
     this.jugadoresSeleccionados.push(value);
     this.notifyParent.emit(this.jugadoresSeleccionados);
   }
+
   eliminarJug(value) {
     this.jugadoresSeleccionados.splice(this.jugadoresSeleccionados.indexOf(value), 1);
     this.notifyParent.emit(this.jugadoresSeleccionados);
   }
+
   ngOnChanges() {
     this.isReset = true;
-    if (this.isReset) {
-      this.jugadoresSeleccionados = [];
-      this.isReset = false;
+    this.jugadoresSeleccionados = [];
+    this.isReset = false;
+    if (this.myForm.status === 'VALID')
       this.myForm.resetForm();
-    }
   }
 }
