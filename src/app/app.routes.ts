@@ -25,7 +25,6 @@ const appRoutes: Routes = [
       {path: 'info/:id', component: InfoEquipoComponent}
     ],
     data:{type: 'Jugador'},
-    canActivate: [AuthGuardService, RoleGuardService],
     canActivateChild: [AuthGuardService, RoleGuardService]
   },
   {

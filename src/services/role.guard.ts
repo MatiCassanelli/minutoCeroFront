@@ -4,12 +4,21 @@ import {AuthService} from "./auth.service";
 import {RoleService} from "./role.service";
 
 @Injectable()
-export class RoleGuardService implements CanActivate{
+export class RoleGuardService implements CanActivate, CanActivateChild{
   constructor(public authService: AuthService,
               public router: Router,
               private roleService: RoleService){}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if(this.roleService.checkType(route.data["type"]))
+      return true;
+    else{
+      this.router.navigateByUrl('/unauthorized');
+      return false;
+    }
+  }
+
+  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if(this.roleService.checkType(route.data["type"]))
       return true;
     else{
