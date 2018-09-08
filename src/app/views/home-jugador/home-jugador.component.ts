@@ -19,10 +19,6 @@ export class HomeJugadorComponent implements OnInit {
               private router: Router,
               private authService: AuthService,
               private roleServie: RoleService) {
-    this.partidoService.getPartidos('Incompleto').subscribe(incompletos => {
-      console.log(incompletos);
-      this.partidosIncompletos = incompletos;
-    });
   }
 
   ngOnInit() {
@@ -32,15 +28,10 @@ export class HomeJugadorComponent implements OnInit {
   }
 
   onTabChange(event) {
-    console.log({severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index});
-    console.log(event);
     this.estado = event.header;
   }
 
   crearPartido() {
     this.router.navigateByUrl('/partido/organizar');
-  }
-  unirsePartido(idPartido) {
-    this.router.navigateByUrl('/partido/' + idPartido);
   }
 }

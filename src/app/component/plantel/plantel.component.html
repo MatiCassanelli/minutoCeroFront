@@ -18,13 +18,13 @@
       <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: left">
         <span style="padding: 0px 0px 15px;">Confirmados</span>
       </div>
-      <div *ngFor="let j of plantelLocal.jugadoresConfirmados">
+      <div *ngFor="let j of plantelLocal?.jugadoresConfirmados">
         <p (click)="remove(j, 'local')"><b>{{j.nombre}} {{j.apellido}}</b></p>
       </div>
       <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: left">
         <span style="padding: 0px 0px 15px;">No Confirmados</span>
       </div>
-      <div *ngFor="let j of plantelLocal.jugadores">
+      <div *ngFor="let j of plantelLocal?.jugadores">
         <p (click)="confirm1(j, 'local')">{{j.nombre}} {{j.apellido}}</p>
       </div>
     </p-scrollPanel>
@@ -37,13 +37,13 @@
       <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: left">
         <span style="padding: 0px 0px 15px;">Confirmados</span>
       </div>
-      <div *ngFor="let j of plantelVisitante.jugadoresConfirmados">
+      <div *ngFor="let j of plantelVisitante?.jugadoresConfirmados">
         <p (click)="remove(j, 'visitante')"><b>{{j.nombre}} {{j.apellido}}</b></p>
       </div>
       <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: left">
         <span style="padding: 0px 0px 15px;">No Confirmados</span>
       </div>
-      <div *ngFor="let j of plantelVisitante.jugadores">
+      <div *ngFor="let j of plantelVisitante?.jugadores">
         <!--<a (click)="addJugadorConfirmado()">{{j.nombre}} {{j.apellido}}</a>-->
         <p (click)="confirm1(j, 'visitante')">{{j.nombre}} {{j.apellido}}</p>
       </div>

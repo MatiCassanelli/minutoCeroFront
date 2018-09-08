@@ -28,10 +28,8 @@ export class ListadoPartidosComponent implements OnInit {
 
   ngOnInit() {
     this.partidoService.getPartidos(this.estado).subscribe(incompletos => {
-      console.log(incompletos);
       this.partidosIncompletos = incompletos;
       this.getInfoPredio(incompletos);
-      console.log(this.predios);
     });
   }
 
