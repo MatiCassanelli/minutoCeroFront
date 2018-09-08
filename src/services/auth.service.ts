@@ -42,6 +42,8 @@ export class AuthService {
         if (res) {
           debugger;
           localStorage.setItem('usuario', JSON.stringify(res));
+          localStorage.setItem('type', res.type);
+          localStorage.setItem('id', res._id);
           // this.roleService.redirectToHome();
           if (!this.roleService.isAllowed(type))
             this.router.navigateByUrl('/unauthorized');

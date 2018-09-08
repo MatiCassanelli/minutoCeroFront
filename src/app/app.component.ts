@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {AuthService} from "../services/auth.service";
+import * as socketIo from 'socket.io-client';
 
 
 @Component({
@@ -15,6 +14,12 @@ export class AppComponent {
 
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    var socket = socketIo('http://localhost:3000');
+    console.log('hello'+localStorage.getItem('id'));
+    socket.on('hello'+localStorage.getItem('id'), (data) =>
+      console.log(data)
+    );
+  }
 
 }

@@ -38,6 +38,7 @@ const appRoutes: Routes = [
       {path: 'organizar', component: OrganizarPartidoComponent, canActivate:[AuthGuardService, RoleGuardService]}
     ],
   },
+  {path: '', component: LoginComponent},
   {path: 'login', component: LoginComponent},
   {path: 'unauthorized', component: UnauthorizedComponent},
   {

@@ -19,10 +19,7 @@ export class HomeJugadorComponent implements OnInit {
               private router: Router,
               private authService: AuthService,
               private roleServie: RoleService) {
-    this.partidoService.getPartidos('Incompleto').subscribe(incompletos => {
-      console.log(incompletos);
-      this.partidosIncompletos = incompletos;
-    });
+
   }
 
   ngOnInit() {
@@ -30,6 +27,10 @@ export class HomeJugadorComponent implements OnInit {
     this.authService.logIn('Jugador');
     // if(!this.roleServie.isAllowed('Jugador'))
     //   this.router.navigateByUrl('/unauthorized');
+    this.partidoService.getPartidos('Incompleto').subscribe(incompletos => {
+      console.log(incompletos);
+      this.partidosIncompletos = incompletos;
+    });
   }
 
   onTabChange(event) {
