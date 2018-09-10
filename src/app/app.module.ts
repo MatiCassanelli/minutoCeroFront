@@ -64,6 +64,7 @@ import { RegistrarPredio1Component } from './views/registrar-predio1/registrar-p
 import { MapComponent } from './component/map/map.component';
 import { RegistroPredioMapaComponent } from './views/registro-predio-mapa/registro-predio-mapa.component';
 import {HomePredioComponent} from './views/home-predio/home-predio.component';
+import {HeaderViewComponent} from './component/header-view/header-view.component';
 
 // Swiper-wrapper library
 import { SwiperModule } from 'ngx-swiper-wrapper';
@@ -82,6 +83,7 @@ import { ListadoPartidosComponent } from './component/listado-partidos/listado-p
 import { UnauthorizedComponent } from './views/unauthorized/unauthorized.component';
 import { RoleGuardService } from '../services/role.guard';
 import {RoleService} from '../services/role.service';
+import {MatSidenavModule, MatToolbarModule} from '@angular/material';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -115,6 +117,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     OrganizarPartidoComponent,
     PartidoComponent,
     ListadoPartidosComponent,
+    HeaderViewComponent
   ],
   imports: [
     AppRouting,
@@ -154,7 +157,9 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatDividerModule,
     MatListModule,
     MatIconModule,
-    MatTabsModule
+    MatTabsModule,
+    MatToolbarModule,
+    MatSidenavModule
   ],
   bootstrap: [AppComponent],
   schemas: [
