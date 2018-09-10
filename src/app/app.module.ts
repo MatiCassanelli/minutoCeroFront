@@ -83,7 +83,7 @@ import { ListadoPartidosComponent } from './component/listado-partidos/listado-p
 import { UnauthorizedComponent } from './views/unauthorized/unauthorized.component';
 import { RoleGuardService } from '../services/role.guard';
 import {RoleService} from '../services/role.service';
-import {MatSidenavModule, MatToolbarModule} from '@angular/material';
+import {MatButtonModule, MatSidenavModule, MatToolbarModule} from '@angular/material';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -159,7 +159,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatIconModule,
     MatTabsModule,
     MatToolbarModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatButtonModule
   ],
   bootstrap: [AppComponent],
   schemas: [
