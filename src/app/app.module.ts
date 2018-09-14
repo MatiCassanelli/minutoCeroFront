@@ -86,6 +86,7 @@ import { RoleGuardService } from '../services/role.guard';
 import {RoleService} from '../services/role.service';
 import {MatButtonModule, MatSidenavModule, MatToolbarModule} from '@angular/material';
 import { MapDialogComponent } from './component/map-dialog/map-dialog.component';
+import { ConfirmDialogPlantelComponent } from './component/confirm-dialog-plantel/confirm-dialog-plantel.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -120,7 +121,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     PartidoComponent,
     ListadoPartidosComponent,
     HeaderViewComponent,
-    MapDialogComponent
+    MapDialogComponent,
+    ConfirmDialogPlantelComponent
   ],
   imports: [
     AppRouting,
@@ -184,6 +186,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     AuthGuardService,
     RoleGuardService
   ],
-  entryComponents: [MapComponent, MapDialogComponent]
+  entryComponents: [MapComponent, MapDialogComponent, ConfirmDialogPlantelComponent]
 })
 export class AppModule { }

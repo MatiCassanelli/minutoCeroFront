@@ -7,6 +7,9 @@ import {ConfirmationService} from 'primeng/api';
 import {Jugador} from '../../models/jugador';
 import {forkJoin} from 'rxjs/observable/forkJoin';
 import {Partido} from '../../models/partido';
+import {MatDialog, MatDialogRef} from '@angular/material';
+import {MapDialogComponent} from '../map-dialog/map-dialog.component';
+import {ConfirmDialogPlantelComponent} from '../confirm-dialog-plantel/confirm-dialog-plantel.component';
 
 @Component({
   selector: 'app-plantel',
@@ -30,6 +33,7 @@ export class PlantelComponent implements OnInit {
   noIds = false;
   idPartido: string;
   idOrganizador: string;
+  dialogRef: MatDialogRef<ConfirmDialogPlantelComponent>;
 
   @Input()
   set setIdPartido(name: string) {
@@ -40,7 +44,8 @@ export class PlantelComponent implements OnInit {
   constructor(private plantelService: PlantelService,
               private partidoService: PartidoService,
               private confirmationService: ConfirmationService,
-              private router: Router) {
+              private router: Router,
+              private dialog: MatDialog) {
     this.localInvitados = false;
     this.visitanteInvitados = false;
   }
@@ -111,7 +116,7 @@ export class PlantelComponent implements OnInit {
     if (localia === 'visitante') {
       const index: number = this.plantelVisitante.jugadores.indexOf(jugador);
       if (!this.noIds) {
-        return this.plantelService.addJugadorConfirmado(this.plantelVisitante._id, this.visitanteSeleccionado._id).subscribe(res => {
+        return this.plantelService.addJugadorConfirmado(this.plantelVisitante._id, jugador._id).subscribe(res => {
           this.plantelVisitante.jugadoresConfirmados = res.jugadoresConfirmados;
           this.plantelVisitante.jugadores.splice(index, 1);
           this.visitanteSeleccionado = null;
@@ -133,20 +138,42 @@ export class PlantelComponent implements OnInit {
     }
   }
 
-  confirm1(jugador, localia) {
-    // if (this.idOrganizador === idSession)
-    this.confirmationService.confirm({
-      message: 'Invitar a ' + jugador.nombre + jugador.apellido + ' al partido?',
-      header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        console.log('entrando...');
-        this.addJugadorConfirmado(jugador, localia);
+  openDialog(j, localia, accion) {
+    // this.fileNameDialogRef = this.dialog.open(MapComponent, {
+    this.dialogRef = this.dialog.open(ConfirmDialogPlantelComponent, {
+      data: {
+        jugador: j,
+        localia: localia,
+        accion: accion //if en el otro componennt para eliminar o agregar
       },
-      reject: () => {
-      }
+      width: '600px',
     });
+    this.dialogRef
+      .afterClosed()
+      .subscribe((jc) => {
+        if(jc && accion === 'confirm')
+          this.addJugadorConfirmado(jc, localia);
+        if(jc && accion === 'remove'){
+          console.log(jc);
+          this.removeConfirmado(jc, localia);
+        }
+
+      });
   }
+  // confirm1(jugador, localia) {
+  //   // if (this.idOrganizador === idSession)
+  //   this.confirmationService.confirm({
+  //     message: 'Invitar a ' + jugador.nombre + jugador.apellido + ' al partido?',
+  //     header: 'Confirmation',
+  //     icon: 'pi pi-exclamation-triangle',
+  //     accept: () => {
+  //       console.log('entrando...');
+  //       this.addJugadorConfirmado(jugador, localia);
+  //     },
+  //     reject: () => {
+  //     }
+  //   });
+  // }
 
   remove(jugador, localia) {
     this.confirmationService.confirm({
