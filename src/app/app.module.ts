@@ -63,8 +63,8 @@ import { FechaCarouselComponent } from './component/fecha-carousel/fecha-carouse
 import { RegistrarPredio1Component } from './views/registrar-predio1/registrar-predio1.component';
 import { MapComponent } from './component/map/map.component';
 import { RegistroPredioMapaComponent } from './views/registro-predio-mapa/registro-predio-mapa.component';
-import {HomePredioComponent} from './views/home-predio/home-predio.component';
 import {HeaderViewComponent} from './component/header-view/header-view.component';
+import { HomePredioComponent } from './views/home-predio/home-predio.component';
 
 // Swiper-wrapper library
 import { SwiperModule } from 'ngx-swiper-wrapper';

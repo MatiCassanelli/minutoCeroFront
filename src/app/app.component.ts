@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import * as socketIo from 'socket.io-client';
-
 
 @Component({
   selector: 'app-root',
@@ -15,11 +13,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    var socket = socketIo('http://localhost:3000');
-    console.log('hello'+localStorage.getItem('id'));
-    socket.on('hello'+localStorage.getItem('id'), (data) =>
-      console.log(data)
-    );
+
   }
 
 }
