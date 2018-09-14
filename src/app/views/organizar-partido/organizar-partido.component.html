@@ -7,8 +7,10 @@
       <div class="form-group row">
         <label for="Mapa" class="col-sm-2 col-form-label"><strong>Ubicación</strong></label>
         <div class="col-sm-10">
+          <!--<button pButton id="Mapa" type="button" label="Mapa" icon="fa-map-marker"-->
+                  <!--(click)="displayDialog=true; mapa.setAll(predios)"></button>-->
           <button pButton id="Mapa" type="button" label="Mapa" icon="fa-map-marker"
-                  (click)="displayDialog=true; mapa.setAll(predios)"></button>
+                  (click)="openDialog()"></button>
           <!--<button type="text" pButton label="Basic" (click)="op1.toggle($event)"></button>-->
         </div>
         <div *ngIf="mostrarLabel">
