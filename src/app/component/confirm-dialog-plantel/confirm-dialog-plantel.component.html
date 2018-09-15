@@ -1,0 +1,10 @@
+<h1 mat-dialog-title *ngIf="data.accion === 'confirm'; else delete">Confirmar {{data.jugador.nombre}} {{data.jugador.apellido}}</h1>
+<ng-template #delete>
+  <h1 mat-dialog-title>Eliminar {{data.jugador.nombre}} {{data.jugador.apellido}}</h1>
+</ng-template>
+<mat-dialog-content>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button type="submit" (click)="submit(data.jugador)">Aceptar</button>
+  <button mat-button type="button" mat-dialog-close>Cancelar</button>
+</mat-dialog-actions>

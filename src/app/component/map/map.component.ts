@@ -15,8 +15,12 @@ export class MapComponent implements OnInit, AfterContentInit {
   map: google.maps.Map;
   latitude = -31.416798;
   longitude = -64.183674;
+  predios: Predio[];
   @Input() direccion: string;
   @Input() geoposicion: boolean;
+  @Input() set setIdPartido(name: Predio[]) {
+    this.predios = name;
+  }
   @Output() sendUbicacion = new EventEmitter();
   @Output() sendInfo = new EventEmitter();
 
@@ -47,6 +51,9 @@ export class MapComponent implements OnInit, AfterContentInit {
         };
         this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
         this.initMap(position.coords.latitude, position.coords.longitude);
+        console.log('this.predios', this.predios);
+        if(this.predios !== undefined)
+          this.setAll(this.predios);
       });
     }
     else {
@@ -58,7 +65,10 @@ export class MapComponent implements OnInit, AfterContentInit {
       };
       this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
       this.initMap(this.latitude, this.longitude);
+      if(this.predios !== undefined)
+        this.setAll(this.predios);
     }
+
   }
 
   initMap(lat, lng) {
@@ -74,14 +84,6 @@ export class MapComponent implements OnInit, AfterContentInit {
       map: this.map,
       infoPredio: predio
     });
-    marker.addListener('click', () => {
-      if (predio !== null) {
-        this.infoMarker(marker, marker.infoPredio.nombrePredio);
-      } else {
-        this.infoMarker(marker, 'Estás acá');
-        marker.setIcon(this.icons.library.icon);
-      }
-    });
     if (predio !== null) {
       marker.addListener('dblclick', () => {
         // const res = this.geocodeLatLng(marker.getPosition());
@@ -89,10 +91,18 @@ export class MapComponent implements OnInit, AfterContentInit {
         this.sendInfo.emit(marker.infoPredio);
       });
     } else {
+      marker.setIcon(this.icons.library.icon);
       marker.addListener('dblclick', () => {
         this.sendUbicacion.emit(marker.getPosition());
       });
     }
+    marker.addListener('click', () => {
+      if (predio !== null) {
+        this.infoMarker(marker, marker.infoPredio.nombrePredio);
+      } else {
+        this.infoMarker(marker, 'Estás acá');
+      }
+    });
     this.map.panTo(position);
     return marker;
   }
@@ -142,11 +152,16 @@ export class MapComponent implements OnInit, AfterContentInit {
   }
 
   setAll(predios) {
-    for (let predio of predios) {
-      this.newMarker(new google.maps.LatLng(predio.ubicacionMaps.lat, predio.ubicacionMaps.lng), predio);
+    debugger;
+    if (!(predios instanceof Array)) {
+      this.newMarker(new google.maps.LatLng(predios.ubicacionMaps.lat, predios.ubicacionMaps.lng), predios);
       this.setCenter(this.latitude, this.longitude);
+    } else {
+      for (let predio of predios) {
+        this.newMarker(new google.maps.LatLng(predio.ubicacionMaps.lat, predio.ubicacionMaps.lng), predio);
+        this.setCenter(this.latitude, this.longitude);
+      }
     }
-    // this.newMarker(new google.maps.LatLng(), false);
   }
 
   setUbicacion(predio) {
