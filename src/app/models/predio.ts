@@ -3,4 +3,8 @@ export class Predio {
   nombre: string;
   telefono: string;
   horarios: Array<any>;
+  ubicacionMaps: {
+    lat: string,
+    lng: string
+  };
 }

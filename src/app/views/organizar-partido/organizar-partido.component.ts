@@ -11,6 +11,9 @@ import {PartidoService} from '../../../services/partidoService';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {DeporteService} from '../../../services/deporteService';
 import {forkJoin} from 'rxjs/observable/forkJoin';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import {MapDialogComponent} from '../../component/map-dialog/map-dialog.component';
+import {MapComponent} from '../../component/map/map.component';
 
 
 @Component({
@@ -40,6 +43,8 @@ export class OrganizarPartidoComponent implements OnInit {
   };
   mostrarLabel = false;
   idPartido = null;
+  // fileNameDialogRef: MatDialogRef<MapComponent>;
+  fileNameDialogRef: MatDialogRef<MapDialogComponent>;
 
   constructor(private fb: FormBuilder,
               private plantelService: PlantelService,
@@ -47,7 +52,8 @@ export class OrganizarPartidoComponent implements OnInit {
               private partidoService: PartidoService,
               private deporteService: DeporteService,
               private router: Router,
-              private confirmationService: ConfirmationService) {
+              private confirmationService: ConfirmationService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -61,6 +67,7 @@ export class OrganizarPartidoComponent implements OnInit {
       }
     });
     this.predioService.getAllPredios().subscribe(predios => {
+      console.log(predios);
       this.predios = predios;
     });
   }
@@ -113,6 +120,14 @@ export class OrganizarPartidoComponent implements OnInit {
       }).subscribe(partido => {
         this.router.navigateByUrl('/partido');
       });
+    });
+  }
+
+  openDialog() {
+    // this.fileNameDialogRef = this.dialog.open(MapComponent, {
+    this.fileNameDialogRef = this.dialog.open(MapDialogComponent, {
+      data: this.predios,
+      width: '600px',
     });
   }
 }

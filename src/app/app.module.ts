@@ -46,6 +46,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
+import { MatDialogModule } from '@angular/material';
 
 
 
@@ -84,6 +85,8 @@ import { UnauthorizedComponent } from './views/unauthorized/unauthorized.compone
 import { RoleGuardService } from '../services/role.guard';
 import {RoleService} from '../services/role.service';
 import {MatButtonModule, MatSidenavModule, MatToolbarModule} from '@angular/material';
+import { MapDialogComponent } from './component/map-dialog/map-dialog.component';
+import { ConfirmDialogPlantelComponent } from './component/confirm-dialog-plantel/confirm-dialog-plantel.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -117,7 +120,9 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     OrganizarPartidoComponent,
     PartidoComponent,
     ListadoPartidosComponent,
-    HeaderViewComponent
+    HeaderViewComponent,
+    MapDialogComponent,
+    ConfirmDialogPlantelComponent
   ],
   imports: [
     AppRouting,
@@ -160,7 +165,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatTabsModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule
   ],
   bootstrap: [AppComponent],
   schemas: [
@@ -179,6 +185,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     RoleService,
     AuthGuardService,
     RoleGuardService
-  ]
+  ],
+  entryComponents: [MapComponent, MapDialogComponent, ConfirmDialogPlantelComponent]
 })
 export class AppModule { }
