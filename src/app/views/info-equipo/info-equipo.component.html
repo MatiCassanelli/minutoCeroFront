@@ -22,9 +22,12 @@
       <app-invitar-jugadores (notifyParent)="getJugadoresPorInvitar($event)"></app-invitar-jugadores>
       <button pButton type="button" (click)="agregarNuevosJugadores()">Aceptar</button>
     </p-dialog>
-    <button pButton type="button" icon="pi pi-plus" class="rounded-circle"
-            style="float: right;" (click)="showDialog()"></button>
-
+    <div class="divb fab-container">
+      <button mat-fab class="fab-toggler" color="primary"
+              (click)="showDialog()">
+        <i class="material-icons">add</i>
+      </button>
+    </div>
   </div>
 </div>
 

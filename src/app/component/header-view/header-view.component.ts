@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {BreakpointObserver, Breakpoints, BreakpointState, MediaMatcher} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
@@ -17,6 +17,11 @@ import * as global from '../../app.global';
 export class HeaderViewComponent implements OnInit, OnDestroy {
 
   @ViewChild('drawer') sidenav: MatSidenav;
+  login = false;
+  @Input()
+  set logueado(name: boolean) {
+    this.login = name;
+  }
 
   mobileQuery: MediaQueryList;
 

@@ -15,6 +15,7 @@ import {UnauthorizedComponent} from "./views/unauthorized/unauthorized.component
 import {RoleGuardService} from "../services/role.guard";
 import {PartidoService} from '../services/partidoService';
 import {PartidoComponent} from './views/partido/partido.component';
+import {NotificacionesComponent} from './views/notificaciones/notificaciones.component';
 
 const appRoutes: Routes = [
   {
@@ -49,6 +50,8 @@ const appRoutes: Routes = [
       {path: 'registro/2', component: RegistroPredioMapaComponent, canActivate: [AuthGuardService, RoleGuardService]}
     ],
   },
+  {path: 'notificaciones', component: NotificacionesComponent},
+
   {path: '**', component: PageNotFoundComponent},
 ];
 
