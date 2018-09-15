@@ -7,6 +7,9 @@ import {Predio} from '../../models/predio';
 import {Plantel} from '../../models/plantel';
 import {PlantelService} from '../../../services/plantelService';
 import {ConfirmationService} from 'primeng/api';
+import {MatDialog, MatDialogRef} from '@angular/material';
+import {MapDialogComponent} from '../../component/map-dialog/map-dialog.component';
+import {debug} from 'util';
 
 @Component({
   selector: 'app-partido',
@@ -19,13 +22,15 @@ export class PartidoComponent implements OnInit {
   idPartido: string;
   partido: Partido;
   displayDialog = false;
-  predio: Predio = new Predio();
+  predio: Predio;
   plantelLocal: Plantel;
   plantelVisitante: Plantel;
+  fileNameDialogRef: MatDialogRef<MapDialogComponent>;
 
   constructor(private route: ActivatedRoute,
               private partidoService: PartidoService,
-              private predioService: PredioService) {
+              private predioService: PredioService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -50,5 +55,13 @@ export class PartidoComponent implements OnInit {
   getPlanteles(event) {
     this.plantelLocal = event[0];
     this.plantelVisitante = event[1];
+  }
+
+  openDialog() {
+    // this.fileNameDialogRef = this.dialog.open(MapComponent, {
+    this.fileNameDialogRef = this.dialog.open(MapDialogComponent, {
+      data: this.predio,
+      width: '600px',
+    });
   }
 }

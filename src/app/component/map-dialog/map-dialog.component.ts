@@ -16,7 +16,6 @@ export class MapDialogComponent implements OnInit {
   }
 
   submit() {
-    console.log('asd');
     this.dialogRef.close();
   }
 

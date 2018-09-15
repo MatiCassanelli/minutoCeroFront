@@ -32,6 +32,7 @@ export class PlantelComponent implements OnInit {
   resetForm = false;
   noIds = false;
   idPartido: string;
+  partido: Partido;
   idOrganizador: string;
   dialogRef: MatDialogRef<ConfirmDialogPlantelComponent>;
 
@@ -54,6 +55,7 @@ export class PlantelComponent implements OnInit {
     console.log(this.idPartido);
     if (this.idPartido) {
       this.partidoService.getPartido(this.idPartido).subscribe(partido => {
+        this.partido = partido;
         this.plantelLocal = partido.grupoLocal;
         this.plantelVisitante = partido.grupoVisitante;
         this.idOrganizador = partido.organizador._id;

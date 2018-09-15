@@ -51,6 +51,7 @@ export class MapComponent implements OnInit, AfterContentInit {
         };
         this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
         this.initMap(position.coords.latitude, position.coords.longitude);
+        console.log('this.predios', this.predios);
         if(this.predios !== undefined)
           this.setAll(this.predios);
       });
@@ -151,11 +152,16 @@ export class MapComponent implements OnInit, AfterContentInit {
   }
 
   setAll(predios) {
-    for (let predio of predios) {
-      this.newMarker(new google.maps.LatLng(predio.ubicacionMaps.lat, predio.ubicacionMaps.lng), predio);
+    debugger;
+    if (!(predios instanceof Array)) {
+      this.newMarker(new google.maps.LatLng(predios.ubicacionMaps.lat, predios.ubicacionMaps.lng), predios);
       this.setCenter(this.latitude, this.longitude);
+    } else {
+      for (let predio of predios) {
+        this.newMarker(new google.maps.LatLng(predio.ubicacionMaps.lat, predio.ubicacionMaps.lng), predio);
+        this.setCenter(this.latitude, this.longitude);
+      }
     }
-    // this.newMarker(new google.maps.LatLng(), false);
   }
 
   setUbicacion(predio) {
