@@ -22,6 +22,7 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
   set logueado(name: boolean) {
     this.login = name;
   }
+  @Input() cantidad: number;
 
   mobileQuery: MediaQueryList;
 
@@ -54,6 +55,7 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log(this.cantidad);
   }
 
 }

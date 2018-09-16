@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import * as socketIo from 'socket.io-client';
 
 @Component({
@@ -8,6 +8,7 @@ import * as socketIo from 'socket.io-client';
 })
 export class AppComponent {
   title = 'app';
+  cantidad = 0;
 
   constructor() {
 
@@ -16,9 +17,11 @@ export class AppComponent {
   ngOnInit() {
     const socket = socketIo('http://localhost:3000');
     // console.log('hello'+localStorage.getItem('id'));
-    socket.on('Reserva' + localStorage.getItem('id'), (data) =>
-      console.log(data)
-    );
+    this.cantidad = 0;
+    socket.on('Reserva' + localStorage.getItem('id'), (data) => {
+        this.cantidad += 1;
+        console.log(data);
+      });
   }
 
 }

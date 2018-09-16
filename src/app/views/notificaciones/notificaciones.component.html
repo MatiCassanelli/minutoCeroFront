@@ -1,4 +1,6 @@
-<div *ngFor="let i of [1,2,3]">
-  <app-card-notificacion [setAccion]="'Reserva'" [setRespuesta]="'Aceptada'"></app-card-notificacion>
+<div>
+  <app-card-notificacion [a]="'Reserva'" [r]="'Aceptada'"></app-card-notificacion>
+  <app-card-notificacion [a]="'Solicitud a Equipo'" [r]="'Aceptada'"></app-card-notificacion>
+  <app-card-notificacion [a]="'Reserva'" [r]="'Rechazada'"></app-card-notificacion>
 </div>
 

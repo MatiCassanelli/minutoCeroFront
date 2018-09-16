@@ -24,11 +24,11 @@ export class HomeJugadorComponent implements OnInit {
 
   ngOnInit() {
     this.authService.logIn('Jugador');
-    var socket = socketIo('http://localhost:3000');
-    // console.log('hello'+localStorage.getItem('id'));
-    socket.on('Reserva'+localStorage.getItem('id'), (data) =>
-      console.log(data)
-    );
+    // var socket = socketIo('http://localhost:3000');
+    // // console.log('hello'+localStorage.getItem('id'));
+    // socket.on('Reserva'+localStorage.getItem('id'), (data) =>
+    //   console.log(data)
+    // );
     // if(!this.roleServie.isAllowed('Jugador'))
     //   this.router.navigateByUrl('/unauthorized');
   }

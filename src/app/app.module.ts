@@ -50,6 +50,7 @@ import {MatCardModule, MatDialogModule} from '@angular/material';
 
 
 
+
 // Components imports
 import { DragScrollModule } from 'ngx-drag-scroll';
 import { AppComponent } from './app.component';

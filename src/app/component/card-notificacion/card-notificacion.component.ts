@@ -7,17 +7,17 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class CardNotificacionComponent implements OnInit {
 
-  a: string;
-  r: string;
+  @Input() a: string;
+  @Input() r: string;
   accion: string;
   respuesta: string;
 
   @Input() setAccion(accion: string) {
-    this.a = accion;
+    this.accion = accion;
   }
 
   @Input() setRespuesta(respuesta: string) {
-    this.r = respuesta;
+    this.respuesta = respuesta;
   }
 
 
