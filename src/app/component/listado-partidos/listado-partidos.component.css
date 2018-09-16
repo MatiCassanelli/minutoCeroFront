@@ -4,3 +4,9 @@
   height: 60px;
   border-radius: 50%;
 }
+.mat-card-image{
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
