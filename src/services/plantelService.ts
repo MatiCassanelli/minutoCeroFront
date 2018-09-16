@@ -29,4 +29,11 @@ export class PlantelService {
     }, global.httpOptions);
   }
 
+  updatePlantel(plantel) {
+    return this.http.put<Plantel>(this.api + plantel._id, {
+      'jugadoresConfirmados': plantel.jugadoresConfirmados,
+      'jugadores': plantel.jugadores
+    }, global.httpOptions);
+  }
+
 }

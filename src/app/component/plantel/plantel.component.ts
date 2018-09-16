@@ -62,17 +62,6 @@ export class PlantelComponent implements OnInit {
         this.getJugadoresPlantel(this.plantelLocal, 'local');
         this.getJugadoresPlantel(this.plantelVisitante, 'visitante');
       });
-
-      // this.partidoService.getPartido(this.idPartido).subscribe(partido => {
-      //   debugger;
-      //   forkJoin(this.plantelService.getPlantel(partido.grupoLocal),
-      //     this.plantelService.getPlantel(partido.grupoVisitante)).subscribe(res => {
-      //     this.plantelLocal = res[0];
-      //     this.plantelVisitante = res[1];
-      //     this.getJugadoresPlantel(this.plantelLocal, 'local');
-      //     this.getJugadoresPlantel(this.plantelVisitante, 'visitante');
-      //   });
-      // });
     } else {
       console.log('else idpartido');
       this.noIds = true;
@@ -150,32 +139,16 @@ export class PlantelComponent implements OnInit {
       },
       width: '600px',
     });
-    this.dialogRef
-      .afterClosed()
-      .subscribe((jc) => {
-        if(jc && accion === 'confirm')
+    this.dialogRef.afterClosed().subscribe((jc) => {
+        if (jc && accion === 'confirm')
           this.addJugadorConfirmado(jc, localia);
-        if(jc && accion === 'remove'){
+        if (jc && accion === 'remove') {
           console.log(jc);
           this.removeConfirmado(jc, localia);
         }
 
       });
   }
-  // confirm1(jugador, localia) {
-  //   // if (this.idOrganizador === idSession)
-  //   this.confirmationService.confirm({
-  //     message: 'Invitar a ' + jugador.nombre + jugador.apellido + ' al partido?',
-  //     header: 'Confirmation',
-  //     icon: 'pi pi-exclamation-triangle',
-  //     accept: () => {
-  //       console.log('entrando...');
-  //       this.addJugadorConfirmado(jugador, localia);
-  //     },
-  //     reject: () => {
-  //     }
-  //   });
-  // }
 
   remove(jugador, localia) {
     this.confirmationService.confirm({
@@ -192,12 +165,16 @@ export class PlantelComponent implements OnInit {
   }
   removeConfirmado(jugador, localia) {
     if(localia === 'local') {
-      const index: number = this.plantelLocal.jugadores.indexOf(jugador);
-      this.plantelLocal.jugadoresConfirmados.splice(index, 1);
+      const index: number = this.plantelLocal.jugadoresConfirmados.indexOf(jugador);
+      this.plantelService.addJugadorConfirmado(this.plantelLocal._id, jugador._id).subscribe(() => {
+        this.plantelLocal.jugadoresConfirmados.splice(index, 1);
+      });
     }
     if(localia === 'visitante') {
-      const index: number = this.plantelVisitante.jugadores.indexOf(jugador);
-      this.plantelVisitante.jugadoresConfirmados.splice(index, 1);
+      const index: number = this.plantelVisitante.jugadoresConfirmados.indexOf(jugador);
+      this.plantelService.addJugadorConfirmado(this.plantelLocal._id, jugador._id).subscribe(() => {
+        this.plantelVisitante.jugadoresConfirmados.splice(index, 1);
+      });
     }
   }
 
