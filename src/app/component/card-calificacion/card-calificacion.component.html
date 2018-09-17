@@ -1,0 +1,48 @@
+<div style="margin: 3%;">
+  <mat-expansion-panel [expanded]="step === i">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h6>Calificación</h6>
+      </mat-panel-title>
+      <mat-panel-description>
+        {{destinatario.jop}} {{destinatario.i}}
+        <mat-icon>directions_run</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <!--<mat-slider-->
+    <!--class="example-margin"-->
+    <!--color="primary"-->
+    <!--[max]="10"-->
+    <!--[min]="1"-->
+    <!--[step]="1"-->
+    <!--[thumbLabel]="true"-->
+    <!--[tickInterval]="1">-->
+    <!--</mat-slider>-->
+    <div class="form-group">
+      <div class="row" style="padding: 0 24px; align-items: center">
+        <label class="ui-grid-col-1 col-form-label"><strong>Personalidad </strong></label>
+        <div class="ui-grid-col-5"></div>
+        <p-rating id="estrella1" class="ui-grid-col-5" [cancel]="false" style="text-align: right"
+                  [(ngModel)]="puntuacion.personalidad"></p-rating>
+      </div>
+      <div class="row" style="padding: 0 24px; align-items: center">
+        <label class="ui-grid-col-1 col-form-label"><strong>Técnica </strong></label>
+        <div class="ui-grid-col-5"></div>
+        <p-rating id="estrella2" class="ui-grid-col-5" [cancel]="false" style="text-align: right"
+                  [(ngModel)]="puntuacion.tecnica"></p-rating>
+      </div>
+      <div class="row" style="padding: 0 24px; align-items: center">
+        <label class="ui-grid-col-1 col-form-label"><strong>Puntualidad </strong></label>
+        <div class="ui-grid-col-5"></div>
+        <p-rating id="estrella3" class="ui-grid-col-5" [cancel]="false" style="text-align: right"
+                  [(ngModel)]="puntuacion.puntualidad"></p-rating>
+      </div>
+    </div>
+
+
+    <mat-action-row>
+      <button mat-button color="warn">Previous</button>
+      <button mat-button color="primary" (click)="setPuntaje()">End</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</div>

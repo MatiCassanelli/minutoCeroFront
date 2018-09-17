@@ -16,6 +16,7 @@ import {RoleGuardService} from "../services/role.guard";
 import {PartidoService} from '../services/partidoService';
 import {PartidoComponent} from './views/partido/partido.component';
 import {NotificacionesComponent} from './views/notificaciones/notificaciones.component';
+import {PuntuacionComponent} from './views/puntuacion/puntuacion.component';
 
 const appRoutes: Routes = [
   {
@@ -51,6 +52,7 @@ const appRoutes: Routes = [
     ],
   },
   {path: 'notificaciones', component: NotificacionesComponent},
+  {path: 'puntuaciones', component: PuntuacionComponent},
 
   {path: '**', component: PageNotFoundComponent},
 ];

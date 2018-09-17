@@ -30,10 +30,6 @@ h1.example-app-name {
   flex: 1 0 auto;
 }
 
-.spacer {
-  flex: 1 1 auto;
-}
-
 .badge {
   position: absolute;
   top: 0;

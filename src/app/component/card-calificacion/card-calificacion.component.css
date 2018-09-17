@@ -1,0 +1,12 @@
+/*::ng-deep .mat-accent .mat-slider-thumb {*/
+  /*background-color: indigo;*/
+/*}*/
+/*::ng-deep .mat-accent .mat-slider-thumb-label {*/
+  /*background-color: indigo;*/
+/*}*/
+/*::ng-deep .mat-accent .mat-slider-track-fill {*/
+  /*background-color: indigo;*/
+/*}*/
+.spacer {
+  flex: 1 1 auto;
+}

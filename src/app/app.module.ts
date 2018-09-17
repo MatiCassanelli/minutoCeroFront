@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-// import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import 'hammerjs';
 
 
 // Routes imports
@@ -46,9 +46,8 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
-import {MatCardModule, MatDialogModule} from '@angular/material';
-
-
+import {MatCardModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSliderModule} from '@angular/material';
+import {MatExpansionModule} from '@angular/material';
 
 
 // Components imports
@@ -90,6 +89,8 @@ import { MapDialogComponent } from './component/map-dialog/map-dialog.component'
 import { ConfirmDialogPlantelComponent } from './component/confirm-dialog-plantel/confirm-dialog-plantel.component';
 import { CardNotificacionComponent } from './component/card-notificacion/card-notificacion.component';
 import { NotificacionesComponent } from './views/notificaciones/notificaciones.component';
+import { CardCalificacionComponent } from './component/card-calificacion/card-calificacion.component';
+import { PuntuacionComponent } from './views/puntuacion/puntuacion.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -127,7 +128,9 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MapDialogComponent,
     ConfirmDialogPlantelComponent,
     CardNotificacionComponent,
-    NotificacionesComponent
+    NotificacionesComponent,
+    CardCalificacionComponent,
+    PuntuacionComponent
   ],
   imports: [
     AppRouting,
@@ -172,7 +175,11 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatSidenavModule,
     MatButtonModule,
     MatDialogModule,
-    MatCardModule
+    MatCardModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSliderModule
   ],
   bootstrap: [AppComponent],
   schemas: [
