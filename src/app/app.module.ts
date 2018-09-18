@@ -46,8 +46,11 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
-import {MatCardModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSliderModule} from '@angular/material';
+import {MatCardModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatSliderModule} from '@angular/material';
 import {MatExpansionModule} from '@angular/material';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
+
 
 
 // Components imports
@@ -91,6 +94,9 @@ import { CardNotificacionComponent } from './component/card-notificacion/card-no
 import { NotificacionesComponent } from './views/notificaciones/notificaciones.component';
 import { CardCalificacionComponent } from './component/card-calificacion/card-calificacion.component';
 import { PuntuacionComponent } from './views/puntuacion/puntuacion.component';
+import { ReservaIndependienteComponent } from './views/reserva-independiente/reserva-independiente.component';
+import {AmazingTimePickerModule, AmazingTimePickerService} from 'amazing-time-picker';
+
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -130,7 +136,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     CardNotificacionComponent,
     NotificacionesComponent,
     CardCalificacionComponent,
-    PuntuacionComponent
+    PuntuacionComponent,
+    ReservaIndependienteComponent
   ],
   imports: [
     AppRouting,
@@ -179,7 +186,10 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatExpansionModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSliderModule
+    MatSliderModule,
+    AmazingTimePickerModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   bootstrap: [AppComponent],
   schemas: [
@@ -197,7 +207,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     AuthService,
     RoleService,
     AuthGuardService,
-    RoleGuardService
+    RoleGuardService,
+    MatDatepickerModule
   ],
   entryComponents: [MapComponent, MapDialogComponent, ConfirmDialogPlantelComponent]
 })

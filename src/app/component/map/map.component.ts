@@ -152,7 +152,6 @@ export class MapComponent implements OnInit, AfterContentInit {
   }
 
   setAll(predios) {
-    debugger;
     if (!(predios instanceof Array)) {
       this.newMarker(new google.maps.LatLng(predios.ubicacionMaps.lat, predios.ubicacionMaps.lng), predios);
       this.setCenter(this.latitude, this.longitude);

@@ -3,12 +3,26 @@
     <div class="container ui-fluid">
       <app-deporte-cancha-partido (canchaSeleccionada)="getTipoCancha($event)"
                                   (fechaSeleccionada)="getFecha($event)"></app-deporte-cancha-partido>
+      <!--<button mat-button >Time</button>-->
+      <!--<input matInput value="{{selectedTime}}"/>-->
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input matInput value="{{selectedTime}}" placeholder="Hora">
+            <mat-icon matSuffix (click)="open()">schedule</mat-icon>
+        </mat-form-field>
 
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+      </form>
       <div class="form-group row">
         <label for="Mapa" class="col-sm-2 col-form-label"><strong>Ubicación</strong></label>
         <div class="col-sm-10">
           <!--<button pButton id="Mapa" type="button" label="Mapa" icon="fa-map-marker"-->
-                  <!--(click)="displayDialog=true; mapa.setAll(predios)"></button>-->
+          <!--(click)="displayDialog=true; mapa.setAll(predios)"></button>-->
           <button pButton id="Mapa" type="button" label="Mapa" icon="fa-map-marker"
                   (click)="openDialog()"></button>
           <!--<button type="text" pButton label="Basic" (click)="op1.toggle($event)"></button>-->
@@ -17,8 +31,6 @@
           <label class="col-12 col-form-label"><strong>Predio elegido: </strong>{{selectedPredio?.nombrePredio}}</label>
         </div>
       </div>
-
-      <app-plantel (sendPlantel)="getPlanteles($event)"></app-plantel>
     </div>
 
     <p-footer>
