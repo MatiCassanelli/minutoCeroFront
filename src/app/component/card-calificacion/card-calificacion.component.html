@@ -1,12 +1,19 @@
-<div style="margin: 3%;">
-  <mat-expansion-panel [expanded]="step === i">
+<div style="margin: 3%;" *ngIf="!puntuado">
+  <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
         <h6>Calificación</h6>
       </mat-panel-title>
       <mat-panel-description>
-        {{destinatario.jop}} {{destinatario.i}}
-        <mat-icon>directions_run</mat-icon>
+        <div *ngIf="jugador; else Predio">
+          {{jugador.nombre}} {{jugador.apellido}}
+          <mat-icon>directions_run</mat-icon>
+        </div>
+        <ng-template #Predio>
+          {{predio?.nombrePredio}}
+          <mat-icon>border_vertical</mat-icon>
+        </ng-template>
+
       </mat-panel-description>
     </mat-expansion-panel-header>
     <!--<mat-slider-->
@@ -20,24 +27,46 @@
     <!--</mat-slider>-->
     <div class="form-group">
       <div class="row" style="padding: 0 24px; align-items: center">
-        <label class="ui-grid-col-1 col-form-label"><strong>Personalidad </strong></label>
+        <label class="ui-grid-col-1 col-form-label"><strong>{{tags[0].label}} </strong></label>
         <div class="ui-grid-col-5"></div>
-        <p-rating id="estrella1" class="ui-grid-col-5" [cancel]="false" style="text-align: right"
-                  [(ngModel)]="puntuacion.personalidad"></p-rating>
+        <p-rating class="ui-grid-col-5" [cancel]="false" style="text-align: right"
+                  [(ngModel)]="puntaje1"></p-rating>
       </div>
       <div class="row" style="padding: 0 24px; align-items: center">
-        <label class="ui-grid-col-1 col-form-label"><strong>Técnica </strong></label>
+        <label class="ui-grid-col-1 col-form-label"><strong>{{tags[1].label}} </strong></label>
         <div class="ui-grid-col-5"></div>
-        <p-rating id="estrella2" class="ui-grid-col-5" [cancel]="false" style="text-align: right"
-                  [(ngModel)]="puntuacion.tecnica"></p-rating>
+        <p-rating class="ui-grid-col-5" [cancel]="false" style="text-align: right"
+                  [(ngModel)]="puntaje2"></p-rating>
       </div>
       <div class="row" style="padding: 0 24px; align-items: center">
-        <label class="ui-grid-col-1 col-form-label"><strong>Puntualidad </strong></label>
+        <label class="ui-grid-col-1 col-form-label"><strong>{{tags[2].label}} </strong></label>
         <div class="ui-grid-col-5"></div>
-        <p-rating id="estrella3" class="ui-grid-col-5" [cancel]="false" style="text-align: right"
-                  [(ngModel)]="puntuacion.puntualidad"></p-rating>
+        <p-rating class="ui-grid-col-5" [cancel]="false" style="text-align: right"
+                  [(ngModel)]="puntaje3"></p-rating>
       </div>
     </div>
+    <!--<ng-template #Predio>-->
+    <!--<div class="form-group">-->
+    <!--<div class="row" style="padding: 0 24px; align-items: center">-->
+    <!--<label class="ui-grid-col-1 col-form-label"><strong>Atención </strong></label>-->
+    <!--<div class="ui-grid-col-5"></div>-->
+    <!--<p-rating class="ui-grid-col-5" [cancel]="false" style="text-align: right"-->
+    <!--[(ngModel)]="puntuacionPredio.atencion"></p-rating>-->
+    <!--</div>-->
+    <!--<div class="row" style="padding: 0 24px; align-items: center">-->
+    <!--<label class="ui-grid-col-1 col-form-label"><strong>Estado Canchas </strong></label>-->
+    <!--<div class="ui-grid-col-5"></div>-->
+    <!--<p-rating class="ui-grid-col-5" [cancel]="false" style="text-align: right"-->
+    <!--[(ngModel)]="puntuacionPredio.estado"></p-rating>-->
+    <!--</div>-->
+    <!--<div class="row" style="padding: 0 24px; align-items: center">-->
+    <!--<label class="ui-grid-col-1 col-form-label"><strong>Precio </strong></label>-->
+    <!--<div class="ui-grid-col-5"></div>-->
+    <!--<p-rating class="ui-grid-col-5" [cancel]="false" style="text-align: right"-->
+    <!--[(ngModel)]="puntuacionPredio.precio"></p-rating>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</ng-template>-->
 
 
     <mat-action-row>

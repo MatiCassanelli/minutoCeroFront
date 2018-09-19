@@ -1,5 +1,6 @@
-
-<app-card-calificacion [i]="1" [destinatario]="{jop:'jugador', i: 1}"></app-card-calificacion>
-<app-card-calificacion [i]="2" [destinatario]="{jop:'jugador', i: 2}"></app-card-calificacion>
-<app-card-calificacion [i]="3" [destinatario]="{jop:'jugador', i: 3}"></app-card-calificacion>
-<app-card-calificacion [i]="4" [destinatario]="{jop:'Predio', i: 1}"></app-card-calificacion>
+<div *ngFor="let predio of predios">
+  <app-card-calificacion (sendCalificacion)="setCalificacion($event)" [predio]="predio"></app-card-calificacion>
+</div>
+<div *ngFor="let jugador of jugadores">
+  <app-card-calificacion (sendCalificacion)="setCalificacion($event)" [jugador]="jugador"></app-card-calificacion>
+</div>
