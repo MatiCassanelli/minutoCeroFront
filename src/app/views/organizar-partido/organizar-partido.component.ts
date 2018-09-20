@@ -103,8 +103,8 @@ export class OrganizarPartidoComponent implements OnInit {
   crearPartido() {
     console.log(this.canchaSeleccionada, this.fechaPartido);
     let cancha: any;
-    // forkJoin(this.predioService.getCanchas(this.selectedPredio._id),
-    forkJoin(this.predioService.getCanchas(),
+    forkJoin(this.predioService.getCanchasWithPredio(this.selectedPredio._id),
+    // forkJoin(this.predioService.getCanchas(),
       this.plantelService.createPlantel(this.plantelLocal, 'Local'),
       this.plantelService.createPlantel(this.plantelVisitante, 'Visitante')).subscribe(res => {
       cancha = res[0][0];
@@ -124,10 +124,16 @@ export class OrganizarPartidoComponent implements OnInit {
   }
 
   openDialog() {
-    // this.fileNameDialogRef = this.dialog.open(MapComponent, {
     this.fileNameDialogRef = this.dialog.open(MapDialogComponent, {
       data: this.predios,
       width: '600px',
+    });
+    this.fileNameDialogRef.afterClosed().subscribe((res) => {
+      if(res) {
+        this.ubicacion = res.ubicacion;
+        this.selectedPredio = res.predio;
+      }
+
     });
   }
 }

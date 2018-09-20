@@ -84,23 +84,27 @@ export class MapComponent implements OnInit, AfterContentInit {
       map: this.map,
       infoPredio: predio
     });
-    if (predio !== null) {
-      marker.addListener('dblclick', () => {
-        // const res = this.geocodeLatLng(marker.getPosition());
-        this.sendUbicacion.emit(marker.getPosition());
-        this.sendInfo.emit(marker.infoPredio);
-      });
-    } else {
+    if (predio === null)
       marker.setIcon(this.icons.library.icon);
-      marker.addListener('dblclick', () => {
-        this.sendUbicacion.emit(marker.getPosition());
-      });
-    }
+    //   marker.addListener('dblclick', () => {
+    //     // const res = this.geocodeLatLng(marker.getPosition());
+    //     this.sendUbicacion.emit(marker.getPosition());
+    //     this.sendInfo.emit(marker.infoPredio);
+    //   });
+    // } else {
+    //   marker.setIcon(this.icons.library.icon);
+    //   marker.addListener('dblclick', () => {
+    //     this.sendUbicacion.emit(marker.getPosition());
+    //   });
+    // }
     marker.addListener('click', () => {
       if (predio !== null) {
         this.infoMarker(marker, marker.infoPredio.nombrePredio);
+        this.sendUbicacion.emit(marker.getPosition());
+        this.sendInfo.emit(marker.infoPredio);
       } else {
         this.infoMarker(marker, 'Estás acá');
+        this.sendUbicacion.emit(marker.getPosition());
       }
     });
     this.map.panTo(position);

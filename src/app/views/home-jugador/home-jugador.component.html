@@ -1,17 +1,27 @@
 <!--<p-tabView (onChange)="onTabChange($event)" >-->
-  <!--<p-tabPanel header="Incompletos" [selected]="true" rightIcon="pi pi-user-plus">-->
+  <!--<p-tabPanel header="Incompletos" [selected]="true" >-->
     <!--<app-listado-partidos [setEstadoPartido]="'Incompleto'"></app-listado-partidos>-->
+    <!--<div class="fab-container">-->
+      <!--<button mat-fab class="fab-toggler" color="primary"-->
+              <!--(click)="crearPartido()">-->
+        <!--<i class="material-icons">add</i>-->
+      <!--</button>-->
+    <!--</div>-->
   <!--</p-tabPanel>-->
-  <!--<p-tabPanel header="Jugando" rightIcon="pi pi-users">-->
-      <!--<app-listado-partidos [setEstadoPartido]="'Jugando'"></app-listado-partidos>-->
-    <!--<p-button (click)="crearPartido()">Crear Partido</p-button>-->
+  <!--<p-tabPanel header="Jugando">-->
+    <!--<app-listado-partidos [setEstadoPartido]="'Jugando'"></app-listado-partidos>-->
   <!--</p-tabPanel>-->
-  <!--<p-tabPanel header="Completos" rightIcon="pi pi-calendar">-->
+  <!--<p-tabPanel header="Completos" >-->
     <!--<app-listado-partidos [setEstadoPartido]="'Finalizado'"></app-listado-partidos>-->
   <!--</p-tabPanel>-->
 <!--</p-tabView>-->
-<p-tabView (onChange)="onTabChange($event)" >
-  <p-tabPanel header="Incompletos" [selected]="true" >
+
+<mat-tab-group>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <!--<mat-icon class="example-tab-icon">thumb_up</mat-icon>-->
+      Incompletos
+    </ng-template>
     <app-listado-partidos [setEstadoPartido]="'Incompleto'"></app-listado-partidos>
     <div class="fab-container">
       <button mat-fab class="fab-toggler" color="primary"
@@ -19,11 +29,20 @@
         <i class="material-icons">add</i>
       </button>
     </div>
-  </p-tabPanel>
-  <p-tabPanel header="Jugando">
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <!--<mat-icon class="example-tab-icon">thumb_up</mat-icon>-->
+      Jugando
+    </ng-template>
     <app-listado-partidos [setEstadoPartido]="'Jugando'"></app-listado-partidos>
-  </p-tabPanel>
-  <p-tabPanel header="Completos" >
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <!--<mat-icon class="example-tab-icon">thumb_up</mat-icon>-->
+      Finalizados
+    </ng-template>
     <app-listado-partidos [setEstadoPartido]="'Finalizado'"></app-listado-partidos>
-  </p-tabPanel>
-</p-tabView>
+
+  </mat-tab>
+</mat-tab-group>
