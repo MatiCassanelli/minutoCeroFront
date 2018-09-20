@@ -14,6 +14,7 @@ import {forkJoin} from 'rxjs/observable/forkJoin';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import {MapDialogComponent} from '../../component/map-dialog/map-dialog.component';
 import {MapComponent} from '../../component/map/map.component';
+import {ReservaService} from '../../../services/reservaService';
 
 
 @Component({
@@ -24,7 +25,8 @@ import {MapComponent} from '../../component/map/map.component';
     PlantelService,
     PredioService,
     PartidoService,
-    DeporteService]
+    DeporteService,
+  ReservaService]
 })
 export class OrganizarPartidoComponent implements OnInit {
 
@@ -53,7 +55,8 @@ export class OrganizarPartidoComponent implements OnInit {
               private deporteService: DeporteService,
               private router: Router,
               private confirmationService: ConfirmationService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private reservaService: ReservaService) {
   }
 
   ngOnInit() {
@@ -77,12 +80,6 @@ export class OrganizarPartidoComponent implements OnInit {
     this.plantelVisitante = event[1];
   }
 
-  getUbicacionSeleccionada(event) {
-    this.ubicacion.lat = event.lat();
-    this.ubicacion.lng = event.lng();
-    console.log(this.ubicacion);
-  }
-
   getTipoCancha(event) {
     this.canchaSeleccionada = event;
     console.log(this.canchaSeleccionada);
@@ -91,13 +88,6 @@ export class OrganizarPartidoComponent implements OnInit {
   getFecha(event) {
     this.fechaPartido = event;
     console.log(this.fechaPartido);
-  }
-
-  definirPredio(event) {
-    this.selectedPredio = event;
-    console.log(this.selectedPredio);
-    this.displayDialog = false;
-    this.mostrarLabel = true;
   }
 
   crearPartido() {
@@ -117,8 +107,15 @@ export class OrganizarPartidoComponent implements OnInit {
         dia: this.fechaPartido,
         cancha: cancha._id,
         horasDeJuego: 1
-      }).subscribe(partido => {
-        this.router.navigateByUrl('/partido');
+      }).subscribe(() => {
+        this.reservaService.createReserva({
+          estado: 'PreReserva',
+          dia: this.fechaPartido,
+          cancha: cancha._id
+        }).subscribe(reserva => {
+          console.log('reserva', reserva);
+          this.router.navigateByUrl('/partido');
+        });
       });
     });
   }

@@ -13,6 +13,7 @@ import {Router} from '@angular/router';
 import {forkJoin} from 'rxjs/observable/forkJoin';
 import { AmazingTimePickerService } from 'amazing-time-picker';
 import * as moment from 'moment';
+import {ReservaService} from '../../../services/reservaService';
 
 
 
@@ -25,7 +26,8 @@ import * as moment from 'moment';
     PredioService,
     PartidoService,
     DeporteService,
-  AmazingTimePickerService]
+  AmazingTimePickerService,
+  ReservaService]
 })
 export class ReservaIndependienteComponent implements OnInit {
 
@@ -53,7 +55,8 @@ export class ReservaIndependienteComponent implements OnInit {
               private router: Router,
               private confirmationService: ConfirmationService,
               private dialog: MatDialog,
-              private atp: AmazingTimePickerService) {
+              private atp: AmazingTimePickerService,
+              private reservaService: ReservaService) {
   }
 
   ngOnInit() {
@@ -87,12 +90,6 @@ export class ReservaIndependienteComponent implements OnInit {
     });
   }
 
-  getUbicacionSeleccionada(event) {
-    this.ubicacion.lat = event.lat();
-    this.ubicacion.lng = event.lng();
-    console.log(this.ubicacion);
-  }
-
   getTipoCancha(event) {
     this.canchaSeleccionada = event;
     console.log(this.canchaSeleccionada);
@@ -103,41 +100,41 @@ export class ReservaIndependienteComponent implements OnInit {
     console.log(this.fechaPartido);
   }
 
-  definirPredio(event) {
-    this.selectedPredio = event;
-    console.log(this.selectedPredio);
-    this.displayDialog = false;
-    this.mostrarLabel = true;
-  }
-
   crearPartido() {
     console.log(this.canchaSeleccionada, this.fechaPartido);
     let cancha: any;
     // forkJoin(this.predioService.getCanchas(this.selectedPredio._id),
-    forkJoin(this.predioService.getCanchas(),
-      this.plantelService.createPlantel(this.plantelLocal, 'Local'),
-      this.plantelService.createPlantel(this.plantelVisitante, 'Visitante')).subscribe(res => {
-      cancha = res[0][0];
-      const local = res[1];
-      const visitante = res[2];
+    this.predioService.getCanchasWithPredio(this.selectedPredio._id).subscribe(res => {
+      cancha = res[0];
       this.partidoService.createPartido({
         deporte: this.canchaSeleccionada,
-        grupoLocal: local,
-        grupoVisitante: visitante,
         dia: this.fechaPartido,
         cancha: cancha._id,
         horasDeJuego: 1
-      }).subscribe(partido => {
-        this.router.navigateByUrl('/partido');
+      }).subscribe(() => {
+        this.reservaService.createReserva({
+          estado: 'Solicitada',
+          dia: this.fechaPartido,
+          cancha: cancha._id
+        }).subscribe(reserva => {
+          console.log('reserva', reserva);
+          this.router.navigateByUrl('/partido');
+        });
       });
     });
   }
 
   openDialog() {
-    // this.fileNameDialogRef = this.dialog.open(MapComponent, {
     this.fileNameDialogRef = this.dialog.open(MapDialogComponent, {
       data: this.predios,
       width: '600px',
+    });
+    this.fileNameDialogRef.afterClosed().subscribe((res) => {
+      if(res) {
+        this.ubicacion = res.ubicacion;
+        this.selectedPredio = res.predio;
+      }
+
     });
   }
 }
