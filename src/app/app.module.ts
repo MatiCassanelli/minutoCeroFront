@@ -66,7 +66,7 @@ import { LoginComponent } from './login/login.component';
 import { FechaCarouselComponent } from './component/fecha-carousel/fecha-carousel.component';
 import { RegistrarPredio1Component } from './views/registrar-predio1/registrar-predio1.component';
 import { MapComponent } from './component/map/map.component';
-import { RegistroPredioMapaComponent } from './views/registro-predio-mapa/registro-predio-mapa.component';
+import {ConfirmUbicacionDialogComponent, RegistroPredioMapaComponent} from './views/registro-predio-mapa/registro-predio-mapa.component';
 import {HeaderViewComponent} from './component/header-view/header-view.component';
 import { HomePredioComponent } from './views/home-predio/home-predio.component';
 
@@ -137,7 +137,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     NotificacionesComponent,
     CardCalificacionComponent,
     PuntuacionComponent,
-    ReservaIndependienteComponent
+    ReservaIndependienteComponent,
+    ConfirmUbicacionDialogComponent
   ],
   imports: [
     AppRouting,
@@ -210,6 +211,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     RoleGuardService,
     MatDatepickerModule
   ],
-  entryComponents: [MapComponent, MapDialogComponent, ConfirmDialogPlantelComponent]
+  entryComponents: [MapComponent, MapDialogComponent, ConfirmDialogPlantelComponent, ConfirmUbicacionDialogComponent]
 })
 export class AppModule { }

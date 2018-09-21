@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {PredioService} from '../../../services/predioService';
 import {ConfirmationService} from 'primeng/api';
 import {Router} from '@angular/router';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {ConfirmDialogPlantelComponent} from '../../component/confirm-dialog-plantel/confirm-dialog-plantel.component';
 
 @Component({
   selector: 'app-registro-predio-mapa',
@@ -16,11 +18,12 @@ export class RegistroPredioMapaComponent implements OnInit {
     lat: String,
     lng: String
   };
-  geoposicion: boolean;
+  dialogRef: MatDialogRef<ConfirmUbicacionDialogComponent>;
 
   constructor(private predioService: PredioService,
               private confirmationService: ConfirmationService,
-              private router: Router) {
+              private router: Router,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -29,7 +32,8 @@ export class RegistroPredioMapaComponent implements OnInit {
   getUbicacion(event) {
     this.ubicacion.lat = event.lat();
     this.ubicacion.lng = event.lng();
-    this.confirm1(this.ubicacion);
+    // this.confirm1(this.ubicacion);
+    this.openDialog(this.ubicacion);
   }
 
   confirm1(ubicacion) {
@@ -49,9 +53,46 @@ export class RegistroPredioMapaComponent implements OnInit {
   }
 
   setUbicacion(ubicacion) {
-    this.predioService.setUbicacion('5b5e5661b7e1c6236f5c733d', ubicacion).subscribe(res => {
+    this.predioService.setUbicacion(localStorage.getItem('id'), ubicacion).subscribe(res => {
       console.log(res);
     });
+  }
+
+  openDialog(ubicacion) {
+    // this.fileNameDialogRef = this.dialog.open(MapComponent, {
+    this.dialogRef = this.dialog.open(ConfirmUbicacionDialogComponent, {
+      data: {
+        ubicacion: ubicacion
+      },
+      width: '600px',
+    });
+    this.dialogRef.afterClosed().subscribe((ub) => {
+      if (ub) {
+        this.setUbicacion(ub);
+        this.router.navigateByUrl('/predio');
+      }
+    });
+  }
+}
+
+@Component({
+  selector: 'app-confirm-ubicacion-dialog',
+  template: `<h1 mat-dialog-title>Confirmar ubicacion</h1>
+  <mat-dialog-actions>
+    <button mat-button type="submit" (click)="submit(data.ubicacion)">Aceptar</button>
+    <button mat-button type="button" mat-dialog-close>Cancelar</button>
+  </mat-dialog-actions>`
+})
+export class ConfirmUbicacionDialogComponent implements OnInit {
+
+  constructor(private dialogRef: MatDialogRef<ConfirmDialogPlantelComponent>,
+              @Inject(MAT_DIALOG_DATA) public data) { }
+
+  ngOnInit() {
+  }
+
+  submit(ub) {
+    this.dialogRef.close(ub);
   }
 
 }

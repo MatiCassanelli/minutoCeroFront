@@ -14,7 +14,7 @@ export class ConfirmDialogPlantelComponent implements OnInit {
   ngOnInit() {
   }
 
-  submit(j) {
+  submit(j?) {
     this.dialogRef.close(j);
   }
 
