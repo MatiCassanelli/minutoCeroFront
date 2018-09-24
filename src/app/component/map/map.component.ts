@@ -86,17 +86,6 @@ export class MapComponent implements OnInit, AfterContentInit {
     });
     if (predio === null)
       marker.setIcon(this.icons.library.icon);
-    //   marker.addListener('dblclick', () => {
-    //     // const res = this.geocodeLatLng(marker.getPosition());
-    //     this.sendUbicacion.emit(marker.getPosition());
-    //     this.sendInfo.emit(marker.infoPredio);
-    //   });
-    // } else {
-    //   marker.setIcon(this.icons.library.icon);
-    //   marker.addListener('dblclick', () => {
-    //     this.sendUbicacion.emit(marker.getPosition());
-    //   });
-    // }
     marker.addListener('click', () => {
       if (predio !== null) {
         this.infoMarker(marker, marker.infoPredio.nombrePredio);

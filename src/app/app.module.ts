@@ -46,9 +46,19 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
-import {MatCardModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatSliderModule} from '@angular/material';
+import {
+  MatCardModule,
+  MatDialogModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatNativeDateModule,
+  MatSliderModule,
+  MatSnackBarModule
+} from '@angular/material';
 import {MatExpansionModule} from '@angular/material';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
+
 
 
 
@@ -190,7 +200,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatSliderModule,
     AmazingTimePickerModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSnackBarModule
   ],
   bootstrap: [AppComponent],
   schemas: [
@@ -211,6 +222,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     RoleGuardService,
     MatDatepickerModule
   ],
-  entryComponents: [MapComponent, MapDialogComponent, ConfirmDialogPlantelComponent, ConfirmUbicacionDialogComponent]
+  entryComponents: [MapComponent, MapDialogComponent,
+    ConfirmDialogPlantelComponent, ConfirmUbicacionDialogComponent, NotificacionesComponent]
 })
 export class AppModule { }

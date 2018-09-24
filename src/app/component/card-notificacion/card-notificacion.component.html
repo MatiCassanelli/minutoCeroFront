@@ -1,12 +1,12 @@
-<div style="margin: 3%;">
+<div style="margin: 3%;" (swipeLeft) = "swipeEvent($event)" (swipeRight) = "swipeEvent($event)">
   <mat-card>
-    <h4>{{a}} {{r}}</h4>
+    <!--<h4>{{a}} {{r}}</h4>-->
     <mat-card-header>
       <!--<mat-card-title></mat-card-title>-->
     </mat-card-header>
     <mat-card-content>
       <p>
-        Tu {{a}} fue {{r}}
+        {{mensaje}}
       </p>
     </mat-card-content>
     <!--<mat-card-actions>-->
