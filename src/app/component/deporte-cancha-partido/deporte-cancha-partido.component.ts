@@ -46,7 +46,7 @@ export class DeporteCanchaPartidoComponent implements OnInit {
     this.defaultDate.setMinutes(this.redondearHora(today.getHours(), today.getMinutes())[1]);
   }
   sendCancha(event) {
-    this.canchaSeleccionada.emit(event.value);
+    this.canchaSeleccionada.emit(event.value.toString());
   }
 
   private redondearHora(hours, minutes) {

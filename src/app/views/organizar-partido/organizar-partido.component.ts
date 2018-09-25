@@ -15,6 +15,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import {MapDialogComponent} from '../../component/map-dialog/map-dialog.component';
 import {MapComponent} from '../../component/map/map.component';
 import {ReservaService} from '../../../services/reservaService';
+import {Deporte} from '../../models/deporte';
 
 
 @Component({
@@ -31,6 +32,8 @@ import {ReservaService} from '../../../services/reservaService';
 export class OrganizarPartidoComponent implements OnInit {
 
   form: FormGroup;
+  deporte: Deporte;
+  deportes: Deporte[];
   tiposCancha: SelectItem[];
   predios: Predio[];
   selectedPredio: Predio;
@@ -47,6 +50,7 @@ export class OrganizarPartidoComponent implements OnInit {
   idPartido = null;
   // fileNameDialogRef: MatDialogRef<MapComponent>;
   fileNameDialogRef: MatDialogRef<MapDialogComponent>;
+  porcentajeOcupacion: number;
 
   constructor(private fb: FormBuilder,
               private plantelService: PlantelService,
@@ -62,6 +66,7 @@ export class OrganizarPartidoComponent implements OnInit {
   ngOnInit() {
     this.deporteService.getDeportes().subscribe(res => {
       this.tiposCancha = [];
+      this.deportes = res;
       for (let cancha of res) {
         this.tiposCancha.push({
           label: cancha.nombre,
@@ -78,11 +83,16 @@ export class OrganizarPartidoComponent implements OnInit {
   getPlanteles(event) {
     this.plantelLocal = event[0];
     this.plantelVisitante = event[1];
+    if(!this.deporte.cantJugadores)
+      this.porcentajeOcupacion = 0;
+    this.porcentajeOcupacion = (this.plantelLocal.jugadoresConfirmados.length +
+      this.plantelVisitante.jugadoresConfirmados.length) / this.deporte.cantJugadores * 100;
   }
 
   getTipoCancha(event) {
     this.canchaSeleccionada = event;
-    console.log(this.canchaSeleccionada);
+    this.deporte = this.deportes.find(x => x._id === event);
+    console.log(this.deporte);
   }
 
   getFecha(event) {

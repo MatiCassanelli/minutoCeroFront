@@ -40,7 +40,6 @@ export class PlantelComponent implements OnInit {
   set setIdPartido(name: string) {
     this.idPartido = name;
   }
-  @Input() cantJugadores: number = 1;
   @Output() sendPlantel: EventEmitter<Array<Plantel>> = new EventEmitter<Array<Plantel>>();
 
   constructor(private plantelService: PlantelService,
@@ -53,7 +52,6 @@ export class PlantelComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log('cantJugadores', this.cantJugadores);
     if (this.idPartido) {
       this.partidoService.getPartido(this.idPartido).subscribe(partido => {
         this.partido = partido;
