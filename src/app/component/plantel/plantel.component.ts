@@ -35,11 +35,12 @@ export class PlantelComponent implements OnInit {
   partido: Partido;
   idOrganizador: string;
   dialogRef: MatDialogRef<ConfirmDialogPlantelComponent>;
-
+  porcentajeCumplimiento: number;
   @Input()
   set setIdPartido(name: string) {
     this.idPartido = name;
   }
+  @Input() cantJugadores: number = 1;
   @Output() sendPlantel: EventEmitter<Array<Plantel>> = new EventEmitter<Array<Plantel>>();
 
   constructor(private plantelService: PlantelService,
@@ -52,7 +53,7 @@ export class PlantelComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.idPartido);
+    // console.log('cantJugadores', this.cantJugadores);
     if (this.idPartido) {
       this.partidoService.getPartido(this.idPartido).subscribe(partido => {
         this.partido = partido;
@@ -61,6 +62,7 @@ export class PlantelComponent implements OnInit {
         this.idOrganizador = partido.organizador._id;
         this.getJugadoresPlantel(this.plantelLocal, 'local');
         this.getJugadoresPlantel(this.plantelVisitante, 'visitante');
+        // this.porcentajeCumplimiento = this.plantelLocal.jugadoresConfirmados.length / this.cantJugadores;
       });
     } else {
       console.log('else idpartido');

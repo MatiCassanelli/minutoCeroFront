@@ -8,7 +8,8 @@ import {Jugador} from '../../models/jugador';
 })
 export class EstrellasJugadorComponent implements OnInit {
 
-  @Input() jugador: Jugador;
+  @Input() jugadores: Jugador[];
+  @Input() capitan: Jugador;
 
   constructor() { }
 

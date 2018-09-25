@@ -23,7 +23,7 @@ const appRoutes: Routes = [
   {
     path: 'equipo',
     children: [
-      {path: '', redirectTo: '', pathMatch: 'full'},
+      {path: 'miEquipo', component: InfoEquipoComponent},
       {path: 'crear', component: CrearEquipoComponent},
       {path: 'info/:id', component: InfoEquipoComponent}
     ],

@@ -6,6 +6,7 @@ import {map} from 'rxjs/operators';
 import {MatSidenav} from '@angular/material';
 import {AuthService} from '../../../services/auth.service';
 import * as global from '../../app.global';
+
 // import {UsuarioService} from '../../_services/usuario.service';
 
 @Component({
@@ -18,11 +19,14 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
 
   @ViewChild('drawer') sidenav: MatSidenav;
   login = false;
+
   @Input()
   set logueado(name: boolean) {
     this.login = name;
   }
-  @Input() cantidad: number;
+
+  // @Input() cantidad: number;
+  cantidad = localStorage.getItem('cantNotificaciones');
   @Output() restarNotificaciones: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   mobileQuery: MediaQueryList;
@@ -37,7 +41,7 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
-  logOut(){
+  logOut() {
     this.authService.logOut();
     window.location.href = this.logoutApi;
   }
@@ -51,7 +55,6 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
   }
 
   restarNotificacion() {
-    debugger;
     this.restarNotificaciones.emit(true);
   }
 

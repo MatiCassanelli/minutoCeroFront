@@ -47,11 +47,12 @@ import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
 import {
-  MatCardModule,
+  MatAutocomplete, MatAutocompleteModule,
+  MatCardModule, MatChipsModule,
   MatDialogModule,
   MatFormFieldModule,
   MatInputModule,
-  MatNativeDateModule,
+  MatNativeDateModule, MatOptionModule,
   MatSliderModule,
   MatSnackBarModule
 } from '@angular/material';
@@ -201,7 +202,10 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     AmazingTimePickerModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatOptionModule,
+    MatAutocompleteModule,
+    MatChipsModule
   ],
   bootstrap: [AppComponent],
   schemas: [

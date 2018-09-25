@@ -9,7 +9,8 @@ export class Jugador {
       personalidad: number,
       tecnica: number,
       puntualidad: number
-    }
+    },
+    puntaje: number
   };
   type: string;
 }

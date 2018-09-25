@@ -18,12 +18,14 @@ export class AppComponent {
   ngOnInit() {
     this.notificacionService.getCantNotificaciones().subscribe(res => {
       console.log('res', res);
-      this.cantidad = res;
+      localStorage.setItem('cantNotificaciones', res.toString());
+      this.cantidad = parseInt(localStorage.getItem('cantNotificaciones'), 10);
     });
     const socket = socketIo('http://localhost:3000');
     // console.log('hello'+localStorage.getItem('id'));
     socket.on('Reserva' + localStorage.getItem('id'), (data) => {
-        this.cantidad += 1;
+      localStorage.setItem('cantNotificaciones',
+        ((parseInt(localStorage.getItem('cantNotificaciones'), 10) + 1).toString()));
         console.log(data);
       });
   }
