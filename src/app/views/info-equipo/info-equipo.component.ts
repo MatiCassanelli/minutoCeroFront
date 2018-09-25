@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {EquipoService} from '../../../services/equipoService';
 import {Equipo} from '../../models/equipo';
@@ -18,25 +18,35 @@ export class InfoEquipoComponent implements OnInit {
   capitan: Jugador;
   routeSub: any;
   equipo: Equipo;
-  id: string;
+  @Input() id: string;
   display: boolean;
 
 
   constructor(private route: ActivatedRoute,
               private equipoService: EquipoService,
               private jugadorService: JugadorService) {
-
     this.routeSub = this.route.params.subscribe((params) => {
-      this.id = params.id;
-      console.log(this.id);
-      this.equipoService.getEquipo(this.id).subscribe(eq => {
-        this.equipo = eq[0];
-        this.jugadorService.getJugadorById(this.equipo.capitan).toPromise().then(cap => {
-          this.capitan = cap[0];
+      if (params['id']) {
+        this.id = params.id;
+        console.log(this.id);
+        this.equipoService.getEquipo(this.id).subscribe(eq => {
+          this.equipo = eq[0];
+          this.jugadorService.getJugadorById(this.equipo.capitan).toPromise().then(cap => {
+            this.capitan = cap[0];
+          });
+          this.jugadores = this.getJugadoresOfEquipo(this.equipo.jugadores);
+          console.log(this.equipo.capitan);
         });
-        this.jugadores = this.getJugadoresOfEquipo(this.equipo.jugadores);
-        console.log(this.equipo.capitan);
-      });
+      } else {
+        this.equipoService.getMiEquipo().subscribe(eq => {
+          this.equipo = eq[0];
+          this.jugadorService.getJugadorById(this.equipo.capitan).toPromise().then(cap => {
+            this.capitan = cap[0];
+          });
+          this.jugadores = this.getJugadoresOfEquipo(this.equipo.jugadores);
+          console.log(this.equipo.capitan);
+        });
+      }
     });
     this.display = false;
   }

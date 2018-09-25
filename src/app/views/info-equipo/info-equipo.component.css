@@ -8,7 +8,7 @@
   align-items: center;
 }
 
-divb {
+div {
   display: flex;
   flex-direction: column-reverse;
   align-items: center;

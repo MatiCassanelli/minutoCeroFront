@@ -7,12 +7,16 @@ import {JugadorService} from '../../../services/jugadorService';
 import {Jugador} from '../../models/jugador';
 import { Router} from '@angular/router';
 import {ConfirmationService} from 'primeng/api';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import {DeporteService} from '../../../services/deporteService';
+import {Deporte} from '../../models/deporte';
 
 @Component({
   selector: 'app-crear-equipo',
   templateUrl: './crear-equipo.component.html',
   styleUrls: ['./crear-equipo.component.css'],
-  providers: [JugadorService, EquipoService, ConfirmationService]
+  providers: [JugadorService, EquipoService, ConfirmationService, DeporteService]
 })
 export class CrearEquipoComponent implements OnInit {
 
@@ -23,18 +27,14 @@ export class CrearEquipoComponent implements OnInit {
   nombreJugadores: string[];
   equipo = new Equipo();
 
+
   constructor(private fb: FormBuilder,
               private router: Router,
               private jugadorService: JugadorService,
               private equipoService: EquipoService,
-              private confirmationService: ConfirmationService) {
-    this.deportes = [
-      {label: 'Futbol 5', value: 'Futbol 5'},
-      {label: 'Futbol 7', value: 'Futbol 7'},
-      {label: 'Futbol 11', value: 'Futbol 11'}
-      ];
-    this.jugadores = new Array<Jugador>();
-    this.nombreJugadores = new Array();
+              private deporteService: DeporteService) {
+    this.jugadores = [];
+    this.nombreJugadores = [];
     this.jugadoresInvitados = false;
   }
 
@@ -43,6 +43,15 @@ export class CrearEquipoComponent implements OnInit {
       nombreEquipo: null,
       deporte: null,
       jugador: null
+    });
+    this.deporteService.getDeportes().subscribe(res => {
+      this.deportes = [];
+      for (let cancha of res) {
+        this.deportes.push({
+          label: cancha.nombre,
+          value: cancha._id
+        });
+      }
     });
   }
 
@@ -79,9 +88,9 @@ export class CrearEquipoComponent implements OnInit {
     });
   }
 
-
   setChecked(event){
     this.jugadoresInvitados = event;
   }
+
 
 }

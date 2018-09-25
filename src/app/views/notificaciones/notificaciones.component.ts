@@ -24,7 +24,8 @@ export class NotificacionesComponent implements OnInit {
   restarNotificacion(notificacion) {
     this.openSnackBar();
     this.notificaciones.splice(this.notificaciones.indexOf(notificacion), 1);
-    this.restarNotificaciones.emit(true);
+    localStorage.setItem('cantNotificaciones',
+      ((parseInt(localStorage.getItem('cantNotificaciones'), 10) - 1).toString()));
   }
 
   openSnackBar() {
