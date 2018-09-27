@@ -1,38 +1,3 @@
-<!--<form [formGroup]="form" #invitar="ngForm">-->
-<!--<span class="ui-inputgroup">-->
-<!--<p-autoComplete id="jugador" formControlName="jugador" field="email"-->
-<!--[suggestions]="jugadores" (completeMethod)="getJugadores($event)"-->
-<!--[multiple]="true" emptyMessage="No existen jugadores" [forceSelection]="true"-->
-<!--(onSelect)="agregarJug($event)" (onUnselect)="eliminarJug($event)">-->
-<!--<ng-template let-jugador pTemplate="item">-->
-<!--<div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5;">-->
-<!--<div>-->
-<!--{{jugador.nombre +' '+ jugador.apellido}}-->
-<!--<div style="font-size:12px">-->
-<!--{{jugador.email}} - {{jugador.calificacion.puntaje}}-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</ng-template>-->
-<!--</p-autoComplete>-->
-<!--</span>-->
-<!--</form>-->
-
-<!--<form class="example-form">-->
-  <!--<mat-form-field class="example-full-width">-->
-    <!--<input matInput placeholder="State" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">-->
-    <!--<mat-autocomplete #auto="matAutocomplete">-->
-      <!--<mat-option *ngFor="let state of filteredStates | async" [value]="state.nombre + ' ' + state.apellido" multiple>-->
-        <!--&lt;!&ndash;<img class="example-option-img" aria-hidden [src]="state.flag" height="25">&ndash;&gt;-->
-        <!--<span>{{state.nombre}} {{state.apellido}}-->
-<!--<small>Puntuacion: {{state.calificacion.puntaje}}</small>-->
-<!--</span>-->
-
-      <!--</mat-option>-->
-    <!--</mat-autocomplete>-->
-  <!--</mat-form-field>-->
-<!--</form>-->
-
 <mat-form-field class="example-form">
   <mat-chip-list #chipList>
     <mat-chip
@@ -44,7 +9,7 @@
       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
     </mat-chip>
     <input
-      placeholder="New fruit..."
+      placeholder="Invitar jugadores"
       #fruitInput
       [formControl]="fruitCtrl"
       [matAutocomplete]="auto"

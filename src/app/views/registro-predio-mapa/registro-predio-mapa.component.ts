@@ -36,26 +36,9 @@ export class RegistroPredioMapaComponent implements OnInit {
     this.openDialog(this.ubicacion);
   }
 
-  confirm1(ubicacion) {
-    this.confirmationService.confirm({
-      message: 'Definir esta ubicación como dirección del predio?',
-      header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        console.log('entrando...');
-        this.setUbicacion(ubicacion);
-        this.router.navigateByUrl('/predio');
-      },
-      reject: () => {
-        alert('No aceptado');
-      }
-    });
-  }
-
   setUbicacion(ubicacion) {
-    this.predioService.setUbicacion(localStorage.getItem('id'), ubicacion).subscribe(res => {
-      console.log(res);
-    });
+    this.predioService.setUbicacion(localStorage.getItem('id'), ubicacion);
+    this.router.navigateByUrl('/predio');
   }
 
   openDialog(ubicacion) {

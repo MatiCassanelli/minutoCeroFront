@@ -51,9 +51,9 @@ export class MapComponent implements OnInit, AfterContentInit {
         };
         this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
         this.initMap(position.coords.latitude, position.coords.longitude);
-        console.log('this.predios', this.predios);
-        if(this.predios !== undefined)
+        if(this.predios !== undefined) {
           this.setAll(this.predios);
+        }
       });
     }
     else {
@@ -65,15 +65,17 @@ export class MapComponent implements OnInit, AfterContentInit {
       };
       this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
       this.initMap(this.latitude, this.longitude);
-      if(this.predios !== undefined)
+      if(this.predios !== undefined){
         this.setAll(this.predios);
+      }
+
     }
 
   }
 
   initMap(lat, lng) {
-    let location = new google.maps.LatLng(lat, lng);
-    let marker = this.newMarker(location);
+    let marker = this.newMarker(new google.maps.LatLng(lat, lng));
+    // this.setCenter(lat, lng);
     this.setCenter(lat, lng);
     marker.setTitle('Estás acá ');
   }
@@ -84,15 +86,16 @@ export class MapComponent implements OnInit, AfterContentInit {
       map: this.map,
       infoPredio: predio
     });
-    if (predio === null)
+    if (predio === null){
       marker.setIcon(this.icons.library.icon);
+    }
     marker.addListener('click', () => {
       if (predio !== null) {
-        this.infoMarker(marker, marker.infoPredio.nombrePredio);
+        this.infoMarker(marker, marker.infoPredio.nombrePredio + ' ' + marker.infoPredio.direccion);
         this.sendUbicacion.emit(marker.getPosition());
         this.sendInfo.emit(marker.infoPredio);
       } else {
-        this.infoMarker(marker, 'Estás acá');
+        this.infoMarker(marker, 'Estás acá(' + marker.getPosition().toString() + ')');
         this.sendUbicacion.emit(marker.getPosition());
       }
     });
@@ -107,7 +110,7 @@ export class MapComponent implements OnInit, AfterContentInit {
   infoMarker(marker: google.maps.Marker, mensaje: string) {
     let infoWindow = new google.maps.InfoWindow();
     infoWindow.setOptions({maxWidth: 200});
-    infoWindow.setContent(mensaje + marker.getPosition().toString());
+    infoWindow.setContent(mensaje);
     infoWindow.open(this.map, marker);
   }
 
@@ -122,22 +125,10 @@ export class MapComponent implements OnInit, AfterContentInit {
     geocoder.geocode({'address': direccion}, function (results, status) {
       if (status === 'OK') {
         asd.setMap(resultsMap);
+        asd.setIcon(null);
         asd.setPosition(results[0].geometry.location);
         asd.setTitle(results[0].formatted_address);
         resultsMap.setCenter(new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()));
-      } else {
-        alert('Geocode was not successful for the following reason: ' + status);
-      }
-    });
-  }
-
-  private geocodeLatLng(latlng): any {
-    const geocoder = new google.maps.Geocoder();
-    geocoder.geocode({'location': latlng}, function (results, status) {
-      if (status === 'OK') {
-        if (results[0]) {
-          return [results[0].formatted_address, results[0].address_components];
-        }
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }

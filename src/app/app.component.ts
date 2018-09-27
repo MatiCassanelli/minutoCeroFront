@@ -18,6 +18,8 @@ export class AppComponent {
   ngOnInit() {
     this.notificacionService.getCantNotificaciones().subscribe(res => {
       console.log('res', res);
+      if (res.toString() === 'false')
+        res = 0;
       localStorage.setItem('cantNotificaciones', res.toString());
       this.cantidad = parseInt(localStorage.getItem('cantNotificaciones'), 10);
     });

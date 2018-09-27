@@ -1,15 +1,17 @@
 <div class="form-group row" *ngIf="partido?.estado !== 'Jugando' && partido?.estado !== 'Finalizado'">
   <label for="jugador" class="col-sm-2 col-form-label"><strong>Jugadores a invitar</strong></label>
   <div class="btn-group col-sm-2 col-form-label" role="group">
-    <button pButton type="button" class="ui-button-secondary" label="Local"
-            (click)="activarComponent('local')"></button>
-    <button pButton type="button" class="ui-button-secondary" label="Visitante"
-            (click)="activarComponent('visitante')"></button>
+    <!--<button pButton type="button" class="ui-button-secondary" label="Local"-->
+            <!--(click)="activarComponent('local')"></button>-->
+    <button mat-raised-button color="primary" class="col-6" (click)="activarComponent('local')">Local</button>
+    <button mat-raised-button color="primary" class="col-6" (click)="activarComponent('visitante')">Visitante</button>
+    <!--<button pButton type="button" class="ui-button-secondary" label="Visitante"-->
+            <!--(click)="activarComponent('visitante')"></button>-->
   </div>
   <div *ngIf="!disabled" class="col-sm-8">
     <app-invitar-jugadores id="jugador" (notifyParent)="getJugadores($event)"
                            [isReset]="resetForm"></app-invitar-jugadores>
-    <button pButton type="button" label="Invitar" (click)="invitarJugadores()"></button>
+    <button mat-raised-button class="ui-grid-col-12" color="primary" (click)="invitarJugadores()">Invitar</button>
   </div>
 </div>
 <div class="row">

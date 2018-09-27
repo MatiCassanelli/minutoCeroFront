@@ -139,8 +139,8 @@ export class OrganizarPartidoComponent implements OnInit {
       if(res) {
         this.ubicacion = res.ubicacion;
         this.selectedPredio = res.predio;
+        this.mostrarLabel = true;
       }
-
     });
   }
 }

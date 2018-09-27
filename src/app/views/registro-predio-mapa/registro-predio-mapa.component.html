@@ -1,10 +1,19 @@
-
 <div class="container">
   <app-map #mapa (sendUbicacion)="getUbicacion($event)"></app-map>
-  <div class="form-group">
-    <input id="input" type="text" [(ngModel)]="direccion" placeholder="Ingrese dirección">
-    <button pButton type="button" label="Click" (click)="mapa.geocodeDireccion(direccion)"></button>
-  </div>
+  <!--<div class="form-group">-->
+  <!--<input id="input" type="text" [(ngModel)]="direccion" placeholder="Ingrese dirección">-->
+  <!--<input matInput placeholder="Ingrese dirección" [(ngModel)]="direccion">-->
+  <!--<button mat-button (click)="mapa.geocodeDireccion(direccion)">Buscar</button>-->
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Ingrese dirección" [(ngModel)]="direccion" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <textarea matInput placeholder="Leave a comment"></textarea>
+    </mat-form-field>
+  </form>
+  <!--</div>-->
 
 
   <div class="row">

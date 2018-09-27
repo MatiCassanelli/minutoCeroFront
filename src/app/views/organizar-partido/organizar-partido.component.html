@@ -9,12 +9,14 @@
         <div class="col-sm-10">
           <!--<button pButton id="Mapa" type="button" label="Mapa" icon="fa-map-marker"-->
                   <!--(click)="displayDialog=true; mapa.setAll(predios)"></button>-->
-          <button pButton id="Mapa" type="button" label="Mapa" icon="fa-map-marker"
-                  (click)="openDialog()"></button>
+          <button  mat-raised-button id="Mapa" color="primary" class="col-sm-12" (click)="openDialog()">Ubicación</button>
+
           <!--<button type="text" pButton label="Basic" (click)="op1.toggle($event)"></button>-->
         </div>
         <div *ngIf="mostrarLabel">
-          <label class="col-12 col-form-label"><strong>Predio elegido: </strong>{{selectedPredio?.nombrePredio}}</label>
+          <label class="col-12 col-form-label"><strong>Predio elegido: </strong>
+            {{selectedPredio?.nombrePredio}} - {{selectedPredio?.direccion}}
+          </label>
         </div>
       </div>
 

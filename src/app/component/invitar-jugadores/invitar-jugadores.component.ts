@@ -124,6 +124,7 @@ export class InvitarJugadoresComponent implements OnInit {
 
   constructor(private jugadorService: JugadorService) {
   }
+
   ngOnInit() {
     this.jugadorService.getJugadores().subscribe((resp) => {
       this.jugadores = resp;
@@ -143,7 +144,7 @@ export class InvitarJugadoresComponent implements OnInit {
     // Add our fruit
     if ((value || '').trim()) {
       // this.jugadoresSeleccionados.push(value);
-      console.log(value)
+      console.log(value);
     }
 
     // Reset the input value
@@ -165,14 +166,13 @@ export class InvitarJugadoresComponent implements OnInit {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    if(!this.jugadoresSeleccionados.includes(event.option.value)) {
+    if (!this.jugadoresSeleccionados.includes(event.option.value)) {
       this.jugadoresSeleccionados.push(event.option.value);
+      this.fruitCtrl.reset();
       this.notifyParent.emit(this.jugadoresSeleccionados);
-      // this.jugadores.slice(this.jugadores.indexOf(event.option.value), 1);
     }
-    this.fruitInput.nativeElement.value = '';
+    this.fruitInput.nativeElement.value = null;
     this.fruitCtrl.setValue(null);
-    console.log(this.jugadoresSeleccionados);
   }
 
   private _filter(value: string): Jugador[] {
@@ -182,14 +182,11 @@ export class InvitarJugadoresComponent implements OnInit {
       state.apellido.indexOf(filterValue) === 0 ||
       state.apellido.toLowerCase().indexOf(filterValue) === 0);
   }
-
-  agregarJug(value) {
-    this.jugadoresSeleccionados.push(value);
-    this.notifyParent.emit(this.jugadoresSeleccionados);
-  }
-
-  eliminarJug(value) {
-    this.jugadoresSeleccionados.splice(this.jugadoresSeleccionados.indexOf(value), 1);
-    this.notifyParent.emit(this.jugadoresSeleccionados);
+  ngOnChanges() {
+    this.isReset = true;
+    this.jugadoresSeleccionados = [];
+    this.isReset = false;
+    if (this.fruitCtrl.status === 'VALID')
+      this.fruitCtrl.reset();
   }
 }
