@@ -17,7 +17,6 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
   styleUrls: ['./invitar-jugadores.component.css'],
   providers: [JugadorService]
 })
-// export class InvitarJugadoresComponent implements OnInit {
 export class InvitarJugadoresComponent implements OnInit {
 
   // checked: boolean;

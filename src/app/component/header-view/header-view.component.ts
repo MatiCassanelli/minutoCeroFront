@@ -1,8 +1,6 @@
 import {ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {BreakpointObserver, Breakpoints, BreakpointState, MediaMatcher} from '@angular/cdk/layout';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {BreakpointObserver, MediaMatcher} from '@angular/cdk/layout';
 import {MatSidenav} from '@angular/material';
 import {AuthService} from '../../../services/auth.service';
 import * as global from '../../app.global';
@@ -26,7 +24,7 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
   }
 
   // @Input() cantidad: number;
-  cantidad = localStorage.getItem('cantNotificaciones');
+  cantidad = parseInt(localStorage.getItem('cantNotificaciones'), 10);
   @Output() restarNotificaciones: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   mobileQuery: MediaQueryList;

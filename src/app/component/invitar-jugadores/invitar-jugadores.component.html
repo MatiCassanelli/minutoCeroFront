@@ -1,4 +1,4 @@
-<mat-form-field class="example-form">
+<mat-form-field class="example-full-width">
   <mat-chip-list #chipList>
     <mat-chip
       *ngFor="let fruit of jugadoresSeleccionados"
@@ -18,7 +18,7 @@
       [matChipInputAddOnBlur]="addOnBlur"
       (matChipInputTokenEnd)="add($event)">
   </mat-chip-list>
-  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)" class="example-full-width">
     <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
       <div>
         <span>{{fruit.nombre}} {{fruit.apellido}}</span>

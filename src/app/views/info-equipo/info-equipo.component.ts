@@ -1,9 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, Inject, Input, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {EquipoService} from '../../../services/equipoService';
 import {Equipo} from '../../models/equipo';
 import {Jugador} from '../../models/jugador';
 import {JugadorService} from '../../../services/jugadorService';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {ConfirmDialogPlantelComponent} from '../../component/confirm-dialog-plantel/confirm-dialog-plantel.component';
+import {ConfirmUbicacionDialogComponent} from '../registro-predio-mapa/registro-predio-mapa.component';
 
 @Component({
   selector: 'app-info-equipo',
@@ -20,11 +23,12 @@ export class InfoEquipoComponent implements OnInit {
   equipo: Equipo;
   @Input() id: string;
   display: boolean;
-
+  dialogRef: MatDialogRef<DialogInvitarJugadorEquipoComponent>;
 
   constructor(private route: ActivatedRoute,
               private equipoService: EquipoService,
-              private jugadorService: JugadorService) {
+              private jugadorService: JugadorService,
+              private dialog: MatDialog) {
     this.routeSub = this.route.params.subscribe((params) => {
       if (params['id']) {
         this.id = params.id;
@@ -55,7 +59,33 @@ export class InfoEquipoComponent implements OnInit {
   }
 
   showDialog() {
-    this.display = true;
+    let refresh = false;
+    // this.fileNameDialogRef = this.dialog.open(MapComponent, {
+    this.dialogRef = this.dialog.open(DialogInvitarJugadorEquipoComponent, {
+      // data: {
+      //   ubicacion: ubicacion
+      // },
+      width: '600px',
+    });
+    this.dialogRef.beforeClose().subscribe((jugadoresInvitar) => {
+      let jug = [];
+      if (jugadoresInvitar) {
+        for (let a of jugadoresInvitar) {
+          jug.push(a.email);
+        }
+        this.equipoService.invitarJugadores({
+          _id: this.equipo._id,
+          email: jug
+        }).subscribe(resp => {
+          refresh = true;
+          this.equipo = resp;
+        }, error1 => console.log(error1));
+      }
+    });
+    this.dialogRef.afterClosed().subscribe(res => {
+      if(refresh)
+        return window.location.reload();
+    });
   }
 
   getJugadoresOfEquipo(jugadores): Array<Jugador> {
@@ -85,8 +115,38 @@ export class InfoEquipoComponent implements OnInit {
       return window.location.reload();
     }, error1 => console.log(error1));
   }
+}
 
-  getJugadoresPorInvitar(event) {
-    this.jugadoresPorInvitar = event;
+@Component({
+  selector: 'app-dialog-invitar-jugador-equipo',
+  template: `<h1 mat-dialog-title>Invitar jugadores</h1>
+  <mat-dialog-content>
+    <app-invitar-jugadores (notifyParent)="getJugadores($event)"></app-invitar-jugadores>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button type="button" mat-dialog-close>Cancelar</button>
+    <button mat-button type="submit" (click)="submit()">Aceptar</button>
+  </mat-dialog-actions>`
+})
+export class DialogInvitarJugadorEquipoComponent implements OnInit {
+
+  jugadoresInvitar: Jugador[] = [];
+  constructor(private dialogRef: MatDialogRef<DialogInvitarJugadorEquipoComponent>,
+              @Inject(MAT_DIALOG_DATA) public data) {
   }
+
+  ngOnInit() {
+  }
+
+  getJugadores(event) {
+    this.jugadoresInvitar = event;
+  }
+
+  submit() {
+    if (this.jugadoresInvitar.length > 0)
+      this.dialogRef.close(this.jugadoresInvitar);
+    else
+      this.dialogRef.close();
+  }
+
 }

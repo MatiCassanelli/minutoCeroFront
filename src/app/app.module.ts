@@ -68,7 +68,7 @@ import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
 import { DragScrollModule } from 'ngx-drag-scroll';
 import { AppComponent } from './app.component';
 import { CrearEquipoComponent } from './views/crear-equipo/crear-equipo.component';
-import { InfoEquipoComponent } from './views/info-equipo/info-equipo.component';
+import {DialogInvitarJugadorEquipoComponent, InfoEquipoComponent} from './views/info-equipo/info-equipo.component';
 import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component';
 import { EstrellasJugadorComponent } from './component/estrellas-jugador/estrellas-jugador.component';
 import { InvitarJugadoresComponent } from './component/invitar-jugadores/invitar-jugadores.component';
@@ -149,7 +149,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     CardCalificacionComponent,
     PuntuacionComponent,
     ReservaIndependienteComponent,
-    ConfirmUbicacionDialogComponent
+    ConfirmUbicacionDialogComponent,
+    DialogInvitarJugadorEquipoComponent
   ],
   imports: [
     AppRouting,
@@ -227,6 +228,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatDatepickerModule
   ],
   entryComponents: [MapComponent, MapDialogComponent,
-    ConfirmDialogPlantelComponent, ConfirmUbicacionDialogComponent, NotificacionesComponent]
+    ConfirmDialogPlantelComponent, ConfirmUbicacionDialogComponent,
+    DialogInvitarJugadorEquipoComponent, NotificacionesComponent]
 })
 export class AppModule { }
