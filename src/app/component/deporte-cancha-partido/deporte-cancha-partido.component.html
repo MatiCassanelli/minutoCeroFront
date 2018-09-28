@@ -3,8 +3,14 @@
   <div class="form-group row">
     <label for="cancha" class="col-sm-2 col-form-label"><strong>Tipo de Cancha</strong></label>
     <div class="col-sm-10">
-      <p-dropdown id="cancha" [options]="tiposCancha" placeholder="Tipo de cancha"
-                  [showClear]="true" required="true" (onChange)="sendCancha($event)"></p-dropdown>
+      <mat-select id="cancha" placeholder="Tipo de Cancha" [formControl]="canchaControl" required (selectionChange)="sendCancha($event)">
+        <mat-option *ngFor="let animal of deportes" [value]="animal">
+          {{animal?.nombre}}
+        </mat-option>
+      </mat-select>
+      <!--<mat-error *ngIf="canchaControl.hasError('required')">Please choose an animal</mat-error>-->
+      <!--<p-dropdown id="cancha" [options]="deportes" placeholder="Tipo de cancha"-->
+                  <!--[showClear]="true" required="true" (onChange)="sendCancha($event)"></p-dropdown>-->
 
     </div>
   </div>

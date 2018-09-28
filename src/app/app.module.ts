@@ -52,7 +52,7 @@ import {
   MatDialogModule,
   MatFormFieldModule,
   MatInputModule,
-  MatNativeDateModule, MatOptionModule,
+  MatNativeDateModule, MatOptionModule, MatSelectModule,
   MatSliderModule,
   MatSnackBarModule
 } from '@angular/material';
@@ -206,7 +206,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatSnackBarModule,
     MatOptionModule,
     MatAutocompleteModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSelectModule
   ],
   bootstrap: [AppComponent],
   schemas: [

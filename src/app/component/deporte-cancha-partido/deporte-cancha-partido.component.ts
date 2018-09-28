@@ -3,6 +3,8 @@ import {DeporteService} from '../../../services/deporteService';
 import {SelectItem} from 'primeng/api';
 import * as moment from 'moment';
 import {AmazingTimePickerService} from 'amazing-time-picker';
+import {FormControl, Validators} from '@angular/forms';
+import {Deporte} from '../../models/deporte';
 
 
 
@@ -19,24 +21,25 @@ export class DeporteCanchaPartidoComponent implements OnInit {
   @Output() fechaSeleccionada: EventEmitter<Date> = new EventEmitter<Date>();
   fechaPartido: Date;
   horaPartido: Date;
-  tiposCancha: SelectItem[];
+  // deportes: SelectItem[];
+  deportes: Deporte[];
   invalidDates:  Array<Date>;
   defaultDate = new Date();
   public selectedTime: string;
-
+  canchaControl = new FormControl('', [Validators.required]);
 
   constructor(private deporteService: DeporteService,
               private atp: AmazingTimePickerService) { }
 
   ngOnInit() {
     this.deporteService.getDeportes().subscribe(res => {
-      this.tiposCancha = [];
-      for (let cancha of res){
-        this.tiposCancha.push({
-          label: cancha.nombre,
-          value: cancha._id
-        });
-      }
+      this.deportes = res;
+      // for (let cancha of res){
+      //   this.deportes.push({
+      //     label: cancha.nombre,
+      //     value: cancha._id
+      //   });
+      // }
     });
     let today = new Date();
     let invalidDate = new Date();
@@ -46,7 +49,7 @@ export class DeporteCanchaPartidoComponent implements OnInit {
     this.defaultDate.setMinutes(this.redondearHora(today.getHours(), today.getMinutes())[1]);
   }
   sendCancha(event) {
-    this.canchaSeleccionada.emit(event.value.toString());
+    this.canchaSeleccionada.emit(event.value._id);
   }
 
   private redondearHora(hours, minutes) {

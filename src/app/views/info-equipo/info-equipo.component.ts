@@ -60,11 +60,7 @@ export class InfoEquipoComponent implements OnInit {
 
   showDialog() {
     let refresh = false;
-    // this.fileNameDialogRef = this.dialog.open(MapComponent, {
     this.dialogRef = this.dialog.open(DialogInvitarJugadorEquipoComponent, {
-      // data: {
-      //   ubicacion: ubicacion
-      // },
       width: '600px',
     });
     this.dialogRef.beforeClose().subscribe((jugadoresInvitar) => {
@@ -99,21 +95,6 @@ export class InfoEquipoComponent implements OnInit {
     }
     console.log(array);
     return array;
-  }
-
-  agregarNuevosJugadores() {
-    let jug = [];
-    for (let a of this.jugadoresPorInvitar) {
-      jug.push(a.email);
-    }
-    this.equipoService.invitarJugadores({
-      _id: this.equipo._id,
-      email: jug
-    }).subscribe(resp => {
-      this.equipo = resp;
-      console.log(this.equipo);
-      return window.location.reload();
-    }, error1 => console.log(error1));
   }
 }
 
