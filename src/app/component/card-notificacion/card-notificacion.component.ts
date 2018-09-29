@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-card-notificacion',
@@ -7,18 +7,8 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class CardNotificacionComponent implements OnInit {
 
-  @Input() a: string;
-  @Input() r: string;
-  accion: string;
-  respuesta: string;
-
-  @Input() setAccion(accion: string) {
-    this.accion = accion;
-  }
-
-  @Input() setRespuesta(respuesta: string) {
-    this.respuesta = respuesta;
-  }
+  @Input() mensaje: string;
+  @Output() swipe: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
   constructor() {
@@ -27,4 +17,7 @@ export class CardNotificacionComponent implements OnInit {
   ngOnInit() {
   }
 
+  swipeEvent() {
+    this.swipe.emit(true);
+  }
 }

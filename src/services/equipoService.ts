@@ -21,7 +21,12 @@ export class EquipoService {
   }
 
   getEquipo(id) {
-    return this.http.get<Equipo>(this.api + id, global.httpOptions);
+    return this.http.get<Equipo>(this.api + 'info/' + id, global.httpOptions);
   }
+
+  getMiEquipo() {
+    return this.http.get<Equipo>(this.api + 'miEquipo', global.httpOptions);
+  }
+
 
 }

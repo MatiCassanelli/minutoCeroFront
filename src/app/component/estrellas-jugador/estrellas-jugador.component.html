@@ -1,20 +1,35 @@
-<div class="container p-3 bg-faded">
-  <!--<div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">-->
-  <div>
-    <img class="rounded-circle" src="http://placehold.it/60x60" alt="">
-    <div style="display: inline-block; vertical-align: top;" >
-      <div>
-        <div>
-          <input [(ngModel)]="jugador.nombre + ' ' + jugador.apellido" readonly="true" style="background-color: transparent; border: none"/>
-          <div style="font-size:12px">
-            <input [(ngModel)]="jugador.email" readonly="true" style="background-color: transparent; border: none"/>
-          </div>
-        </div>
-      </div>
-      <div>
-        <p-rating [ngModel]="3" [cancel]="false" readonly="true"></p-rating>
-      </div>
-    </div>
-  </div>
-</div>
+<!--<div>-->
+<!--<img class="rounded-circle" src="http://placehold.it/60x60" alt="">-->
+<!--<div style="display: inline-block; vertical-align: top;">-->
+<!--<div>-->
+<!--<span>{{jugador?.nombre}} {{jugador?.apellido}}</span>-->
+<!--<div>-->
+<!--<small>{{jugador?.email}}</small>-->
+<!--</div>-->
+<!--&lt;!&ndash;<input [(ngModel)]="jugador.nombre + ' ' + jugador.apellido" readonly="true" style="background-color: transparent; border: none"/>&ndash;&gt;-->
+<!--&lt;!&ndash;<div style="font-size:12px">&ndash;&gt;-->
+<!--&lt;!&ndash;<input [(ngModel)]="jugador.email" readonly="true" style="background-color: transparent; border: none"/>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--</div>-->
+<!--<div>-->
+<!--<p-rating [ngModel]="jugador?.calificacion.puntaje" [cancel]="false" readonly="true"></p-rating>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<mat-list>
+  <h2 mat-subheader>Capitan</h2>
+  <mat-list-item>
+    <img matListAvatar class="rounded-circle" src="http://placehold.it/60x60" alt="">
+    <h4 mat-line>{{capitan?.nombre}} {{capitan?.apellido}}</h4>
+    <h5 mat-line>{{capitan?.email}}</h5>
+    <p mat-line><p-rating [ngModel]="capitan?.calificacion.puntaje" [cancel]="false" readonly="true"></p-rating></p>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <h2 mat-subheader>Jugadores</h2>
+  <mat-list-item *ngFor="let note of jugadores">
+    <img matListAvatar class="rounded-circle" src="http://placehold.it/60x60" alt="">
+    <h4 mat-line>{{note?.nombre}} {{note?.apellido}}</h4>
+    <p mat-line> <p-rating [ngModel]="note?.calificacion.puntaje" [cancel]="false" readonly="true"></p-rating></p>
+  </mat-list-item>
+</mat-list>
 <!--<img class="rounded-circle" src="http://placehold.it/60x60" alt="">-->

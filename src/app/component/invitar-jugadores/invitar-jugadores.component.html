@@ -1,19 +1,29 @@
-<form [formGroup]="form" #invitar="ngForm">
-    <span class="ui-inputgroup">
-      <p-autoComplete id="jugador" formControlName="jugador" field="email"
-                      [suggestions]="jugadores" (completeMethod)="getJugadores($event)"
-                      [multiple]="true" emptyMessage="No existen jugadores" [forceSelection]="true"
-                      (onSelect)="agregarJug($event)" (onUnselect)="eliminarJug($event)">
-        <ng-template let-jugador pTemplate="item">
-          <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5;">
-            <div>
-              {{jugador.nombre +' '+ jugador.apellido}}
-              <div style="font-size:12px">
-              {{jugador.email}}
-              </div>
-            </div>
-          </div>
-        </ng-template>
-      </p-autoComplete>
-    </span>
-</form>
+<mat-form-field class="example-full-width">
+  <mat-chip-list #chipList>
+    <mat-chip
+      *ngFor="let fruit of jugadoresSeleccionados"
+      [selectable]="selectable"
+      [removable]="removable"
+      (removed)="remove(fruit)">
+      {{fruit.nombre}} {{fruit.apellido}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip>
+    <input
+      placeholder="Invitar jugadores"
+      #fruitInput
+      [formControl]="fruitCtrl"
+      [matAutocomplete]="auto"
+      [matChipInputFor]="chipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      [matChipInputAddOnBlur]="addOnBlur"
+      (matChipInputTokenEnd)="add($event)">
+  </mat-chip-list>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)" class="example-full-width">
+    <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+      <div>
+        <span>{{fruit.nombre}} {{fruit.apellido}}</span>
+        <small>Puntuacion: {{fruit.calificacion.puntaje}}</small>
+      </div>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

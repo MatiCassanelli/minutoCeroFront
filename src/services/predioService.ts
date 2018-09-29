@@ -17,8 +17,18 @@ export class PredioService {
   }
 
   setUbicacion(predio, ub) {
-    console.log(ub);
-    return this.http.put<Predio>(this.api + predio + '/ubicacion', ub, global.httpOptions);
+    this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + ub.lat + ',' + ub.lng + '&key=AIzaSyBBbAYKGDWUQn05DaopQRrfy5YJMum_H7Y')
+      .subscribe(res => {
+        console.log(res['results'][0].formatted_address);
+        ub = {
+          lat: ub.lat,
+          lng: ub.lng,
+          direccion: res['results'][0].formatted_address
+        };
+        this.http.put<Predio>(this.api + predio + '/ubicacion', ub, global.httpOptions).subscribe(respredio => {
+          return respredio;
+        });
+    });
   }
 
   getAllPredios() {

@@ -1,11 +1,10 @@
-import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {BreakpointObserver, Breakpoints, BreakpointState, MediaMatcher} from '@angular/cdk/layout';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {BreakpointObserver, MediaMatcher} from '@angular/cdk/layout';
 import {MatSidenav} from '@angular/material';
 import {AuthService} from '../../../services/auth.service';
 import * as global from '../../app.global';
+
 import {environment} from "../../../environments/environment";
 // import {UsuarioService} from '../../_services/usuario.service';
 
@@ -19,22 +18,17 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
 
   @ViewChild('drawer') sidenav: MatSidenav;
   login = false;
+
   @Input()
   set logueado(name: boolean) {
     this.login = name;
   }
-  @Input() cantidad: number;
+
+  // @Input() cantidad: number;
+  cantidad = parseInt(localStorage.getItem('cantNotificaciones'), 10);
+  @Output() restarNotificaciones: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   mobileQuery: MediaQueryList;
-
-  fillerNav = Array.from({length: 5}, (_, i) => `Nav Item ${i + 1}`);
-
-  fillerContent = Array.from({length: 50}, () =>
-    `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-       laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-       voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-       cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`);
 
   private _mobileQueryListener: () => void;
   logoutApi = environment.baseUrl + '/auth/logout';
@@ -46,7 +40,7 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
-  logOut(){
+  logOut() {
     this.authService.logOut();
     window.location.href = this.logoutApi;
   }
@@ -57,6 +51,10 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log(this.cantidad);
+  }
+
+  restarNotificacion() {
+    this.restarNotificaciones.emit(true);
   }
 
 }

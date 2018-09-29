@@ -1,12 +1,4 @@
-<!--<p-dataView [value]="partidosIncompletos" [paginator]="false" [rows]="10">-->
-<!--<ng-template let-car pTemplate="listItem">-->
-<!--<div style="border-bottom: 1px solid #d9d9d9">-->
-<!--<div class="ui-g-12 ui-md-8 car-details">-->
-<!--<app-card-partido></app-card-partido>-->
-<!--</div>-->
-<!--</div>-->
-<!--</ng-template>-->
-<!--</p-dataView>-->
+<div>
 <mat-list>
   <!--<mat-divider></mat-divider>-->
   <mat-list-item *ngFor="let partido of partidosIncompletos; let i = index" (click)="goToPartido(partido._id)">
@@ -21,7 +13,5 @@
     <img mat-card-image class="rounded-circle imagenPartido" src="http://placehold.it/60x60" alt="">
     <mat-divider></mat-divider>
   </mat-list-item>
-
-
 </mat-list>
-
+</div>

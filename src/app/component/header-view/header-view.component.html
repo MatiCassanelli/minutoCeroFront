@@ -3,12 +3,13 @@
     <button mat-icon-button (click)="snav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <h1 class="example-app-name" routerLink="/partido">Minuto Cero</h1>
+    <!--<h1 class="example-app-name" routerLink="/partido">Minuto Cero</h1>-->
+    <app-solicitud-amistad></app-solicitud-amistad>
     <span class="spacer"></span>
     <div class="fab-container">
       <button mat-icon-button routerLink="/notificaciones">
         <mat-icon>notifications</mat-icon>
-        <span class="badge">{{cantidad}}</span>
+        <span *ngIf="cantidad > 0" class="badge">{{cantidad}}</span>
       </button>
       <!--<button mat-icon-button>-->
         <!--<mat-icon class="icon">notifications</mat-icon>-->
@@ -23,9 +24,11 @@
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list>
-        <a mat-list-item routerLink="/partido"(click)="snav.toggle()">Partidos</a>
+        <a mat-list-item routerLink="/partido" (click)="snav.toggle()">Partidos</a>
         <mat-divider></mat-divider>
-        <a mat-list-item routerLink="/equipo/crear"(click)="snav.toggle()">Crear Equipo</a>
+        <a mat-list-item routerLink="/equipo/crear" (click)="snav.toggle()">Crear Equipo</a>
+        <mat-divider></mat-divider>
+        <a mat-list-item routerLink="/equipo/miEquipo" (click)="snav.toggle()">Mi Equipo</a>
         <mat-divider></mat-divider>
         <a mat-list-item routerLink="/puntuaciones"(click)="snav.toggle()">Calificar</a>
         <mat-divider></mat-divider>
@@ -36,6 +39,7 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
+      <!--<router-outlet (restarNotificaciones)="restarNotificacion($event)"></router-outlet>-->
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

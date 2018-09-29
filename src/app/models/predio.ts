@@ -7,4 +7,5 @@ export class Predio {
     lat: string,
     lng: string
   };
+  direccion: string;
 }
