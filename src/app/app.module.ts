@@ -107,6 +107,8 @@ import { CardCalificacionComponent } from './component/card-calificacion/card-ca
 import { PuntuacionComponent } from './views/puntuacion/puntuacion.component';
 import { ReservaIndependienteComponent } from './views/reserva-independiente/reserva-independiente.component';
 import {AmazingTimePickerModule, AmazingTimePickerService} from 'amazing-time-picker';
+import { SolicitudAmistadComponent } from './views/solicitud-amistad/solicitud-amistad.component';
+import {JugadorService} from '../services/jugadorService';
 
 
 
@@ -150,7 +152,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     PuntuacionComponent,
     ReservaIndependienteComponent,
     ConfirmUbicacionDialogComponent,
-    DialogInvitarJugadorEquipoComponent
+    DialogInvitarJugadorEquipoComponent,
+    SolicitudAmistadComponent
   ],
   imports: [
     AppRouting,
@@ -226,7 +229,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     RoleService,
     AuthGuardService,
     RoleGuardService,
-    MatDatepickerModule
+    MatDatepickerModule,
+    JugadorService
   ],
   entryComponents: [MapComponent, MapDialogComponent,
     ConfirmDialogPlantelComponent, ConfirmUbicacionDialogComponent,

@@ -16,7 +16,7 @@ export class PlantelService {
   }
 
   addJugadorConfirmado(idPlantel, idJugador) {
-    return this.http.put<Plantel>(this.api + idPlantel, {
+    return this.http.put<Plantel>(this.api + idPlantel + '/invitar', {
       'jugadoresConfirmados': [idJugador]
     }, global.httpOptions);
   }
@@ -29,10 +29,17 @@ export class PlantelService {
     }, global.httpOptions);
   }
 
-  updatePlantel(plantel) {
-    return this.http.put<Plantel>(this.api + plantel._id, {
-      'jugadoresConfirmados': plantel.jugadoresConfirmados,
-      'jugadores': plantel.jugadores
+  updatePlantel(idPlantel, jugadoresConfirmados = null, jugadores = null) {
+    return this.http.put<Plantel>(this.api + idPlantel + '/invitar', {
+      'jugadoresConfirmados': jugadoresConfirmados,
+      'jugadores': jugadores
+    }, global.httpOptions);
+  }
+
+  confirmarJugador(idPlantel, jugadorParaConfirmar) {
+    return this.http.put<Plantel>(this.api + idPlantel, {
+      'jugadoresConfirmados': jugadorParaConfirmar,
+      'jugadores': jugadorParaConfirmar
     }, global.httpOptions);
   }
 

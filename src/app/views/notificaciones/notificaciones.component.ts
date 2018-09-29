@@ -18,7 +18,8 @@ export class NotificacionesComponent implements OnInit {
 
   ngOnInit() {
     this.notificacionService.getNotificaciones().subscribe(res => {
-      this.notificaciones = res;
+      this.notificaciones = res[0];
+      this.notificaciones = this.notificaciones.concat(res[1]);
     });
   }
   restarNotificacion(notificacion) {

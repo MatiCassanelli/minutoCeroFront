@@ -60,7 +60,6 @@ export class PlantelComponent implements OnInit {
         this.idOrganizador = partido.organizador._id;
         this.getJugadoresPlantel(this.plantelLocal, 'local');
         this.getJugadoresPlantel(this.plantelVisitante, 'visitante');
-        // this.porcentajeCumplimiento = this.plantelLocal.jugadoresConfirmados.length / this.cantJugadores;
       });
     } else {
       console.log('else idpartido');
@@ -90,8 +89,8 @@ export class PlantelComponent implements OnInit {
   addJugadorConfirmado(jugador, localia: string) {
     if (localia === 'local') {
       let index: number = this.plantelLocal.jugadores.indexOf(jugador);
-      if (!this.noIds) {
-        return this.plantelService.addJugadorConfirmado(this.plantelLocal._id, jugador._id).subscribe(res => {
+      if (!this.noIds) { // para cuando entro a un partido ya organizado a invitar nuevos jugadores
+        return this.plantelService.confirmarJugador(this.plantelLocal._id, [jugador._id]).subscribe(res => {
           this.plantelLocal.jugadoresConfirmados = res.jugadoresConfirmados;
           this.plantelLocal.jugadores.splice(index, 1);
           this.localSeleccionado = null;
@@ -107,7 +106,7 @@ export class PlantelComponent implements OnInit {
     if (localia === 'visitante') {
       const index: number = this.plantelVisitante.jugadores.indexOf(jugador);
       if (!this.noIds) {
-        return this.plantelService.addJugadorConfirmado(this.plantelVisitante._id, jugador._id).subscribe(res => {
+        return this.plantelService.confirmarJugador(this.plantelVisitante._id, [jugador._id]).subscribe(res => {
           this.plantelVisitante.jugadoresConfirmados = res.jugadoresConfirmados;
           this.plantelVisitante.jugadores.splice(index, 1);
           this.visitanteSeleccionado = null;
@@ -150,29 +149,16 @@ export class PlantelComponent implements OnInit {
       });
   }
 
-  remove(jugador, localia) {
-    this.confirmationService.confirm({
-      message: 'Eliminar a ' + jugador.nombre + jugador.apellido + ' del partido?',
-      header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        console.log('entrando...');
-        this.removeConfirmado(jugador, localia);
-      },
-      reject: () => {
-      }
-    });
-  }
   removeConfirmado(jugador, localia) {
     if(localia === 'local') {
       const index: number = this.plantelLocal.jugadoresConfirmados.indexOf(jugador);
-      this.plantelService.addJugadorConfirmado(this.plantelLocal._id, jugador._id).subscribe(() => {
+      this.plantelService.updatePlantel(this.plantelLocal._id, [jugador._id]).subscribe(() => {
         this.plantelLocal.jugadoresConfirmados.splice(index, 1);
       });
     }
     if(localia === 'visitante') {
       const index: number = this.plantelVisitante.jugadoresConfirmados.indexOf(jugador);
-      this.plantelService.addJugadorConfirmado(this.plantelLocal._id, jugador._id).subscribe(() => {
+      this.plantelService.updatePlantel(this.plantelVisitante._id, [jugador._id]).subscribe(() => {
         this.plantelVisitante.jugadoresConfirmados.splice(index, 1);
       });
     }
@@ -185,18 +171,30 @@ export class PlantelComponent implements OnInit {
 
 
   invitarJugadores() {
+    console.log('entro invitar');
     if (this.localidad === 'local') {
-      for (let j of this.jugadoresAInvitar) {
-        console.log(this.plantelLocal.jugadores.indexOf(j));
-        if (this.plantelLocal.jugadores.indexOf(j) === -1)
+      if (this.noIds){
+        for(let j of this.jugadoresAInvitar)
           this.plantelLocal.jugadores.push(j);
+      }
+      else {
+        this.plantelService.updatePlantel(this.plantelLocal._id, null, this.jugadoresAInvitar).subscribe(res => {
+          this.plantelLocal.jugadores = res.jugadores;
+        });
       }
     }
     if (this.localidad === 'visitante') {
-      for (let j of this.jugadoresAInvitar) {
-        this.plantelVisitante.jugadores.push(j);
+      if (this.noIds){
+        for(let j of this.jugadoresAInvitar)
+          this.plantelVisitante.jugadores = this.jugadoresAInvitar;
+      }
+      else {
+        this.plantelService.updatePlantel(this.plantelVisitante._id, null, this.jugadoresAInvitar).subscribe(res => {
+          this.plantelVisitante.jugadores = res.jugadores;
+        });
       }
     }
+    this.sendPlantel.emit([this.plantelLocal, this.plantelVisitante]);
     this.resetForm = !this.resetForm; // esto es para q entre en el onchanged del componente
   }
 }

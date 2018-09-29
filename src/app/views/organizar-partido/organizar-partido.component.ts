@@ -104,7 +104,6 @@ export class OrganizarPartidoComponent implements OnInit {
     console.log(this.canchaSeleccionada, this.fechaPartido);
     let cancha: any;
     forkJoin(this.predioService.getCanchasWithPredio(this.selectedPredio._id),
-    // forkJoin(this.predioService.getCanchas(),
       this.plantelService.createPlantel(this.plantelLocal, 'Local'),
       this.plantelService.createPlantel(this.plantelVisitante, 'Visitante')).subscribe(res => {
       cancha = res[0][0];

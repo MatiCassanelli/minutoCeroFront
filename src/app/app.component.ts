@@ -30,6 +30,21 @@ export class AppComponent {
         ((parseInt(localStorage.getItem('cantNotificaciones'), 10) + 1).toString()));
         console.log(data);
       });
+    socket.on('Partido' + localStorage.getItem('id'), (data) => {
+      localStorage.setItem('cantNotificaciones',
+        ((parseInt(localStorage.getItem('cantNotificaciones'), 10) + 1).toString()));
+      console.log(data);
+    });
+    socket.on('Equipo' + localStorage.getItem('id'), (data) => {
+      localStorage.setItem('cantNotificaciones',
+        ((parseInt(localStorage.getItem('cantNotificaciones'), 10) + 1).toString()));
+      console.log(data);
+    });
+    socket.on('Amigo' + localStorage.getItem('id'), (data) => {
+      localStorage.setItem('cantNotificaciones',
+        ((parseInt(localStorage.getItem('cantNotificaciones'), 10) + 1).toString()));
+      console.log(data);
+    });
   }
   restarNotificacion(event) {
     this.cantidad -= 1;
