@@ -4,10 +4,11 @@ import { Observable } from 'rxjs/Observable';
 import * as global from '../app/app.global';
 import {Jugador} from '../app/models/jugador';
 import {Predio} from '../app/models/predio';
+import {environment} from '../environments/environment';
 
 @Injectable()
 export class NotificacionService {
-  private api = global.serverURL + '/notificaciones/';
+  private api = environment + '/notificaciones/';
 
   constructor(private http: HttpClient) {
   }
