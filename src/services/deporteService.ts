@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import * as global from '../app/app.global';
 import {Deporte} from '../app/models/deporte';
+import {environment} from "../environments/environment";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -14,7 +15,7 @@ const httpOptions = {
 
 @Injectable()
 export class DeporteService {
-  private api = global.serverURL + '/deporte/';
+  private api = environment.baseUrl + '/deporte/';
 
   constructor(private http: HttpClient) {
   }

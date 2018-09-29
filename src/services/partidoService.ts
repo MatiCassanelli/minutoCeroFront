@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as global from '../app/app.global';
 import {Partido} from '../app/models/partido';
+import {environment} from "../environments/environment";
 
 @Injectable()
 export class PartidoService {
 
-  private api = global.serverURL + '/partido/';
+  private api = environment.baseUrl + '/partido/';
 
   constructor(private http: HttpClient) {
   }

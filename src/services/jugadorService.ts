@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as global from '../app/app.global';
 import {Jugador} from '../app/models/jugador';
+import {environment} from "../environments/environment";
 
 @Injectable()
 export class JugadorService {
 
-  private api = global.serverURL + '/jugador/';
+  private api = environment.baseUrl + '/jugador/';
 
   constructor(private http: HttpClient) {
   }
