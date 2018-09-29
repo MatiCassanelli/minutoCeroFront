@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as global from '../app/app.global';
 import {Predio} from '../app/models/predio';
+import {environment} from "../environments/environment";
 
 @Injectable()
 export class PredioService {
 
-  private api = global.serverURL + '/predio/';
+  private api = environment.baseUrl + '/predio/';
 
   constructor(private http: HttpClient) {
   }

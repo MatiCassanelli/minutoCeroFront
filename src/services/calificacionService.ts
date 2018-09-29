@@ -4,10 +4,11 @@ import { Observable } from 'rxjs/Observable';
 import * as global from '../app/app.global';
 import {Jugador} from '../app/models/jugador';
 import {Predio} from '../app/models/predio';
+import {environment} from "../environments/environment";
 
 @Injectable()
 export class CalificacionService {
-  private api = global.serverURL + '/calificacion/';
+  private api = environment.baseUrl + '/calificacion/';
 
   constructor(private http: HttpClient) {
   }

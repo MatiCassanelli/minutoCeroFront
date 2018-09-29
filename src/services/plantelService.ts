@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as global from '../app/app.global';
 import {Plantel} from '../app/models/plantel';
+import {environment} from "../environments/environment";
 
 @Injectable()
 export class PlantelService {
 
-  private api = global.serverURL + '/plantel/';
+  private api = environment.baseUrl + '/plantel/';
 
   constructor(private http: HttpClient) {
   }

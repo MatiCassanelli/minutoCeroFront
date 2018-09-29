@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as global from '../app/app.global';
+import {environment} from "../environments/environment";
 import {Partido} from '../app/models/partido';
 
 @Injectable()
 export class ReservaService {
 
-  private api = global.serverURL + '/reservas/';
+  private api = environment.baseUrl + '/reservas/';
 
   constructor(private http: HttpClient) {
   }

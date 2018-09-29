@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {HomeJugadorComponent} from '../views/home-jugador/home-jugador.component';
 import {AuthService} from "../../services/auth.service";
 import {RoleService} from "../../services/role.service";
+import {environment} from "../../environments/environment";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -23,15 +24,17 @@ export class LoginComponent implements OnInit {
   facebook: string;
   google: string;
   logout: string;
+  url: string;
   predio = false;
 
   constructor(private authService: AuthService,
               private router: Router,
               private roleService: RoleService) {
     this.predio = false;
-    this.facebook = global.serverURL + '/auth/login/facebook/jugador/';
-    this.google = global.serverURL + '/auth/login/google/jugador/';
-    this.logout = global.serverURL + '/auth/logout';
+    this.url = environment.baseUrl;
+    this.facebook = this.url + '/auth/login/facebook/jugador/';
+    this.google = this.url + '/auth/login/google/jugador/';
+    this.logout = this.url + '/auth/logout';
   }
 
   ngOnInit() {
@@ -43,13 +46,13 @@ export class LoginComponent implements OnInit {
   setPredio(bool) {
     if (bool === 'predio') {
       this.predio = false;
-      this.facebook = global.serverURL + '/auth/login/facebook/predio/';
-      this.google = global.serverURL + '/auth/login/google/predio/';
+      this.facebook = this.url + '/auth/login/facebook/predio/';
+      this.google = this.url + '/auth/login/google/predio/';
     }
     if (bool === 'jugador') {
       this.predio = true;
-      this.facebook = global.serverURL + '/auth/login/facebook/jugador/';
-      this.google = global.serverURL + '/auth/login/google/jugador/';
+      this.facebook = this.url + '/auth/login/facebook/jugador/';
+      this.google = this.url + '/auth/login/google/jugador/';
     }
   }
 

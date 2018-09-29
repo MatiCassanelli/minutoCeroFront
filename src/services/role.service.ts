@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as global from '../app/app.global';
 import {Router} from "@angular/router";
 import {AuthService} from "./auth.service";
+import {environment} from "../environments/environment";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -14,7 +15,7 @@ const httpOptions = {
 @Injectable()
 export class RoleService {
 
-  private api = global.serverURL + '/usuario/';
+  private api = environment.baseUrl + '/usuario/';
 
   constructor(private http: HttpClient,
               private router: Router) {

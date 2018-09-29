@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MenuItem} from 'primeng/components/common/menuitem';
 import * as global from 'app/app.global';
 import {AuthService} from "../../../services/auth.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,7 +15,7 @@ export class NavBarComponent implements OnInit {
 
   items: MenuItem[];
   isExpanded = true;
-  logoutApi = global.serverURL + '/auth/logout';
+  logoutApi = environment.baseUrl + '/auth/logout';
 
   constructor(private authService: AuthService){
   }

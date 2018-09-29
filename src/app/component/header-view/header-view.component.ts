@@ -5,6 +5,7 @@ import {MatSidenav} from '@angular/material';
 import {AuthService} from '../../../services/auth.service';
 import * as global from '../../app.global';
 
+import {environment} from "../../../environments/environment";
 // import {UsuarioService} from '../../_services/usuario.service';
 
 @Component({
@@ -30,7 +31,7 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
 
   private _mobileQueryListener: () => void;
-  logoutApi = global.serverURL + '/auth/logout';
+  logoutApi = environment.baseUrl + '/auth/logout';
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
               private authService: AuthService) {
