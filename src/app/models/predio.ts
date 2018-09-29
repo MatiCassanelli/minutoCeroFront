@@ -1,6 +1,6 @@
 export class Predio {
   _id: string
-  nombre: string;
+  nombrePredio: string;
   telefono: string;
   horarios: Array<any>;
   ubicacionMaps: {

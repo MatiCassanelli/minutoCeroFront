@@ -4,13 +4,14 @@ import {Observable} from 'rxjs';
 import {Jugador} from '../../models/jugador';
 import {JugadorService} from '../../../services/jugadorService';
 import {map, startWith} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-solicitud-amistad',
-  templateUrl: './solicitud-amistad.component.html',
-  styleUrls: ['./solicitud-amistad.component.css']
+  selector: 'app-buscador-jugadores',
+  templateUrl: './buscador-jugadores.component.html',
+  styleUrls: ['./buscador-jugadores.component.css']
 })
-export class SolicitudAmistadComponent implements OnInit {
+export class BuscadorJugadoresComponent implements OnInit {
 
   jugadorCtrl = new FormControl();
   filteredJugadores: Observable<Jugador[]>;
@@ -18,7 +19,8 @@ export class SolicitudAmistadComponent implements OnInit {
   jugadorBuscado: Jugador;
   @ViewChild('jugadorInput') jugadorInput: ElementRef;
 
-  constructor(private jugadorService: JugadorService) {
+  constructor(private jugadorService: JugadorService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -42,6 +44,7 @@ export class SolicitudAmistadComponent implements OnInit {
     console.log(event.option.value);
     this.jugadorCtrl.reset();
     this.jugadorInput.nativeElement.value = null;
-    this.jugadorCtrl.setValue(event.option.value.nombre + ' ' + event.option.value.apellido);
+    this.router.navigateByUrl('/jugador/' + event.option.value._id);
+    // this.jugadorCtrl.setValue(event.option.value.nombre + ' ' + event.option.value.apellido);
   }
 }

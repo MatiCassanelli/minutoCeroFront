@@ -17,7 +17,7 @@ import {Deporte} from '../../models/deporte';
 export class DeporteCanchaPartidoComponent implements OnInit {
 
   // @Output() canchaSeleccionada: any;
-  @Output() canchaSeleccionada: EventEmitter<any> = new EventEmitter<any>();
+  @Output() canchaSeleccionada: EventEmitter<Deporte> = new EventEmitter<Deporte>();
   @Output() fechaSeleccionada: EventEmitter<Date> = new EventEmitter<Date>();
   fechaPartido: Date;
   horaPartido: Date;

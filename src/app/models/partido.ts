@@ -1,9 +1,10 @@
 import {Jugador} from './jugador';
 import {Plantel} from './plantel';
+import {Deporte} from './deporte';
 
 export class Partido {
   _id: string;
-  deporte: string;
+  deporte: Deporte;
   grupoLocal: Plantel;
   grupoVisitante: Plantel;
   dia: Date;

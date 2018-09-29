@@ -41,6 +41,7 @@ export class AppComponent {
       console.log(data);
     });
     socket.on('Amigo' + localStorage.getItem('id'), (data) => {
+      console.log('entro a socket amigo')
       localStorage.setItem('cantNotificaciones',
         ((parseInt(localStorage.getItem('cantNotificaciones'), 10) + 1).toString()));
       console.log(data);

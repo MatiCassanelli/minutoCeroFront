@@ -4,17 +4,13 @@
       <mat-icon>menu</mat-icon>
     </button>
     <!--<h1 class="example-app-name" routerLink="/partido">Minuto Cero</h1>-->
-    <app-solicitud-amistad></app-solicitud-amistad>
+    <app-buscador-jugadores style="width: 100%;"></app-buscador-jugadores>
     <span class="spacer"></span>
     <div class="fab-container">
       <button mat-icon-button routerLink="/notificaciones">
         <mat-icon>notifications</mat-icon>
         <span *ngIf="cantidad > 0" class="badge">{{cantidad}}</span>
       </button>
-      <!--<button mat-icon-button>-->
-        <!--<mat-icon class="icon">notifications</mat-icon>-->
-        <!--<span class="badge" >{{cantidad}}</span>-->
-      <!--</button>-->
     </div>
 
   </mat-toolbar>

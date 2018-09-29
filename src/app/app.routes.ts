@@ -18,7 +18,8 @@ import {PartidoComponent} from './views/partido/partido.component';
 import {NotificacionesComponent} from './views/notificaciones/notificaciones.component';
 import {PuntuacionComponent} from './views/puntuacion/puntuacion.component';
 import {ReservaIndependienteComponent} from './views/reserva-independiente/reserva-independiente.component';
-import {SolicitudAmistadComponent} from './views/solicitud-amistad/solicitud-amistad.component'
+import {BuscadorJugadoresComponent} from './component/buscadorJugadores/buscador-jugadores.component'
+import {PerfilJugadorComponent} from './views/perfil-jugador/perfil-jugador.component';
 
 const appRoutes: Routes = [
   {
@@ -56,7 +57,8 @@ const appRoutes: Routes = [
   {path: 'notificaciones', component: NotificacionesComponent},
   {path: 'puntuaciones', component: PuntuacionComponent},
   {path: 'reservaIndependiente', component: ReservaIndependienteComponent},
-  {path: 'amigos', component: SolicitudAmistadComponent},
+  // {path: 'amigos', component: BuscadorJugadoresComponent},
+  {path: 'jugador/:id', component: PerfilJugadorComponent},
 
   {path: '**', component: PageNotFoundComponent},
 ];

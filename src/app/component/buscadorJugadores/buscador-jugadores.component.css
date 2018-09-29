@@ -1,0 +1,10 @@
+.buscador {
+  color: white;
+  width: 100%;
+  padding: 10px 0 0;
+  font-size: medium
+}
+
+.mat-form-field-infix {
+  padding: 3px;
+}

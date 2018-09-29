@@ -1,0 +1,11 @@
+<mat-form-field [floatLabel]="'never'" style="color: white; width: 100%; padding: 3px">
+  <input matInput #jugadorInput [matAutocomplete]="auto"
+         [formControl]="jugadorCtrl" class="buscador">
+  <mat-placeholder class="buscador">Jugadores</mat-placeholder>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)" style="width: 100%">
+    <mat-option *ngFor="let state of filteredJugadores | async" [value]="state">
+      <p>{{state.nombre}} {{state.apellido}}</p>
+      <!--<small>Population: {{state.calificacion.puntaje}}</small>-->
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

@@ -34,10 +34,10 @@ export class OrganizarPartidoComponent implements OnInit {
   form: FormGroup;
   deporte: Deporte;
   deportes: Deporte[];
-  tiposCancha: SelectItem[];
+  // tiposCancha: SelectItem[];
   predios: Predio[];
   selectedPredio: Predio;
-  canchaSeleccionada: any;
+  canchaSeleccionada: Deporte;
   fechaPartido: Date;
   plantelLocal: Plantel;
   plantelVisitante: Plantel;
@@ -65,14 +65,14 @@ export class OrganizarPartidoComponent implements OnInit {
 
   ngOnInit() {
     this.deporteService.getDeportes().subscribe(res => {
-      this.tiposCancha = [];
+      // this.tiposCancha = [];
       this.deportes = res;
-      for (let cancha of res) {
-        this.tiposCancha.push({
-          label: cancha.nombre,
-          value: cancha._id
-        });
-      }
+      // for (let cancha of res) {
+      //   this.tiposCancha.push({
+      //     label: cancha.nombre,
+      //     value: cancha._id
+      //   });
+      // }
     });
     this.predioService.getAllPredios().subscribe(predios => {
       console.log(predios);
@@ -110,7 +110,7 @@ export class OrganizarPartidoComponent implements OnInit {
       const local = res[1];
       const visitante = res[2];
       this.partidoService.createPartido({
-        deporte: this.canchaSeleccionada,
+        deporte: this.deporte._id,
         grupoLocal: local,
         grupoVisitante: visitante,
         dia: this.fechaPartido,
