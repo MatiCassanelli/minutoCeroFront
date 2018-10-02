@@ -11,6 +11,7 @@ import {MatSnackBar} from '@angular/material';
 })
 export class NotificacionesComponent implements OnInit {
 
+  solicitudes = [];
   notificaciones = [];
   @Output() restarNotificaciones: EventEmitter<boolean> = new EventEmitter<boolean>();
   constructor(private notificacionService: NotificacionService,
@@ -18,8 +19,9 @@ export class NotificacionesComponent implements OnInit {
 
   ngOnInit() {
     this.notificacionService.getNotificaciones().subscribe(res => {
-      this.notificaciones = res[0];
-      this.notificaciones = this.notificaciones.concat(res[1]);
+      console.log(res);
+      this.solicitudes = res['solicitudes'];
+      this.notificaciones = res['notificaciones'];
     });
   }
   restarNotificacion(notificacion) {
