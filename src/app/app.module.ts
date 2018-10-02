@@ -112,6 +112,7 @@ import {JugadorService} from '../services/jugadorService';
 import { PerfilJugadorComponent } from './views/perfil-jugador/perfil-jugador.component';
 import {AmistadService} from '../services/amistadService';
 import {EquipoService} from '../services/equipoService';
+import { CardSolicitudComponent } from './component/card-solicitud/card-solicitud.component';
 
 
 
@@ -157,7 +158,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     ConfirmUbicacionDialogComponent,
     DialogInvitarJugadorEquipoComponent,
     BuscadorJugadoresComponent,
-    PerfilJugadorComponent
+    PerfilJugadorComponent,
+    CardSolicitudComponent
   ],
   imports: [
     AppRouting,

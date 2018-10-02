@@ -1,0 +1,15 @@
+<div style="margin: 3%;">
+  <mat-card>
+    <mat-card-header>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{solicitud.mensaje}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+    <button mat-button (click)="responder('Aceptado')">Aceptar</button>
+    <button mat-button (click)="responder('Rechazado')">Rechazar</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

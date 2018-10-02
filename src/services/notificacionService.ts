@@ -7,16 +7,20 @@ import {Predio} from '../app/models/predio';
 
 @Injectable()
 export class NotificacionService {
-  private api = global.serverURL + '/notificaciones/';
+  private api = global.serverURL;
 
   constructor(private http: HttpClient) {
   }
 
   getNotificaciones() {
-    return this.http.get<Array<any>>(this.api + '/nuevas', global.httpOptions);
+    return this.http.get<Array<any>>(this.api + '/notificaciones/' + 'nuevas', global.httpOptions);
   }
 
   getCantNotificaciones() {
-    return this.http.get<number>(this.api + '/nuevas/cantidad', global.httpOptions);
+    return this.http.get<number>(this.api + '/notificaciones/' + 'nuevas/cantidad', global.httpOptions);
+  }
+
+  responder(id, tipoNotificacion, respuesta) {
+    return this.http.put<any>(this.api + '/solicitudes/' + tipoNotificacion + '/' + id, respuesta, global.httpOptions);
   }
 }
