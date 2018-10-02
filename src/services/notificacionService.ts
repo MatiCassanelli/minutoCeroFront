@@ -20,4 +20,8 @@ export class NotificacionService {
   getCantNotificaciones() {
     return this.http.get<number>(this.api + 'nuevas/cantidad', global.httpOptions);
   }
+
+  responder(id, tipoNotificacion, respuesta) {
+    return this.http.put<any>(this.api + 'solicitudes/' + tipoNotificacion + '/' + id, respuesta, global.httpOptions);
+  }
 }
