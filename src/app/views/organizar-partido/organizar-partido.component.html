@@ -1,5 +1,6 @@
-<div class="centrado">
-  <p-card title="Crear Partido" [style]="{width: '100%'}" styleClass="ui-card-shadow">
+<div class="container" style="margin-top: 3%">
+  <h3>Organizar Partido</h3>
+  <!--<p-card title="Crear Partido" [style]="{width: '100%'}" styleClass="ui-card-shadow">-->
     <div class="container ui-fluid">
       <app-deporte-cancha-partido (canchaSeleccionada)="getTipoCancha($event)"
                                   (fechaSeleccionada)="getFecha($event)"></app-deporte-cancha-partido>
@@ -39,7 +40,7 @@
       <!--<button pButton type="button" label="Crear" icon="pi pi-check"></button>-->
       <!--<button pButton type="button" label="Cancelar" icon="pi pi-times" class="ui-button-secondary"></button>-->
     </p-footer>
-  </p-card>
+  <!--</p-card>-->
   <!--</form>-->
 </div>
 
