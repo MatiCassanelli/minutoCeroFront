@@ -8,16 +8,16 @@ import {environment} from '../environments/environment';
 
 @Injectable()
 export class NotificacionService {
-  private api = environment + '/notificaciones/';
+  private api = environment.baseUrl + '/notificaciones/';
 
   constructor(private http: HttpClient) {
   }
 
   getNotificaciones() {
-    return this.http.get<Array<any>>(this.api + '/nuevas', global.httpOptions);
+    return this.http.get<Array<any>>(this.api + 'nuevas', global.httpOptions);
   }
 
   getCantNotificaciones() {
-    return this.http.get<number>(this.api + '/nuevas/cantidad', global.httpOptions);
+    return this.http.get<number>(this.api + 'nuevas/cantidad', global.httpOptions);
   }
 }
