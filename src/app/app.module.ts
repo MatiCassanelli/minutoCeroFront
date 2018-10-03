@@ -113,6 +113,8 @@ import { PerfilJugadorComponent } from './views/perfil-jugador/perfil-jugador.co
 import {AmistadService} from '../services/amistadService';
 import {EquipoService} from '../services/equipoService';
 import { CardSolicitudComponent } from './component/card-solicitud/card-solicitud.component';
+import {ROUTER_PROVIDERS} from "@angular/router/src/router_module";
+import {HashLocationStrategy, LocationStrategy, PathLocationStrategy} from "@angular/common";
 
 
 
@@ -238,7 +240,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatDatepickerModule,
     JugadorService,
     AmistadService,
-    EquipoService
+    EquipoService,
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   entryComponents: [MapComponent, MapDialogComponent,
     ConfirmDialogPlantelComponent, ConfirmUbicacionDialogComponent,

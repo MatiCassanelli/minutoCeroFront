@@ -3,6 +3,7 @@ import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
 import {RoleService} from "../../../services/role.service";
 import * as socketIo from "socket.io-client";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-home-predio',
@@ -18,7 +19,7 @@ export class HomePredioComponent implements OnInit {
   ngOnInit() {
     this.authService.logIn('Predio');
 
-    var socket = socketIo('http://localhost:3000');
+    var socket = socketIo(environment.baseUrl);
     // console.log('hello'+localStorage.getItem('id'));
     socket.on('hello'+localStorage.getItem('id'), (data) =>
       console.log(data)

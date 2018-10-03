@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import * as socketIo from 'socket.io-client';
 import {NotificacionService} from '../services/notificacionService';
+import {environment} from "../environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,7 @@ export class AppComponent {
       localStorage.setItem('cantNotificaciones', res.toString());
       this.cantidad = parseInt(localStorage.getItem('cantNotificaciones'), 10);
     });
-    const socket = socketIo('http://localhost:3000');
+    const socket = socketIo(environment.baseUrl);
     // console.log('hello'+localStorage.getItem('id'));
     socket.on('Reserva' + localStorage.getItem('id'), (data) => {
       localStorage.setItem('cantNotificaciones',
