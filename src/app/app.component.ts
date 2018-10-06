@@ -17,7 +17,6 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    if (this.jugador === 'Jugador') {
       this.notificacionService.getCantNotificaciones().subscribe(res => {
         console.log('res', res);
         if (res.toString() === 'false')
@@ -30,25 +29,20 @@ export class AppComponent {
       socket.on('Reserva' + localStorage.getItem('id'), (data) => {
         localStorage.setItem('cantNotificaciones',
           ((parseInt(localStorage.getItem('cantNotificaciones'), 10) + 1).toString()));
-        console.log(data);
       });
       socket.on('Partido' + localStorage.getItem('id'), (data) => {
         localStorage.setItem('cantNotificaciones',
           ((parseInt(localStorage.getItem('cantNotificaciones'), 10) + 1).toString()));
-        console.log(data);
       });
       socket.on('Equipo' + localStorage.getItem('id'), (data) => {
         localStorage.setItem('cantNotificaciones',
           ((parseInt(localStorage.getItem('cantNotificaciones'), 10) + 1).toString()));
-        console.log(data);
       });
       socket.on('Amigo' + localStorage.getItem('id'), (data) => {
         console.log('entro a socket amigo')
         localStorage.setItem('cantNotificaciones',
           ((parseInt(localStorage.getItem('cantNotificaciones'), 10) + 1).toString()));
-        console.log(data);
       });
-    }
   }
   restarNotificacion(event) {
     this.cantidad -= 1;

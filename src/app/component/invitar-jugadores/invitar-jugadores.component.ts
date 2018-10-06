@@ -20,92 +20,6 @@ import {AmistadService} from '../../../services/amistadService';
 })
 export class InvitarJugadoresComponent implements OnInit {
 
-  // checked: boolean;
-  // form: FormGroup;
-  // jugadores: Jugador[];
-  // jugadoresSeleccionados: Jugador[];
-  // @Output() notifyParent: EventEmitter<Array<Jugador>> = new EventEmitter<Array<Jugador>>();
-  // @Output() jugadoresInvitados: EventEmitter<boolean> = new EventEmitter<boolean>();
-  //
-  // @ViewChild('invitar') myForm: NgForm;
-  // @Input() isReset;
-  //
-  // stateCtrl = new FormControl();
-  // filteredStates: Observable<Jugador[]>;
-  //
-  // constructor(private fb: FormBuilder,
-  //             private jugadorService: JugadorService) {
-  //   this.jugadoresSeleccionados = new Array<Jugador>();
-  //   this.checked = false;
-  // }
-  //
-  // ngOnInit() {
-  //   this.form = this.fb.group({
-  //     jugador: null
-  //   });
-  //   this.jugadorService.getJugadores().subscribe((resp) => {
-  //     this.jugadores = resp;
-  //     this.filteredStates = this.stateCtrl.valueChanges
-  //       .pipe(
-  //         startWith(''),
-  //         map(state => state ? this._filterStates(state) : this.jugadores.slice())
-  //       );
-  //   });
-  // }
-  //
-  // // esto es para las sugerencias
-  // getJugadores(event): Array<Jugador> {
-  //   this.jugadorService.getJugadores(event.query).subscribe((resp) => {
-  //     console.log(resp);
-  //     this.jugadores = resp;
-  //   });
-  //   return this.jugadores;
-  // }
-  //
-  // // sendJugadores() {
-  // //   this.jugadoresInvitados.emit(this.checked);
-  // //   this.notifyParent.emit(this.jugadoresSeleccionados);
-  // // }
-  // // agregarJug(value) {
-  // //   console.log('agregando', value);
-  // //   this.jugadoresSeleccionados.push(value);
-  // //   console.log('this.jugadoresSeleccionados', this.jugadoresSeleccionados);
-  // //   // this.checked = true;
-  // //   // this.notifyParent.emit(this.jugadoresSeleccionados);
-  // // }
-  // // eliminarJug(value) {
-  // //   console.log('eliminando', value);
-  // //   this.jugadoresSeleccionados.splice(this.jugadoresSeleccionados.indexOf(value), 1);
-  // //   console.log('this.jugadoresSeleccionados', this.jugadoresSeleccionados);
-  // //   // if(this.jugadoresSeleccionados.length === 0){
-  // //   //   this.checked = false;
-  // //   // }
-  // //   // this.notifyParent.emit(this.jugadoresSeleccionados);
-  // // }
-  // agregarJug(value) {
-  //   this.jugadoresSeleccionados.push(value);
-  //   this.notifyParent.emit(this.jugadoresSeleccionados);
-  // }
-  //
-  // eliminarJug(value) {
-  //   this.jugadoresSeleccionados.splice(this.jugadoresSeleccionados.indexOf(value), 1);
-  //   this.notifyParent.emit(this.jugadoresSeleccionados);
-  // }
-  //
-  // ngOnChanges() {
-  //   this.isReset = true;
-  //   this.jugadoresSeleccionados = [];
-  //   this.isReset = false;
-  //   if (this.myForm.status === 'VALID')
-  //     this.myForm.resetForm();
-  // }
-  //
-  // private _filterStates(value: string): Jugador[] {
-  //   const filterValue = value.toLowerCase();
-  //
-  //   return this.jugadores.filter(state => state.nombre.toLowerCase().indexOf(filterValue) === 0);
-  // }
-  visible = true;
   @Input() isReset;
   selectable = true;
   removable = true;
@@ -114,7 +28,6 @@ export class InvitarJugadoresComponent implements OnInit {
   fruitCtrl = new FormControl();
   filteredFruits: Observable<Jugador[]>;
   jugadoresSeleccionados: Jugador[] = [];
-  // jugadores: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
   jugadores: Jugador[];
   nombreJugador: string[] = [];
 
@@ -127,8 +40,8 @@ export class InvitarJugadoresComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.jugadorService.getJugadores().subscribe((resp) => {  // deberia ser un getamigos
-    // this.amistadService.getAmigos().subscribe((resp) => {
+    // this.jugadorService.getJugadores().subscribe((resp) => {  // deberia ser un getamigos
+    this.amistadService.getAmigos().subscribe((resp) => {
       console.log(resp);
       this.jugadores = resp;
       for (let jugador of resp) {
