@@ -34,21 +34,17 @@ export class OrganizarPartidoComponent implements OnInit {
   form: FormGroup;
   deporte: Deporte;
   deportes: Deporte[];
-  // tiposCancha: SelectItem[];
   predios: Predio[];
   selectedPredio: Predio;
   canchaSeleccionada: Deporte;
   fechaPartido: Date;
   plantelLocal: Plantel;
   plantelVisitante: Plantel;
-  displayDialog = false;
   ubicacion = {
     lat: String,
     lng: String
   };
   mostrarLabel = false;
-  idPartido = null;
-  // fileNameDialogRef: MatDialogRef<MapComponent>;
   fileNameDialogRef: MatDialogRef<MapDialogComponent>;
   porcentajeOcupacion: number;
 
@@ -67,12 +63,6 @@ export class OrganizarPartidoComponent implements OnInit {
     this.deporteService.getDeportes().subscribe(res => {
       // this.tiposCancha = [];
       this.deportes = res;
-      // for (let cancha of res) {
-      //   this.tiposCancha.push({
-      //     label: cancha.nombre,
-      //     value: cancha._id
-      //   });
-      // }
     });
     this.predioService.getAllPredios().subscribe(predios => {
       console.log(predios);

@@ -9,6 +9,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatAutocompleteSelectedEvent, MatChipInputEvent} from '@angular/material';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {AmistadService} from '../../../services/amistadService';
 
 
 @Component({
@@ -121,11 +122,14 @@ export class InvitarJugadoresComponent implements OnInit {
 
   @Output() notifyParent: EventEmitter<Array<Jugador>> = new EventEmitter<Array<Jugador>>();
 
-  constructor(private jugadorService: JugadorService) {
+  constructor(private jugadorService: JugadorService,
+              private amistadService: AmistadService) {
   }
 
   ngOnInit() {
-    this.jugadorService.getJugadores().subscribe((resp) => {
+    this.jugadorService.getJugadores().subscribe((resp) => {  // deberia ser un getamigos
+    // this.amistadService.getAmigos().subscribe((resp) => {
+      console.log(resp);
       this.jugadores = resp;
       for (let jugador of resp) {
         this.nombreJugador.push(jugador.nombre + jugador.apellido);

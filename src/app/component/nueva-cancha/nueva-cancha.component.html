@@ -1,0 +1,40 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title *ngIf="cancha.nombreCancha; else noTiene">
+      {{cancha.nombreCancha}}
+    </mat-panel-title>
+    <ng-template #noTiene>
+      Nueva Cancha
+    </ng-template>
+  </mat-expansion-panel-header>
+  <!--<div app-type="section" id="SECTION1" [active]="true" (canchasInternas) = "onAddComponentClick()"></div>-->
+  <mat-form-field>
+    <input matInput placeholder="Nombre" [(ngModel)]="cancha.nombreCancha">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Tamaño de Cancha" required (selectionChange)="minimoDeporte($event)" [(ngModel)]="cancha.deporte">
+      <mat-option *ngFor="let deporte of deportes" [value]="deporte">
+        {{deporte?.nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Tipo de Suelo" required [(ngModel)]="cancha.tipoSuelo">
+      <mat-option *ngFor="let suelo of ['Tierra', 'Sintetico', 'Natural']" [value]="suelo">
+        {{suelo}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Precio" type="number" class="example-right-align">
+    <span matPrefix>$&nbsp;</span>
+  </mat-form-field>
+  <p *ngIf="cancha.deporte && imprime" (click)="nuevaSubCancha(cancha)">
+    <small>Contiene canchas internas</small>
+  </p>
+  <div *ngIf="imprime">
+    <div *ngFor="let subcancha of cancha.canchasHijas">
+      <app-nueva-cancha [cancha]="subcancha" [deportePadre]="cancha.deporte.cantJugadores"></app-nueva-cancha>
+    </div>
+  </div>
+</mat-expansion-panel>

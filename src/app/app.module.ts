@@ -113,6 +113,10 @@ import { PerfilJugadorComponent } from './views/perfil-jugador/perfil-jugador.co
 import {AmistadService} from '../services/amistadService';
 import {EquipoService} from '../services/equipoService';
 import { CardSolicitudComponent } from './component/card-solicitud/card-solicitud.component';
+import { CargaNuevaCanchaComponent } from './views/carga-nueva-cancha/carga-nueva-cancha.component';
+import { NuevaCanchaComponent } from './component/nueva-cancha/nueva-cancha.component';
+import {DeporteService} from '../services/deporteService';
+import {PredioService} from '../services/predioService';
 
 
 
@@ -159,7 +163,9 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     DialogInvitarJugadorEquipoComponent,
     BuscadorJugadoresComponent,
     PerfilJugadorComponent,
-    CardSolicitudComponent
+    CardSolicitudComponent,
+    CargaNuevaCanchaComponent,
+    NuevaCanchaComponent
   ],
   imports: [
     AppRouting,
@@ -238,10 +244,12 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatDatepickerModule,
     JugadorService,
     AmistadService,
-    EquipoService
+    EquipoService,
+    DeporteService,
+    PredioService
   ],
   entryComponents: [MapComponent, MapDialogComponent,
     ConfirmDialogPlantelComponent, ConfirmUbicacionDialogComponent,
-    DialogInvitarJugadorEquipoComponent, NotificacionesComponent]
+    DialogInvitarJugadorEquipoComponent, NotificacionesComponent, NuevaCanchaComponent]
 })
 export class AppModule { }

@@ -1,4 +1,12 @@
 <!--<app-nav-bar></app-nav-bar>-->
 <!--<app-header-view (restarNotificaciones)="restarNotificacion($event)"></app-header-view>-->
-<app-header-view></app-header-view>
 
+<!--<div *ngIf="usuarioLogueado; else noLogueado">-->
+  <app-header-view *ngIf="jugador === 'Jugador'; else predio"></app-header-view>
+  <ng-template #predio>
+    <router-outlet></router-outlet>
+  </ng-template>
+<!--</div>-->
+<!--<ng-template #noLogueado>-->
+  <!--<router-outlet></router-outlet>-->
+<!--</ng-template>-->
