@@ -7,7 +7,7 @@ import {environment} from '../environments/environment';
 @Injectable()
 export class AmistadService {
 
-  private api = environment + '/amigo/';
+  private api = environment.baseUrl + '/amigo/';
 
   constructor(private http: HttpClient) {
   }
@@ -15,5 +15,9 @@ export class AmistadService {
   enviarSolicitud(id) {
     return this.http.post<any>(this.api + 'invitar/' + id, null, global.httpOptions);
     // return this.http.get<any>(this.api, global.httpOptions);
+  }
+
+  getAmigos() {
+    return this.http.get<Array<Jugador>>(this.api, global.httpOptions);
   }
 }

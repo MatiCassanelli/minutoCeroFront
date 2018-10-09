@@ -20,6 +20,7 @@ import {PuntuacionComponent} from './views/puntuacion/puntuacion.component';
 import {ReservaIndependienteComponent} from './views/reserva-independiente/reserva-independiente.component';
 import {BuscadorJugadoresComponent} from './component/buscadorJugadores/buscador-jugadores.component'
 import {PerfilJugadorComponent} from './views/perfil-jugador/perfil-jugador.component';
+import {CargaNuevaCanchaComponent} from './views/carga-nueva-cancha/carga-nueva-cancha.component';
 
 const appRoutes: Routes = [
   {
@@ -51,7 +52,8 @@ const appRoutes: Routes = [
     children: [
       {path: '', component: HomePredioComponent},
       {path: 'registro/1', component: RegistrarPredio1Component, canActivate: [AuthGuardService, RoleGuardService]},
-      {path: 'registro/2', component: RegistroPredioMapaComponent, canActivate: [AuthGuardService, RoleGuardService]}
+      {path: 'registro/2', component: RegistroPredioMapaComponent, canActivate: [AuthGuardService, RoleGuardService]},
+      {path: 'nuevaCancha', component: CargaNuevaCanchaComponent, canActivate: [AuthGuardService, RoleGuardService]}
     ],
   },
   {path: 'notificaciones', component: NotificacionesComponent},

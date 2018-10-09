@@ -75,7 +75,6 @@ export class MapComponent implements OnInit, AfterContentInit {
 
   initMap(lat, lng) {
     let marker = this.newMarker(new google.maps.LatLng(lat, lng));
-    // this.setCenter(lat, lng);
     this.setCenter(lat, lng);
     marker.setTitle('Estás acá ');
   }

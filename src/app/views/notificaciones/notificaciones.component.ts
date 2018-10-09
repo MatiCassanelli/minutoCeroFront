@@ -26,9 +26,16 @@ export class NotificacionesComponent implements OnInit {
   }
   restarNotificacion(notificacion) {
     this.openSnackBar();
-    this.notificaciones.splice(this.notificaciones.indexOf(notificacion), 1);
-    localStorage.setItem('cantNotificaciones',
-      ((parseInt(localStorage.getItem('cantNotificaciones'), 10) - 1).toString()));
+    if(notificacion.tipo === 'n') {
+      this.notificaciones.splice(this.notificaciones.indexOf(notificacion), 1);
+      localStorage.setItem('cantNotificaciones',
+        ((parseInt(localStorage.getItem('cantNotificaciones'), 10) - 1).toString()));
+    }
+    if(notificacion.tipo === 's') {
+      this.solicitudes.splice(this.notificaciones.indexOf(notificacion), 1);
+      localStorage.setItem('cantNotificaciones',
+        ((parseInt(localStorage.getItem('cantNotificaciones'), 10) - 1).toString()));
+    }
   }
 
   openSnackBar() {

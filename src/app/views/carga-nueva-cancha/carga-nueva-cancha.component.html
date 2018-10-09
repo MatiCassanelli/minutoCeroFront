@@ -1,0 +1,12 @@
+<div *ngFor="let cancha of canchas" style="padding: 2% 2% 0 2%">
+  <app-nueva-cancha [cancha] = "cancha"></app-nueva-cancha>
+</div>
+<div class="fab-container">
+  <button mat-fab class="fab-toggler" color="primary"
+          (click)="nuevaCancha()">
+    <i class="material-icons">add</i>
+  </button>
+</div>
+<div>
+  <button mat-button (click)="agregarCanchas()">Aceptar</button>
+</div>

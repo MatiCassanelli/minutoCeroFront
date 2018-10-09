@@ -35,7 +35,7 @@ export class ListadoPartidosComponent implements OnInit {
 
   getInfoPredio(partidos) {
     for (let p of partidos) {
-      this.predioService.getPredio(p.cancha.predio).subscribe(rta => {
+      this.predioService.getPredio(p.cancha.predio.toString()).subscribe(rta => {
         this.predios.push(rta);
       });
     }

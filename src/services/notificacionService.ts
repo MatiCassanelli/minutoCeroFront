@@ -22,6 +22,6 @@ export class NotificacionService {
   }
 
   responder(id, tipoNotificacion, respuesta) {
-    return this.http.put<any>(this.api + 'solicitudes/' + tipoNotificacion + '/' + id, respuesta, global.httpOptions);
+    return this.http.put<any>(this.api + '/solicitudes/' + tipoNotificacion + '/' + id, respuesta, global.httpOptions);
   }
 }

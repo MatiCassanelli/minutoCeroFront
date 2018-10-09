@@ -17,12 +17,8 @@ import {environment} from "../../../environments/environment";
 export class HeaderViewComponent implements OnInit, OnDestroy {
 
   @ViewChild('drawer') sidenav: MatSidenav;
-  login = false;
 
-  @Input()
-  set logueado(name: boolean) {
-    this.login = name;
-  }
+  @Input() tipoJugador: string;
 
   // @Input() cantidad: number;
   cantidad = parseInt(localStorage.getItem('cantNotificaciones'), 10);

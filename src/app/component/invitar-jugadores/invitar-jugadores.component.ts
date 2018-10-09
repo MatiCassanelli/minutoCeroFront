@@ -9,6 +9,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatAutocompleteSelectedEvent, MatChipInputEvent} from '@angular/material';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {AmistadService} from '../../../services/amistadService';
 
 
 @Component({
@@ -19,92 +20,6 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 })
 export class InvitarJugadoresComponent implements OnInit {
 
-  // checked: boolean;
-  // form: FormGroup;
-  // jugadores: Jugador[];
-  // jugadoresSeleccionados: Jugador[];
-  // @Output() notifyParent: EventEmitter<Array<Jugador>> = new EventEmitter<Array<Jugador>>();
-  // @Output() jugadoresInvitados: EventEmitter<boolean> = new EventEmitter<boolean>();
-  //
-  // @ViewChild('invitar') myForm: NgForm;
-  // @Input() isReset;
-  //
-  // stateCtrl = new FormControl();
-  // filteredStates: Observable<Jugador[]>;
-  //
-  // constructor(private fb: FormBuilder,
-  //             private jugadorService: JugadorService) {
-  //   this.jugadoresSeleccionados = new Array<Jugador>();
-  //   this.checked = false;
-  // }
-  //
-  // ngOnInit() {
-  //   this.form = this.fb.group({
-  //     jugador: null
-  //   });
-  //   this.jugadorService.getJugadores().subscribe((resp) => {
-  //     this.jugadores = resp;
-  //     this.filteredStates = this.stateCtrl.valueChanges
-  //       .pipe(
-  //         startWith(''),
-  //         map(state => state ? this._filterStates(state) : this.jugadores.slice())
-  //       );
-  //   });
-  // }
-  //
-  // // esto es para las sugerencias
-  // getJugadores(event): Array<Jugador> {
-  //   this.jugadorService.getJugadores(event.query).subscribe((resp) => {
-  //     console.log(resp);
-  //     this.jugadores = resp;
-  //   });
-  //   return this.jugadores;
-  // }
-  //
-  // // sendJugadores() {
-  // //   this.jugadoresInvitados.emit(this.checked);
-  // //   this.notifyParent.emit(this.jugadoresSeleccionados);
-  // // }
-  // // agregarJug(value) {
-  // //   console.log('agregando', value);
-  // //   this.jugadoresSeleccionados.push(value);
-  // //   console.log('this.jugadoresSeleccionados', this.jugadoresSeleccionados);
-  // //   // this.checked = true;
-  // //   // this.notifyParent.emit(this.jugadoresSeleccionados);
-  // // }
-  // // eliminarJug(value) {
-  // //   console.log('eliminando', value);
-  // //   this.jugadoresSeleccionados.splice(this.jugadoresSeleccionados.indexOf(value), 1);
-  // //   console.log('this.jugadoresSeleccionados', this.jugadoresSeleccionados);
-  // //   // if(this.jugadoresSeleccionados.length === 0){
-  // //   //   this.checked = false;
-  // //   // }
-  // //   // this.notifyParent.emit(this.jugadoresSeleccionados);
-  // // }
-  // agregarJug(value) {
-  //   this.jugadoresSeleccionados.push(value);
-  //   this.notifyParent.emit(this.jugadoresSeleccionados);
-  // }
-  //
-  // eliminarJug(value) {
-  //   this.jugadoresSeleccionados.splice(this.jugadoresSeleccionados.indexOf(value), 1);
-  //   this.notifyParent.emit(this.jugadoresSeleccionados);
-  // }
-  //
-  // ngOnChanges() {
-  //   this.isReset = true;
-  //   this.jugadoresSeleccionados = [];
-  //   this.isReset = false;
-  //   if (this.myForm.status === 'VALID')
-  //     this.myForm.resetForm();
-  // }
-  //
-  // private _filterStates(value: string): Jugador[] {
-  //   const filterValue = value.toLowerCase();
-  //
-  //   return this.jugadores.filter(state => state.nombre.toLowerCase().indexOf(filterValue) === 0);
-  // }
-  visible = true;
   @Input() isReset;
   selectable = true;
   removable = true;
@@ -113,27 +28,46 @@ export class InvitarJugadoresComponent implements OnInit {
   fruitCtrl = new FormControl();
   filteredFruits: Observable<Jugador[]>;
   jugadoresSeleccionados: Jugador[] = [];
-  // jugadores: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+  jugadoresChipList: Jugador[] = [];
   jugadores: Jugador[];
   nombreJugador: string[] = [];
 
   @ViewChild('fruitInput') fruitInput: ElementRef;
 
+  @Input() queTraer: string;
   @Output() notifyParent: EventEmitter<Array<Jugador>> = new EventEmitter<Array<Jugador>>();
 
-  constructor(private jugadorService: JugadorService) {
+  constructor(private jugadorService: JugadorService,
+              private amistadService: AmistadService) {
   }
 
   ngOnInit() {
-    this.jugadorService.getJugadores().subscribe((resp) => {
-      this.jugadores = resp;
-      for (let jugador of resp) {
-        this.nombreJugador.push(jugador.nombre + jugador.apellido);
+    // this.jugadorService.getJugadores().subscribe((resp) => {  // deberia ser un getamigos
+    if(this.queTraer === 'Amigos'){
+      this.amistadService.getAmigos().subscribe((resp) => {
+        console.log(resp);
+        this.jugadores = resp;
+        for (let jugador of resp) {
+          this.nombreJugador.push(jugador.nombre + jugador.apellido);
+        }
+        this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
+          startWith(null),
+          map(fruit => fruit ? this._filter(fruit) : this.jugadores.slice()));
+      });
+    } else{
+      if(this.queTraer === 'Jugadores'){
+        this.jugadorService.getJugadores().subscribe((resp) => {
+          console.log(resp);
+          this.jugadores = resp;
+          for (let jugador of resp) {
+            this.nombreJugador.push(jugador.nombre + jugador.apellido);
+          }
+          this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
+            startWith(null),
+            map(fruit => fruit ? this._filter(fruit) : this.jugadores.slice()));
+        });
       }
-      this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
-        startWith(null),
-        map(fruit => fruit ? this._filter(fruit) : this.jugadores.slice()));
-    });
+    }
   }
 
   add(event: MatChipInputEvent): void {
@@ -150,7 +84,6 @@ export class InvitarJugadoresComponent implements OnInit {
     if (input) {
       input.value = '';
     }
-
     this.fruitCtrl.setValue(null);
   }
 
@@ -158,8 +91,8 @@ export class InvitarJugadoresComponent implements OnInit {
     const index = this.jugadoresSeleccionados.indexOf(fruit);
 
     if (index >= 0) {
-      // this.jugadores.push(fruit);
       this.jugadoresSeleccionados.splice(index, 1);
+      this.jugadoresChipList.splice(index, 1);
       this.notifyParent.emit(this.jugadoresSeleccionados);
     }
   }
@@ -167,11 +100,17 @@ export class InvitarJugadoresComponent implements OnInit {
   selected(event: MatAutocompleteSelectedEvent): void {
     if (!this.jugadoresSeleccionados.includes(event.option.value)) {
       this.jugadoresSeleccionados.push(event.option.value);
+      this.jugadoresChipList.push(event.option.value);
       this.fruitCtrl.reset();
       this.notifyParent.emit(this.jugadoresSeleccionados);
     }
     this.fruitInput.nativeElement.value = null;
     this.fruitCtrl.setValue(null);
+
+    // const index = this.jugadoresChipList.indexOf(event.option.value);
+    // if (index >= 0) {
+    //   this.jugadoresChipList.splice(index, 1);
+    // }
   }
 
   private _filter(value: string): Jugador[] {
@@ -183,9 +122,14 @@ export class InvitarJugadoresComponent implements OnInit {
   }
   ngOnChanges() {
     this.isReset = true;
-    this.jugadoresSeleccionados = [];
+    // this.jugadoresChipList.slice(0, this.jugadoresChipList.length - 1);
+    this.jugadoresChipList = [];
     this.isReset = false;
-    if (this.fruitCtrl.status === 'VALID')
+    if (this.fruitCtrl.status === 'VALID') {
       this.fruitCtrl.reset();
+      this.fruitCtrl.setValue(null);
+      this.jugadoresSeleccionados = [];
+    }
+
   }
 }

@@ -1,44 +1,40 @@
-<div class="container" style="margin-top: 3%">
+
   <h3>Organizar Partido</h3>
-  <!--<p-card title="Crear Partido" [style]="{width: '100%'}" styleClass="ui-card-shadow">-->
   <div class="container ui-fluid">
     <app-deporte-cancha-partido (canchaSeleccionada)="getTipoCancha($event)"
                                 (fechaSeleccionada)="getFecha($event)"></app-deporte-cancha-partido>
-    <!--<button mat-button >Time</button>-->
-    <!--<input matInput value="{{selectedTime}}"/>-->
-    <!--<form class="example-form">-->
-    <!--<mat-form-field class="example-full-width">-->
-    <!--<input matInput value="{{selectedTime}}" placeholder="Hora">-->
-    <!--<mat-icon matSuffix (click)="open()">schedule</mat-icon>-->
-    <!--</mat-form-field>-->
 
-    <!--<mat-form-field>-->
-    <!--<input matInput [matDatepicker]="picker" placeholder="Choose a date">-->
-    <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-    <!--<mat-datepicker #picker></mat-datepicker>-->
-    <!--</mat-form-field>-->
-
-    <!--</form>-->
     <div class="form-group row">
       <label for="Mapa" class="col-sm-2 col-form-label"><strong>Ubicación</strong></label>
       <div class="col-sm-10">
-        <!--<button pButton id="Mapa" type="button" label="Mapa" icon="fa-map-marker"-->
-        <!--(click)="displayDialog=true; mapa.setAll(predios)"></button>-->
-        <button pButton id="Mapa" type="button" label="Mapa" icon="fa-map-marker"
-                (click)="openDialog()"></button>
-        <!--<button type="text" pButton label="Basic" (click)="op1.toggle($event)"></button>-->
+        <button mat-raised-button id="Mapa" color="primary" class="col-sm-12" (click)="openDialog()">Ubicación</button>
       </div>
       <div *ngIf="mostrarLabel">
-        <label class="col-12 col-form-label"><strong>Predio elegido: </strong>{{selectedPredio?.nombrePredio}}</label>
+        <label class="col-12 col-form-label"><strong>Predio elegido: </strong>
+          {{selectedPredio?.nombrePredio}} - {{selectedPredio?.direccion}}
+        </label>
       </div>
     </div>
   </div>
+  <button mat-button>Time</button>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput value="{{selectedTime}}" placeholder="Hora">
+      <mat-icon matSuffix (click)="open()">schedule</mat-icon>
+    </mat-form-field>
 
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+  <!--</form>-->
   <p-footer>
     <div class="row">
       <div class="ui-grid-col-3"></div>
       <div class="ui-grid-col-2">
-        <button pButton type="button" label="Crear" icon="pi pi-check" (click)="crearPartido()"></button>
+        <button pButton type="button" label="Crear" icon="pi pi-check" (click)="reservar()"></button>
       </div>
       <div class="ui-grid-col-2">
       </div>
@@ -48,5 +44,5 @@
       <div class="ui-grid-col-3"></div>
     </div>
   </p-footer>
-</div>
+
 

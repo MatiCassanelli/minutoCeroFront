@@ -9,7 +9,7 @@
             <!--(click)="activarComponent('visitante')"></button>-->
   </div>
   <div *ngIf="!disabled" class="col-sm-8">
-    <app-invitar-jugadores id="jugador" (notifyParent)="getJugadores($event)"
+    <app-invitar-jugadores [queTraer]="'Amigos'" id="jugador" (notifyParent)="getJugadores($event)"
                            [isReset]="resetForm"></app-invitar-jugadores>
     <button mat-raised-button class="ui-grid-col-12" color="primary" (click)="invitarJugadores()">Invitar</button>
   </div>
@@ -31,7 +31,6 @@
         <p (click)="openDialog(j, 'local', 'confirm')">{{j.nombre}} {{j.apellido}}</p>
       </div>
     </p-scrollPanel>
-    <p>{{porcentajeCumplimiento}}</p>
   </div>
   <div class="ui-g-2 text-center">
     <p>vs.</p>
@@ -53,6 +52,3 @@
     </p-scrollPanel>
   </div>
 </div>
-
-
-<p-confirmDialog acceptLabel="Sí" rejectLabel="No"></p-confirmDialog>

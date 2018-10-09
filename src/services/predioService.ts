@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as global from '../app/app.global';
 import {Predio} from '../app/models/predio';
 import {environment} from "../environments/environment";
+import {Cancha} from '../app/models/cancha';
 
 @Injectable()
 export class PredioService {
@@ -39,10 +40,14 @@ export class PredioService {
     return this.http.get(this.api + idPredio + '/canchas', global.httpOptions);
   }
   getCanchas() {
-    return this.http.get(this.api + 'canchas', global.httpOptions);
+    return this.http.get<Array<Cancha>>(this.api + 'canchas', global.httpOptions);
   }
 
   getPredio(idPredio) {
     return this.http.get<Predio>(this.api + idPredio + '/info', global.httpOptions);
+  }
+
+  setCanchas(canchas) {
+    return this.http.post<Predio>(this.api + 'canchas/crear', {canchas: canchas}, global.httpOptions);
   }
 }

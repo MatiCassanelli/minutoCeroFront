@@ -115,6 +115,10 @@ import {EquipoService} from '../services/equipoService';
 import { CardSolicitudComponent } from './component/card-solicitud/card-solicitud.component';
 import {ROUTER_PROVIDERS} from "@angular/router/src/router_module";
 import {HashLocationStrategy, LocationStrategy, PathLocationStrategy} from "@angular/common";
+import { CargaNuevaCanchaComponent } from './views/carga-nueva-cancha/carga-nueva-cancha.component';
+import { NuevaCanchaComponent } from './component/nueva-cancha/nueva-cancha.component';
+import {DeporteService} from '../services/deporteService';
+import {PredioService} from '../services/predioService';
 
 
 
@@ -161,7 +165,9 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     DialogInvitarJugadorEquipoComponent,
     BuscadorJugadoresComponent,
     PerfilJugadorComponent,
-    CardSolicitudComponent
+    CardSolicitudComponent,
+    CargaNuevaCanchaComponent,
+    NuevaCanchaComponent
   ],
   imports: [
     AppRouting,
@@ -241,10 +247,13 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     JugadorService,
     AmistadService,
     EquipoService,
-    {provide: LocationStrategy, useClass: HashLocationStrategy}
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    EquipoService,
+    DeporteService,
+    PredioService
   ],
   entryComponents: [MapComponent, MapDialogComponent,
     ConfirmDialogPlantelComponent, ConfirmUbicacionDialogComponent,
-    DialogInvitarJugadorEquipoComponent, NotificacionesComponent]
+    DialogInvitarJugadorEquipoComponent, NotificacionesComponent, NuevaCanchaComponent]
 })
 export class AppModule { }
