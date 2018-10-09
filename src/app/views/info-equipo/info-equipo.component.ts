@@ -67,12 +67,11 @@ export class InfoEquipoComponent implements OnInit {
       let jug = [];
       if (jugadoresInvitar) {
         for (let a of jugadoresInvitar) {
-          jug.push(a.email);
+          jug.push(a._id);
         }
         this.equipoService.invitarJugadores({
-          _id: this.equipo._id,
-          email: jug
-        }).subscribe(resp => {
+          jugadores: jug
+        }, this.equipo._id).subscribe(resp => {
           refresh = true;
           this.equipo = resp;
         }, error1 => console.log(error1));
@@ -102,7 +101,7 @@ export class InfoEquipoComponent implements OnInit {
   selector: 'app-dialog-invitar-jugador-equipo',
   template: `<h1 mat-dialog-title>Invitar jugadores</h1>
   <mat-dialog-content>
-    <app-invitar-jugadores (notifyParent)="getJugadores($event)"></app-invitar-jugadores>
+    <app-invitar-jugadores [queTraer]="'Jugadores'" (notifyParent)="getJugadores($event)"></app-invitar-jugadores>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-button type="button" mat-dialog-close>Cancelar</button>

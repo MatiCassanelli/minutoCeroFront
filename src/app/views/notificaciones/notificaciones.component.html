@@ -1,7 +1,7 @@
 <div *ngFor="let notificacion of notificaciones">
-  <app-card-notificacion (swipe)="restarNotificacion(notificacion)" [mensaje]="notificacion.mensaje"></app-card-notificacion>
+  <app-card-notificacion (swipe)="restarNotificacion({value:notificacion, tipo:'n'})" [mensaje]="notificacion.mensaje"></app-card-notificacion>
 </div>
 <div *ngFor="let solicitud of solicitudes">
-  <app-card-solicitud (restarNotificacion)="restarNotificacion(solicitud)" [solicitud]="solicitud"></app-card-solicitud>
+  <app-card-solicitud (restarNotificacion)="restarNotificacion({value:solicitud, tipo:'s'})" [solicitud]="solicitud"></app-card-solicitud>
 </div>
 

@@ -15,7 +15,7 @@
         placeholder="Seleccioná un deporte" [showClear]="true"></p-dropdown>
       </div>
     </div>
-    <app-invitar-jugadores (notifyParent)="getJugadores($event)" (jugadoresInvitados)="setChecked($event)"></app-invitar-jugadores>
+    <app-invitar-jugadores [queTraer]="'Jugadores'" (notifyParent)="getJugadores($event)" (jugadoresInvitados)="setChecked($event)"></app-invitar-jugadores>
 
     <div class="row">
       <div class="ui-grid-col-3"></div>

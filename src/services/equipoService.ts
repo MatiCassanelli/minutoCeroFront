@@ -16,8 +16,8 @@ export class EquipoService {
     return this.http.post<Equipo>(this.api, equipo, global.httpOptions);
   }
 
-  invitarJugadores(jugadores) {
-    return this.http.post<Equipo>(this.api + 'invitar', jugadores, global.httpOptions);
+  invitarJugadores(jugadores, idEquipo) {
+    return this.http.post<Equipo>(this.api + idEquipo + '/invitar', jugadores, global.httpOptions);
   }
 
   getEquipo(id) {

@@ -34,6 +34,7 @@ export class InvitarJugadoresComponent implements OnInit {
 
   @ViewChild('fruitInput') fruitInput: ElementRef;
 
+  @Input() queTraer: string;
   @Output() notifyParent: EventEmitter<Array<Jugador>> = new EventEmitter<Array<Jugador>>();
 
   constructor(private jugadorService: JugadorService,
@@ -42,16 +43,31 @@ export class InvitarJugadoresComponent implements OnInit {
 
   ngOnInit() {
     // this.jugadorService.getJugadores().subscribe((resp) => {  // deberia ser un getamigos
-    this.amistadService.getAmigos().subscribe((resp) => {
-      console.log(resp);
-      this.jugadores = resp;
-      for (let jugador of resp) {
-        this.nombreJugador.push(jugador.nombre + jugador.apellido);
+    if(this.queTraer === 'Amigos'){
+      this.amistadService.getAmigos().subscribe((resp) => {
+        console.log(resp);
+        this.jugadores = resp;
+        for (let jugador of resp) {
+          this.nombreJugador.push(jugador.nombre + jugador.apellido);
+        }
+        this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
+          startWith(null),
+          map(fruit => fruit ? this._filter(fruit) : this.jugadores.slice()));
+      });
+    } else{
+      if(this.queTraer === 'Jugadores'){
+        this.jugadorService.getJugadores().subscribe((resp) => {
+          console.log(resp);
+          this.jugadores = resp;
+          for (let jugador of resp) {
+            this.nombreJugador.push(jugador.nombre + jugador.apellido);
+          }
+          this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
+            startWith(null),
+            map(fruit => fruit ? this._filter(fruit) : this.jugadores.slice()));
+        });
       }
-      this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
-        startWith(null),
-        map(fruit => fruit ? this._filter(fruit) : this.jugadores.slice()));
-    });
+    }
   }
 
   add(event: MatChipInputEvent): void {
