@@ -5,10 +5,11 @@ export class Cancha {
   nombreCancha: string;
   deporte: Deporte;
   canchasHijas: Cancha[];
-  tipoSuelo: string;
-  // canchaBase: boolean;
+  tipoSuelo: ['Tierra', 'Sintetico', 'Natural'];
+  predio: string;
 
-  constructor(public base?: boolean) {
+  constructor(predio: string, public base?: boolean) {
+    this.predio = predio;
     // if(base)
     //   this.canchaBase = base;
     // else

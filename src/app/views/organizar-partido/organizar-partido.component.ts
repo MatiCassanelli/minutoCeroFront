@@ -46,7 +46,7 @@ export class OrganizarPartidoComponent implements OnInit {
   };
   mostrarLabel = false;
   fileNameDialogRef: MatDialogRef<MapDialogComponent>;
-  porcentajeOcupacion: number;
+  porcentajeOcupacion = 0;
 
   constructor(private fb: FormBuilder,
               private plantelService: PlantelService,

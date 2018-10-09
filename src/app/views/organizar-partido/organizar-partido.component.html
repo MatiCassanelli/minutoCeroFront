@@ -19,7 +19,7 @@
 
     <app-plantel (sendPlantel)="getPlanteles($event)"></app-plantel>
   </div>
-  {{porcentajeOcupacion}}
+  <p>Porcentaje de Confirmacion: {{porcentajeOcupacion?.toFixed(2)}}. Debe superar el 80% para poder reservar</p>
   <p-footer>
     <div class="row">
       <div class="ui-grid-col-3"></div>

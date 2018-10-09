@@ -28,6 +28,7 @@ export class InvitarJugadoresComponent implements OnInit {
   fruitCtrl = new FormControl();
   filteredFruits: Observable<Jugador[]>;
   jugadoresSeleccionados: Jugador[] = [];
+  jugadoresChipList: Jugador[] = [];
   jugadores: Jugador[];
   nombreJugador: string[] = [];
 
@@ -67,7 +68,6 @@ export class InvitarJugadoresComponent implements OnInit {
     if (input) {
       input.value = '';
     }
-
     this.fruitCtrl.setValue(null);
   }
 
@@ -75,8 +75,8 @@ export class InvitarJugadoresComponent implements OnInit {
     const index = this.jugadoresSeleccionados.indexOf(fruit);
 
     if (index >= 0) {
-      // this.jugadores.push(fruit);
       this.jugadoresSeleccionados.splice(index, 1);
+      this.jugadoresChipList.splice(index, 1);
       this.notifyParent.emit(this.jugadoresSeleccionados);
     }
   }
@@ -84,11 +84,17 @@ export class InvitarJugadoresComponent implements OnInit {
   selected(event: MatAutocompleteSelectedEvent): void {
     if (!this.jugadoresSeleccionados.includes(event.option.value)) {
       this.jugadoresSeleccionados.push(event.option.value);
+      this.jugadoresChipList.push(event.option.value);
       this.fruitCtrl.reset();
       this.notifyParent.emit(this.jugadoresSeleccionados);
     }
     this.fruitInput.nativeElement.value = null;
     this.fruitCtrl.setValue(null);
+
+    // const index = this.jugadoresChipList.indexOf(event.option.value);
+    // if (index >= 0) {
+    //   this.jugadoresChipList.splice(index, 1);
+    // }
   }
 
   private _filter(value: string): Jugador[] {
@@ -100,9 +106,14 @@ export class InvitarJugadoresComponent implements OnInit {
   }
   ngOnChanges() {
     this.isReset = true;
-    this.jugadoresSeleccionados = [];
+    // this.jugadoresChipList.slice(0, this.jugadoresChipList.length - 1);
+    this.jugadoresChipList = [];
     this.isReset = false;
-    if (this.fruitCtrl.status === 'VALID')
+    if (this.fruitCtrl.status === 'VALID') {
       this.fruitCtrl.reset();
+      this.fruitCtrl.setValue(null);
+      this.jugadoresSeleccionados = [];
+    }
+
   }
 }

@@ -167,11 +167,17 @@ export class PlantelComponent implements OnInit {
   getJugadores(event) {
     this.traeJugadores = true;
     this.jugadoresAInvitar = event;
+    for (let i of event) {
+      if(this.plantelLocal.jugadores.find(x => x._id === i._id) ||
+        this.plantelLocal.jugadoresConfirmados.find(x => x._id === i._id) ||
+        this.plantelVisitante.jugadores.find(x => x._id === i._id) ||
+        this.plantelVisitante.jugadoresConfirmados.find(x => x._id === i._id))
+        this.jugadoresAInvitar.splice(this.jugadoresAInvitar.indexOf(i), 1);
+    }
   }
 
 
   invitarJugadores() {
-    console.log('entro invitar');
     if (this.localidad === 'local') {
       if (this.noIds){
         for(let j of this.jugadoresAInvitar)
@@ -182,6 +188,7 @@ export class PlantelComponent implements OnInit {
           this.plantelLocal.jugadores = res.jugadores;
         });
       }
+      this.jugadoresAInvitar = [];
     }
     if (this.localidad === 'visitante') {
       if (this.noIds){
@@ -193,6 +200,7 @@ export class PlantelComponent implements OnInit {
           this.plantelVisitante.jugadores = res.jugadores;
         });
       }
+      this.jugadoresAInvitar = [];
     }
     this.sendPlantel.emit([this.plantelLocal, this.plantelVisitante]);
     this.resetForm = !this.resetForm; // esto es para q entre en el onchanged del componente

@@ -1,7 +1,7 @@
 <mat-form-field class="example-full-width">
   <mat-chip-list #chipList>
     <mat-chip
-      *ngFor="let fruit of jugadoresSeleccionados"
+      *ngFor="let fruit of jugadoresChipList"
       [selectable]="selectable"
       [removable]="removable"
       (removed)="remove(fruit)">

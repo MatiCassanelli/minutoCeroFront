@@ -1,6 +1,7 @@
 import {Jugador} from './jugador';
 import {Plantel} from './plantel';
 import {Deporte} from './deporte';
+import {Cancha} from './cancha';
 
 export class Partido {
   _id: string;
@@ -12,7 +13,7 @@ export class Partido {
   //     type: Date,
   //     required: true
   // },
-  cancha: string;
+  cancha: Cancha;
   organizador: Jugador;
   estado: string;
   horasDeJuego: number;

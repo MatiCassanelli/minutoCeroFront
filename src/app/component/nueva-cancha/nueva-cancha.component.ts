@@ -15,15 +15,15 @@ export class NuevaCanchaComponent implements OnInit {
   imprime = true;
   deporte = new FormControl('', [Validators.required]);
   @Input() cancha: Cancha;
-  @Input() deportePadre: number;
+  @Input() deportePadre: string;
   @Output() canchasInternas = new EventEmitter();
+  tipoSuelo = ['Tierra', 'Sintético', 'Natural'];
   constructor(private deporteService: DeporteService) { }
 
   ngOnInit() {
     this.deporteService.getDeportes().subscribe(res => {
-
         if (this.deportePadre) {
-          res = res.filter(d => d.cantJugadores < this.deportePadre);
+          res = res.filter(d => d.cantJugadores < res.find(x => x._id === this.deportePadre).cantJugadores);
           if (res.length > 1) {
             this.deportes = res;
           } else {
@@ -42,18 +42,19 @@ export class NuevaCanchaComponent implements OnInit {
     if(!cancha.canchasHijas)
       cancha.canchasHijas = [];
     if(!this.deportePadre)
-      cancha.canchasHijas.push(new Cancha());
+      cancha.canchasHijas.push(new Cancha(localStorage.getItem('id'), false));
     else {
       if (this.deportePadre > cancha.deporte.cantJugadores)
-        cancha.canchasHijas.push(new Cancha());
+        cancha.canchasHijas.push(new Cancha(localStorage.getItem('id'), false));
     }
   }
   minimoDeporte(event) {
     let cantidadJugadoresMinima = [];
+    let deporteSeleccionado = this.deportes.find(x => x._id === event.value);
     for (let r of this.deportes) {
       cantidadJugadoresMinima.push(r.cantJugadores);
     }
-    if (event.value.cantJugadores === Math.min.apply(null, cantidadJugadoresMinima))
+    if (deporteSeleccionado.cantJugadores === Math.min.apply(null, cantidadJugadoresMinima))
       this.imprime = false;
   }
 }

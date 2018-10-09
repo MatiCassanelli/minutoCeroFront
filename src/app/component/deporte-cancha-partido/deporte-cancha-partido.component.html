@@ -18,7 +18,7 @@
     <label for="horario" class="col-sm-2 col-form-label"><strong>Fecha y hora</strong></label>
     <div class="col-sm-10">
     <p-calendar id="horario" [stepMinute]="30" [(ngModel)]="fechaPartido" [showIcon]="true" dateFormat="dd.mm.yy"
-    showTime="true" hourFormat="24" required="true" [minDate]="invalidDates"
+    showTime="true" hourFormat="24" required="true"
     (onSelect)="definirFecha($event)" [defaultDate]="defaultDate"></p-calendar>
     </div>
     </div>

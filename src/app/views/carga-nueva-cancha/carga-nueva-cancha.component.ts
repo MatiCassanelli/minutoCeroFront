@@ -21,19 +21,24 @@ export class CargaNuevaCanchaComponent implements OnInit {
       this.deportes = res;
     });
     this.predioService.getCanchas().subscribe(res => {
-      if(res.length > 0)
+      if(res.length > 0){
         this.canchas = res;
+      }
+
       else
         this.canchas = [];
     });
   }
 
   nuevaCancha(){
-    this.canchas.push(new Cancha(true));  // mandar con cancha base en true
+    this.canchas.push(new Cancha(localStorage.getItem('id'), true));
   }
 
   agregarCanchas() {
     console.log(this.canchas);
+    this.predioService.setCanchas(this.canchas).subscribe(res => {
+      console.log(res);
+    });
   }
 
 

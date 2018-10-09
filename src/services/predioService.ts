@@ -46,4 +46,8 @@ export class PredioService {
   getPredio(idPredio) {
     return this.http.get<Predio>(this.api + idPredio + '/info', global.httpOptions);
   }
+
+  setCanchas(canchas) {
+    return this.http.post<Predio>(this.api + 'canchas/crear', {canchas: canchas}, global.httpOptions);
+  }
 }
