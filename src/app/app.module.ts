@@ -119,6 +119,7 @@ import { CargaNuevaCanchaComponent } from './views/carga-nueva-cancha/carga-nuev
 import { NuevaCanchaComponent } from './component/nueva-cancha/nueva-cancha.component';
 import {DeporteService} from '../services/deporteService';
 import {PredioService} from '../services/predioService';
+import { CardResultadoPartidoComponent } from './component/card-resultado-partido/card-resultado-partido.component';
 
 
 
@@ -167,7 +168,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     PerfilJugadorComponent,
     CardSolicitudComponent,
     CargaNuevaCanchaComponent,
-    NuevaCanchaComponent
+    NuevaCanchaComponent,
+    CardResultadoPartidoComponent
   ],
   imports: [
     AppRouting,
@@ -247,7 +249,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     JugadorService,
     AmistadService,
     EquipoService,
-    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    // {provide: LocationStrategy, useClass: HashLocationStrategy},
     EquipoService,
     DeporteService,
     PredioService

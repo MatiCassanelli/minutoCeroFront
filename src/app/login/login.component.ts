@@ -24,20 +24,19 @@ export class LoginComponent implements OnInit {
   facebook: string;
   google: string;
   logout: string;
-  url: string;
+  url = environment.baseUrl;
   predio = false;
 
   constructor(private authService: AuthService,
               private router: Router,
               private roleService: RoleService) {
     this.predio = false;
-    this.url = environment.baseUrl;
     this.facebook = this.url + '/auth/login/facebook/jugador/';
     this.google = this.url + '/auth/login/google/jugador/';
-    this.logout = this.url + '/auth/logout';
   }
 
   ngOnInit() {
+    this.logout = this.url + '/auth/logout';
     if(this.authService.isLoggedIn()){
       this.roleService.redirectToHome();
     }

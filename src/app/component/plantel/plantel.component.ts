@@ -150,17 +150,25 @@ export class PlantelComponent implements OnInit {
   }
 
   removeConfirmado(jugador, localia) {
-    if(localia === 'local') {
-      const index: number = this.plantelLocal.jugadoresConfirmados.indexOf(jugador);
-      this.plantelService.updatePlantel(this.plantelLocal._id, [jugador._id]).subscribe(() => {
+    if (localia === 'local') {
+      let index: number = this.plantelLocal.jugadoresConfirmados.indexOf(jugador);
+      if (!this.noIds) { // para cuando entro a un partido ya organizado a invitar nuevos jugadores
+        return this.plantelService.updatePlantel(this.plantelLocal._id, [jugador._id]).subscribe(() => {
+          this.plantelLocal.jugadoresConfirmados.splice(index, 1);
+        });
+      } else {
         this.plantelLocal.jugadoresConfirmados.splice(index, 1);
-      });
+      }
     }
-    if(localia === 'visitante') {
-      const index: number = this.plantelVisitante.jugadoresConfirmados.indexOf(jugador);
-      this.plantelService.updatePlantel(this.plantelVisitante._id, [jugador._id]).subscribe(() => {
+    if (localia === 'visitante') {
+      let index: number = this.plantelVisitante.jugadoresConfirmados.indexOf(jugador);
+      if (!this.noIds) {
+        this.plantelService.updatePlantel(this.plantelVisitante._id, [jugador._id]).subscribe(() => {
+          this.plantelVisitante.jugadoresConfirmados.splice(index, 1);
+        });
+      } else {
         this.plantelVisitante.jugadoresConfirmados.splice(index, 1);
-      });
+      }
     }
   }
 

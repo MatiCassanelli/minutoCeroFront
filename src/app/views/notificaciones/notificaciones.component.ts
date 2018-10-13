@@ -36,6 +36,7 @@ export class NotificacionesComponent implements OnInit {
       localStorage.setItem('cantNotificaciones',
         ((parseInt(localStorage.getItem('cantNotificaciones'), 10) - 1).toString()));
     }
+    window.navigator.vibrate(200);
   }
 
   openSnackBar() {
