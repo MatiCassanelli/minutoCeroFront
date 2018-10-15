@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormBuilder} from '@angular/forms';
 import {SelectItem} from 'primeng/api';
 import {EquipoService} from '../../../services/equipoService';
 import {Equipo} from '../../models/equipo';
 import {JugadorService} from '../../../services/jugadorService';
 import {Jugador} from '../../models/jugador';
-import { Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {ConfirmationService} from 'primeng/api';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -21,8 +21,10 @@ import {Deporte} from '../../models/deporte';
 export class CrearEquipoComponent implements OnInit {
 
   jugadoresInvitados: boolean;
+  nombreEquipo: string;
+  deporte: Deporte;
   form: FormGroup;
-  deportes: SelectItem[];
+  deportes: Deporte[];
   jugadores: Array<Jugador>;
   nombreJugadores: string[];
   equipo = new Equipo();
@@ -39,19 +41,8 @@ export class CrearEquipoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.form = this.fb.group ({
-      nombreEquipo: null,
-      deporte: null,
-      jugador: null
-    });
     this.deporteService.getDeportes().subscribe(res => {
-      this.deportes = [];
-      for (let cancha of res) {
-        this.deportes.push({
-          label: cancha.nombre,
-          value: cancha._id
-        });
-      }
+      this.deportes = res;
     });
   }
 
@@ -63,23 +54,18 @@ export class CrearEquipoComponent implements OnInit {
   }
 
   onSubmit() {
-    this.equipoService.createEquipo({
-      Nombre: this.form.get('nombreEquipo').value,
-      Deporte: this.form.get('deporte').value
-      // capitan: '5b5e5648b7e1c6236f5c7339' // este es el _id del usuario q viene de la sesion
+    this.equipoService.createEquipo({ // creo el equipo. cuando vuelve, invito a los jugadores
+      Nombre: this.nombreEquipo,
+      Deporte: this.deporte
     }).toPromise().then(eq => {
-      let jug = new Array();
-      for (let a of this.jugadores) {
-        if(a._id !== eq.capitan)
-          jug.push(a.email);
-      }
-      this.equipoService.invitarJugadores({
-        jugadores: jug
-      }, eq._id).subscribe(resp => {
-        this.equipo = resp;
-        console.log(this.equipo);
-        return this.router.navigateByUrl('/equipo/info/' + this.equipo._id);
-      }, error1 => console.log(error1));
+        let jug = [];
+        for (let a of this.jugadores) {
+          if (a._id !== eq.capitan)
+            jug.push(a._id);
+        }
+        this.equipoService.invitarJugadores({jugadores: jug}, eq._id).subscribe(() => {
+          return this.router.navigateByUrl('/equipo/info/' + eq._id);
+        }, error1 => console.log(error1));
       }
     ).catch(err => {
       console.log(err);
@@ -87,7 +73,7 @@ export class CrearEquipoComponent implements OnInit {
     });
   }
 
-  setChecked(event){
+  setChecked(event) {
     this.jugadoresInvitados = event;
   }
 

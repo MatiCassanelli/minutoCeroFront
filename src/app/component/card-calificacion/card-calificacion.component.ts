@@ -27,6 +27,10 @@ export class CardCalificacionComponent implements OnInit {
   puntaje1: number;
   puntaje2: number;
   puntaje3: number;
+  click1 = true;
+  click2 = true;
+  click3 = true;
+  notClick = true;
 
   constructor() {
   }
@@ -42,16 +46,6 @@ export class CardCalificacionComponent implements OnInit {
         {value: 'estadoCancha', label: 'Estado Canchas'},
         {value: 'precio', label: 'Precio'}];
     }
-    // this.puntuacion = {
-    //   personalidad: null,
-    //   tecnica: null,
-    //   puntualidad: null
-    // };
-    // this.puntuacionPredio = {
-    //   precio: null,
-    //   estado: null,
-    //   atencion: null
-    // };
   }
 
   setPuntaje() {
@@ -74,7 +68,9 @@ export class CardCalificacionComponent implements OnInit {
         precio: this.puntaje3
       };
     }
-
-    this.sendCalificacion.emit({puntuacion: puntuacion, jugador: usuario});
+    if (this.puntaje1 && this.puntaje2 && this.puntaje3) {
+      debugger;
+      this.sendCalificacion.emit({puntuacion: puntuacion, jugador: usuario});
+    }
   }
 }

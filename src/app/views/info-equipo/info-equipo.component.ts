@@ -4,15 +4,16 @@ import {EquipoService} from '../../../services/equipoService';
 import {Equipo} from '../../models/equipo';
 import {Jugador} from '../../models/jugador';
 import {JugadorService} from '../../../services/jugadorService';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 import {ConfirmDialogPlantelComponent} from '../../component/confirm-dialog-plantel/confirm-dialog-plantel.component';
 import {ConfirmUbicacionDialogComponent} from '../registro-predio-mapa/registro-predio-mapa.component';
+import {NotificacionService} from '../../../services/notificacionService';
 
 @Component({
   selector: 'app-info-equipo',
   templateUrl: './info-equipo.component.html',
   styleUrls: ['./info-equipo.component.css'],
-  providers: [EquipoService, JugadorService]
+  providers: [EquipoService, JugadorService, MatSnackBar]
 })
 export class InfoEquipoComponent implements OnInit {
 
@@ -28,7 +29,8 @@ export class InfoEquipoComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private equipoService: EquipoService,
               private jugadorService: JugadorService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private snackBar: MatSnackBar) {
     this.routeSub = this.route.params.subscribe((params) => {
       if (params['id']) {
         this.id = params.id;
@@ -78,8 +80,12 @@ export class InfoEquipoComponent implements OnInit {
       }
     });
     this.dialogRef.afterClosed().subscribe(res => {
-      if(refresh)
-        return window.location.reload();
+      if (refresh) {
+        this.snackBar.open('Invitación enviada', '', {
+          duration: 750,
+        });
+      }
+
     });
   }
 

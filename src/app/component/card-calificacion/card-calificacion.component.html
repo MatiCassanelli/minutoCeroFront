@@ -2,14 +2,21 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Calificación
+        <div *ngIf="jugador; else espredio">
+          Jugador
+          <!--<mat-icon>directions_run</mat-icon>-->
+        </div>
+        <ng-template #espredio>
+          Predio
+          <!--<mat-icon>border_vertical</mat-icon>-->
+        </ng-template>
       </mat-panel-title>
       <mat-panel-description>
-        <div *ngIf="jugador; else Predio">
+        <div *ngIf="jugador; else esPredio">
           {{jugador.nombre}} {{jugador.apellido}}
           <!--<mat-icon>directions_run</mat-icon>-->
         </div>
-        <ng-template #Predio>
+        <ng-template #esPredio>
           {{predio?.nombrePredio}}
           <!--<mat-icon>border_vertical</mat-icon>-->
         </ng-template>
@@ -21,24 +28,24 @@
         <label class="ui-grid-col-1 col-form-label"><strong>{{tags[0].label}} </strong></label>
         <div class="ui-grid-col-5"></div>
         <p-rating class="ui-grid-col-5" [cancel]="false" style="text-align: right"
-                  [(ngModel)]="puntaje1"></p-rating>
+                  [(ngModel)]="puntaje1" (onRate)="click1 = false"></p-rating>
       </div>
       <div class="row" style="padding: 0 24px; align-items: center">
         <label class="ui-grid-col-1 col-form-label"><strong>{{tags[1].label}} </strong></label>
         <div class="ui-grid-col-5"></div>
         <p-rating class="ui-grid-col-5" [cancel]="false" style="text-align: right"
-                  [(ngModel)]="puntaje2"></p-rating>
+                  [(ngModel)]="puntaje2" (onRate)="click2 = false"></p-rating>
       </div>
       <div class="row" style="padding: 0 24px; align-items: center">
         <label class="ui-grid-col-1 col-form-label"><strong>{{tags[2].label}} </strong></label>
         <div class="ui-grid-col-5"></div>
         <p-rating class="ui-grid-col-5" [cancel]="false" style="text-align: right"
-                  [(ngModel)]="puntaje3"></p-rating>
+                  [(ngModel)]="puntaje3" (onRate)="click3 = false"></p-rating>
       </div>
     </div>
     <mat-action-row>
-      <button mat-button color="warn">Previous</button>
-      <button mat-button color="primary" (click)="setPuntaje()">End</button>
+      <button mat-button color="warn">Cancelar</button>
+      <button mat-button color="primary" (click)="setPuntaje()" [disabled]="(click1 || click2 || click3)">Puntuar</button>
     </mat-action-row>
   </mat-expansion-panel>
 </div>
