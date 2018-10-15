@@ -62,6 +62,7 @@ export class PartidoComponent implements OnInit {
     this.fileNameDialogRef = this.dialog.open(MapDialogComponent, {
       data: this.predio,
       width: '600px',
+      maxWidth: null,
     });
   }
 }

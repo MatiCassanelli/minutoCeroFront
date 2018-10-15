@@ -48,6 +48,7 @@ export class RegistroPredioMapaComponent implements OnInit {
         ubicacion: ubicacion
       },
       width: '600px',
+      maxWidth: null,
     });
     this.dialogRef.afterClosed().subscribe((ub) => {
       if (ub) {

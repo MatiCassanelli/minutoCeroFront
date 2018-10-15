@@ -37,7 +37,7 @@ export class RegistrarPredio1Component implements OnInit {
 
   onSubmit() {
     this.predioService.createPredio({
-      id: '5b5e5661b7e1c6236f5c733d', // es el id del predio q viene de la sesion
+      id: localStorage.getItem('id'), // es el id del predio q viene de la sesion
       nombre: this.form.get('nombrePredio').value,
       telefono: this.form.get('telefono').value,
       ubicacion: null,

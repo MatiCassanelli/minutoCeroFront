@@ -29,7 +29,7 @@ export class AppComponent {
 
     let socket = socketIo(environment.baseUrl);
     // console.log('hello'+localStorage.getItem('id'));
-    socket.on('Reserva' + localStorage.getItem('id'), (data) => {
+    socket.on('Notificacion' + localStorage.getItem('id'), (data) => {
       localStorage.setItem('cantNotificaciones',
         ((parseInt(localStorage.getItem('cantNotificaciones'), 10) + 1).toString()));
       console.log(data);
@@ -40,26 +40,6 @@ export class AppComponent {
         localStorage.setItem('cantNotificaciones', res.toString());
         this.cantidad = parseInt(localStorage.getItem('cantNotificaciones'), 10);
       });
-    });
-
-    socket = socketIo(environment.baseUrl);
-    // console.log('hello'+localStorage.getItem('id'));
-    socket.on('Reserva' + localStorage.getItem('id'), (data) => {
-      localStorage.setItem('cantNotificaciones',
-        ((parseInt(localStorage.getItem('cantNotificaciones'), 10) + 1).toString()));
-    });
-    socket.on('Partido' + localStorage.getItem('id'), (data) => {
-      localStorage.setItem('cantNotificaciones',
-        ((parseInt(localStorage.getItem('cantNotificaciones'), 10) + 1).toString()));
-    });
-    socket.on('Equipo' + localStorage.getItem('id'), (data) => {
-      localStorage.setItem('cantNotificaciones',
-        ((parseInt(localStorage.getItem('cantNotificaciones'), 10) + 1).toString()));
-    });
-    socket.on('Amigo' + localStorage.getItem('id'), (data) => {
-      console.log('entro a socket amigo');
-      localStorage.setItem('cantNotificaciones',
-        ((parseInt(localStorage.getItem('cantNotificaciones'), 10) + 1).toString()));
     });
   }
 

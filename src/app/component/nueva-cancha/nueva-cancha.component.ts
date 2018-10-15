@@ -34,7 +34,6 @@ export class NuevaCanchaComponent implements OnInit {
         }
         else
           this.deportes = res;
-
     });
   }
 
@@ -44,8 +43,13 @@ export class NuevaCanchaComponent implements OnInit {
     if(!this.deportePadre)
       cancha.canchasHijas.push(new Cancha(localStorage.getItem('id'), false));
     else {
-      if (this.deportePadre > cancha.deporte.cantJugadores)
-        cancha.canchasHijas.push(new Cancha(localStorage.getItem('id'), false));
+      const dep = this.deportes.find(x => x._id === this.cancha.deporte).cantJugadores;
+      // const depPadre = this.deportes.find(x => x._id === this.deportePadre._id).cantJugadores;
+      this.deporteService.getDeportes().subscribe(res => {
+        if (res.find(x => x._id === this.deportePadre).cantJugadores > dep)
+          cancha.canchasHijas.push(new Cancha(localStorage.getItem('id'), false));
+      });
+
     }
   }
   minimoDeporte(event) {

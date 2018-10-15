@@ -13,5 +13,6 @@ export class Jugador {
     puntaje: number
   };
   type: string;
+  photos: any;
 }
 

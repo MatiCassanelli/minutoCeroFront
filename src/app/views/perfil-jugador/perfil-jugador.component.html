@@ -1,49 +1,24 @@
 <mat-card>
-  <div>
-    <img mat-card-avatar src="http://placehold.it/60x60" alt="">
+  <!--<img mat-card-avatar src="http://placehold.it/60x60" alt="">-->
+  <img mat-card-avatar src="{{asd}}" alt="">
+  <button *ngIf="mostrar; else noClick" style="text-align:right" mat-stroked-button
+          color="primary" (click)="solicitudAmistad()">
+    Agregar a Amigos
+  </button>
+  <ng-template #noClick>
     <button style="text-align:right" mat-stroked-button
-            color="primary" (click)="solicitudAmistad()">
-      Agregar a Amigos
+            color="primary" [disabled]="true">
+      Ya son amigos
     </button>
-  </div>
+  </ng-template>
   <mat-card-header style="margin: 5px 0 0">
-    <mat-card-title>{{jugador?.nombre}} {{jugador?.apellido}}
-
+    <mat-card-title>
+      {{jugador?.nombre}} {{jugador?.apellido}}
     </mat-card-title>
     <mat-card-subtitle>{{jugador?.email}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <!--<mat-expansion-panel>-->
-    <!--<mat-expansion-panel-header>-->
-    <!--<mat-panel-title>-->
-    <!--Calificación-->
-    <!--</mat-panel-title>-->
-    <!--<mat-panel-description>-->
-    <!--{{jugador?.calificacion.puntaje}} puntos-->
-    <!--</mat-panel-description>-->
-    <!--</mat-expansion-panel-header>-->
-    <!--<div class="form-group">-->
-    <!--<div class="row" style="padding: 0 24px; align-items: center">-->
-    <!--&lt;!&ndash;<label class="ui-grid-col-1 col-form-label"><strong>{{tags[0].label}} </strong></label>&ndash;&gt;-->
-    <!--<div class="ui-grid-col-5"></div>-->
-    <!--<p-rating class="ui-grid-col-5" [cancel]="false" style="text-align: right"-->
-    <!--[(ngModel)]="jugador?.calificacion.atributos.tecnica"></p-rating>-->
-    <!--</div>-->
-    <!--<div class="row" style="padding: 0 24px; align-items: center">-->
-    <!--&lt;!&ndash;<label class="ui-grid-col-1 col-form-label"><strong>{{tags[1].label}} </strong></label>&ndash;&gt;-->
-    <!--<div class="ui-grid-col-5"></div>-->
-    <!--<p-rating class="ui-grid-col-5" [cancel]="false" style="text-align: right"-->
-    <!--[(ngModel)]="jugador?.calificacion.atributos.puntualidad"></p-rating>-->
-    <!--</div>-->
-    <!--<div class="row" style="padding: 0 24px; align-items: center">-->
-    <!--&lt;!&ndash;<label class="ui-grid-col-1 col-form-label"><strong>{{tags[2].label}} </strong></label>&ndash;&gt;-->
-    <!--<div class="ui-grid-col-5"></div>-->
-    <!--<p-rating class="ui-grid-col-5" [cancel]="false" style="text-align: right"-->
-    <!--[(ngModel)]="jugador?.calificacion.atributos.personalidad"></p-rating>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</mat-expansion-panel>-->
-    <div class="form-group">
+    <div class="form-group" *ngIf="jugador?.calificacion; else noCalificacion">
       <div class="row" style="padding: 0 24px; align-items: center">
         <label class="ui-grid-col-1 col-form-label"><strong>Tecnica </strong></label>
         <div class="ui-grid-col-5"></div>
@@ -63,6 +38,9 @@
                   [(ngModel)]="jugador?.calificacion.atributos.personalidad"></p-rating>
       </div>
     </div>
+    <ng-template #noCalificacion>
+      <p>Todavia no se registran calificaciones para {{jugador?.nombre}}</p>
+    </ng-template>
   </mat-card-content>
 </mat-card>
 

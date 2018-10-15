@@ -17,4 +17,8 @@ export class Partido {
   organizador: Jugador;
   estado: string;
   horasDeJuego: number;
+  resultado: {
+    golesLocal: number,
+    golesVisitante: number
+  };
 }

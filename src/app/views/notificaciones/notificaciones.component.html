@@ -1,17 +1,18 @@
 <div *ngFor="let notificacion of notificaciones">
-  <app-card-notificacion (swipe)="restarNotificacion({value:notificacion, tipo:'n'})"
+  <app-card-notificacion *ngIf="notificacion.tipo !== 'PartidoFinalizado'; else partidoFinalizado"
+                         (swipe)="restarNotificacion({value:notificacion, tipo:'n'})"
                          [mensaje]="notificacion.mensaje"></app-card-notificacion>
+  <ng-template #partidoFinalizado>
+    <app-card-notificacion-resultado-partido [idPartido]="'5b85a32ecb0d411f703315e8'"
+    [mensaje]="notificacion.mensaje" (swipe)="restarNotificacion({value:notificacion, tipo:'n'})">
+    </app-card-notificacion-resultado-partido>
+  </ng-template>
 </div>
 <div *ngFor="let solicitud of solicitudes">
   <app-card-solicitud (restarNotificacion)="restarNotificacion({value:solicitud, tipo:'s'})"
                       [solicitud]="solicitud"></app-card-solicitud>
 </div>
-<div style="margin: 3%;">
-  <mat-card>
-    <mat-card-header>
-      Resultado final del partido
-    </mat-card-header>
-    <app-card-resultado-partido></app-card-resultado-partido>
-  </mat-card>
-</div>
+
+<app-card-notificacion-resultado-partido [idPartido]="'5b85a32ecb0d411f703315e8'"
+                                         [mensaje]="'Cargar resultado'"></app-card-notificacion-resultado-partido>
 

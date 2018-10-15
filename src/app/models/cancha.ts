@@ -3,7 +3,7 @@ import {Deporte} from './deporte';
 export class Cancha {
   _id: string;
   nombreCancha: string;
-  deporte: Deporte;
+  deporte: string;
   canchasHijas: Cancha[];
   tipoSuelo: ['Tierra', 'Sintetico', 'Natural'];
   predio: string;

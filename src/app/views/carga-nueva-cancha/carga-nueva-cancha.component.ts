@@ -36,9 +36,9 @@ export class CargaNuevaCanchaComponent implements OnInit {
 
   agregarCanchas() {
     console.log(this.canchas);
-    // this.predioService.setCanchas(this.canchas).subscribe(res => {
-    //   console.log(res);
-    // });
+    this.predioService.setCanchas(this.canchas).subscribe(res => {
+      console.log(res);
+    });
   }
 
 

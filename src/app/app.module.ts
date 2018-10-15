@@ -113,14 +113,18 @@ import { PerfilJugadorComponent } from './views/perfil-jugador/perfil-jugador.co
 import {AmistadService} from '../services/amistadService';
 import {EquipoService} from '../services/equipoService';
 import { CardSolicitudComponent } from './component/card-solicitud/card-solicitud.component';
-import {ROUTER_PROVIDERS} from "@angular/router/src/router_module";
-import {HashLocationStrategy, LocationStrategy, PathLocationStrategy} from "@angular/common";
+import {ROUTER_PROVIDERS} from '@angular/router/src/router_module';
+import {HashLocationStrategy, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { CargaNuevaCanchaComponent } from './views/carga-nueva-cancha/carga-nueva-cancha.component';
 import { NuevaCanchaComponent } from './component/nueva-cancha/nueva-cancha.component';
 import {DeporteService} from '../services/deporteService';
 import {PredioService} from '../services/predioService';
 import { CardResultadoPartidoComponent } from './component/card-resultado-partido/card-resultado-partido.component';
-
+import {
+  CardNotificacionResultadoPartidoComponent,
+  DialogResultadoComponent
+} from './component/card-notificacion-resultado-partido/card-notificacion-resultado-partido.component';
+import {PartidoService} from '../services/partidoService';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -169,7 +173,9 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     CardSolicitudComponent,
     CargaNuevaCanchaComponent,
     NuevaCanchaComponent,
-    CardResultadoPartidoComponent
+    CardResultadoPartidoComponent,
+    CardNotificacionResultadoPartidoComponent,
+    DialogResultadoComponent
   ],
   imports: [
     AppRouting,
@@ -252,10 +258,12 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     // {provide: LocationStrategy, useClass: HashLocationStrategy},
     EquipoService,
     DeporteService,
-    PredioService
+    PredioService,
+    PartidoService
   ],
   entryComponents: [MapComponent, MapDialogComponent,
     ConfirmDialogPlantelComponent, ConfirmUbicacionDialogComponent,
-    DialogInvitarJugadorEquipoComponent, NotificacionesComponent, NuevaCanchaComponent]
+    DialogInvitarJugadorEquipoComponent, NotificacionesComponent, NuevaCanchaComponent,
+    DialogResultadoComponent]
 })
 export class AppModule { }

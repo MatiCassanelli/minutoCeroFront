@@ -64,6 +64,7 @@ export class InfoEquipoComponent implements OnInit {
     let refresh = false;
     this.dialogRef = this.dialog.open(DialogInvitarJugadorEquipoComponent, {
       width: '600px',
+      maxWidth: null
     });
     this.dialogRef.beforeClose().subscribe((jugadoresInvitar) => {
       let jug = [];

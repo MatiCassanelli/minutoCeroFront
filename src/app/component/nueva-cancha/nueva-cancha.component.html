@@ -7,7 +7,6 @@
       Nueva Cancha
     </ng-template>
   </mat-expansion-panel-header>
-  <!--<div app-type="section" id="SECTION1" [active]="true" (canchasInternas) = "onAddComponentClick()"></div>-->
   <mat-form-field>
     <input matInput placeholder="Nombre" required [(ngModel)]="cancha.nombreCancha">
   </mat-form-field>
@@ -40,9 +39,9 @@
     <input matInput placeholder="Precio Nocturno" type="number" class="example-right-align" [(ngModel)]="cancha.precioNoche">
     <span matPrefix>$&nbsp;</span>
   </mat-form-field>
-  <p *ngIf="cancha.deporte && imprime" (click)="nuevaSubCancha(cancha)">
+  <button mat-raised-button *ngIf="cancha.deporte && imprime" (click)="nuevaSubCancha(cancha)">
     <small>Contiene canchas internas</small>
-  </p>
+  </button>
   <div *ngIf="imprime">
     <div *ngFor="let subcancha of cancha.canchasHijas">
       <app-nueva-cancha [cancha]="subcancha" [deportePadre]="cancha.deporte"></app-nueva-cancha>

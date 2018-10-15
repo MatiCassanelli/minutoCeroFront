@@ -134,6 +134,7 @@ export class ReservaIndependienteComponent implements OnInit {
   openDialog() {
     this.fileNameDialogRef = this.dialog.open(MapDialogComponent, {
       data: this.predios,
+      maxWidth: null,
       width: '600px',
     });
     this.fileNameDialogRef.afterClosed().subscribe((res) => {
