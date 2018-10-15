@@ -12,16 +12,6 @@ export class CardCalificacionComponent implements OnInit {
   @Input() jugador: Jugador;
   @Input() predio: Predio;
   @Output() sendCalificacion: EventEmitter<any> = new EventEmitter<any>();
-  // puntuacion: {
-  //   personalidad: number,
-  //   tecnica: number,
-  //   puntualidad: number
-  // };
-  // puntuacionPredio: {
-  //   precio: number,
-  //   estado: number,
-  //   atencion: number
-  // };
   puntuado = false;
   tags = [];
   puntaje1: number;

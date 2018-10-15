@@ -1,28 +1,24 @@
 <mat-list>
   <mat-list-item>
     <img matListAvatar class="rounded-circle" src="http://placehold.it/60x60" alt="">
-    <div mat-line class="example-section">
-      <mat-form-field style="width: 30px; text-align: center" class="example-margin">
-        <input matInput type="number" [(ngModel)]="golesLocal">
-      </mat-form-field>
-      -
-      <mat-form-field style="width: 30px; text-align: center" class="example-margin">
-        <input matInput type="number" [(ngModel)]="golesVisitante">
-      </mat-form-field>
-    </div>
-    <p mat-line style="text-align: center">Fecha</p>
-    <p mat-line style="text-align: center">Predio donde se jugo</p>
-    <!--<section mat-line class="example-section">-->
-    <!--<mat-form-field style="width: 25px; text-align: center" class="example-margin">-->
-    <!--<input matInput type="number" [(ngModel)]="value">-->
-    <!--</mat-form-field>-->
-    <!-- - -->
-    <!--<mat-form-field style="width: 25px; text-align: center" class="example-margin">-->
-    <!--<input matInput type="number" [(ngModel)]="value">-->
-    <!--</mat-form-field>-->
-    <!--</section>-->
+    <h4 *ngIf="!editable; else modificar" mat-line style="text-align: center">
+      <strong>{{golesLocal}} - {{golesVisitante}}</strong>
+    </h4>
+    <ng-template #modificar>
+      <div>
+        <input matInput placeholder="Local" [(ngModel)]="golesLocal" size="2" style="text-align: center">
+        <span> - </span>
+        <input matInput placeholder="Visita" [(ngModel)]="golesVisitante" size="2" style="text-align: center">
+      </div>
+    </ng-template>
+    <p mat-line style="text-align: center">{{partido?.dia | date:'dd/MM/yyyy - HH:mm'}}</p>
+    <p mat-line style="text-align: center">{{predio?.nombrePredio}}</p>
     <img mat-card-image class="rounded-circle" src="http://placehold.it/60x60" alt="">
   </mat-list-item>
+  <div *ngIf="editable" style="text-align: right">
+    <button mat-button type="button" mat-dialog-close>Cancelar</button>
+    <button mat-button type="submit" (click)="submit()">Aceptar</button>
+  </div>
 </mat-list>
 
 

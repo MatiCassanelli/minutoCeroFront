@@ -1,4 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Partido} from '../../models/partido';
+import {Predio} from '../../models/predio';
 
 @Component({
   selector: 'app-card-resultado-partido',
@@ -7,12 +9,25 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class CardResultadoPartidoComponent implements OnInit {
 
-  golesLocal: number = 3;
-  golesVisitante: number = 2;
-  @Input() editable: boolean;
+  @Input() golesLocal: number;
+  @Input() golesVisitante: number;
+  @Input() partido: Partido;
+  @Input() predio: Predio;
+  @Input() editable = false;
+  @Output() resultado: EventEmitter<any> = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
+  }
+
+  submit() {
+    if (this.editable){
+      this.resultado.emit({
+        golesLocal: this.golesLocal,
+        golesVisitante: this.golesVisitante
+      });
+    }
+
   }
 
 }

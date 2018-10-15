@@ -137,6 +137,7 @@ export class PlantelComponent implements OnInit {
         accion: accion //if en el otro componennt para eliminar o agregar
       },
       width: '600px',
+      maxWidth: null,
     });
     this.dialogRef.afterClosed().subscribe((jc) => {
         if (jc && accion === 'confirm')
