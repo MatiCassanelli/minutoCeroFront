@@ -4,7 +4,7 @@
   <mat-list-item *ngFor="let partido of partidosIncompletos; let i = index" (click)="goToPartido(partido._id)">
 
     <img matListAvatar class="rounded-circle" src="http://placehold.it/60x60" alt="">
-    <h4 mat-line style="text-align: center" *ngIf="partido.resultado; else hora"><b>{{partido?.resultado.golesLocal}} - {{partido?.resultado.golesVisitante}}</b></h4>
+    <h4 mat-line style="text-align: center" *ngIf="partido.resultado; else hora"><b>{{partido?.resultado.local}} - {{partido?.resultado.visitante}}</b></h4>
     <ng-template #hora>
       <h4 mat-line style="text-align: center" ><b>{{partido?.dia | date:'HH:mm'}}</b></h4>
     </ng-template>

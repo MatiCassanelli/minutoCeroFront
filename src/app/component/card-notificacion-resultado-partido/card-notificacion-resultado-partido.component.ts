@@ -48,8 +48,10 @@ export class CardNotificacionResultadoPartidoComponent implements OnInit {
       }
     });
     this.dialogRef.beforeClose().subscribe((asd) => {
-      // aca va el service para guardar resultado en partido
-      this.swipe.emit(true);
+      this.partidoService.updateResultado(this.partido._id, asd.resultado).subscribe(res => {
+        console.log(res);
+        this.swipe.emit(true);
+      });
     });
   }
 }

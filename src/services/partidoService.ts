@@ -25,4 +25,8 @@ export class PartidoService {
     return this.http.get<Partido>(this.api + id, global.httpOptions);
   }
 
+  updateResultado(idPartido, resultado) {
+    return this.http.put<Partido>(this.api + 'resultado/' + idPartido, resultado, global.httpOptions);
+  }
+
 }
