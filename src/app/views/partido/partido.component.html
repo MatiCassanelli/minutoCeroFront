@@ -28,7 +28,7 @@
         </div>
         <label class="col-12 col-form-label"><strong>Predio: </strong>{{predio?.nombrePredio}}</label> <!--aca tira error-->
       </div>
-      <app-plantel [setIdPartido]="idPartido" (sendPlantel)="getPlanteles($event)"></app-plantel>
+      <app-plantel [setIdPartido]="idPartido" [editable]="false" (sendPlantel)="getPlanteles($event)"></app-plantel>
     </div>
 
   </p-card>

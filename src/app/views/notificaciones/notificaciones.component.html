@@ -3,7 +3,7 @@
                          (swipe)="restarNotificacion({value:notificacion, tipo:'n'})"
                          [mensaje]="notificacion.mensaje"></app-card-notificacion>
   <ng-template #partidoFinalizado>
-    <app-card-notificacion-resultado-partido [idPartido]="'5b85a32ecb0d411f703315e8'"
+    <app-card-notificacion-resultado-partido [idPartido]="notificacion.partido"
     [mensaje]="notificacion.mensaje" (swipe)="restarNotificacion({value:notificacion, tipo:'n'})">
     </app-card-notificacion-resultado-partido>
   </ng-template>
@@ -13,6 +13,6 @@
                       [solicitud]="solicitud"></app-card-solicitud>
 </div>
 
-<app-card-notificacion-resultado-partido [idPartido]="'5b85a32ecb0d411f703315e8'"
-                                         [mensaje]="'Cargar resultado'"></app-card-notificacion-resultado-partido>
+<!--<app-card-notificacion-resultado-partido [idPartido]="'5b85a32ecb0d411f703315e8'"-->
+                                         <!--[mensaje]="'Cargar resultado'"></app-card-notificacion-resultado-partido>-->
 

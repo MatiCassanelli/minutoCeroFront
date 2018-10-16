@@ -41,6 +41,7 @@ export class PlantelComponent implements OnInit {
     this.idPartido = name;
   }
   @Output() sendPlantel: EventEmitter<Array<Plantel>> = new EventEmitter<Array<Plantel>>();
+  @Input() editable = true;
 
   constructor(private plantelService: PlantelService,
               private partidoService: PartidoService,
