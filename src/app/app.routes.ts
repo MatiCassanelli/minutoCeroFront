@@ -21,6 +21,7 @@ import {ReservaIndependienteComponent} from './views/reserva-independiente/reser
 import {BuscadorJugadoresComponent} from './component/buscadorJugadores/buscador-jugadores.component'
 import {PerfilJugadorComponent} from './views/perfil-jugador/perfil-jugador.component';
 import {CargaNuevaCanchaComponent} from './views/carga-nueva-cancha/carga-nueva-cancha.component';
+import {RegistroPredioStepsComponent} from './views/registro-predio-steps/registro-predio-steps.component';
 
 const appRoutes: Routes = [
   {
@@ -51,6 +52,7 @@ const appRoutes: Routes = [
     data: { type: 'Predio'},
     children: [
       {path: '', component: HomePredioComponent},
+      {path: 'registro', component: RegistroPredioStepsComponent, canActivate: [AuthGuardService, RoleGuardService]},
       {path: 'registro/1', component: RegistrarPredio1Component, canActivate: [AuthGuardService, RoleGuardService]},
       {path: 'registro/2', component: RegistroPredioMapaComponent, canActivate: [AuthGuardService, RoleGuardService]},
       {path: 'nuevaCancha', component: CargaNuevaCanchaComponent, canActivate: [AuthGuardService, RoleGuardService]}

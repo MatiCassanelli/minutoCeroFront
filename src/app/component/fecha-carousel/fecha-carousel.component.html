@@ -1,17 +1,19 @@
 <div>
   <p-accordion *ngFor="let dia of dias; let i = index">
     <p-accordionTab header={{dia}}>
-      <div class="form-group">
-        <label for="Desde{{dia}}" class="col-sm-2 col-form-label"><strong>Desde</strong></label>
-        <p-calendar id="Desde{{dia}}" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"
-                    ondragover="true" class="col-sm-10" touchUI="true" [(ngModel)]="horarios[i].horario.desde"
-                    (onSelect)="sendHorarios()"></p-calendar>
-      </div>
-      <div class="form-group">
-        <label for="Hasta{{dia}}" class="col-sm-2 col-form-label"><strong>Hasta</strong></label>
-        <p-calendar id="Hasta{{dia}}" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"
-                    ondragover="true" class="col-sm-10" touchUI="true" [(ngModel)]="horarios[i].horario.hasta"
-                    (onSelect)="sendHorarios()"></p-calendar>
+      <div *ngFor="let hora of horarios[i].horario">
+        <div class="form-group">
+          <label for="Desde{{dia}}" class="col-sm-2 col-form-label"><strong>Desde</strong></label>
+          <p-calendar id="Desde{{dia}}" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"
+                      ondragover="true" class="col-sm-10" touchUI="true" [(ngModel)]="hora.desde"
+                      (onSelect)="sendHorarios()"></p-calendar>
+        </div>
+        <div class="form-group">
+          <label for="Hasta{{dia}}" class="col-sm-2 col-form-label"><strong>Hasta</strong></label>
+          <p-calendar id="Hasta{{dia}}" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"
+                      ondragover="true" class="col-sm-10" touchUI="true" [(ngModel)]="hora.hasta"
+                      (onSelect)="sendHorarios()"></p-calendar>
+        </div>
       </div>
     </p-accordionTab>
   </p-accordion>

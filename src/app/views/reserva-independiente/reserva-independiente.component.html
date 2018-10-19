@@ -17,18 +17,19 @@
     </div>
   </div>
   <button mat-button>Time</button>
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <input matInput value="{{selectedTime}}" placeholder="Hora">
-      <mat-icon matSuffix (click)="open()">schedule</mat-icon>
-    </mat-form-field>
+  <!--<form class="example-form">-->
+    <!--<mat-form-field class="example-full-width">-->
+      <!--<input matInput value="{{selectedTime}}" placeholder="Hora" required>-->
+      <!--<mat-icon matSuffix (click)="open()">schedule</mat-icon>-->
+    <!--</mat-form-field>-->
 
-    <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-
+    <!--<mat-form-field>-->
+      <!--<input matInput [matDatepicker]="picker1" placeholder="Angular forms" [formControl]="date">-->
+      <!--<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>-->
+      <!--<mat-datepicker #picker1></mat-datepicker>-->
+    <!--</mat-form-field>-->
+  <!--</form>-->
+<app-fecha-hora></app-fecha-hora>
   <!--</form>-->
   <p-footer>
     <div class="row">
@@ -44,5 +45,4 @@
       <div class="ui-grid-col-3"></div>
     </div>
   </p-footer>
-
 

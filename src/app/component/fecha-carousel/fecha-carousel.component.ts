@@ -8,6 +8,14 @@ import {
 import {debug} from 'util';
 import {Jugador} from '../../models/jugador';
 
+interface Horario {
+  dia: String;
+  horario: [{
+    desde: Date,
+    hasta: Date
+  }];
+}
+
 @Component({
   selector: 'app-fecha-carousel',
   templateUrl: './fecha-carousel.component.html',
@@ -19,9 +27,8 @@ export class FechaCarouselComponent implements OnInit {
   // // horarios: FormArray;
 
   dias: string[];
-  horarios: Array<any>;
+  horarios: Horario[];
   @Output() notifyParent: EventEmitter<Array<Jugador>> = new EventEmitter<Array<Jugador>>();
-  @Output() jugadoresInvitados: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
   constructor() {
@@ -29,7 +36,7 @@ export class FechaCarouselComponent implements OnInit {
     this.dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
     for (let i = 0; i < this.dias.length; i++) {
       this.horarios.push({
-        'dia': this.dias[i], 'horario': {'desde': null, 'hasta': null}
+        'dia': this.dias[i], 'horario': [{'desde': null, 'hasta': null}, {'desde': null, 'hasta': null}]
       });
     }
     // this.horario = { 'dia': 'Lunes', 'desde': null, 'hasta': null};
@@ -47,7 +54,7 @@ export class FechaCarouselComponent implements OnInit {
 
   sendHorarios() {
     // this.jugadoresInvitados.emit(this.horarios);
-    this.notifyParent.emit(this.horarios);
+    // this.notifyParent.emit(this.horarios);
   }
 }
 

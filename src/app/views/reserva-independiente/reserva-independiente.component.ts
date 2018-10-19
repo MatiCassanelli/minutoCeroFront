@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {ConfirmationService, SelectItem} from 'primeng/api';
 import {Predio} from '../../models/predio';
 import {Plantel} from '../../models/plantel';
@@ -45,6 +45,8 @@ export class ReservaIndependienteComponent implements OnInit {
   mostrarLabel = false;
   fileNameDialogRef: MatDialogRef<MapDialogComponent>;
   public selectedTime: string;
+  date = new FormControl(new Date());
+  serializedDate = new FormControl((new Date()).toISOString());
 
   constructor(private fb: FormBuilder,
               private plantelService: PlantelService,
@@ -70,17 +72,15 @@ export class ReservaIndependienteComponent implements OnInit {
   }
 
   open() {
-    const now = moment();
-    // var now = moment(date.getDate().toString() + ' ' + date.getTime());
-    now.add(30, 'minutes').startOf('hour');
-    const h = now.toDate().getHours().toString();
-    let m = now.toDate().getMinutes();
-    if (m < 10)
-      m *= 10;
-    let m1 = m.toString();
-    const amazingTimePicker = this.atp.open({time: h + ':' + m1});
+    const start = moment();
+    const remainder = 60 - (start.minute() % 60);
+
+    let dateTime = moment(start).add(remainder, 'minutes');
+    console.log(dateTime);
+    const amazingTimePicker = this.atp.open({time: dateTime.format('HH:mm')});
     amazingTimePicker.afterClose().subscribe(time => {
       this.selectedTime = time;
+      console.log(moment(time, 'HH:mm').toDate());
     });
   }
 
@@ -131,6 +131,7 @@ export class ReservaIndependienteComponent implements OnInit {
       });
     });
   }
+
   openDialog() {
     this.fileNameDialogRef = this.dialog.open(MapDialogComponent, {
       data: this.predios,
@@ -138,7 +139,7 @@ export class ReservaIndependienteComponent implements OnInit {
       width: '600px',
     });
     this.fileNameDialogRef.afterClosed().subscribe((res) => {
-      if(res) {
+      if (res) {
         this.ubicacion = res.ubicacion;
         this.selectedPredio = res.predio;
         this.mostrarLabel = true;

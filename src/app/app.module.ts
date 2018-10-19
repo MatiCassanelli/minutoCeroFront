@@ -54,7 +54,7 @@ import {
   MatInputModule,
   MatNativeDateModule, MatOptionModule, MatSelectModule,
   MatSliderModule,
-  MatSnackBarModule
+  MatSnackBarModule, MatStepperModule
 } from '@angular/material';
 import {MatExpansionModule} from '@angular/material';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -125,6 +125,10 @@ import {
   DialogResultadoComponent
 } from './component/card-notificacion-resultado-partido/card-notificacion-resultado-partido.component';
 import {PartidoService} from '../services/partidoService';
+import { RegistroPredioStepsComponent } from './views/registro-predio-steps/registro-predio-steps.component';
+import { FechaHoraComponent } from './component/fecha-hora/fecha-hora.component';
+
+
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -175,7 +179,9 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     NuevaCanchaComponent,
     CardResultadoPartidoComponent,
     CardNotificacionResultadoPartidoComponent,
-    DialogResultadoComponent
+    DialogResultadoComponent,
+    RegistroPredioStepsComponent,
+    FechaHoraComponent
   ],
   imports: [
     AppRouting,
@@ -232,7 +238,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatOptionModule,
     MatAutocompleteModule,
     MatChipsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatStepperModule,
   ],
   bootstrap: [AppComponent],
   schemas: [
