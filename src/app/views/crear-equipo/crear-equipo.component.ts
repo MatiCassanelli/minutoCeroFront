@@ -28,7 +28,7 @@ export class CrearEquipoComponent implements OnInit {
   jugadores: Array<Jugador>;
   nombreJugadores: string[];
   equipo = new Equipo();
-
+  // disabled = (this.nombreEquipo && this.deporte);
 
   constructor(private fb: FormBuilder,
               private router: Router,

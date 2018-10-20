@@ -3,6 +3,6 @@
   <app-map style="width: 80%" [setIdPartido]="data" (sendInfo)="getPredio($event)" (sendUbicacion)="getUbicacion($event)"></app-map>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button type="button" (click)="onSaveClick()">Add</button>
-  <button mat-button type="button" mat-dialog-close>Cancel</button>
+  <button mat-button type="button" mat-dialog-close>Cancelar</button>
+  <button mat-button type="button" (click)="onSaveClick()">Elegir</button>
 </mat-dialog-actions>

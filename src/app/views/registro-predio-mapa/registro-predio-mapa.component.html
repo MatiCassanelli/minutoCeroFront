@@ -8,10 +8,7 @@
     <mat-form-field class="example-full-width">
       <input matInput placeholder="Ingrese dirección" [(ngModel)]="direccion" [ngModelOptions]="{standalone: true}">
     </mat-form-field>
-
-    <mat-form-field class="example-full-width">
-      <textarea matInput placeholder="Leave a comment"></textarea>
-    </mat-form-field>
+    <button mat-button (click)="mapa.geocodeDireccion(direccion)">Buscar</button>
   </form>
   <!--</div>-->
 

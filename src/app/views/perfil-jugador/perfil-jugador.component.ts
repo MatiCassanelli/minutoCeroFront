@@ -29,8 +29,11 @@ export class PerfilJugadorComponent implements OnInit {
           console.log('asd', this.asd);
         });
         this.amistadService.getAmigos().subscribe(amigos => {
-          if (amigos && amigos.find(x => x._id === this.jugador._id))
+          if (amigos && amigos.find(x => x._id === this.jugador._id)){
             this.mostrar = false;
+          } else {
+            // deberia consultar por la solicitud ya existente para mostrar "solicitud enviada"
+          }
         });
       }
     });

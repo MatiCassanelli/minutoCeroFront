@@ -1,12 +1,15 @@
 <form [formGroup]="dateTimeForm">
   <mat-form-field>
     <input matInput [min]="minDate" [matDatepicker]="picker1"
-           placeholder="Angular forms" [formControl]="date" required (dateInput)="time.enable()">
+           placeholder="Fecha" [formControl]="date" required (dateInput)="inputForm()">
     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
     <mat-datepicker #picker1></mat-datepicker>
   </mat-form-field>
   <mat-form-field class="example-full-width" >
     <input matInput value="{{selectedTime}}" placeholder="Hora" required [formControl]="time">
-    <mat-icon matSuffix (click)="open()">schedule</mat-icon>
+    <mat-icon matSuffix *ngIf="fechaSelected === true; else noClick" (click)="open()" >schedule</mat-icon>
+    <ng-template #noClick>
+      <mat-icon matSuffix>schedule</mat-icon>
+    </ng-template>
   </mat-form-field>
 </form>
