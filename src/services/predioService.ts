@@ -14,10 +14,10 @@ export class PredioService {
   }
 
   createPredio(predio) {
-    return this.http.post<Predio>(this.api + 'crear', predio, global.httpOptions);
+    return this.http.put<Predio>(this.api + 'crear', predio, global.httpOptions);
   }
 
-  setUbicacion(predio, ub) {
+  setUbicacion(ub) {
     this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + ub.lat + ',' + ub.lng + '&key=AIzaSyBBbAYKGDWUQn05DaopQRrfy5YJMum_H7Y')
       .subscribe(res => {
         console.log(res['results'][0].formatted_address);
@@ -26,7 +26,7 @@ export class PredioService {
           lng: ub.lng,
           direccion: res['results'][0].formatted_address
         };
-        this.http.put<Predio>(this.api + predio + '/ubicacion', ub, global.httpOptions).subscribe(respredio => {
+        this.http.put<Predio>(this.api + 'ubicacion', ub, global.httpOptions).subscribe(respredio => {
           return respredio;
         });
     });

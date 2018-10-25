@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatStepper} from '@angular/material';
+import {Predio} from '../../models/predio';
+import {Horario} from '../../models/horario';
+import {Cancha} from '../../models/cancha';
+import {PredioService} from '../../../services/predioService';
 
 @Component({
   selector: 'app-registro-predio-steps',
@@ -9,10 +13,20 @@ import {MatStepper} from '@angular/material';
 })
 export class RegistroPredioStepsComponent implements OnInit {
 
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
+  isLinear = true;
+  nombrePredio: string;
+  telefono: string;
+  horarios: Horario[];
+  canchas: Cancha[];
+  ubicacion = {
+    lat: String,
+    lng: String
+  };
 
-  constructor(private _formBuilder: FormBuilder) {
+  // predio = JSON.parse(localStorage.getItem('usuario'));
+
+  constructor(private _formBuilder: FormBuilder,
+              private predioService: PredioService) {
   }
 
   ngOnInit() {
@@ -25,8 +39,35 @@ export class RegistroPredioStepsComponent implements OnInit {
   }
 
   siguiente(event, stepper: MatStepper) {
+    // console.log(event);
+    if (event.infoContacto) {
+      this.horarios = event.infoContacto.horarios;
+      this.nombrePredio = event.infoContacto.nombre;
+      this.telefono = event.infoContacto.telefono;
+    }
+    if (event.canchas)
+      this.canchas = event.canchas;
+    if (event.ubicacion)
+      this.ubicacion = event.ubicacion;
     if (event)
       stepper.next();
+  }
+
+  crearPredio() {
+    this.predioService.createPredio({
+      nombre: this.nombrePredio,
+      telefono: this.telefono,
+      ubicacion: this.ubicacion,
+      horarios: this.horarios
+    }).subscribe(() => {
+      this.predioService.setCanchas(this.canchas).subscribe(() => {
+        const asd = this.predioService.setUbicacion(this.ubicacion);
+        console.log(asd);
+      });
+    });
+    // console.log('horarios', this.horarios);
+    // console.log('canchas', this.canchas);
+    // console.log('ubicacion', this.ubicacion);
   }
 
 }

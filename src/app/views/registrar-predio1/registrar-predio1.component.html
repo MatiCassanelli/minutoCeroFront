@@ -23,7 +23,7 @@
 <!--</div>-->
 <!--&lt;!&ndash;<app-fecha-carousel></app-fecha-carousel>&ndash;&gt;-->
 
-<div class="example-container">
+<div class="container">
   <form [formGroup]="nombreHoraForm">
     <ng-template matStepLabel>Fill out your name</ng-template>
     <mat-form-field>
@@ -32,9 +32,9 @@
     <mat-form-field>
       <input matInput placeholder="Teléfono de Contacto" formControlName="telefono" required>
     </mat-form-field>
-    <app-fecha-carousel></app-fecha-carousel>
-    <div>
-      <button mat-button (click)="crearHorarios()" [disabled]="!nombreHoraForm.valid">Siguiente</button>
-    </div>
+    <app-fecha-carousel *ngIf="nombreHoraForm.valid" (emitHorario)="getHorarios($event)"></app-fecha-carousel>
+    <!--<div>-->
+      <!--<button mat-button (click)="crearHorarios()" [disabled]="!nombreHoraForm.valid">Siguiente</button>-->
+    <!--</div>-->
   </form>
 </div>

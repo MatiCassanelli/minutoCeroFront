@@ -11,7 +11,7 @@ import {PartidoService} from '../../../services/partidoService';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {DeporteService} from '../../../services/deporteService';
 import {forkJoin} from 'rxjs/observable/forkJoin';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import {MapDialogComponent} from '../../component/map-dialog/map-dialog.component';
 import {MapComponent} from '../../component/map/map.component';
 import {ReservaService} from '../../../services/reservaService';
@@ -27,7 +27,7 @@ import {Deporte} from '../../models/deporte';
     PredioService,
     PartidoService,
     DeporteService,
-  ReservaService]
+    ReservaService]
 })
 export class OrganizarPartidoComponent implements OnInit {
 
@@ -73,7 +73,7 @@ export class OrganizarPartidoComponent implements OnInit {
   getPlanteles(event) {
     this.plantelLocal = event[0];
     this.plantelVisitante = event[1];
-    if(!this.deporte.cantJugadores)
+    if (!this.deporte.cantJugadores)
       this.porcentajeOcupacion = 0;
     this.porcentajeOcupacion = (this.plantelLocal.jugadoresConfirmados.length +
       this.plantelVisitante.jugadoresConfirmados.length) / this.deporte.cantJugadores * 100;
@@ -91,11 +91,18 @@ export class OrganizarPartidoComponent implements OnInit {
   }
 
   crearPartido() {
-    console.log(this.canchaSeleccionada, this.fechaPartido);
     let cancha: any;
+    const infoPartido = {
+      nombreDeporte: this.deporte.nombre,
+      nombrePredio: this.selectedPredio.nombrePredio,
+      dia: this.fechaPartido,
+      organizador: JSON.parse(localStorage.getItem('usuario'))
+    };
+    console.log(infoPartido);
+    debugger;
     forkJoin(this.predioService.getCanchasWithPredio(this.selectedPredio._id),
-      this.plantelService.createPlantel(this.plantelLocal, 'Local'),
-      this.plantelService.createPlantel(this.plantelVisitante, 'Visitante')).subscribe(res => {
+      this.plantelService.createPlantel(this.plantelLocal, 'Local', infoPartido),
+      this.plantelService.createPlantel(this.plantelVisitante, 'Visitante', infoPartido)).subscribe(res => {
       cancha = res[0][0];
       const local = res[1];
       const visitante = res[2];
@@ -126,7 +133,7 @@ export class OrganizarPartidoComponent implements OnInit {
       width: '600px',
     });
     this.fileNameDialogRef.afterClosed().subscribe((res) => {
-      if(res) {
+      if (res) {
         this.ubicacion = res.ubicacion;
         this.selectedPredio = res.predio;
         this.mostrarLabel = true;

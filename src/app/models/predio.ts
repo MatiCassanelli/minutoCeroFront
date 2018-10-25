@@ -1,8 +1,10 @@
+import {Horario} from './horario';
+
 export class Predio {
   _id: string
   nombrePredio: string;
   telefono: string;
-  horarios: Array<any>;
+  horarios: Horario[];
   ubicacionMaps: {
     lat: string,
     lng: string

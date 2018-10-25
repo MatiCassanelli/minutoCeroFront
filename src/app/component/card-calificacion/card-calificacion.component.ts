@@ -59,7 +59,6 @@ export class CardCalificacionComponent implements OnInit {
       };
     }
     if (this.puntaje1 && this.puntaje2 && this.puntaje3) {
-      debugger;
       this.sendCalificacion.emit({puntuacion: puntuacion, jugador: usuario});
     }
   }

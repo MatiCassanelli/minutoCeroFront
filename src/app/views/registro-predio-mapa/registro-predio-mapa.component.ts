@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
 import {PredioService} from '../../../services/predioService';
 import {ConfirmationService} from 'primeng/api';
 import {Router} from '@angular/router';
@@ -18,6 +18,8 @@ export class RegistroPredioMapaComponent implements OnInit {
     lat: String,
     lng: String
   };
+  @Input() steps = false;
+  @Output() ubicacionSeleccionada: EventEmitter<any> = new EventEmitter<any>();
   dialogRef: MatDialogRef<ConfirmUbicacionDialogComponent>;
 
   constructor(private predioService: PredioService,
@@ -37,8 +39,12 @@ export class RegistroPredioMapaComponent implements OnInit {
   }
 
   setUbicacion(ubicacion) {
-    this.predioService.setUbicacion(localStorage.getItem('id'), ubicacion);
-    this.router.navigateByUrl('/predio');
+    if (this.steps) {
+      this.ubicacionSeleccionada.emit({ubicacion: ubicacion});
+    } else {
+      this.predioService.setUbicacion(ubicacion);
+      this.router.navigateByUrl('/predio');
+    }
   }
 
   openDialog(ubicacion) {
@@ -53,7 +59,7 @@ export class RegistroPredioMapaComponent implements OnInit {
     this.dialogRef.afterClosed().subscribe((ub) => {
       if (ub) {
         this.setUbicacion(ub);
-        this.router.navigateByUrl('/predio');
+        // this.router.navigateByUrl('/predio');
       }
     });
   }

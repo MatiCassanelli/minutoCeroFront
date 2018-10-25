@@ -22,11 +22,12 @@ export class PlantelService {
     }, global.httpOptions);
   }
 
-  createPlantel(plantel, localidad) {
+  createPlantel(plantel, localidad, infoPartido) {
     return this.http.post<Plantel>(this.api, {
       'jugadoresConfirmados': plantel.jugadoresConfirmados,
       'jugadores': plantel.jugadores,
-      'localidad': localidad
+      'localidad': localidad,
+      'infoPartido': infoPartido
     }, global.httpOptions);
   }
 

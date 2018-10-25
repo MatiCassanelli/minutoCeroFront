@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Predio} from '../../models/predio';
 import {PredioService} from '../../../services/predioService';
 import {Router} from '@angular/router';
+import {Horario} from '../../models/horario';
 
 
 @Component({
@@ -49,10 +50,12 @@ export class RegistrarPredio1Component implements OnInit {
   //   }, error1 => console.log(error1));
   // }
   nombreHoraForm: FormGroup;
+  horarios: Horario[];
   disabled = true;
-  @Output() stepEmit: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() stepEmit: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder) {
+  }
 
   ngOnInit() {
     this.nombreHoraForm = this._formBuilder.group({
@@ -61,8 +64,13 @@ export class RegistrarPredio1Component implements OnInit {
     });
   }
 
-  crearHorarios() {
-      this.stepEmit.emit(true);
-    }
-
+  getHorarios(event) {
+    this.horarios = event;
+    this.stepEmit.emit({infoContacto: {
+        nombre: this.nombreHoraForm.get('nombrePredio').value,
+        telefono: this.nombreHoraForm.get('telefono').value,
+        horarios: this.horarios
+      }
+    });
+  }
 }

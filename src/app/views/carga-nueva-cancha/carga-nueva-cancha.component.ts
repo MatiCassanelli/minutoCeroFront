@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {PredioService} from '../../../services/predioService';
 import {Cancha} from '../../models/cancha';
 import {Deporte} from '../../models/deporte';
@@ -13,6 +13,8 @@ export class CargaNuevaCanchaComponent implements OnInit {
 
   canchas: Cancha[];
   deportes: Deporte[];
+  @Input() steps = false;
+  @Output() canchasSeleccionada: EventEmitter<any> = new EventEmitter<any>();
   constructor(private predioService: PredioService,
               private deporteService: DeporteService) {  }
 
@@ -36,9 +38,14 @@ export class CargaNuevaCanchaComponent implements OnInit {
 
   agregarCanchas() {
     console.log(this.canchas);
-    this.predioService.setCanchas(this.canchas).subscribe(res => {
-      console.log(res);
-    });
+    if (this.steps) {
+      this.canchasSeleccionada.emit({canchas: this.canchas});
+    } else {
+      console.log('no step');
+      this.predioService.setCanchas(this.canchas).subscribe(res => {
+        console.log(res);
+      });
+    }
   }
 
 

@@ -11,13 +11,15 @@
     <input matInput placeholder="Nombre" required [(ngModel)]="cancha.nombreCancha">
   </mat-form-field>
   <mat-form-field>
-    <mat-select *ngIf="!cancha.canchasHijas; else NoEditable" placeholder="Tamaño de Cancha" required (selectionChange)="minimoDeporte($event)" [(ngModel)]="cancha.deporte">
+    <mat-select *ngIf="!cancha.canchasHijas; else NoEditable" placeholder="Tamaño de Cancha" required
+                (selectionChange)="minimoDeporte($event)" [(ngModel)]="cancha.deporte">
       <mat-option *ngFor="let deporte of deportes" [value]="deporte._id">
         {{deporte?.nombre}}
       </mat-option>
     </mat-select>
     <ng-template #NoEditable>
-      <mat-select [disabled]="true" placeholder="Tamaño de Cancha" required (selectionChange)="minimoDeporte($event)" [(ngModel)]="cancha.deporte">
+      <mat-select [disabled]="true" placeholder="Tamaño de Cancha" required (selectionChange)="minimoDeporte($event)"
+                  [(ngModel)]="cancha.deporte">
         <mat-option *ngFor="let deporte of deportes" [value]="deporte._id">
           {{deporte?.nombre}}
         </mat-option>
@@ -32,11 +34,13 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Precio Diurno" type="number" class="example-right-align" [(ngModel)]="cancha.precioDia">
+    <input matInput placeholder="Precio Diurno" type="number" class="example-right-align"
+           [(ngModel)]="cancha.precioDia">
     <span matPrefix>$&nbsp;</span>
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Precio Nocturno" type="number" class="example-right-align" [(ngModel)]="cancha.precioNoche">
+    <input matInput placeholder="Precio Nocturno" type="number" class="example-right-align"
+           [(ngModel)]="cancha.precioNoche">
     <span matPrefix>$&nbsp;</span>
   </mat-form-field>
   <button mat-raised-button *ngIf="cancha.deporte && imprime" (click)="nuevaSubCancha(cancha)">

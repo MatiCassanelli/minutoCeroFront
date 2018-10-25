@@ -1,20 +1,12 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {SelectItem} from 'primeng/api';
 import {FormBuilder, FormGroup, FormArray} from '@angular/forms';
-import {
-  SwiperComponent, SwiperDirective, SwiperConfigInterface,
-  SwiperScrollbarInterface, SwiperPaginationInterface
-} from 'ngx-swiper-wrapper';
-import {debug} from 'util';
 import {Jugador} from '../../models/jugador';
+import * as moment from 'moment';
+import {AmazingTimePickerService} from 'amazing-time-picker';
+import {Horario} from '../../models/horario';
 
-interface Horario {
-  dia: String;
-  horario: [{
-    desde: Date,
-    hasta: Date
-  }];
-}
+
 
 @Component({
   selector: 'app-fecha-carousel',
@@ -28,22 +20,37 @@ export class FechaCarouselComponent implements OnInit {
 
   dias: string[];
   horarios: Horario[];
-  @Output() notifyParent: EventEmitter<Array<Jugador>> = new EventEmitter<Array<Jugador>>();
+  abre = false;
+  defaultDate = new Date();
+  @Output() emitHorario: EventEmitter<Array<Horario>> = new EventEmitter<Array<Horario>>();
 
-
-  constructor() {
+  constructor(private atp: AmazingTimePickerService,
+              private _formBuilder: FormBuilder) {
     this.horarios = [];
     this.dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
     for (let i = 0; i < this.dias.length; i++) {
       this.horarios.push({
-        'dia': this.dias[i], 'horario': [{'desde': null, 'hasta': null}, {'desde': null, 'hasta': null}]
+        dia: this.dias[i], horario: [{desde: null, hasta: null}], abre: false
       });
     }
-    // this.horario = { 'dia': 'Lunes', 'desde': null, 'hasta': null};
   }
 
   ngOnInit() {
+    // const start = new Date();
+    // this.remainder = 60 - (start.getMinutes() % 60);
+    const today = new Date();
+    this.defaultDate.setHours(this.redondearHora(today.getHours(), today.getMinutes())[0]);
+    this.defaultDate.setMinutes(this.redondearHora(today.getHours(), today.getMinutes())[1]);
   }
+
+  private redondearHora(hours, minutes) {
+    let m = (((minutes + 15) / 30 | 0) * 30) % 60;
+    // let m = (((minutes + 15) / 30 | 0) * 30) % 60;
+    // let h = ((((minutes/105) + .5) | 0) + hours) % 24;
+    let h = ((((minutes / 105) + .5) | 0) + hours) % 24;
+    return [h, m];
+  }
+
 
   // addHorario(value) {
   //   this.horarios.push(value);
@@ -53,8 +60,27 @@ export class FechaCarouselComponent implements OnInit {
   // }
 
   sendHorarios() {
-    // this.jugadoresInvitados.emit(this.horarios);
-    // this.notifyParent.emit(this.horarios);
+    let asd = [];
+    for (let a of this.horarios)
+      asd.push(a);
+    for (let i of asd) {
+      if (i.abre) {
+        for (let j of i.horario) {
+          if (!j.desde || !j.hasta)
+            i.horario.splice(i.horario.indexOf(j), 1);
+        }
+      } else {
+        this.horarios.splice(this.horarios.indexOf(i), 1);
+      }
+    }
+    this.emitHorario.emit(this.horarios);
+  }
+
+  agregarHorario(i) {
+    this.horarios[i].horario.push({
+      desde: null,
+      hasta: null
+    });
   }
 }
 

@@ -48,12 +48,12 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
 import {
   MatAutocomplete, MatAutocompleteModule,
-  MatCardModule, MatChipsModule,
+  MatCardModule, MatCheckboxModule, MatChipsModule,
   MatDialogModule,
   MatFormFieldModule,
   MatInputModule,
   MatNativeDateModule, MatOptionModule, MatSelectModule,
-  MatSliderModule,
+  MatSliderModule, MatSlideToggleModule,
   MatSnackBarModule, MatStepperModule
 } from '@angular/material';
 import {MatExpansionModule} from '@angular/material';
@@ -240,6 +240,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatChipsModule,
     MatSelectModule,
     MatStepperModule,
+    MatSlideToggleModule,
+    MatCheckboxModule
   ],
   bootstrap: [AppComponent],
   schemas: [
