@@ -27,11 +27,19 @@
     </ng-template>
   </mat-form-field>
   <mat-form-field>
-    <mat-select placeholder="Tipo de Suelo" required [(ngModel)]="cancha.tipoSuelo">
+    <mat-select *ngIf="!sueloPadre; else NoSuelo" placeholder="Tipo de Suelo" required [(ngModel)]="cancha.tipoSuelo">
       <mat-option *ngFor="let suelo of tipoSuelo" [value]="suelo">
         {{suelo}}
       </mat-option>
     </mat-select>
+    <ng-template #NoSuelo>
+      <mat-select [disabled]="true" placeholder="Tipo de Suelo" required
+                  [(ngModel)]="cancha.tipoSuelo">
+        <mat-option *ngFor="let deporte of deportes" [value]="sueloPadre">
+          {{sueloPadre}}
+        </mat-option>
+      </mat-select>
+    </ng-template>
   </mat-form-field>
   <mat-form-field>
     <input matInput placeholder="Precio Diurno" type="number" class="example-right-align"
@@ -43,12 +51,15 @@
            [(ngModel)]="cancha.precioNoche">
     <span matPrefix>$&nbsp;</span>
   </mat-form-field>
-  <button mat-raised-button *ngIf="cancha.deporte && imprime" (click)="nuevaSubCancha(cancha)">
+  <button mat-raised-button *ngIf="cancha.nombreCancha && cancha.deporte &&
+  cancha.tipoSuelo && cancha.precioDia && cancha.precioNoche && imprime" (click)="nuevaSubCancha(cancha)"
+          style="margin-bottom: 2%">
     <small>Contiene canchas internas</small>
   </button>
   <div *ngIf="imprime">
     <div *ngFor="let subcancha of cancha.canchasHijas">
-      <app-nueva-cancha [cancha]="subcancha" [deportePadre]="cancha.deporte"></app-nueva-cancha>
+      <app-nueva-cancha [sueloPadre]="cancha.tipoSuelo" [cancha]="subcancha"
+                        [deportePadre]="cancha.deporte"></app-nueva-cancha>
     </div>
   </div>
 </mat-expansion-panel>

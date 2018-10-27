@@ -1,29 +1,7 @@
-<!--<div>-->
-<!--<p-accordion *ngFor="let dia of dias; let i = index">-->
-<!--<p-accordionTab header={{dia}}>-->
-<!--<div *ngFor="let hora of horarios[i].horario">-->
-<!--<div class="form-group">-->
-<!--<label for="Desde{{dia}}" class="col-sm-2 col-form-label"><strong>Desde</strong></label>-->
-<!--<p-calendar id="Desde{{dia}}" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"-->
-<!--ondragover="true" class="col-sm-10" [(ngModel)]="hora.desde"-->
-<!--(onSelect)="sendHorarios()"></p-calendar>-->
-<!--</div>-->
-<!--<div class="form-group">-->
-<!--<label for="Hasta{{dia}}" class="col-sm-2 col-form-label"><strong>Hasta</strong></label>-->
-<!--<p-calendar id="Hasta{{dia}}" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"-->
-<!--ondragover="true" class="col-sm-10" [(ngModel)]="hora.hasta"-->
-<!--(onSelect)="sendHorarios()"></p-calendar>-->
-<!--</div>-->
-<!--</div>-->
-<!--</p-accordionTab>-->
-<!--</p-accordion>-->
-<!--</div>-->
-
 <mat-expansion-panel *ngFor="let dia of dias; let i = index">
   <mat-expansion-panel-header>
     {{dia}}
   </mat-expansion-panel-header>
-  <!--<p></p>-->
   <mat-checkbox [color]="'primary'" (change)="horarios[i].abre = !horarios[i].abre">¿Abrís hoy?</mat-checkbox>
   <div *ngIf="horarios[i]?.abre">
     <div *ngFor="let hora of horarios[i].horario">
@@ -43,68 +21,3 @@
 
 </mat-expansion-panel>
 <button mat-button (click)="sendHorarios()">Aceptar</button>
-
-
-<!--<p-accordion *ngFor="let dia of dias">-->
-<!--&lt;!&ndash;<p-accordionTab header={{dia}}>&ndash;&gt;-->
-<!--<div class="form-group">-->
-<!--<label for="desde{{dia}}" class="col-sm-2 col-form-label"><strong>Desde</strong></label>-->
-<!--<p-calendar id="desde{{dia}}" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"-->
-<!--ondragover="true" class="col-sm-10" touchUI="true" [(ngModel)]="desde"></p-calendar>-->
-<!--</div>-->
-<!--<div>-->
-<!--<label for="hasta{{dia}}" class="col-sm-2 col-form-label"><strong>Hasta</strong></label>-->
-<!--<p-calendar id="hasta{{dia}}" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"-->
-<!--ondragover="true" class="col-sm-10" touchUI="true" [(ngModel)]="hasta"></p-calendar>-->
-<!--</div>-->
-<!--</p-accordionTab>-->
-<!--</p-accordion>-->
-
-<!--<drag-scroll>-->
-<!--&lt;!&ndash;<ng-template *ngFor="let dia of dias">&ndash;&gt;-->
-<!--<div *ngFor="let dia of dias" drag-scroll-item>-->
-<!--<div class="ui-grid ui-grid-responsive form-group" >-->
-<!--<div class="ui-grid-row">-->
-<!--<div style="text-align: center">{{dia}}</div>-->
-<!--</div>-->
-<!--<div class="ui-grid-col-12"></div>-->
-<!--<div>-->
-<!--<div class="form-group">-->
-<!--<label for="desde" class="col-sm-2 col-form-label"><strong>Desde</strong></label>-->
-<!--<p-calendar id="desde" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"-->
-<!--ondragover="true" class="col-sm-10" touchUI="true" [(ngModel)]="desde"></p-calendar>-->
-<!--</div>-->
-<!--<div>-->
-<!--<label for="hasta" class="col-sm-2 col-form-label"><strong>Hasta</strong></label>-->
-<!--<p-calendar id="hasta" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"-->
-<!--ondragover="true" class="col-sm-10" touchUI="true" [(ngModel)]="hasta"></p-calendar>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</drag-scroll>-->
-
-<!--<swiper class="swiper-container" fxFlex="auto" [config]="config">-->
-<!--<div *ngFor="let dia of dias" class="swiper-slide">-->
-<!--<div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>-->
-<!--<div class="ui-grid ui-grid-responsive form-group" >-->
-<!--<div class="ui-grid-row">-->
-<!--<div style="text-align: center">{{dia}}</div>-->
-<!--</div>-->
-<!--<div class="ui-grid-col-12"></div>-->
-<!--<div>-->
-<!--<div class="form-group">-->
-<!--<label for="desde" class="col-sm-2 col-form-label"><strong>Desde</strong></label>-->
-<!--<p-calendar id="desde" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"-->
-<!--ondragover="true" class="col-sm-10" touchUI="true" [(ngModel)]="desde"></p-calendar>-->
-<!--</div>-->
-<!--<div>-->
-<!--<label for="hasta" class="col-sm-2 col-form-label"><strong>Hasta</strong></label>-->
-<!--<p-calendar id="hasta" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"-->
-<!--ondragover="true" class="col-sm-10" touchUI="true" [(ngModel)]="hasta"></p-calendar>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</swiper>-->

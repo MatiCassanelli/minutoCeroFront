@@ -50,4 +50,8 @@ export class PredioService {
   setCanchas(canchas) {
     return this.http.post<Predio>(this.api + 'canchas/crear', {canchas: canchas}, global.httpOptions);
   }
+
+  setConfiguracionHorarios (horarios) {
+    return this.http.put<Predio>(this.api + 'configuracionHorario', horarios, global.httpOptions);
+  }
 }

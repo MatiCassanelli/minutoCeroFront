@@ -1,28 +1,3 @@
-<!--<div class="container form-group">-->
-  <!--<h1 style="text-align: center">Registrar Predio</h1>-->
-  <!--<form [formGroup]="form" (ngSubmit)="onSubmit()" class="p-3 bg-faded">-->
-    <!--<div class="form-group row">-->
-      <!--<label for="nombrePredio" class="col-sm-2 col-form-label"><strong>Nombre Predio</strong></label>-->
-      <!--<div class="col-sm-10">-->
-        <!--<input id="nombrePredio" type="text" class="form-control" formControlName="nombrePredio"-->
-               <!--placeholder="Nombre del Predio" required="true"/>-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="form-group row">-->
-      <!--<label for="telefono" class="col-sm-2 col-form-label"><strong>Telefono</strong></label>-->
-      <!--<div class="col-sm-10">-->
-        <!--<p-inputMask id="telefono" mask="(999) 999-9999" placeholder="(999) 999-9999" type="text"-->
-                     <!--formControlName="telefono" required="true"></p-inputMask>-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<label><strong>Horarios</strong></label>-->
-    <!--<app-fecha-carousel (notifyParent)="agregarHorarios($event)"></app-fecha-carousel>-->
-  <!--</form>-->
-  <!--<button pButton type="button" icon="pi pi-arrow-circle-right" class="rounded-circle"-->
-          <!--style="float: right;" (click)="onSubmit()"></button>-->
-<!--</div>-->
-<!--&lt;!&ndash;<app-fecha-carousel></app-fecha-carousel>&ndash;&gt;-->
-
 <div class="container">
   <form [formGroup]="nombreHoraForm">
     <ng-template matStepLabel>Fill out your name</ng-template>
@@ -30,11 +5,8 @@
       <input matInput placeholder="Nombre Predio" formControlName="nombrePredio" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Teléfono de Contacto" formControlName="telefono" required>
+      <input matInput placeholder="Teléfono de Contacto" formControlName="telefono" type="number" required>
     </mat-form-field>
     <app-fecha-carousel *ngIf="nombreHoraForm.valid" (emitHorario)="getHorarios($event)"></app-fecha-carousel>
-    <!--<div>-->
-      <!--<button mat-button (click)="crearHorarios()" [disabled]="!nombreHoraForm.valid">Siguiente</button>-->
-    <!--</div>-->
   </form>
 </div>

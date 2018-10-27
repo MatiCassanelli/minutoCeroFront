@@ -127,6 +127,7 @@ import {
 import {PartidoService} from '../services/partidoService';
 import { RegistroPredioStepsComponent } from './views/registro-predio-steps/registro-predio-steps.component';
 import { FechaHoraComponent } from './component/fecha-hora/fecha-hora.component';
+import { ConfiguracionHorasComponent } from './views/configuracion-horas/configuracion-horas.component';
 
 
 
@@ -181,7 +182,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     CardNotificacionResultadoPartidoComponent,
     DialogResultadoComponent,
     RegistroPredioStepsComponent,
-    FechaHoraComponent
+    FechaHoraComponent,
+    ConfiguracionHorasComponent
   ],
   imports: [
     AppRouting,

@@ -14,7 +14,7 @@ export class JugadorService {
 
   getJugadores(nombre: any = null) {
     if (nombre === null) {
-      return this.http.get<Array<Jugador>>(this.api, global.httpOptions);
+      return this.http.get<Array<Jugador>>(this.api + 'all', global.httpOptions);
     } else {
       return this.http.get<Array<Jugador>>(this.api + 'buscar/' + nombre, global.httpOptions);
     }

@@ -1,12 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {SelectItem} from 'primeng/api';
-import {FormBuilder, FormGroup, FormArray} from '@angular/forms';
-import {Jugador} from '../../models/jugador';
-import * as moment from 'moment';
+import {FormBuilder} from '@angular/forms';
 import {AmazingTimePickerService} from 'amazing-time-picker';
 import {Horario} from '../../models/horario';
-
-
 
 @Component({
   selector: 'app-fecha-carousel',

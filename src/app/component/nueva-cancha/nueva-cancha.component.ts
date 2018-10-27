@@ -16,6 +16,7 @@ export class NuevaCanchaComponent implements OnInit {
   deporte = new FormControl('', [Validators.required]);
   @Input() cancha: Cancha;
   @Input() deportePadre: string;
+  @Input() sueloPadre: string;
   @Output() canchasInternas = new EventEmitter();
   tipoSuelo = ['Tierra', 'Sintético', 'Natural'];
   constructor(private deporteService: DeporteService) { }

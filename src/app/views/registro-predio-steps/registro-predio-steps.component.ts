@@ -5,6 +5,7 @@ import {Predio} from '../../models/predio';
 import {Horario} from '../../models/horario';
 import {Cancha} from '../../models/cancha';
 import {PredioService} from '../../../services/predioService';
+import {forkJoin} from 'rxjs/observable/forkJoin';
 
 @Component({
   selector: 'app-registro-predio-steps',
@@ -21,6 +22,16 @@ export class RegistroPredioStepsComponent implements OnInit {
   ubicacion = {
     lat: String,
     lng: String
+  };
+  configHoras: {
+    dia: {
+      desde: Date,
+      hasta: Date
+    },
+    noche: {
+      desde: Date,
+      hasta: Date
+    }
   };
 
   // predio = JSON.parse(localStorage.getItem('usuario'));
@@ -45,8 +56,11 @@ export class RegistroPredioStepsComponent implements OnInit {
       this.nombrePredio = event.infoContacto.nombre;
       this.telefono = event.infoContacto.telefono;
     }
+    debugger;
     if (event.canchas)
       this.canchas = event.canchas;
+    if(event.configHoras)
+      this.configHoras = event.configHoras;
     if (event.ubicacion)
       this.ubicacion = event.ubicacion;
     if (event)
@@ -60,11 +74,13 @@ export class RegistroPredioStepsComponent implements OnInit {
       ubicacion: this.ubicacion,
       horarios: this.horarios
     }).subscribe(() => {
-      this.predioService.setCanchas(this.canchas).subscribe(() => {
+      forkJoin(this.predioService.setConfiguracionHorarios(this.configHoras),
+      this.predioService.setCanchas(this.canchas)).subscribe(() => {
         const asd = this.predioService.setUbicacion(this.ubicacion);
         console.log(asd);
       });
     });
+
     // console.log('horarios', this.horarios);
     // console.log('canchas', this.canchas);
     // console.log('ubicacion', this.ubicacion);

@@ -1,0 +1,41 @@
+<div class="container">
+  <p>Para poder determinar el precio de las canchas automaticamente, necesitamos que nos indiques el horario en el que
+    las luces se encienden, y en el que están apagadas</p>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      Horario sin luces
+    </mat-expansion-panel-header>
+    <div class="form-group">
+      <label for="dia.desde" class="col-sm-2 col-form-label"><strong>Desde</strong></label>
+      <p-calendar id="dia.desde" [stepMinute]="30" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"
+                  ondragover="true" class="col-sm-10" [(ngModel)]="horarios?.dia.desde"
+                  [defaultDate]="defaultDate"></p-calendar>
+      <label for="dia.hasta" class="col-sm-2 col-form-label"><strong>Hasta</strong></label>
+      <p-calendar id="dia.hasta" [stepMinute]="30" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"
+                  ondragover="true" class="col-sm-10" [(ngModel)]="horarios?.dia.hasta"
+                  [defaultDate]="defaultDate"></p-calendar>
+
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      Horario con luces
+    </mat-expansion-panel-header>
+    <div class="form-group">
+      <label for="noche.desde" class="col-sm-2 col-form-label"><strong>Desde</strong></label>
+      <p-calendar id="noche.desde" [stepMinute]="30" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"
+                  ondragover="true" class="col-sm-10" [(ngModel)]="horarios?.noche.desde"
+                  [defaultDate]="defaultDate"></p-calendar>
+      <label for="noche.hasta" class="col-sm-2 col-form-label"><strong>Hasta</strong></label>
+      <p-calendar id="noche.hasta" [stepMinute]="30" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"
+                  ondragover="true" class="col-sm-10" [(ngModel)]="horarios?.noche.hasta"
+                  [defaultDate]="defaultDate"></p-calendar>
+    </div>
+  </mat-expansion-panel>
+</div>
+<button mat-button (click)="sendHorarios()"
+        *ngIf="(this.horarios?.dia.desde && this.horarios?.dia.hasta
+          && this.horarios?.noche.desde && this.horarios?.noche.hasta)">Aceptar
+</button>

@@ -7,6 +7,8 @@ export class Cancha {
   canchasHijas: Cancha[];
   tipoSuelo: ['Tierra', 'Sintetico', 'Natural'];
   predio: string;
+  precioDia: number;
+  precioNoche: number;
 
   constructor(predio: string, public base?: boolean) {
     this.predio = predio;
