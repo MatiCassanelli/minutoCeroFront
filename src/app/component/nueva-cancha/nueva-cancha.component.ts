@@ -17,7 +17,7 @@ export class NuevaCanchaComponent implements OnInit {
   @Input() cancha: Cancha;
   @Input() deportePadre: string;
   @Input() sueloPadre: string;
-  @Output() canchasInternas = new EventEmitter();
+  @Output() canchaEliminada: EventEmitter<Cancha> = new EventEmitter<Cancha>();
   tipoSuelo = ['Tierra', 'Sintético', 'Natural'];
   constructor(private deporteService: DeporteService) { }
 
@@ -45,7 +45,6 @@ export class NuevaCanchaComponent implements OnInit {
       cancha.canchasHijas.push(new Cancha(localStorage.getItem('id'), false));
     else {
       const dep = this.deportes.find(x => x._id === this.cancha.deporte).cantJugadores;
-      // const depPadre = this.deportes.find(x => x._id === this.deportePadre._id).cantJugadores;
       this.deporteService.getDeportes().subscribe(res => {
         if (res.find(x => x._id === this.deportePadre).cantJugadores > dep)
           cancha.canchasHijas.push(new Cancha(localStorage.getItem('id'), false));
@@ -61,5 +60,14 @@ export class NuevaCanchaComponent implements OnInit {
     }
     if (deporteSeleccionado.cantJugadores === Math.min.apply(null, cantidadJugadoresMinima))
       this.imprime = false;
+  }
+
+  emitEliminarCancha() {
+    console.log('click');
+    this.canchaEliminada.emit(this.cancha);
+  }
+
+  eliminarCancha(cancha) {
+    this.cancha.canchasHijas.splice(this.cancha.canchasHijas.indexOf(cancha), 1)
   }
 }
