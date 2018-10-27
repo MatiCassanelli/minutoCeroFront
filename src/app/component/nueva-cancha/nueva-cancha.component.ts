@@ -63,11 +63,10 @@ export class NuevaCanchaComponent implements OnInit {
   }
 
   emitEliminarCancha() {
-    console.log('click');
     this.canchaEliminada.emit(this.cancha);
   }
 
   eliminarCancha(cancha) {
-    this.cancha.canchasHijas.splice(this.cancha.canchasHijas.indexOf(cancha), 1)
+    this.cancha.canchasHijas.splice(this.cancha.canchasHijas.indexOf(cancha), 1);
   }
 }

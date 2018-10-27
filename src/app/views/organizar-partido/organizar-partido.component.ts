@@ -101,11 +101,11 @@ export class OrganizarPartidoComponent implements OnInit {
     console.log(infoPartido);
     debugger;
     forkJoin(this.predioService.getCanchasWithPredio(this.selectedPredio._id),
-      this.plantelService.createPlantel(this.plantelLocal, 'Local', infoPartido),
-      this.plantelService.createPlantel(this.plantelVisitante, 'Visitante', infoPartido)).subscribe(res => {
+      this.plantelService.createPlantel(this.plantelLocal.jugadoresConfirmados, 'Local', this.deporte.cantJugadores),
+      this.plantelService.createPlantel(this.plantelVisitante.jugadoresConfirmados, 'Visitante', this.deporte.cantJugadores)).subscribe(res => {
       cancha = res[0][0];
-      const local = res[1];
-      const visitante = res[2];
+      let local = res[1];
+      let visitante = res[2];
       this.partidoService.createPartido({
         deporte: this.deporte._id,
         grupoLocal: local,
@@ -114,14 +114,18 @@ export class OrganizarPartidoComponent implements OnInit {
         cancha: cancha._id,
         horasDeJuego: 1
       }).subscribe(() => {
-        this.reservaService.createReserva({
-          estado: 'PreReserva',
-          dia: this.fechaPartido,
-          cancha: cancha._id
-        }).subscribe(reserva => {
-          console.log('reserva', reserva);
-          this.router.navigateByUrl('/partido');
+        forkJoin(this.plantelService.updatePlantel(local._id, local.jugadoresConfirmados, this.plantelLocal.jugadores),
+          this.plantelService.updatePlantel(visitante._id, visitante.jugadoresConfirmados, this.plantelVisitante.jugadores)).subscribe(() => {
+          this.reservaService.createReserva({
+            estado: 'PreReserva',
+            dia: this.fechaPartido,
+            cancha: cancha._id
+          }).subscribe(reserva => {
+            console.log('reserva', reserva);
+            this.router.navigateByUrl('/partido');
+          });
         });
+
       });
     });
   }
