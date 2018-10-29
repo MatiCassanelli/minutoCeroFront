@@ -13,7 +13,6 @@ export class PartidoService {
   }
 
   createPartido(partido) {
-    console.log(partido);
     return this.http.post<Partido>(this.api, partido, global.httpOptions);
   }
 

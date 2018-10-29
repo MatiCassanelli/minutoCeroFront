@@ -22,6 +22,7 @@ import {BuscadorJugadoresComponent} from './component/buscadorJugadores/buscador
 import {PerfilJugadorComponent} from './views/perfil-jugador/perfil-jugador.component';
 import {CargaNuevaCanchaComponent} from './views/carga-nueva-cancha/carga-nueva-cancha.component';
 import {RegistroPredioStepsComponent} from './views/registro-predio-steps/registro-predio-steps.component';
+import {RankingJugadorComponent} from './views/ranking-jugador/ranking-jugador.component';
 
 const appRoutes: Routes = [
   {
@@ -63,6 +64,7 @@ const appRoutes: Routes = [
   {path: 'reservaIndependiente', component: ReservaIndependienteComponent},
   // {path: 'amigos', component: BuscadorJugadoresComponent},
   {path: 'jugador/:id', component: PerfilJugadorComponent},
+  {path: 'ranking', component: RankingJugadorComponent},
 
   {path: '**', component: PageNotFoundComponent},
 ];

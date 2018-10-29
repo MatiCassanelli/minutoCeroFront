@@ -66,7 +66,6 @@ export class ReservaIndependienteComponent implements OnInit {
       this.deportes = res;
     });
     this.predioService.getAllPredios().subscribe(predios => {
-      console.log(predios);
       this.predios = predios;
     });
   }
@@ -76,47 +75,21 @@ export class ReservaIndependienteComponent implements OnInit {
     const remainder = 60 - (start.minute() % 60);
 
     let dateTime = moment(start).add(remainder, 'minutes');
-    console.log(dateTime);
     const amazingTimePicker = this.atp.open({time: dateTime.format('HH:mm')});
     amazingTimePicker.afterClose().subscribe(time => {
       this.selectedTime = time;
-      console.log(moment(time, 'HH:mm').toDate());
     });
   }
 
   getTipoCancha(event) {
     this.canchaSeleccionada = event;
-    console.log(this.canchaSeleccionada);
+    this.deporte = this.deportes.find(x => x._id === event);
   }
 
   getFecha(event) {
     this.fechaPartido = event;
-    console.log(this.fechaPartido);
   }
 
-  // crearPartido() {
-  //   console.log(this.canchaSeleccionada, this.fechaPartido);
-  //   let cancha: any;
-  //   // forkJoin(this.predioService.getCanchas(this.selectedPredio._id),
-  //   this.predioService.getCanchasWithPredio(this.selectedPredio._id).subscribe(res => {
-  //     cancha = res[0];
-  //     this.partidoService.createPartido({
-  //       deporte: this.canchaSeleccionada,
-  //       dia: this.fechaPartido,
-  //       cancha: cancha._id,
-  //       horasDeJuego: 1
-  //     }).subscribe(() => {
-  //       this.reservaService.createReserva({
-  //         estado: 'Solicitada',
-  //         dia: this.fechaPartido,
-  //         cancha: cancha._id
-  //       }).subscribe(reserva => {
-  //         console.log('reserva', reserva);
-  //         this.router.navigateByUrl('/partido');
-  //       });
-  //     });
-  //   });
-  // }
   reservar() {
     let cancha;
     this.predioService.getCanchasWithPredio(this.selectedPredio._id).subscribe(res => {
@@ -126,7 +99,6 @@ export class ReservaIndependienteComponent implements OnInit {
         dia: this.fechaPartido,
         cancha: cancha._id
       }).subscribe(reserva => {
-        console.log('reserva', reserva);
         this.router.navigateByUrl('/partido');
       });
     });

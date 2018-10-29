@@ -80,12 +80,8 @@ export class DeporteCanchaPartidoComponent implements OnInit {
       this.selectedTime = time;
     });
   }
-  asd() {
-    var date = this.fechaPartido.getFullYear().toString() + '-' +
-      this.fechaPartido.getMonth().toString() + '-' + this.fechaPartido.getDay().toString();
-    var dateTime = moment(date + ' ' + this.selectedTime);
 
-    const asd = new Date(dateTime.format('YYYY-MM-DD HH:mm'));
-    console.log(asd);
+  getDateTime(event) {
+    this.fechaSeleccionada.emit(event);
   }
 }

@@ -3,34 +3,21 @@
   <div class="form-group row">
     <label for="cancha" class="col-sm-2 col-form-label"><strong>Tipo de Cancha</strong></label>
     <div class="col-sm-10">
-      <mat-select id="cancha" placeholder="Tipo de Cancha" [formControl]="canchaControl" required (selectionChange)="sendCancha($event)">
+      <mat-select id="cancha" placeholder="Tipo de Cancha" [formControl]="canchaControl" required
+                  (selectionChange)="sendCancha($event)">
         <mat-option *ngFor="let animal of deportes" [value]="animal">
           {{animal?.nombre}}
         </mat-option>
       </mat-select>
-      <!--<mat-error *ngIf="canchaControl.hasError('required')">Please choose an animal</mat-error>-->
-      <!--<p-dropdown id="cancha" [options]="deportes" placeholder="Tipo de cancha"-->
-                  <!--[showClear]="true" required="true" (onChange)="sendCancha($event)"></p-dropdown>-->
-
     </div>
   </div>
-  <div class="form-group row">
-    <label for="horario" class="col-sm-2 col-form-label"><strong>Fecha y hora</strong></label>
-    <div class="col-sm-10">
-    <p-calendar id="horario" [stepMinute]="30" [(ngModel)]="fechaPartido" [showIcon]="true" dateFormat="dd.mm.yy"
-    showTime="true" hourFormat="24" required="true"
-    (onSelect)="definirFecha($event)" [defaultDate]="defaultDate"></p-calendar>
-    </div>
-    </div>
-    <!--<mat-form-field>-->
-      <!--<input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="fechaPartido">-->
-      <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-      <!--<mat-datepicker #picker></mat-datepicker>-->
-    <!--</mat-form-field>-->
-    <!--<mat-form-field class="example-full-width">-->
-      <!--<input matInput value="{{selectedTime}}" placeholder="Hora" [(ngModel)]="horaPartido">-->
-      <!--<mat-icon matSuffix (click)="open()">schedule</mat-icon>-->
-    <!--</mat-form-field>-->
-    <!--<button (click)="asd()"></button>-->
+  <!--<div class="form-group row">-->
+    <!--<label for="horario" class="col-sm-2 col-form-label"><strong>Fecha y hora</strong></label>-->
+    <!--<div class="col-sm-10">-->
+      <!--<p-calendar id="horario" [stepMinute]="30" [(ngModel)]="fechaPartido" [showIcon]="true" dateFormat="dd.mm.yy"-->
+                  <!--showTime="true" hourFormat="24" required="true"-->
+                  <!--(onSelect)="definirFecha($event)" [defaultDate]="defaultDate"></p-calendar>-->
+    <!--</div>-->
   <!--</div>-->
+  <app-fecha-hora (dateTimeEmitter)="getDateTime($event)"></app-fecha-hora>
 </div>

@@ -10,6 +10,7 @@ import {ConfirmationService} from 'primeng/api';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {MapDialogComponent} from '../../component/map-dialog/map-dialog.component';
 import {debug} from 'util';
+import {JugadorService} from '../../../services/jugadorService';
 
 @Component({
   selector: 'app-partido',
@@ -26,8 +27,10 @@ export class PartidoComponent implements OnInit {
   plantelLocal: Plantel;
   plantelVisitante: Plantel;
   fileNameDialogRef: MatDialogRef<MapDialogComponent>;
+  editable: boolean;
 
   constructor(private route: ActivatedRoute,
+              private jugadorService: JugadorService,
               private partidoService: PartidoService,
               private predioService: PredioService,
               private dialog: MatDialog) {
@@ -36,11 +39,10 @@ export class PartidoComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.idPartido = params.id;
-      console.log(this.idPartido);
       this.partidoService.getPartido(this.idPartido).subscribe(partido => {
         this.partido = partido;
+        this.editable = (localStorage.getItem('id') === this.partido.organizador.toString());
         this.getPredio(partido.cancha);
-        console.log(this.partido);
       });
     });
   }

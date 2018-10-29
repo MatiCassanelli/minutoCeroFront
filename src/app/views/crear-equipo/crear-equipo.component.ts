@@ -11,6 +11,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {DeporteService} from '../../../services/deporteService';
 import {Deporte} from '../../models/deporte';
+import {ObservableService} from '../../observable.service';
 
 @Component({
   selector: 'app-crear-equipo',
@@ -34,7 +35,8 @@ export class CrearEquipoComponent implements OnInit {
               private router: Router,
               private jugadorService: JugadorService,
               private equipoService: EquipoService,
-              private deporteService: DeporteService) {
+              private deporteService: DeporteService,
+              private observableService: ObservableService) {
     this.jugadores = [];
     this.nombreJugadores = [];
     this.jugadoresInvitados = false;
@@ -64,6 +66,7 @@ export class CrearEquipoComponent implements OnInit {
             jug.push(a._id);
         }
         this.equipoService.invitarJugadores({jugadores: jug}, eq._id).subscribe(() => {
+          this.observableService.tieneEquipo(true);
           return this.router.navigateByUrl('/equipo/info/' + eq._id);
         }, error1 => console.log(error1));
       }

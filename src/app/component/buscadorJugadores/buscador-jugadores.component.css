@@ -1,10 +1,14 @@
 .buscador {
-  color: white;
-  width: 100%;
-  padding: 10px 0 0;
-  font-size: medium
+  /*color: white;*/
+  /*width: 100%;*/
+  /*padding: 10px 0 0;*/
+  /*font-size: medium*/
+  border: 0;
 }
 
-.mat-form-field-infix {
+.mat-input-infix .mat-form-field-infix {
   padding: 3px;
+  border: 0;
 }
+
+

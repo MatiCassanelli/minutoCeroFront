@@ -35,7 +35,6 @@ export class PlantelComponent implements OnInit {
   partido: Partido;
   idOrganizador: string;
   dialogRef: MatDialogRef<ConfirmDialogPlantelComponent>;
-  porcentajeCumplimiento: number;
   @Input()
   set setIdPartido(name: string) {
     this.idPartido = name;
@@ -63,7 +62,6 @@ export class PlantelComponent implements OnInit {
         this.getJugadoresPlantel(this.plantelVisitante, 'visitante');
       });
     } else {
-      console.log('else idpartido');
       this.noIds = true;
       this.plantelLocal = new Plantel();
       this.plantelVisitante = new Plantel();
@@ -71,7 +69,6 @@ export class PlantelComponent implements OnInit {
   }
 
   getJugadoresPlantel(plantel, condicion) {
-    console.log('entro al getJugadoresPlantel');
     this.plantelService.getPlantel(plantel._id).subscribe(res => {
       if (res.toString() === 'login') {
         return this.router.navigateByUrl('/login');
@@ -144,7 +141,6 @@ export class PlantelComponent implements OnInit {
         if (jc && accion === 'confirm')
           this.addJugadorConfirmado(jc, localia);
         if (jc && accion === 'remove') {
-          console.log(jc);
           this.removeConfirmado(jc, localia);
         }
 

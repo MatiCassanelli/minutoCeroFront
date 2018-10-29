@@ -128,6 +128,8 @@ import {PartidoService} from '../services/partidoService';
 import { RegistroPredioStepsComponent } from './views/registro-predio-steps/registro-predio-steps.component';
 import { FechaHoraComponent } from './component/fecha-hora/fecha-hora.component';
 import { ConfiguracionHorasComponent } from './views/configuracion-horas/configuracion-horas.component';
+import { RankingJugadorComponent } from './views/ranking-jugador/ranking-jugador.component';
+import {ObservableService} from './observable.service';
 
 
 
@@ -183,7 +185,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     DialogResultadoComponent,
     RegistroPredioStepsComponent,
     FechaHoraComponent,
-    ConfiguracionHorasComponent
+    ConfiguracionHorasComponent,
+    RankingJugadorComponent
   ],
   imports: [
     AppRouting,
@@ -270,7 +273,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     EquipoService,
     DeporteService,
     PredioService,
-    PartidoService
+    PartidoService,
+    ObservableService
   ],
   entryComponents: [MapComponent, MapDialogComponent,
     ConfirmDialogPlantelComponent, ConfirmUbicacionDialogComponent,

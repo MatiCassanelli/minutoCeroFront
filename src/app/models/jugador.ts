@@ -14,5 +14,10 @@ export class Jugador {
   };
   type: string;
   photos: any;
+  historial: {
+      cantVictorias: number,
+      cantEmpates: number,
+      cantDerrotas: number
+  };
 }
 
