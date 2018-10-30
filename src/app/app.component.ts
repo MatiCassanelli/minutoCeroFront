@@ -27,7 +27,7 @@ export class AppComponent {
       this.cantidad = parseInt(localStorage.getItem('cantNotificaciones'), 10);
     });
 
-    let socket = socketIo(environment.baseUrl);
+    let socket = socketIo(environment.socketUrl);
     // console.log('hello'+localStorage.getItem('id'));
     socket.on('Notificacion' + localStorage.getItem('id'), (data) => {
       localStorage.setItem('cantNotificaciones',
