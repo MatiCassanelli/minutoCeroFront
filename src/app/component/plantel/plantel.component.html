@@ -4,6 +4,7 @@
     <button mat-raised-button color="primary" class="col-6" (click)="activarComponent('local')">Local</button>
     <button mat-raised-button color="primary" class="col-6" (click)="activarComponent('visitante')">Visitante</button>
   </div>
+  <mat-checkbox *ngIf="tieneEquipo" [color]="'primary'" [checked]="invitacionEquipo" (change)="invitarEquipo()">Invitar a mi equipo</mat-checkbox>
   <div *ngIf="!disabled" class="col-sm-8">
     <app-invitar-jugadores [queTraer]="'Amigos'" id="jugador" (notifyParent)="getJugadores($event)"
                            [isReset]="resetForm"></app-invitar-jugadores>

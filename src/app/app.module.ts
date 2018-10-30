@@ -130,6 +130,8 @@ import { FechaHoraComponent } from './component/fecha-hora/fecha-hora.component'
 import { ConfiguracionHorasComponent } from './views/configuracion-horas/configuracion-horas.component';
 import { RankingJugadorComponent } from './views/ranking-jugador/ranking-jugador.component';
 import {ObservableService} from './observable.service';
+import { FullCalendarModule } from 'ng-fullcalendar';
+import {ReservaService} from '../services/reservaService';
 
 
 
@@ -246,7 +248,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatSelectModule,
     MatStepperModule,
     MatSlideToggleModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    FullCalendarModule
   ],
   bootstrap: [AppComponent],
   schemas: [
@@ -274,6 +277,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     DeporteService,
     PredioService,
     PartidoService,
+    ReservaService,
     ObservableService
   ],
   entryComponents: [MapComponent, MapDialogComponent,

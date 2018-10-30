@@ -10,6 +10,7 @@ import {Partido} from '../../models/partido';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {MapDialogComponent} from '../map-dialog/map-dialog.component';
 import {ConfirmDialogPlantelComponent} from '../confirm-dialog-plantel/confirm-dialog-plantel.component';
+import {ObservableService} from '../../observable.service';
 
 @Component({
   selector: 'app-plantel',
@@ -41,6 +42,8 @@ export class PlantelComponent implements OnInit {
   }
   @Output() sendPlantel: EventEmitter<Array<Plantel>> = new EventEmitter<Array<Plantel>>();
   @Input() editable = true;
+  invitacionEquipo = false;
+  tieneEquipo = false;
 
   constructor(private plantelService: PlantelService,
               private partidoService: PartidoService,
@@ -210,5 +213,9 @@ export class PlantelComponent implements OnInit {
     }
     this.sendPlantel.emit([this.plantelLocal, this.plantelVisitante]);
     this.resetForm = !this.resetForm; // esto es para q entre en el onchanged del componente
+  }
+
+  invitarEquipo() {
+    console.log('hizo click en checkbox')
   }
 }
