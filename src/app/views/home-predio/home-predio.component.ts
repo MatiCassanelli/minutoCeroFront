@@ -7,7 +7,7 @@ import {environment} from '../../../environments/environment';
 import {CalendarComponent} from 'ng-fullcalendar';
 import {Options} from 'fullcalendar';
 import {ReservaService} from '../../../services/reservaService';
-import moment = require('moment');
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-home-predio',
@@ -58,7 +58,7 @@ export class HomePredioComponent implements OnInit {
         header: {
           left: 'prev,next today',
           center: 'title',
-          right: 'month,agendaWeek,agendaDay,listMonth'
+          right: 'month,agendaDay,listMonth'
         },
         events: this.data
       };

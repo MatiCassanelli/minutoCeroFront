@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import * as socketIo from 'socket.io-client';
 import {NotificacionService} from '../services/notificacionService';
 import {environment} from '../environments/environment';
@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./app.component.css'],
   providers: [NotificacionService]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'app';
   cantidad = 0;
   jugador = localStorage.getItem('type');

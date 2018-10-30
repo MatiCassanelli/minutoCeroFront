@@ -109,7 +109,7 @@ import { ReservaIndependienteComponent } from './views/reserva-independiente/res
 import {AmazingTimePickerModule, AmazingTimePickerService} from 'amazing-time-picker';
 import { BuscadorJugadoresComponent } from './component/buscadorJugadores/buscador-jugadores.component';
 import {JugadorService} from '../services/jugadorService';
-import { PerfilJugadorComponent } from './views/perfil-jugador/perfil-jugador.component';
+import {DialogConfirmAmistadComponent, PerfilJugadorComponent} from './views/perfil-jugador/perfil-jugador.component';
 import {AmistadService} from '../services/amistadService';
 import {EquipoService} from '../services/equipoService';
 import { CardSolicitudComponent } from './component/card-solicitud/card-solicitud.component';
@@ -188,7 +188,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     RegistroPredioStepsComponent,
     FechaHoraComponent,
     ConfiguracionHorasComponent,
-    RankingJugadorComponent
+    RankingJugadorComponent,
+    DialogConfirmAmistadComponent
   ],
   imports: [
     AppRouting,
@@ -283,6 +284,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   entryComponents: [MapComponent, MapDialogComponent,
     ConfirmDialogPlantelComponent, ConfirmUbicacionDialogComponent,
     DialogInvitarJugadorEquipoComponent, NotificacionesComponent, NuevaCanchaComponent,
-    DialogResultadoComponent]
+    DialogResultadoComponent, DialogConfirmAmistadComponent]
 })
 export class AppModule { }

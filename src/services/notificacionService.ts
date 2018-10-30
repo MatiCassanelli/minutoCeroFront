@@ -22,6 +22,19 @@ export class NotificacionService {
   }
 
   responder(id, tipoNotificacion, respuesta) {
-    return this.http.put<any>(this.api + '/solicitudes/' + tipoNotificacion + '/' + id, respuesta, global.httpOptions);
+    debugger;
+    return this.http.put<any>(this.api + '/solicitudes/' + tipoNotificacion + '/' + id, {respuesta: respuesta}, global.httpOptions);
+  }
+
+  getSolicitudEnviada(idSolicitado) {
+    return this.http.get<any>(this.api + '/solicitudes/amistad/enviada/' + idSolicitado, global.httpOptions);
+  }
+
+  getSolicitudRecibida(idSolicitante) {
+    return this.http.get<any>(this.api + '/solicitudes/amistad/recibida/' + idSolicitante, global.httpOptions);
+  }
+
+  cancelarSolicitud(idSolicitud) {
+    return this.http.delete(this.api + '/solicitudes/' + idSolicitud, global.httpOptions);
   }
 }
