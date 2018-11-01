@@ -23,6 +23,7 @@ import {PerfilJugadorComponent} from './views/perfil-jugador/perfil-jugador.comp
 import {CargaNuevaCanchaComponent} from './views/carga-nueva-cancha/carga-nueva-cancha.component';
 import {RegistroPredioStepsComponent} from './views/registro-predio-steps/registro-predio-steps.component';
 import {RankingJugadorComponent} from './views/ranking-jugador/ranking-jugador.component';
+import {ReservaPredioComponent} from './views/reserva-predio/reserva-predio.component';
 
 const appRoutes: Routes = [
   {
@@ -61,8 +62,8 @@ const appRoutes: Routes = [
   },
   {path: 'notificaciones', component: NotificacionesComponent},
   {path: 'puntuaciones', component: PuntuacionComponent},
-  {path: 'reservaIndependiente', component: ReservaIndependienteComponent},
-  // {path: 'amigos', component: BuscadorJugadoresComponent},
+  {path: 'reservaIndependiente', component: ReservaIndependienteComponent}, // reserva de cancha jugador
+  {path: 'reservaCancha', component: ReservaPredioComponent},
   {path: 'jugador/:id', component: PerfilJugadorComponent},
   {path: 'ranking', component: RankingJugadorComponent},
 

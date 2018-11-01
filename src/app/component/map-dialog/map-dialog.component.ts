@@ -1,6 +1,6 @@
 import {Component, OnInit, Inject, EventEmitter} from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {FormGroup, FormBuilder} from '@angular/forms';
 import {Predio} from '../../models/predio';
 
 @Component({
@@ -11,13 +11,14 @@ import {Predio} from '../../models/predio';
 export class MapDialogComponent implements OnInit {
 
   ubicacion = {
-    lat: String,
-    lng: String
+    lng: String,
+    lat: String
   };
   predio: Predio;
 
   constructor(private dialogRef: MatDialogRef<MapDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data) { }
+              @Inject(MAT_DIALOG_DATA) public data) {
+  }
 
   ngOnInit() {
   }

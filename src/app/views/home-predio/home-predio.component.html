@@ -1,10 +1,11 @@
 <div class="container" style="margin: 1%; height: 100%">
-
-<p>Display event : {{displayEvent | json}}</p>
-<div *ngIf="calendarOptions">
-  <ng-fullcalendar #ucCalendar [options]="calendarOptions" (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)"
-                   (eventResize)="updateEvent($event.detail)" (clickButton)="clickButton($event.detail)"
-  (dayClick)="clickButton($event)"></ng-fullcalendar>
-</div>
-
+  <!--<p>Display event : {{displayEvent | json}}</p>-->
+  <div *ngIf="calendarOptions" [hidden]="!hidden">
+    <ng-fullcalendar #ucCalendar [options]="calendarOptions" (eventClick)="eventClick($event.detail)"
+                     (clickButton)="clickButton($event.detail)"
+                     (dayClick)="clickButton($event)"></ng-fullcalendar>
+  </div>
+  <div [hidden]="hidden">
+    <app-reserva-predio (volverEmit)="volver($event)"></app-reserva-predio>
+  </div>
 </div>

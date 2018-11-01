@@ -19,7 +19,9 @@ export class HomePredioComponent implements OnInit {
   calendarOptions: Options;
   displayEvent: any;
   data: any = [];
+  reservas: any[];
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
+  hidden = true;
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -29,18 +31,14 @@ export class HomePredioComponent implements OnInit {
 
   ngOnInit() {
     this.authService.logIn('Predio');
-    // var socket = socketIo(environment.baseUrl);
-    // // console.log('hello'+localStorage.getItem('id'));
-    // socket.on('hello'+localStorage.getItem('id'), (data) =>
-    //   console.log(data)
-    // );
-    // let events = []; 2018-10-09T16:00:00"
     this.reservaService.getAllReservas().subscribe(res => {
+      this.reservas = res;
       for (let reserva of res) {
         let r = {
           id: reserva._id,
           title: reserva.cancha.nombreCancha,
-          start: moment(reserva.dia).format('YYYY-MM-DD').toString() + 'T' + moment(reserva.dia).format('HH:mm:ss').toString()
+          start: moment(reserva.dia).format('YYYY-MM-DD').toString() + 'T' + moment(reserva.dia).format('HH:mm:ss').toString(),
+          end: moment(reserva.dia).format('YYYY-MM-DD').toString() + 'T' + moment(reserva.dia).add(1, 'h').format('HH:mm:ss').toString()
         };
         this.data.push(r);
       }
@@ -68,6 +66,20 @@ export class HomePredioComponent implements OnInit {
   }
 
   clickButton(model: any) {
+    // debugger;
+    const view = this.ucCalendar.fullCalendar('getView');
+    // console.log(' model.date', model.detail.date.format('YYYY-MM-DD'));
+
+
+    if (view.type === 'month' && model.type === 'dayClick') {
+      this.ucCalendar.fullCalendar('changeView', 'agendaDay');
+      this.ucCalendar.fullCalendar('gotoDate', model.detail.date);
+    } else {
+      if (model.type === 'dayClick')
+        this.router.navigateByUrl('/reservaCancha');
+    }
+    // this.hidden = false;
+    // console.log(model);
     this.displayEvent = model;
   }
 
@@ -83,23 +95,27 @@ export class HomePredioComponent implements OnInit {
       },
       duration: {}
     };
+    console.log(model);
     this.displayEvent = model;
   }
-
-  updateEvent(model: any) {
-    model = {
-      event: {
-        id: model.event.id,
-        start: model.event.start,
-        end: model.event.end,
-        title: model.event.title
-        // other params
-      },
-      duration: {
-        _data: model.duration._data
-      }
-    };
-    this.displayEvent = model;
+  volver(event) {
+    debugger;
+    this.hidden = event;
   }
+  // updateEvent(model: any) {
+  //   model = {
+  //     event: {
+  //       id: model.event.id,
+  //       start: model.event.start,
+  //       end: model.event.end,
+  //       title: model.event.title
+  //       // other params
+  //     },
+  //     duration: {
+  //       _data: model.duration._data
+  //     }
+  //   };
+  //   this.displayEvent = model;
+  // }
 
 }

@@ -132,6 +132,7 @@ import { RankingJugadorComponent } from './views/ranking-jugador/ranking-jugador
 import {ObservableService} from './observable.service';
 import { FullCalendarModule } from 'ng-fullcalendar';
 import {ReservaService} from '../services/reservaService';
+import { ReservaPredioComponent } from './views/reserva-predio/reserva-predio.component';
 
 
 
@@ -189,7 +190,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     FechaHoraComponent,
     ConfiguracionHorasComponent,
     RankingJugadorComponent,
-    DialogConfirmAmistadComponent
+    DialogConfirmAmistadComponent,
+    ReservaPredioComponent
   ],
   imports: [
     AppRouting,
