@@ -79,7 +79,7 @@ import { RegistrarPredio1Component } from './views/registrar-predio1/registrar-p
 import { MapComponent } from './component/map/map.component';
 import {ConfirmUbicacionDialogComponent, RegistroPredioMapaComponent} from './views/registro-predio-mapa/registro-predio-mapa.component';
 import {HeaderViewComponent} from './component/header-view/header-view.component';
-import { HomePredioComponent } from './views/home-predio/home-predio.component';
+import {HomePredioComponent, ReservaDialogComponent} from './views/home-predio/home-predio.component';
 
 // Swiper-wrapper library
 import { SwiperModule } from 'ngx-swiper-wrapper';
@@ -133,6 +133,7 @@ import {ObservableService} from './observable.service';
 import { FullCalendarModule } from 'ng-fullcalendar';
 import {ReservaService} from '../services/reservaService';
 import { ReservaPredioComponent } from './views/reserva-predio/reserva-predio.component';
+import { ReservaInfoComponent } from './views/reserva-info/reserva-info.component';
 
 
 
@@ -191,7 +192,9 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     ConfiguracionHorasComponent,
     RankingJugadorComponent,
     DialogConfirmAmistadComponent,
-    ReservaPredioComponent
+    ReservaPredioComponent,
+    ReservaDialogComponent,
+    ReservaInfoComponent
   ],
   imports: [
     AppRouting,
@@ -286,6 +289,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   entryComponents: [MapComponent, MapDialogComponent,
     ConfirmDialogPlantelComponent, ConfirmUbicacionDialogComponent,
     DialogInvitarJugadorEquipoComponent, NotificacionesComponent, NuevaCanchaComponent,
-    DialogResultadoComponent, DialogConfirmAmistadComponent]
+    DialogResultadoComponent, DialogConfirmAmistadComponent, ReservaDialogComponent]
 })
 export class AppModule { }

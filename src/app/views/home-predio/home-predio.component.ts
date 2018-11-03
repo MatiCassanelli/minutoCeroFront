@@ -1,4 +1,4 @@
-import {AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
 import {Router} from '@angular/router';
 import {RoleService} from '../../../services/role.service';
@@ -8,6 +8,8 @@ import {CalendarComponent} from 'ng-fullcalendar';
 import {Options} from 'fullcalendar';
 import {ReservaService} from '../../../services/reservaService';
 import * as moment from 'moment';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {MapDialogComponent} from '../../component/map-dialog/map-dialog.component';
 
 @Component({
   selector: 'app-home-predio',
@@ -22,11 +24,13 @@ export class HomePredioComponent implements OnInit {
   reservas: any[];
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
   hidden = true;
+  fileNameDialogRef: MatDialogRef<ReservaDialogComponent>;
 
   constructor(private authService: AuthService,
               private router: Router,
               private roleService: RoleService,
-              private reservaService: ReservaService) {
+              private reservaService: ReservaService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -115,29 +119,40 @@ export class HomePredioComponent implements OnInit {
       },
       duration: {}
     };
-    console.log(model);
-    this.displayEvent = model;
+    this.openDialog(model.event.id);
   }
 
-  volver(event) {
-    debugger;
-    this.hidden = event;
+  openDialog(reservaId) {
+    this.fileNameDialogRef = this.dialog.open(ReservaDialogComponent, {
+      maxWidth: null,
+      height: '500px',
+      maxHeight: '500px',
+      data: {
+        reservaId: reservaId
+      }
+    });
+    // this.fileNameDialogRef.afterClosed().subscribe((res) => {
+    //   if (res) {
+    //     this.ubicacion = res.ubicacion;
+    //     this.selectedPredio = res.predio;
+    //     this.mostrarLabel = true;
+    //   }
+    // });
   }
+}
 
-  // updateEvent(model: any) {
-  //   model = {
-  //     event: {
-  //       id: model.event.id,
-  //       start: model.event.start,
-  //       end: model.event.end,
-  //       title: model.event.title
-  //       // other params
-  //     },
-  //     duration: {
-  //       _data: model.duration._data
-  //     }
-  //   };
-  //   this.displayEvent = model;
-  // }
+
+@Component({
+  selector: 'app-reserva-dialog',
+  // templateUrl: './app-reserva-dialog.component.html',
+  template: `<app-reserva-info [reservaId]="data.reservaId"></app-reserva-info>`
+})
+export class ReservaDialogComponent implements OnInit {
+
+  constructor(private dialogRef: MatDialogRef<ReservaDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data) { }
+
+  ngOnInit() {
+  }
 
 }

@@ -31,11 +31,10 @@ export class ReservaPredioComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
-      if(params.fecha){
-        this.fecha = moment(params.fecha.split('Z')[0]).toDate();
-      }
-      else
-        this.fecha = null;
+        if (params.fecha) {
+          this.fecha = moment(params.fecha.split('Z')[0]).toDate();
+        } else
+          this.fecha = null;
       }
     );
 
@@ -45,6 +44,7 @@ export class ReservaPredioComponent implements OnInit {
   }
 
   getFecha(fecha) {
+    debugger;
     this.fecha = fecha;
   }
 
@@ -64,6 +64,7 @@ export class ReservaPredioComponent implements OnInit {
   }
 
   sendCancha(cancha) {
+    debugger;
     this.cancha = cancha.value;
   }
 

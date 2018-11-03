@@ -18,6 +18,7 @@ export class FechaHoraComponent implements OnInit {
   minDate = new Date(Date.now());
   @Output() dateTimeEmitter: EventEmitter<Date> = new EventEmitter<Date>();
   @Input() fecha: Date = null;
+  @Input() readOnly = false;
 
   constructor(private atp: AmazingTimePickerService,
               private _formBuilder: FormBuilder) {

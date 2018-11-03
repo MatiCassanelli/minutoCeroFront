@@ -1,5 +1,6 @@
-<div class="centrado">
-  <p-card title="Crear Partido" [style]="{width: '100%'}" styleClass="ui-card-shadow">
+<div class="container">
+  <!--<p-card title="Crear Partido" [style]="{width: '100%'}" styleClass="ui-card-shadow">-->
+  <h3>Partido</h3>
     <div class="container ui-fluid">
       <div class="container row">
         <!--<div class="ui-g-5">-->
@@ -7,7 +8,6 @@
           <label for="cancha" class="col-sm-2 col-form-label"><strong>Tipo de Cancha</strong></label>
           <div class="col-sm-10">
             <p id="cancha">{{partido?.deporte?.nombre}}</p>
-
           </div>
         </div>
         <div class="form-group row">
@@ -26,7 +26,7 @@
       </div>
       <app-plantel [setIdPartido]="idPartido" [editable]="editable" (sendPlantel)="getPlanteles($event)"></app-plantel>
     </div>
-  </p-card>
+  <!--</p-card>-->
 </div>
 
 <p-dialog header="Title" [minWidth]="300" [(visible)]="displayDialog" [modal]="true">
