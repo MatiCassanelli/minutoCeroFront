@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
 import {Router} from '@angular/router';
 import {RoleService} from '../../../services/role.service';
@@ -54,15 +54,34 @@ export class HomePredioComponent implements OnInit {
         },
         eventLimit: false,
         header: {
-          left: 'prev,next today',
+          left: 'prev,next,today',
           center: 'title',
           right: 'month,agendaDay,listMonth'
+        },
+        scrollTime: moment.duration(moment().add(1, 'h').get('h'), 'hours'),
+        dayNamesShort: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        buttonText: {
+          today: 'Hoy',
+          month: 'Mes',
+          day: 'Agenda',
+          list: 'Lista'
+        },
+        views: {
+          basic: {
+            titleFormat: 'MMMM YYYY',
+          },
+          agenda: {
+            titleFormat: 'DD MMMM YYYY'
+          },
+          day: {
+            titleFormat: 'DD MMMM YYYY'
+          }
         },
         events: this.data
       };
     });
-
-
   }
 
   clickButton(model: any) {
@@ -76,7 +95,8 @@ export class HomePredioComponent implements OnInit {
       this.ucCalendar.fullCalendar('gotoDate', model.detail.date);
     } else {
       if (model.type === 'dayClick')
-        this.router.navigateByUrl('/reservaCancha');
+      // this.router.navigateByUrl('/reservaCancha');
+        this.router.navigate(['/reservaCancha', {fecha: moment.parseZone(model.detail.date.toString()).format()}]);
     }
     // this.hidden = false;
     // console.log(model);
@@ -98,10 +118,12 @@ export class HomePredioComponent implements OnInit {
     console.log(model);
     this.displayEvent = model;
   }
+
   volver(event) {
     debugger;
     this.hidden = event;
   }
+
   // updateEvent(model: any) {
   //   model = {
   //     event: {

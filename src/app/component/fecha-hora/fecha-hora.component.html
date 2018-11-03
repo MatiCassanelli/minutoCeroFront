@@ -22,7 +22,7 @@
         <input matInput [min]="minDate" [matDatepicker]="picker1"
                placeholder="Dia" [formControl]="date" required (dateInput)="inputForm()">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
+        <mat-datepicker touchUi #picker1></mat-datepicker>
       </mat-form-field>
       <mat-form-field class="example-full-width" >
         <input matInput value="{{selectedTime}}" placeholder="Hora" required [formControl]="time">

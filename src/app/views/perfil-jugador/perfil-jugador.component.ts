@@ -61,7 +61,6 @@ export class PerfilJugadorComponent implements OnInit {
         });
       }
     });
-    // this.img = 'http://graph.facebook.com/' + this.jugador.idFacebook + '/picture?type=normal';
   }
 
   solicitudAmistad() {

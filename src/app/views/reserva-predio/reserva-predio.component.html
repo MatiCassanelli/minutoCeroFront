@@ -1,0 +1,26 @@
+<div class="container">
+  <!--<ng-template matStepLabel>Fill out your name</ng-template>-->
+  <mat-form-field>
+    <input matInput placeholder="Nombre" required [(ngModel)]="nombreJugador">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Apellido"required>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Teléfono de Contacto" type="number" required>
+  </mat-form-field>
+  <app-fecha-hora [fecha]="fecha" (dateTimeEmitter)="getFecha($event)"></app-fecha-hora>
+  <div class="form-group row">
+    <label for="cancha" class="col-sm-2 col-form-label"><strong>Tipo de Cancha</strong></label>
+    <div class="col-sm-10">
+      <mat-select id="cancha" placeholder="Cancha" required
+                  (selectionChange)="sendCancha($event)">
+        <mat-option *ngFor="let animal of canchas" [value]="animal">
+          {{animal?.nombreCancha}}
+        </mat-option>
+      </mat-select>
+    </div>
+  </div>
+  <button mat-button (click)="volver()">Cancelar</button>
+  <button mat-button (click)="reservar()">Reservar</button>
+</div>

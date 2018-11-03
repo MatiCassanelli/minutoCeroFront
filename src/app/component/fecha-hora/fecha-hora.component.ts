@@ -17,6 +17,7 @@ export class FechaHoraComponent implements OnInit {
   time = new FormControl({value: '', disabled: !this.fechaSelected}, [Validators.required]);
   minDate = new Date(Date.now());
   @Output() dateTimeEmitter: EventEmitter<Date> = new EventEmitter<Date>();
+  @Input() fecha: Date = null;
 
   constructor(private atp: AmazingTimePickerService,
               private _formBuilder: FormBuilder) {
@@ -27,6 +28,12 @@ export class FechaHoraComponent implements OnInit {
       fecha: this.date,
       hora: this.time
     });
+    if (this.fecha) {
+      this.date.setValue(this.fecha);
+      this.time.setValue(this.fecha);
+      this.selectedTime = moment(this.fecha).format('HH:mm');
+      this.inputForm();
+    }
   }
 
   open() {

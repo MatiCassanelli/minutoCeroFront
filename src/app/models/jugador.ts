@@ -3,7 +3,7 @@ export class Jugador {
   apellido: string;
   email: string;
   _id: string;
-  imagen: any;
+  img: string;
   calificacion: {
     atributos: {
       personalidad: number,
