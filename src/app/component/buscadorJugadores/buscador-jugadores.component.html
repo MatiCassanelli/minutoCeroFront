@@ -1,6 +1,8 @@
-<mat-form-field [floatLabel]="'never'" style="color: white; width: 100%; padding: 3px">
+<!--<mat-form-field [floatLabel]="'never'" style="color: white; width: 100%; padding: 3px">-->
+<mat-form-field style="width: 100%; padding: 3px; border: 0">
   <input matInput #jugadorInput [matAutocomplete]="auto"
          [formControl]="jugadorCtrl" class="buscador">
+  <mat-icon matSuffix>search</mat-icon>
   <mat-placeholder class="buscador">Jugadores</mat-placeholder>
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)" style="width: 100%">
     <mat-option *ngFor="let state of filteredJugadores | async" [value]="state">

@@ -3,8 +3,11 @@
     <button mat-icon-button (click)="snav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <!--<h1 class="example-app-name" routerLink="/partido">Minuto Cero</h1>-->
-    <app-buscador-jugadores *ngIf="tipoJugador === 'Jugador'" style="width: 100%;"></app-buscador-jugadores>
+    <h1 *ngIf="tipoJugador === 'Jugador'; else headerPredio" class="example-app-name" routerLink="/partido"> Minuto Cero</h1>
+    <ng-template #headerPredio>
+      <h1 class="example-app-name" routerLink="/predio">Minuto Cero</h1>
+    </ng-template>
+    <!--<app-buscador-jugadores *ngIf="tipoJugador === 'Jugador'" style="width: 100%;"></app-buscador-jugadores>-->
     <span class="spacer"></span>
     <div class="fab-container">
       <button mat-icon-button routerLink="/notificaciones">
@@ -22,13 +25,17 @@
       <mat-nav-list *ngIf="tipoJugador === 'Jugador'; else Predio">
         <a mat-list-item routerLink="/partido" (click)="snav.toggle()">Partidos</a>
         <mat-divider></mat-divider>
-        <a mat-list-item routerLink="/equipo/crear" (click)="snav.toggle()">Crear Equipo</a>
+        <a *ngIf="tieneEquipo; else noTieneEquipo" mat-list-item routerLink="/equipo/miEquipo" (click)="snav.toggle()">Mi
+          Equipo</a>
         <mat-divider></mat-divider>
-        <a mat-list-item routerLink="/equipo/miEquipo" (click)="snav.toggle()">Mi Equipo</a>
+        <ng-template #noTieneEquipo>
+          <a mat-list-item routerLink="/equipo/crear" (click)="snav.toggle()">Crear Equipo</a>
+        </ng-template>
+        <a mat-list-item routerLink="/ranking" (click)="snav.toggle()">Ranking Jugadores</a>
         <mat-divider></mat-divider>
-        <a mat-list-item routerLink="/puntuaciones"(click)="snav.toggle()">Calificar</a>
+        <a mat-list-item routerLink="/puntuaciones" (click)="snav.toggle()">Calificar</a>
         <mat-divider></mat-divider>
-        <a mat-list-item routerLink="/reservaIndependiente"(click)="snav.toggle()">Reservar Cancha</a>
+        <a mat-list-item routerLink="/reservaIndependiente" (click)="snav.toggle()">Reservar Cancha</a>
         <mat-divider></mat-divider>
         <a mat-list-item (click)="logOut()">Log Out</a>
       </mat-nav-list>

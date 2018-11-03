@@ -3,7 +3,7 @@ export class Jugador {
   apellido: string;
   email: string;
   _id: string;
-  imagen: any;
+  img: string;
   calificacion: {
     atributos: {
       personalidad: number,
@@ -14,5 +14,10 @@ export class Jugador {
   };
   type: string;
   photos: any;
+  historial: {
+      cantVictorias: number,
+      cantEmpates: number,
+      cantDerrotas: number
+  };
 }
 

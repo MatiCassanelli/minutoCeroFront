@@ -25,6 +25,7 @@ export class InfoEquipoComponent implements OnInit {
   @Input() id: string;
   display: boolean;
   dialogRef: MatDialogRef<DialogInvitarJugadorEquipoComponent>;
+  editable = false;
 
   constructor(private route: ActivatedRoute,
               private equipoService: EquipoService,
@@ -34,27 +35,27 @@ export class InfoEquipoComponent implements OnInit {
     this.routeSub = this.route.params.subscribe((params) => {
       if (params['id']) {
         this.id = params.id;
-        console.log(this.id);
         this.equipoService.getEquipo(this.id).subscribe(eq => {
           this.equipo = eq[0];
-          this.jugadorService.getJugadorById(this.equipo.capitan).toPromise().then(cap => {
+          this.jugadorService.getJugadorById(this.equipo.capitan).subscribe(cap => {
             this.capitan = cap[0];
+            if (this.capitan._id === localStorage.getItem('id'))
+              this.editable = true;
           });
           this.jugadores = this.getJugadoresOfEquipo(this.equipo.jugadores);
-          console.log(this.equipo.capitan);
         });
       } else {
         this.equipoService.getMiEquipo().subscribe(eq => {
           this.equipo = eq[0];
-          this.jugadorService.getJugadorById(this.equipo.capitan).toPromise().then(cap => {
+          this.jugadorService.getJugadorById(this.equipo.capitan).subscribe(cap => {
             this.capitan = cap[0];
+            if (this.capitan._id === localStorage.getItem('id'))
+              this.editable = true;
           });
           this.jugadores = this.getJugadoresOfEquipo(this.equipo.jugadores);
-          console.log(this.equipo.capitan);
         });
       }
     });
-    this.display = false;
   }
 
   ngOnInit() {
@@ -118,6 +119,7 @@ export class InfoEquipoComponent implements OnInit {
 export class DialogInvitarJugadorEquipoComponent implements OnInit {
 
   jugadoresInvitar: Jugador[] = [];
+
   constructor(private dialogRef: MatDialogRef<DialogInvitarJugadorEquipoComponent>,
               @Inject(MAT_DIALOG_DATA) public data) {
   }

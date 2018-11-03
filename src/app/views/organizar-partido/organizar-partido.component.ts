@@ -65,9 +65,10 @@ export class OrganizarPartidoComponent implements OnInit {
       this.deportes = res;
     });
     this.predioService.getAllPredios().subscribe(predios => {
-      console.log(predios);
       this.predios = predios;
     });
+    this.plantelLocal = new Plantel();
+    this.plantelVisitante = new Plantel();
   }
 
   getPlanteles(event) {
@@ -82,30 +83,27 @@ export class OrganizarPartidoComponent implements OnInit {
   getTipoCancha(event) {
     this.canchaSeleccionada = event;
     this.deporte = this.deportes.find(x => x._id === event);
-    console.log(this.deporte);
   }
 
   getFecha(event) {
     this.fechaPartido = event;
-    console.log(this.fechaPartido);
   }
 
   crearPartido() {
     let cancha: any;
-    const infoPartido = {
-      nombreDeporte: this.deporte.nombre,
-      nombrePredio: this.selectedPredio.nombrePredio,
-      dia: this.fechaPartido,
-      organizador: JSON.parse(localStorage.getItem('usuario'))
-    };
-    console.log(infoPartido);
-    debugger;
+    // const infoPartido = {
+    //   nombreDeporte: this.deporte.nombre,
+    //   nombrePredio: this.selectedPredio.nombrePredio,
+    //   dia: this.fechaPartido,
+    //   organizador: JSON.parse(localStorage.getItem('usuario'))
+    // };
+    // console.log(infoPartido);
     forkJoin(this.predioService.getCanchasWithPredio(this.selectedPredio._id),
-      this.plantelService.createPlantel(this.plantelLocal, 'Local', infoPartido),
-      this.plantelService.createPlantel(this.plantelVisitante, 'Visitante', infoPartido)).subscribe(res => {
+      this.plantelService.createPlantel(this.plantelLocal.jugadoresConfirmados, 'Local', this.deporte.cantJugadores),
+      this.plantelService.createPlantel(this.plantelVisitante.jugadoresConfirmados, 'Visitante', this.deporte.cantJugadores)).subscribe(res => {
       cancha = res[0][0];
-      const local = res[1];
-      const visitante = res[2];
+      let local = res[1];
+      let visitante = res[2];
       this.partidoService.createPartido({
         deporte: this.deporte._id,
         grupoLocal: local,
@@ -114,14 +112,17 @@ export class OrganizarPartidoComponent implements OnInit {
         cancha: cancha._id,
         horasDeJuego: 1
       }).subscribe(() => {
-        this.reservaService.createReserva({
-          estado: 'PreReserva',
-          dia: this.fechaPartido,
-          cancha: cancha._id
-        }).subscribe(reserva => {
-          console.log('reserva', reserva);
-          this.router.navigateByUrl('/partido');
+        forkJoin(this.plantelService.updatePlantel(local._id, local.jugadoresConfirmados, this.plantelLocal.jugadores),
+          this.plantelService.updatePlantel(visitante._id, visitante.jugadoresConfirmados, this.plantelVisitante.jugadores)).subscribe(() => {
+          this.reservaService.createReserva({
+            estado: 'PreReserva',
+            dia: this.fechaPartido,
+            cancha: cancha._id
+          }).subscribe(reserva => {
+            this.router.navigateByUrl('/partido');
+          });
         });
+
       });
     });
   }

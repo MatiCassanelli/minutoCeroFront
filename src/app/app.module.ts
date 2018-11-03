@@ -79,7 +79,7 @@ import { RegistrarPredio1Component } from './views/registrar-predio1/registrar-p
 import { MapComponent } from './component/map/map.component';
 import {ConfirmUbicacionDialogComponent, RegistroPredioMapaComponent} from './views/registro-predio-mapa/registro-predio-mapa.component';
 import {HeaderViewComponent} from './component/header-view/header-view.component';
-import { HomePredioComponent } from './views/home-predio/home-predio.component';
+import {HomePredioComponent, ReservaDialogComponent} from './views/home-predio/home-predio.component';
 
 // Swiper-wrapper library
 import { SwiperModule } from 'ngx-swiper-wrapper';
@@ -109,7 +109,7 @@ import { ReservaIndependienteComponent } from './views/reserva-independiente/res
 import {AmazingTimePickerModule, AmazingTimePickerService} from 'amazing-time-picker';
 import { BuscadorJugadoresComponent } from './component/buscadorJugadores/buscador-jugadores.component';
 import {JugadorService} from '../services/jugadorService';
-import { PerfilJugadorComponent } from './views/perfil-jugador/perfil-jugador.component';
+import {DialogConfirmAmistadComponent, PerfilJugadorComponent} from './views/perfil-jugador/perfil-jugador.component';
 import {AmistadService} from '../services/amistadService';
 import {EquipoService} from '../services/equipoService';
 import { CardSolicitudComponent } from './component/card-solicitud/card-solicitud.component';
@@ -128,6 +128,12 @@ import {PartidoService} from '../services/partidoService';
 import { RegistroPredioStepsComponent } from './views/registro-predio-steps/registro-predio-steps.component';
 import { FechaHoraComponent } from './component/fecha-hora/fecha-hora.component';
 import { ConfiguracionHorasComponent } from './views/configuracion-horas/configuracion-horas.component';
+import { RankingJugadorComponent } from './views/ranking-jugador/ranking-jugador.component';
+import {ObservableService} from './observable.service';
+import { FullCalendarModule } from 'ng-fullcalendar';
+import {ReservaService} from '../services/reservaService';
+import { ReservaPredioComponent } from './views/reserva-predio/reserva-predio.component';
+import { ReservaInfoComponent } from './views/reserva-info/reserva-info.component';
 
 
 
@@ -183,7 +189,12 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     DialogResultadoComponent,
     RegistroPredioStepsComponent,
     FechaHoraComponent,
-    ConfiguracionHorasComponent
+    ConfiguracionHorasComponent,
+    RankingJugadorComponent,
+    DialogConfirmAmistadComponent,
+    ReservaPredioComponent,
+    ReservaDialogComponent,
+    ReservaInfoComponent
   ],
   imports: [
     AppRouting,
@@ -243,7 +254,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatSelectModule,
     MatStepperModule,
     MatSlideToggleModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    FullCalendarModule
   ],
   bootstrap: [AppComponent],
   schemas: [
@@ -270,11 +282,13 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     EquipoService,
     DeporteService,
     PredioService,
-    PartidoService
+    PartidoService,
+    ReservaService,
+    ObservableService
   ],
   entryComponents: [MapComponent, MapDialogComponent,
     ConfirmDialogPlantelComponent, ConfirmUbicacionDialogComponent,
     DialogInvitarJugadorEquipoComponent, NotificacionesComponent, NuevaCanchaComponent,
-    DialogResultadoComponent]
+    DialogResultadoComponent, DialogConfirmAmistadComponent, ReservaDialogComponent]
 })
 export class AppModule { }

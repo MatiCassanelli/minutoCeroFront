@@ -45,7 +45,9 @@ export class CargaNuevaCanchaComponent implements OnInit {
       });
     }
   }
-
+  eliminarCancha(cancha) {
+    this.canchas.splice(this.canchas.indexOf(cancha), 1);
+  }
 
 
 }

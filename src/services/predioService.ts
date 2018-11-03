@@ -20,7 +20,6 @@ export class PredioService {
   setUbicacion(ub) {
     this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + ub.lat + ',' + ub.lng + '&key=AIzaSyBBbAYKGDWUQn05DaopQRrfy5YJMum_H7Y')
       .subscribe(res => {
-        console.log(res['results'][0].formatted_address);
         ub = {
           lat: ub.lat,
           lng: ub.lng,
@@ -37,7 +36,7 @@ export class PredioService {
   }
 
   getCanchasWithPredio(idPredio) {
-    return this.http.get(this.api + idPredio + '/canchas', global.httpOptions);
+    return this.http.get<Array<Cancha>>(this.api + idPredio + '/canchas', global.httpOptions);
   }
   getCanchas() {
     return this.http.get<Array<Cancha>>(this.api + 'canchas', global.httpOptions);

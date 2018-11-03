@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import * as moment from 'moment';
 import {AmazingTimePickerService} from 'amazing-time-picker';
@@ -16,7 +16,9 @@ export class FechaHoraComponent implements OnInit {
   date = new FormControl('', [Validators.required]);
   time = new FormControl({value: '', disabled: !this.fechaSelected}, [Validators.required]);
   minDate = new Date(Date.now());
-  dateTimeEmitter: EventEmitter<Date> = new EventEmitter<Date>();
+  @Output() dateTimeEmitter: EventEmitter<Date> = new EventEmitter<Date>();
+  @Input() fecha: Date = null;
+  @Input() readOnly = false;
 
   constructor(private atp: AmazingTimePickerService,
               private _formBuilder: FormBuilder) {
@@ -27,6 +29,12 @@ export class FechaHoraComponent implements OnInit {
       fecha: this.date,
       hora: this.time
     });
+    if (this.fecha) {
+      this.date.setValue(this.fecha);
+      this.time.setValue(this.fecha);
+      this.selectedTime = moment(this.fecha).format('HH:mm');
+      this.inputForm();
+    }
   }
 
   open() {

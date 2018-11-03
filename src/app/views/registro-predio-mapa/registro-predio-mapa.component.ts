@@ -15,8 +15,8 @@ export class RegistroPredioMapaComponent implements OnInit {
 
   direccion: string;
   ubicacion = {
-    lat: String,
-    lng: String
+    lng: String,
+    lat: String
   };
   @Input() steps = false;
   @Output() ubicacionSeleccionada: EventEmitter<any> = new EventEmitter<any>();

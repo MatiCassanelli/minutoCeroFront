@@ -21,8 +21,11 @@ export class JugadorService {
   }
 
   getJugadorById(id: string) {
-    return this.http.get<Jugador>(this.api + id, global.httpOptions);
+    return this.http.get<Jugador>(this.api + 'id/' + id, global.httpOptions);
   }
 
+  getJugadoresRankeados() {
+    return this.http.get<Array<Jugador>>(this.api + 'ranking', global.httpOptions);
+  }
 
 }

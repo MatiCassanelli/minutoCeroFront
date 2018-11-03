@@ -1,13 +1,10 @@
 <div class="form-group row" *ngIf="partido?.estado !== 'Jugando' && partido?.estado !== 'Finalizado'">
   <label for="jugador" class="col-sm-2 col-form-label"><strong>Jugadores a invitar</strong></label>
   <div class="btn-group col-sm-2 col-form-label" role="group">
-    <!--<button pButton type="button" class="ui-button-secondary" label="Local"-->
-    <!--(click)="activarComponent('local')"></button>-->
     <button mat-raised-button color="primary" class="col-6" (click)="activarComponent('local')">Local</button>
     <button mat-raised-button color="primary" class="col-6" (click)="activarComponent('visitante')">Visitante</button>
-    <!--<button pButton type="button" class="ui-button-secondary" label="Visitante"-->
-    <!--(click)="activarComponent('visitante')"></button>-->
   </div>
+  <mat-checkbox *ngIf="tieneEquipo" [color]="'primary'" [checked]="invitacionEquipo" (change)="invitarEquipo()">Invitar a mi equipo</mat-checkbox>
   <div *ngIf="!disabled" class="col-sm-8">
     <app-invitar-jugadores [queTraer]="'Amigos'" id="jugador" (notifyParent)="getJugadores($event)"
                            [isReset]="resetForm"></app-invitar-jugadores>
@@ -16,48 +13,80 @@
 </div>
 <div class="row">
   <div class="ui-g-5">
-    <!--<mat-list role="list" *ngFor="let j of plantelLocal?.jugadoresConfirmados">-->
-      <!--<mat-list-item role="listitem" (click)="openDialog(j, 'local', 'remove')">-->
-        <!--<b>{{j.nombre}} {{j.apellido}}</b>-->
-      <!--</mat-list-item>-->
-    <!--</mat-list>-->
-    <!--<mat-list role="list" *ngFor="let j of plantelLocal?.jugadores">-->
-      <!--<mat-list-item role="listitem" (click)="openDialog(j, 'local', 'confirm')">{{j.nombre}} {{j.apellido}}-->
-      <!--</mat-list-item>-->
-    <!--</mat-list>-->
-    <p-scrollPanel [style]="{width: '100%', height: '200px'}">
-      <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: left">
-        <span style="padding: 0px 0px 15px;">Confirmados</span>
-      </div>
-      <div *ngFor="let j of plantelLocal?.jugadoresConfirmados">
-        <p (click)="!editable || openDialog(j, 'local', 'remove')"><b>{{j.nombre}} {{j.apellido}}</b></p>
-      </div>
-      <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: left">
-        <span style="padding: 0px 0px 15px;">No Confirmados</span>
-      </div>
-      <div *ngFor="let j of plantelLocal?.jugadores">
-        <!--<p (click)="confirm1(j, 'local')">{{j.nombre}} {{j.apellido}}</p>-->
-        <p (click)="!editable ||openDialog(j, 'local', 'confirm')">{{j.nombre}} {{j.apellido}}</p>
-      </div>
-    </p-scrollPanel>
+    <div *ngIf="plantelLocal?.jugadoresConfirmados.length > 0">
+      Confirmados
+      <mat-divider></mat-divider>
+    </div>
+    <mat-list *ngFor="let j of plantelLocal?.jugadoresConfirmados">
+      <mat-list-item (click)="!editable || openDialog(j, 'local', 'remove')">
+        <p><b>{{j.nombre}} {{j.apellido}}</b></p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
+    <div *ngIf="plantelLocal?.jugadores.length > 0">
+      No Confirmados
+      <mat-divider></mat-divider>
+    </div>
+    <mat-list *ngFor="let j of plantelLocal?.jugadores">
+      <mat-list-item (click)="!editable ||openDialog(j, 'local', 'confirm')">
+        <p>{{j.nombre}} {{j.apellido}}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
+    <!--<p-scrollPanel [style]="{width: '100%', height: '200px'}">-->
+    <!--<div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: left">-->
+    <!--<span style="padding: 0px 0px 15px;">Confirmados</span>-->
+    <!--</div>-->
+    <!--<div *ngFor="let j of plantelLocal?.jugadoresConfirmados">-->
+    <!--<p (click)="!editable || openDialog(j, 'local', 'remove')"><b>{{j.nombre}} {{j.apellido}}</b></p>-->
+    <!--</div>-->
+    <!--<div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: left">-->
+    <!--<span style="padding: 0px 0px 15px;">No Confirmados</span>-->
+    <!--</div>-->
+    <!--<div *ngFor="let j of plantelLocal?.jugadores">-->
+    <!--&lt;!&ndash;<p (click)="confirm1(j, 'local')">{{j.nombre}} {{j.apellido}}</p>&ndash;&gt;-->
+    <!--<p (click)="!editable ||openDialog(j, 'local', 'confirm')">{{j.nombre}} {{j.apellido}}</p>-->
+    <!--</div>-->
+    <!--</p-scrollPanel>-->
   </div>
   <div class="ui-g-2 text-center">
-    <p>vs.</p>
+    <p *ngIf="plantelVisitante?.jugadoresConfirmados.length > 0 || plantelVisitante?.jugadores.length > 0
+||plantelLocal?.jugadoresConfirmados.length > 0 || plantelLocal?.jugadores.length > 0">vs.</p>
   </div>
   <div class="ui-g-5 ">
-    <p-scrollPanel [style]="{width: '100%', height: '200px'}">
-      <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: left">
-        <span style="padding: 0px 0px 15px;">Confirmados</span>
-      </div>
-      <div *ngFor="let j of plantelVisitante?.jugadoresConfirmados">
-        <p (click)="!editable ||openDialog(j, 'visitante', 'remove')"><b>{{j.nombre}} {{j.apellido}}</b></p>
-      </div>
-      <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: left">
-        <span style="padding: 0px 0px 15px;">No Confirmados</span>
-      </div>
-      <div *ngFor="let j of plantelVisitante?.jugadores">
-        <p (click)="!editable ||openDialog(j, 'visitante', 'confirm')">{{j.nombre}} {{j.apellido}}</p>
-      </div>
-    </p-scrollPanel>
+    <div *ngIf="plantelVisitante?.jugadoresConfirmados.length > 0">
+      Confirmados
+      <mat-divider></mat-divider>
+    </div>
+    <mat-list *ngFor="let j of plantelVisitante?.jugadoresConfirmados">
+      <mat-list-item (click)="!editable || openDialog(j, 'visitante', 'remove')">
+        <p><b>{{j.nombre}} {{j.apellido}}</b></p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
+    <div *ngIf="plantelVisitante?.jugadores.length > 0">
+      No Confirmados
+      <mat-divider></mat-divider>
+    </div>
+    <mat-list *ngFor="let j of plantelVisitante?.jugadores">
+      <mat-list-item (click)="!editable ||openDialog(j, 'visitante', 'confirm')">
+        <p>{{j.nombre}} {{j.apellido}}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
+    <!--<p-scrollPanel [style]="{width: '100%', height: '200px'}">-->
+    <!--<div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: left">-->
+    <!--<span style="padding: 0px 0px 15px;">Confirmados</span>-->
+    <!--</div>-->
+    <!--<div *ngFor="let j of plantelVisitante?.jugadoresConfirmados">-->
+    <!--<p (click)="!editable ||openDialog(j, 'visitante', 'remove')"><b>{{j.nombre}} {{j.apellido}}</b></p>-->
+    <!--</div>-->
+    <!--<div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: left">-->
+    <!--<span style="padding: 0px 0px 15px;">No Confirmados</span>-->
+    <!--</div>-->
+    <!--<div *ngFor="let j of plantelVisitante?.jugadores">-->
+    <!--<p (click)="!editable ||openDialog(j, 'visitante', 'confirm')">{{j.nombre}} {{j.apellido}}</p>-->
+    <!--</div>-->
+    <!--</p-scrollPanel>-->
   </div>
 </div>

@@ -17,6 +17,13 @@ export class ReservaService {
     return this.http.post<any>(this.api, reserva, global.httpOptions);
   }
 
+  getReservaById (idReserva) {
+    return this.http.get<any>(this.api + idReserva, global.httpOptions);
+  }
+
+  getAllReservas() {
+    return this.http.get<any>(this.api + 'all', global.httpOptions);
+  }
   // getPartidos(estado) {
   //   return this.http.get<Array<Partido>>(this.api + '/estado/' + estado, global.httpOptions);
   // }

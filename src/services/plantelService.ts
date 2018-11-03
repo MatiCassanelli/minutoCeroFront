@@ -16,18 +16,17 @@ export class PlantelService {
     return this.http.get<Plantel>(this.api + idPlantel, global.httpOptions);
   }
 
-  addJugadorConfirmado(idPlantel, idJugador) {
-    return this.http.put<Plantel>(this.api + idPlantel + '/invitar', {
-      'jugadoresConfirmados': [idJugador]
-    }, global.httpOptions);
-  }
-
-  createPlantel(plantel, localidad, infoPartido) {
+  createPlantel(jugadoresConfirmados, localidad, cantMaximaJugadores) {
+    // return this.http.post<Plantel>(this.api, {
+    //   'jugadoresConfirmados': plantel.jugadoresConfirmados,
+    //   'jugadores': plantel.jugadores,
+    //   'localidad': localidad,
+    //   'cantMaximaJugadores': cantMaximaJugadores
+    // }, global.httpOptions);
     return this.http.post<Plantel>(this.api, {
-      'jugadoresConfirmados': plantel.jugadoresConfirmados,
-      'jugadores': plantel.jugadores,
+      'jugadoresConfirmados': jugadoresConfirmados,
       'localidad': localidad,
-      'infoPartido': infoPartido
+      'cantMaximaJugadores': cantMaximaJugadores
     }, global.httpOptions);
   }
 

@@ -1,0 +1,36 @@
+<div class="container">
+  <!--<ng-template matStepLabel>Fill out your name</ng-template>-->
+  <div class="form-group row">
+    <h3>Reservar cancha</h3>
+    <label for="datos" class="col-sm-2 col-form-label"><strong>Datos jugador</strong></label>
+    <div id="datos" class="col-sm-10">
+      <mat-form-field>
+        <input matInput placeholder="Nombre" required [(ngModel)]="nombreJugador">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Apellido" required [(ngModel)]="apellidoJugador">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Teléfono de Contacto" type="number" required [(ngModel)]="telefono">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <app-fecha-hora [fecha]="fecha" (dateTimeEmitter)="getFecha($event)"></app-fecha-hora>
+  <div class="form-group row">
+    <label for="cancha" class="col-sm-2 col-form-label"><strong>Tipo de Cancha</strong></label>
+    <div class="col-sm-10">
+      <mat-select id="cancha" placeholder="Cancha" required
+                  (selectionChange)="sendCancha($event)">
+        <mat-option *ngFor="let c of canchas" [value]="c">
+          {{c?.nombreCancha}}
+        </mat-option>
+      </mat-select>
+    </div>
+  </div>
+  <div style="text-align: right; padding: 6px 15px">
+    <button mat-raised-button color="warn" (click)="volver()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="reservar()"
+            [disabled]="!(nombreJugador && apellidoJugador && telefono && fecha && cancha)">Reservar</button>
+  </div>
+</div>

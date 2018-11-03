@@ -28,12 +28,10 @@ export class PuntuacionComponent implements OnInit {
 
   setCalificacion(event) {
     if (event.jugador.type === 'Jugador')
-      this.calificacionService.putCalificacionJugador(event.puntuacion, event.jugador._id).subscribe(res => {
-        console.log(res);
+      this.calificacionService.putCalificacionJugador(event.puntuacion, event.jugador._id).subscribe(() => {
       });
     if (event.jugador.type === 'Predio')
-      this.calificacionService.putCalificacionPredio(event.puntuacion, event.jugador._id).subscribe(res => {
-        console.log(res);
+      this.calificacionService.putCalificacionPredio(event.puntuacion, event.jugador._id).subscribe(() => {
       });
   }
 }

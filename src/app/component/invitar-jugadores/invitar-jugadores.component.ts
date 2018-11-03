@@ -45,7 +45,6 @@ export class InvitarJugadoresComponent implements OnInit {
     // this.jugadorService.getJugadores().subscribe((resp) => {  // deberia ser un getamigos
     if(this.queTraer === 'Amigos'){
       this.amistadService.getAmigos().subscribe((resp) => {
-        console.log(resp);
         this.jugadores = resp;
         for (let jugador of resp) {
           this.nombreJugador.push(jugador.nombre + jugador.apellido);

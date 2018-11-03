@@ -114,7 +114,6 @@ export class MapComponent implements OnInit, AfterContentInit {
   }
 
   geocodeDireccion(direccion) {
-    console.log(direccion);
     return this.geocodeAddress(direccion);
   }
 

@@ -1,0 +1,16 @@
+<div class="container">
+  <app-buscador-jugadores style="width: 100%;"></app-buscador-jugadores>
+</div>
+<mat-list>
+  <mat-list-item *ngFor="let jugador of jugadores; let i = index" (click)="goPerfil(jugador._id)">
+    <img matListAvatar class="rounded-circle" src="http://placehold.it/60x60" alt="">
+    <h4 mat-line>{{jugador?.nombre}} {{jugador?.apellido}}
+      (V: {{jugador?.historial.cantVictorias}} - E: {{jugador?.historial.cantEmpates}} - D:
+      {{jugador?.historial.cantDerrotas}})
+    </h4>
+    <p mat-line>
+      <p-rating [ngModel]="jugador?.calificacion.puntaje" [cancel]="false" readonly="true"></p-rating>
+    </p>
+    <mat-divider></mat-divider>
+  </mat-list-item>
+</mat-list>

@@ -1,13 +1,26 @@
 <mat-card>
-  <img mat-card-avatar src="http://placehold.it/60x60" alt="">
-  <!--<img mat-card-avatar src="{{asd}}" alt="">-->
-  <button *ngIf="mostrar; else noClick" style="text-align:right" mat-stroked-button
-          color="primary" (click)="solicitudAmistad()">
-    Agregar a Amigos
-  </button>
-  <ng-template #noClick>
+  <img mat-card-avatar [src]="jugador?.img" alt="">
+  <ng-template [ngIf]="!yaAmigos && !solicitudEnviada && !solicitudRecibida">
+    <button style="text-align:right" mat-raised-button
+            color="primary" (click)="solicitudAmistad()">
+      Agregar a Amigos
+    </button>
+  </ng-template>
+  <ng-template [ngIf]="!yaAmigos && solicitudEnviada && !solicitudRecibida">
+    <button style="text-align:right" mat-raised-button
+            color="primary" (click)="cancelarSolicitud()">
+      Solicitud enviada
+    </button>
+  </ng-template>
+  <ng-template [ngIf]="solicitudRecibida">
+    <button style="text-align:right" mat-raised-button
+            color="primary" (click)="openDialog()">
+      Aceptar/Rechazar
+    </button>
+  </ng-template>
+  <ng-template [ngIf]="yaAmigos">
     <button style="text-align:right" mat-stroked-button
-            color="primary" [disabled]="true">
+            color="primary" (click)="eliminarAmistad()">
       Ya son amigos
     </button>
   </ng-template>

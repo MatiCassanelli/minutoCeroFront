@@ -1,15 +1,36 @@
-<form [formGroup]="dateTimeForm">
-  <mat-form-field>
-    <input matInput [min]="minDate" [matDatepicker]="picker1"
-           placeholder="Fecha" [formControl]="date" required (dateInput)="inputForm()">
-    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-    <mat-datepicker #picker1></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field class="example-full-width" >
-    <input matInput value="{{selectedTime}}" placeholder="Hora" required [formControl]="time">
-    <mat-icon matSuffix *ngIf="fechaSelected === true; else noClick" (click)="open()" >schedule</mat-icon>
-    <ng-template #noClick>
-      <mat-icon matSuffix>schedule</mat-icon>
-    </ng-template>
-  </mat-form-field>
-</form>
+<!--<form [formGroup]="dateTimeForm">-->
+  <!--<mat-form-field>-->
+    <!--<input matInput [min]="minDate" [matDatepicker]="picker1"-->
+           <!--placeholder="Dia" [formControl]="date" required (dateInput)="inputForm()">-->
+    <!--<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>-->
+    <!--<mat-datepicker #picker1></mat-datepicker>-->
+  <!--</mat-form-field>-->
+  <!--<mat-form-field class="example-full-width" >-->
+    <!--<input matInput value="{{selectedTime}}" placeholder="Hora" required [formControl]="time">-->
+    <!--<mat-icon matSuffix *ngIf="fechaSelected === true; else noClick" (click)="open()" >schedule</mat-icon>-->
+    <!--<ng-template #noClick>-->
+      <!--<mat-icon matSuffix>schedule</mat-icon>-->
+    <!--</ng-template>-->
+  <!--</mat-form-field>-->
+<!--</form>-->
+
+<div class="form-group row">
+  <label for="horario" class="col-sm-2 col-form-label"><strong>Fecha y hora</strong></label>
+  <div id="horario" class="col-sm-10">
+    <form [formGroup]="dateTimeForm">
+      <mat-form-field>
+        <input matInput [min]="minDate" [matDatepicker]="picker1" [readonly]="readOnly"
+               placeholder="Dia" [formControl]="date" required (dateInput)="inputForm()">
+        <mat-datepicker-toggle matSuffix [for]="picker1" [disabled]="readOnly"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #picker1></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="example-full-width" >
+        <input matInput value="{{selectedTime}}" placeholder="Hora" required [formControl]="time" [readonly]="readOnly">
+        <mat-icon matSuffix *ngIf="fechaSelected === true && !readOnly; else noClick" (click)="open()" >schedule</mat-icon>
+        <ng-template #noClick>
+          <mat-icon matSuffix>schedule</mat-icon>
+        </ng-template>
+      </mat-form-field>
+    </form>
+  </div>
+</div>
