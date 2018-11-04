@@ -22,7 +22,6 @@ export class NotificacionService {
   }
 
   responder(id, tipoNotificacion, respuesta) {
-    debugger;
     return this.http.put<any>(this.api + '/solicitudes/' + tipoNotificacion + '/' + id, {respuesta: respuesta}, global.httpOptions);
   }
 

@@ -1,5 +1,5 @@
 <mat-card>
-  <img mat-card-avatar [src]="jugador?.img" alt="">
+  <img mat-card-avatar src="{{ jugador?.img }}" alt="">
   <ng-template [ngIf]="!yaAmigos && !solicitudEnviada && !solicitudRecibida">
     <button style="text-align:right" mat-raised-button
             color="primary" (click)="solicitudAmistad()">

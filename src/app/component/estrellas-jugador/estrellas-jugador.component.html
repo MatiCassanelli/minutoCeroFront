@@ -1,17 +1,21 @@
 <mat-list>
   <h2 mat-subheader>Capitan</h2>
   <mat-list-item>
-    <img matListAvatar class="rounded-circle" src="http://placehold.it/60x60" alt="">
+    <img matListAvatar class="rounded-circle" src="{{ capitan?.img }}">
     <h4 mat-line>{{capitan?.nombre}} {{capitan?.apellido}}</h4>
     <h5 mat-line>{{capitan?.email}}</h5>
-    <p mat-line><p-rating [ngModel]="capitan?.calificacion.puntaje" [cancel]="false" readonly="true"></p-rating></p>
+    <p mat-line>
+      <p-rating [ngModel]="capitan?.calificacion.puntaje" [cancel]="false" readonly="true"></p-rating>
+    </p>
   </mat-list-item>
   <mat-divider></mat-divider>
   <h2 mat-subheader>Jugadores</h2>
-  <mat-list-item *ngFor="let note of jugadores">
-    <img matListAvatar class="rounded-circle" src="http://placehold.it/60x60" alt="">
-    <h4 mat-line>{{note?.nombre}} {{note?.apellido}}</h4>
-    <p mat-line> <p-rating [ngModel]="note?.calificacion.puntaje" [cancel]="false" readonly="true"></p-rating></p>
+  <mat-list-item *ngFor="let jugador of jugadores">
+    <img matListAvatar class="rounded-circle" src="{{ jugador?.img }}">
+    <h4 mat-line>{{jugador?.nombre}} {{jugador?.apellido}}</h4>
+    <p mat-line>
+      <p-rating [ngModel]="jugador?.calificacion.puntaje" [cancel]="false" readonly="true"></p-rating>
+    </p>
   </mat-list-item>
 </mat-list>
 <!--<img class="rounded-circle" src="http://placehold.it/60x60" alt="">-->

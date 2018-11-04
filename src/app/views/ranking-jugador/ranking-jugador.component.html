@@ -3,7 +3,7 @@
 </div>
 <mat-list>
   <mat-list-item *ngFor="let jugador of jugadores; let i = index" (click)="goPerfil(jugador._id)">
-    <img matListAvatar class="rounded-circle" src="http://placehold.it/60x60" alt="">
+    <img matListAvatar class="rounded-circle" src="{{ jugador?.img }}">
     <h4 mat-line>{{jugador?.nombre}} {{jugador?.apellido}}
       (V: {{jugador?.historial.cantVictorias}} - E: {{jugador?.historial.cantEmpates}} - D:
       {{jugador?.historial.cantDerrotas}})

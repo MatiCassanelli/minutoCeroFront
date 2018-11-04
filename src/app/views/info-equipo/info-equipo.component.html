@@ -1,6 +1,9 @@
-<div>
-  <h2>{{equipo?.nombre}}</h2>
+<div >
+  <h3 style="text-align: left; display: inline-flex">
+    {{equipo?.nombre}}
+  </h3>
 </div>
+
 
 <app-estrellas-jugador [jugadores]="jugadores" [capitan]="capitan"></app-estrellas-jugador>
 <div *ngIf="editable" class="fab-container">

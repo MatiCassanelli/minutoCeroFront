@@ -44,7 +44,6 @@ export class ReservaPredioComponent implements OnInit {
   }
 
   getFecha(fecha) {
-    debugger;
     this.fecha = fecha;
   }
 
@@ -64,7 +63,6 @@ export class ReservaPredioComponent implements OnInit {
   }
 
   sendCancha(cancha) {
-    debugger;
     this.cancha = cancha.value;
   }
 

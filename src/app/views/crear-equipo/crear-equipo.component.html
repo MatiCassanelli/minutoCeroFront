@@ -1,50 +1,25 @@
-<div>
-  <h1 style="text-align: center">Crear Equipo</h1>
-  <!--<div class="form-group row">-->
-  <!--<label for="nombreEquipo" class="col-sm-2 col-form-label"><strong>Nombre Equipo</strong></label>-->
-  <!--<div class="col-sm-10">-->
-  <!--<input id="nombreEquipo" type="text" class="form-control" formControlName="nombreEquipo"-->
-  <!--placeholder="Nombre del equipo" required="true"/>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--<div class="form-group row">-->
-  <!--<label for="deporte" class="col-sm-2 col-form-label"><strong>Deporte</strong></label>-->
-  <!--<div class="col-sm-10">-->
-  <!--<p-dropdown id="deporte" [options]="deportes" formControlName="deporte" required="true"-->
-  <!--placeholder="Seleccioná un deporte" [showClear]="true"></p-dropdown>-->
-  <!--</div>-->
-  <!--</div>-->
+<div class="container">
+  <h3>Crear Equipo</h3>
+  <mat-form-field>
+    <input matInput placeholder="Nombre Equipo" [(ngModel)]="nombreEquipo" required>
+  </mat-form-field>
 
-  <div class="example-container">
-    <mat-form-field>
-      <input matInput placeholder="Nombre Equipo" [(ngModel)]="nombreEquipo" required>
-    </mat-form-field>
+  <mat-form-field>
+    <mat-select id="cancha" placeholder="Seleccioná un deporte" required [(ngModel)]="deporte">
+      <mat-option *ngFor="let d of deportes" [value]="d">
+        {{d?.nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-    <mat-form-field>
-      <mat-select id="cancha" placeholder="Seleccioná un deporte" required [(ngModel)]="deporte">
-        <mat-option *ngFor="let d of deportes" [value]="d">
-          {{d?.nombre}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+  <app-invitar-jugadores [queTraer]="'Jugadores'" (notifyParent)="getJugadores($event)"
+                         (jugadoresInvitados)="setChecked($event)"></app-invitar-jugadores>
 
-    <app-invitar-jugadores [queTraer]="'Jugadores'" (notifyParent)="getJugadores($event)"
-                           (jugadoresInvitados)="setChecked($event)"></app-invitar-jugadores>
+  <div style="text-align: right; padding: 6px 15px">
+    <button mat-raised-button type="button" color="warn">Cancelar</button>
+    <button mat-raised-button type="button" (click)="onSubmit()" color="primary"
+            [disabled]="!(nombreEquipo && deporte)">Crear
+    </button>
   </div>
 
-  <button mat-raised-button type="button">Cancelar</button>
-  <button mat-raised-button type="button" (click)="onSubmit()" [disabled]="!(nombreEquipo && deporte)">Crear</button>
-  <!--<div class="row">-->
-  <!--<div class="ui-grid-col-3"></div>-->
-  <!--<div class="ui-grid-col-2">-->
-  <!--<button pButton type="submit" icon="pi pi-check" label="Confirm" [disabled]="form.invalid"></button>-->
-  <!--<button pButton (click)="onSubmit()" icon="pi pi-check" label="Confirm"></button>-->
-  <!--</div>-->
-  <!--<div class="ui-grid-col-2">-->
-  <!--</div>-->
-  <!--<div class="ui-grid-col-2">-->
-  <!--<button pButton type="button" icon="pi pi-times" label="Cancelar"></button>-->
-  <!--</div>-->
-  <!--<div class="ui-grid-col-3"></div>-->
-  <!--</div>-->
 </div>

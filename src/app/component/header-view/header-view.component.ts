@@ -25,7 +25,7 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
   @Input() tipoJugador: string;
 
   // @Input() cantidad: number;
-  cantidad = parseInt(localStorage.getItem('cantNotificaciones'), 10);
+  @Input() cantidad: number;
   @Output() restarNotificaciones: EventEmitter<boolean> = new EventEmitter<boolean>();
   tieneEquipo: boolean;
   subscription: Subscription;
@@ -41,9 +41,15 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-    this.subscription = this.observableService.getData().subscribe(data => {
-      this.tieneEquipo = data.data;
+    this.subscription = this.observableService.getTieneEquipo().subscribe(data => {
+      this.tieneEquipo = data.equipo;
     });
+    this.observableService.currentMessage.subscribe(res => {
+      this.cantidad = res;
+    });
+    // this.subscription = this.observableService.getCantNotificaciones().subscribe(data => {
+    //   this.cantidad = data.cantidadNotificaciones;
+    // });
   }
 
   logOut() {
@@ -53,7 +59,8 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
-    // this.subscription.unsubscribe();
+    console.log('destroying');
+    this.subscription.unsubscribe();
   }
 
   ngOnInit() {
@@ -64,6 +71,9 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
         this.observableService.tieneEquipo(false);
       }
     });
+    // this.observableService.currentMessage.subscribe(res => {
+    //   this.cantidad = res;
+    // });
   }
 
   restarNotificacion() {

@@ -1,6 +1,8 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {NotificacionService} from '../../../services/notificacionService';
 import {MatSnackBar} from '@angular/material';
+import {EquipoService} from '../../../services/equipoService';
+import {ObservableService} from '../../observable.service';
 
 
 @Component({
@@ -15,7 +17,8 @@ export class NotificacionesComponent implements OnInit {
   notificaciones = [];
   @Output() restarNotificaciones: EventEmitter<boolean> = new EventEmitter<boolean>();
   constructor(private notificacionService: NotificacionService,
-              private snackBar: MatSnackBar) { }
+              private snackBar: MatSnackBar,
+              private observableService: ObservableService) { }
 
   ngOnInit() {
     this.notificacionService.getNotificaciones().subscribe(res => {
@@ -29,14 +32,14 @@ export class NotificacionesComponent implements OnInit {
     if(notificacion.tipo === 'n') {
       this.notificacionService.updateNotificacion(notificacion.value._id).subscribe(() => {
         this.notificaciones.splice(this.notificaciones.indexOf(notificacion), 1);
-        localStorage.setItem('cantNotificaciones',
-          ((parseInt(localStorage.getItem('cantNotificaciones'), 10) - 1).toString()));
       });
-    }
-    else if(notificacion.tipo === 's') {
+    } else if(notificacion.tipo === 's') {
       this.solicitudes.splice(this.notificaciones.indexOf(notificacion), 1);
-      localStorage.setItem('cantNotificaciones',
-        ((parseInt(localStorage.getItem('cantNotificaciones'), 10) - 1).toString()));
+      let cantidad: number
+      this.observableService.currentMessage.subscribe(res => {
+        cantidad = res;
+      });
+      this.observableService.changeMessage(cantidad - 1);
     }
     window.navigator.vibrate(200);
   }

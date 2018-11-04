@@ -41,7 +41,7 @@ export class PerfilJugadorComponent implements OnInit {
           this.jugador = res[0];
         });
         this.amistadService.getAmigos().subscribe(amigos => {
-          if (amigos && amigos.find(x => x._id === this.jugador._id)) {
+          if (amigos && amigos.find(x => x._id === params['id'])) {
             this.yaAmigos = true;
           } else {
             this.notificacionService.getSolicitudEnviada(params['id']).subscribe(rta => {
@@ -88,11 +88,7 @@ export class PerfilJugadorComponent implements OnInit {
     this.dialogRef.beforeClose().subscribe((asd) => {
 
       this.notificacionService.responder(this.solicitudId, 'amistad', asd.respuesta).subscribe(res => {
-        if (asd.respuesta === 'Aceptado') {
-          this.yaAmigos = true;
-        } else {
-          this.yaAmigos = false;
-        }
+        this.yaAmigos = asd.respuesta === 'Aceptado';
         this.solicitudRecibida = false;
       });
     });

@@ -1,22 +1,34 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class ObservableService {
 
-  private dataObs$ = new Subject<any>();
+  private equipo$ = new Subject<any>();
+  private notificaciones$ = new Subject<any>();
+  private messageSource = new BehaviorSubject(1);
+  currentMessage = this.messageSource.asObservable();
 
+  constructor() {}
   tieneEquipo(data: boolean) {
-    this.dataObs$.next({ data: data });
+    this.equipo$.next({ equipo: data });
   }
 
   setCantidadNotificaciones(cant: number) {
-    this.dataObs$.next({ cantidadNotificaciones: cant });
+    this.notificaciones$.next({ cantidadNotificaciones: cant });
   }
 
-  getData(): Observable<any> {
-    return this.dataObs$.asObservable();
+  getTieneEquipo(): Observable<any> {
+    return this.equipo$.asObservable();
+  }
+
+  getCantNotificaciones(): Observable<any> {
+    return this.notificaciones$.asObservable();
+  }
+
+  changeMessage(message: number) {
+    this.messageSource.next(message);
   }
 
 }

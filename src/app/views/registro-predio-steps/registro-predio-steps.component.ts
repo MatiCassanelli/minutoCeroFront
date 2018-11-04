@@ -56,7 +56,6 @@ export class RegistroPredioStepsComponent implements OnInit {
       this.nombrePredio = event.infoContacto.nombre;
       this.telefono = event.infoContacto.telefono;
     }
-    debugger;
     if (event.canchas)
       this.canchas = event.canchas;
     if(event.configHoras)
