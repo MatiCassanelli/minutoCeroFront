@@ -37,7 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
     const socket = socketIo(environment.socketUrl);
     socket.on('Notificacion' + localStorage.getItem('id'), (data) => {
       console.log('Socket', data);
-      this.observableService.currentMessage.subscribe(res => {
+      this.observableService.cantNotificaciones.subscribe(res => {
         if(!this.paso){
           this.cantidad = res + 1;
           this.paso = true;

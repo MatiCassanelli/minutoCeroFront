@@ -36,7 +36,7 @@ export class NotificacionesComponent implements OnInit {
     } else if(notificacion.tipo === 's') {
       this.solicitudes.splice(this.notificaciones.indexOf(notificacion), 1);
       let cantidad: number
-      this.observableService.currentMessage.subscribe(res => {
+      this.observableService.cantNotificaciones.subscribe(res => {
         cantidad = res;
       });
       this.observableService.changeMessage(cantidad - 1);

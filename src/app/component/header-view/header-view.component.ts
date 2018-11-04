@@ -44,12 +44,9 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
     this.subscription = this.observableService.getTieneEquipo().subscribe(data => {
       this.tieneEquipo = data.equipo;
     });
-    this.observableService.currentMessage.subscribe(res => {
+    this.observableService.cantNotificaciones.subscribe(res => {
       this.cantidad = res;
     });
-    // this.subscription = this.observableService.getCantNotificaciones().subscribe(data => {
-    //   this.cantidad = data.cantidadNotificaciones;
-    // });
   }
 
   logOut() {
@@ -71,7 +68,7 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
         this.observableService.tieneEquipo(false);
       }
     });
-    // this.observableService.currentMessage.subscribe(res => {
+    // this.observableService.cantNotificaciones.subscribe(res => {
     //   this.cantidad = res;
     // });
   }

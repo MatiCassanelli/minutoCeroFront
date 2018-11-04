@@ -16,9 +16,7 @@ export class CardSolicitudComponent implements OnInit {
   }
 
   responder(respuesta) {
-    this.notificacionService.responder(this.solicitud._id, this.solicitud.tipo, {
-      respuesta: respuesta
-    }).subscribe(res => {
+    this.notificacionService.responder(this.solicitud._id, this.solicitud.tipo, respuesta).subscribe(res => {
       this.restarNotificacion.emit();
     });
   }
