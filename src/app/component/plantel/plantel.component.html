@@ -1,13 +1,27 @@
 <div class="form-group row" *ngIf="partido?.estado !== 'Jugando' && partido?.estado !== 'Finalizado'">
   <label for="jugador" class="col-sm-2 col-form-label"><strong>Jugadores a invitar</strong></label>
   <div class="btn-group col-sm-2 col-form-label" role="group">
-    <button mat-raised-button color="primary" class="col-6" (click)="activarComponent('local')">Local</button>
-    <button mat-raised-button color="primary" class="col-6" (click)="activarComponent('visitante')">Visitante</button>
+    <!--<mat-button-toggle-group #group="matButtonToggleGroup">-->
+    <!--<mat-button-toggle value="local" class="col-6" >-->
+    <!--Local-->
+    <!--</mat-button-toggle>-->
+    <!--<mat-button-toggle value="visitante" class="col-6" >-->
+    <!--Visitante-->
+    <!--</mat-button-toggle>-->
+    <!--</mat-button-toggle-group>-->
+    <button mat-raised-button [ngClass]="{'press': clickedLocal}" color="primary" class="col-6"
+            (click)="clickedLocal = true; clickedVisitante = false; activarComponent('local')">Local
+    </button>
+    <button mat-raised-button [ngClass]="{'press': clickedVisitante}" color="primary" class="col-6"
+            (click)="clickedVisitante = true; clickedLocal = false; activarComponent('visitante')">Visitante
+    </button>
   </div>
-  <mat-checkbox *ngIf="tieneEquipo" [color]="'primary'" [checked]="invitacionEquipo" (change)="invitarEquipo()">Invitar a mi equipo</mat-checkbox>
   <div *ngIf="!disabled" class="col-sm-8">
     <app-invitar-jugadores [queTraer]="'Amigos'" id="jugador" (notifyParent)="getJugadores($event)"
                            [isReset]="resetForm"></app-invitar-jugadores>
+    <mat-checkbox *ngIf="tieneEquipo" [color]="'primary'" [checked]="invitacionEquipo" (change)="invitarEquipo()">
+      Invitar a mi equipo
+    </mat-checkbox>
     <button mat-raised-button class="ui-grid-col-12" color="primary" (click)="invitarJugadores()">Invitar</button>
   </div>
 </div>

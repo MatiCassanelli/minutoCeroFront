@@ -3,14 +3,12 @@ import {PlantelService} from '../../../services/plantelService';
 import {Plantel} from '../../models/plantel';
 import {Router} from '@angular/router';
 import {PartidoService} from '../../../services/partidoService';
-import {ConfirmationService} from 'primeng/api';
 import {Jugador} from '../../models/jugador';
-import {forkJoin} from 'rxjs/observable/forkJoin';
 import {Partido} from '../../models/partido';
 import {MatDialog, MatDialogRef} from '@angular/material';
-import {MapDialogComponent} from '../map-dialog/map-dialog.component';
 import {ConfirmDialogPlantelComponent} from '../confirm-dialog-plantel/confirm-dialog-plantel.component';
-import {ObservableService} from '../../observable.service';
+import {EquipoService} from '../../../services/equipoService';
+import {JugadorService} from '../../../services/jugadorService';
 
 @Component({
   selector: 'app-plantel',
@@ -29,25 +27,30 @@ export class PlantelComponent implements OnInit {
   localidad: string;
   disabled = true;
   traeJugadores = false;
-  jugadoresAInvitar: Jugador[];
+  jugadoresAInvitar: Jugador[] = [];
   resetForm = false;
   noIds = false;
   idPartido: string;
   partido: Partido;
   idOrganizador: string;
   dialogRef: MatDialogRef<ConfirmDialogPlantelComponent>;
+  invitacionEquipo = false;
+  tieneEquipo = false;
+  jugadoresEquipo: Jugador[] = [];
+  clickedLocal = false;
+  clickedVisitante = false;
+
   @Input()
   set setIdPartido(name: string) {
     this.idPartido = name;
   }
   @Output() sendPlantel: EventEmitter<Array<Plantel>> = new EventEmitter<Array<Plantel>>();
   @Input() editable = true;
-  invitacionEquipo = false;
-  tieneEquipo = false;
 
   constructor(private plantelService: PlantelService,
               private partidoService: PartidoService,
-              private confirmationService: ConfirmationService,
+              private equipoService: EquipoService,
+              private jugadorService: JugadorService,
               private router: Router,
               private dialog: MatDialog) {
     this.localInvitados = false;
@@ -69,6 +72,17 @@ export class PlantelComponent implements OnInit {
       this.plantelLocal = new Plantel();
       this.plantelVisitante = new Plantel();
     }
+    this.equipoService.getMiEquipo().subscribe(res => {
+      if(res){
+        this.tieneEquipo = true;
+        for (let j of res[0].jugadores) {
+          this.jugadorService.getJugadorById(j.toString()).subscribe(jug => {
+            this.jugadoresEquipo.push(jug[0]);
+          });
+        }
+      }
+
+    });
   }
 
   getJugadoresPlantel(plantel, condicion) {
@@ -141,13 +155,13 @@ export class PlantelComponent implements OnInit {
       maxWidth: null,
     });
     this.dialogRef.afterClosed().subscribe((jc) => {
-        if (jc && accion === 'confirm')
-          this.addJugadorConfirmado(jc, localia);
-        if (jc && accion === 'remove') {
-          this.removeConfirmado(jc, localia);
-        }
+      if (jc && accion === 'confirm')
+        this.addJugadorConfirmado(jc, localia);
+      if (jc && accion === 'remove') {
+        this.removeConfirmado(jc, localia);
+      }
 
-      });
+    });
   }
 
   removeConfirmado(jugador, localia) {
@@ -177,7 +191,7 @@ export class PlantelComponent implements OnInit {
     this.traeJugadores = true;
     this.jugadoresAInvitar = event;
     for (let i of event) {
-      if(this.plantelLocal.jugadores.find(x => x._id === i._id) ||
+      if (this.plantelLocal.jugadores.find(x => x._id === i._id) ||
         this.plantelLocal.jugadoresConfirmados.find(x => x._id === i._id) ||
         this.plantelVisitante.jugadores.find(x => x._id === i._id) ||
         this.plantelVisitante.jugadoresConfirmados.find(x => x._id === i._id))
@@ -188,11 +202,10 @@ export class PlantelComponent implements OnInit {
 
   invitarJugadores() {
     if (this.localidad === 'local') {
-      if (this.noIds){
-        for(let j of this.jugadoresAInvitar)
+      if (this.noIds) {
+        for (let j of this.jugadoresAInvitar)
           this.plantelLocal.jugadores.push(j);
-      }
-      else {
+      } else {
         this.plantelService.updatePlantel(this.plantelLocal._id, null, this.jugadoresAInvitar).subscribe(res => {
           this.plantelLocal.jugadores = res.jugadores;
         });
@@ -200,11 +213,10 @@ export class PlantelComponent implements OnInit {
       this.jugadoresAInvitar = [];
     }
     if (this.localidad === 'visitante') {
-      if (this.noIds){
-        for(let j of this.jugadoresAInvitar)
-          this.plantelVisitante.jugadores = this.jugadoresAInvitar;
-      }
-      else {
+      if (this.noIds) {
+        for (let j of this.jugadoresAInvitar)
+          this.plantelVisitante.jugadores.push(j);
+      } else {
         this.plantelService.updatePlantel(this.plantelVisitante._id, null, this.jugadoresAInvitar).subscribe(res => {
           this.plantelVisitante.jugadores = res.jugadores;
         });
@@ -212,10 +224,15 @@ export class PlantelComponent implements OnInit {
       this.jugadoresAInvitar = [];
     }
     this.sendPlantel.emit([this.plantelLocal, this.plantelVisitante]);
-    this.resetForm = !this.resetForm; // esto es para q entre en el onchanged del componente
+    this.resetForm = !this.resetForm; // esto es para q entre en el onchanged del componente de invitar
   }
 
   invitarEquipo() {
-    console.log('hizo click en checkbox')
+    this.invitacionEquipo = !this.invitacionEquipo;
+    if (this.invitacionEquipo) {
+      for(let j of this.jugadoresEquipo)
+      this.jugadoresAInvitar.push(j);
+    }
+    this.invitacionEquipo = !this.invitacionEquipo;
   }
 }

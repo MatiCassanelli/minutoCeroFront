@@ -47,7 +47,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
 import {
-  MatAutocomplete, MatAutocompleteModule,
+  MatAutocomplete, MatAutocompleteModule, MatButtonToggleModule,
   MatCardModule, MatCheckboxModule, MatChipsModule,
   MatDialogModule,
   MatFormFieldModule,
@@ -255,7 +255,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatStepperModule,
     MatSlideToggleModule,
     MatCheckboxModule,
-    FullCalendarModule
+    FullCalendarModule,
+    MatButtonToggleModule
   ],
   bootstrap: [AppComponent],
   schemas: [
