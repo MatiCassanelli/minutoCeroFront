@@ -6,8 +6,11 @@
   <mat-placeholder class="buscador">Jugadores</mat-placeholder>
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)" style="width: 100%">
     <mat-option *ngFor="let state of filteredJugadores | async" [value]="state">
-      <p>{{state.nombre}} {{state.apellido}}</p>
+      <!--<p>{{state.nombre}} {{state.apellido}}</p>-->
       <!--<small>Population: {{state.calificacion.puntaje}}</small>-->
+      <img class="example-option-img" aria-hidden src="{{ state.img }}" class="rounded-circle" height="25">
+      <span>{{state.nombre}} {{state.apellido}}</span> |
+      <small>Calificación: {{state.calificacion.puntaje.toFixed(2)}}</small>
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>

@@ -1,6 +1,6 @@
 <mat-list>
   <h2 mat-subheader>Capitan</h2>
-  <mat-list-item>
+  <mat-list-item routerLink="/jugador/{{capitan._id}}">
     <img matListAvatar class="rounded-circle" src="{{ capitan?.img }}">
     <h4 mat-line>{{capitan?.nombre}} {{capitan?.apellido}}</h4>
     <h5 mat-line>{{capitan?.email}}</h5>
@@ -10,7 +10,7 @@
   </mat-list-item>
   <mat-divider></mat-divider>
   <h2 mat-subheader>Jugadores</h2>
-  <mat-list-item *ngFor="let jugador of jugadores">
+  <mat-list-item *ngFor="let jugador of jugadores" routerLink="/jugador/{{jugador._id}}">
     <img matListAvatar class="rounded-circle" src="{{ jugador?.img }}">
     <h4 mat-line>{{jugador?.nombre}} {{jugador?.apellido}}</h4>
     <p mat-line>

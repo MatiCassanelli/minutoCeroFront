@@ -20,10 +20,9 @@
   </mat-chip-list>
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)" class="example-full-width">
     <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
-      <div>
+        <img class="example-option-img" aria-hidden src="{{ fruit.img }}" class="rounded-circle" height="25">
         <span>{{fruit.nombre}} {{fruit.apellido}}</span>
-        <small>Puntuacion: {{fruit.calificacion.puntaje}}</small>
-      </div>
+        <small>Puntuacion: {{fruit.calificacion.puntaje.toFixed(2)}}</small>
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>
