@@ -44,6 +44,7 @@ export class PlantelComponent implements OnInit {
   set setIdPartido(name: string) {
     this.idPartido = name;
   }
+
   @Output() sendPlantel: EventEmitter<Array<Plantel>> = new EventEmitter<Array<Plantel>>();
   @Input() editable = true;
 
@@ -73,7 +74,7 @@ export class PlantelComponent implements OnInit {
       this.plantelVisitante = new Plantel();
     }
     this.equipoService.getMiEquipo().subscribe(res => {
-      if(res){
+      if (res) {
         this.tieneEquipo = true;
         for (let j of res[0].jugadores) {
           this.jugadorService.getJugadorById(j.toString()).subscribe(jug => {
@@ -189,13 +190,20 @@ export class PlantelComponent implements OnInit {
 
   getJugadores(event) {
     this.traeJugadores = true;
-    this.jugadoresAInvitar = event;
+    // this.jugadoresAInvitar = event;
     for (let i of event) {
-      if (this.plantelLocal.jugadores.find(x => x._id === i._id) ||
+      //   if (this.plantelLocal.jugadores.find(x => x._id === i._id) ||
+      //     this.plantelLocal.jugadoresConfirmados.find(x => x._id === i._id) ||
+      //     this.plantelVisitante.jugadores.find(x => x._id === i._id) ||
+      //     this.plantelVisitante.jugadoresConfirmados.find(x => x._id === i._id))
+      //     this.jugadoresAInvitar.splice(this.jugadoresAInvitar.indexOf(i), 1);
+      // }
+      if (!(this.plantelLocal.jugadores.find(x => x._id === i._id) ||
         this.plantelLocal.jugadoresConfirmados.find(x => x._id === i._id) ||
         this.plantelVisitante.jugadores.find(x => x._id === i._id) ||
-        this.plantelVisitante.jugadoresConfirmados.find(x => x._id === i._id))
-        this.jugadoresAInvitar.splice(this.jugadoresAInvitar.indexOf(i), 1);
+        this.plantelVisitante.jugadoresConfirmados.find(x => x._id === i._id)) &&
+        !this.jugadoresAInvitar.find(x => x._id === i._id))
+        this.jugadoresAInvitar.push(i);
     }
   }
 
@@ -206,8 +214,10 @@ export class PlantelComponent implements OnInit {
         for (let j of this.jugadoresAInvitar)
           this.plantelLocal.jugadores.push(j);
       } else {
+        debugger;
         this.plantelService.updatePlantel(this.plantelLocal._id, null, this.jugadoresAInvitar).subscribe(res => {
-          this.plantelLocal.jugadores = res.jugadores;
+          if(res)
+            this.plantelLocal.jugadores = res.jugadores;
         });
       }
       this.jugadoresAInvitar = [];
@@ -218,7 +228,8 @@ export class PlantelComponent implements OnInit {
           this.plantelVisitante.jugadores.push(j);
       } else {
         this.plantelService.updatePlantel(this.plantelVisitante._id, null, this.jugadoresAInvitar).subscribe(res => {
-          this.plantelVisitante.jugadores = res.jugadores;
+          if(res)
+            this.plantelVisitante.jugadores = res.jugadores;
         });
       }
       this.jugadoresAInvitar = [];
@@ -230,9 +241,27 @@ export class PlantelComponent implements OnInit {
   invitarEquipo() {
     this.invitacionEquipo = !this.invitacionEquipo;
     if (this.invitacionEquipo) {
-      for(let j of this.jugadoresEquipo)
-      this.jugadoresAInvitar.push(j);
+      for (let i of this.jugadoresEquipo) { // si no esta en ningun plantel
+        if (!(this.plantelLocal.jugadores.find(x => x._id === i._id) ||
+          this.plantelLocal.jugadoresConfirmados.find(x => x._id === i._id) ||
+          this.plantelVisitante.jugadores.find(x => x._id === i._id) ||
+          this.plantelVisitante.jugadoresConfirmados.find(x => x._id === i._id)) &&
+          !this.jugadoresAInvitar.find(x => x._id === i._id))
+          this.jugadoresAInvitar.push(i);
+      }
+      this.invitacionEquipo = true;
+    } else {
+      if (this.jugadoresEquipo.length > 0) {  // elimina de plantel los jugadores del equipo
+        if (this.localidad === 'local') {
+          this.plantelLocal.jugadores = this.plantelLocal.jugadores.filter(x => this.jugadoresEquipo.indexOf(x) < 0);
+        } else if (this.localidad === 'visitante') {
+          this.plantelVisitante.jugadores = this.plantelVisitante.jugadores.filter(x => this.jugadoresEquipo.indexOf(x) < 0);
+        }
+      }
+      this.invitacionEquipo = false;
+      // this.jugadoresEquipo = [];
     }
-    this.invitacionEquipo = !this.invitacionEquipo;
   }
 }
+
+
