@@ -1,6 +1,7 @@
 import {AfterContentInit, AfterViewInit, Component, EventEmitter, Input, OnInit, Optional, Output, ViewChild} from '@angular/core';
 import {} from '@types/googlemaps';
 import {Predio} from '../../models/predio';
+import {GoogleMap} from '@agm/core/services/google-maps-types';
 
 declare var google: any;
 
@@ -16,11 +17,14 @@ export class MapComponent implements OnInit, AfterContentInit {
   latitude = -31.416798;
   longitude = -64.183674;
   predios: Predio[];
+  infoWindow = new google.maps.InfoWindow();
   @Input() direccion: string;
   @Input() geoposicion: boolean;
+
   @Input() set setIdPartido(name: Predio[]) {
     this.predios = name;
   }
+
   @Output() sendUbicacion = new EventEmitter();
   @Output() sendInfo = new EventEmitter();
 
@@ -30,6 +34,7 @@ export class MapComponent implements OnInit, AfterContentInit {
       icon: this.iconBase + 'library_maps.png'
     }
   };
+  clickedMarker = new google.maps.Marker();
 
   constructor() {
 
@@ -51,12 +56,12 @@ export class MapComponent implements OnInit, AfterContentInit {
         };
         this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
         this.initMap(position.coords.latitude, position.coords.longitude);
-        if(this.predios !== undefined) {
+        if (this.predios !== undefined) {
           this.setAll(this.predios);
         }
+        this.setCenter(this.latitude, this.longitude);
       });
-    }
-    else {
+    } else {
       console.log('No hay geoposicion');
       let mapProp = {
         center: new google.maps.LatLng(this.latitude, this.longitude),
@@ -65,7 +70,7 @@ export class MapComponent implements OnInit, AfterContentInit {
       };
       this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
       this.initMap(this.latitude, this.longitude);
-      if(this.predios !== undefined){
+      if (this.predios !== undefined) {
         this.setAll(this.predios);
       }
 
@@ -85,12 +90,17 @@ export class MapComponent implements OnInit, AfterContentInit {
       map: this.map,
       infoPredio: predio
     });
-    if (predio === null){
+    if (predio === null) {
       marker.setIcon(this.icons.library.icon);
     }
     marker.addListener('click', () => {
       if (predio !== null) {
         this.infoMarker(marker, marker.infoPredio.nombrePredio + ' ' + marker.infoPredio.direccion);
+        if (this.clickedMarker !== marker) {
+          this.clickedMarker.setIcon(null);
+          marker.setIcon('https://maps.gstatic.com/mapfiles/ms2/micons/sportvenue.png');
+          this.clickedMarker = marker;
+        }
         this.sendUbicacion.emit(marker.getPosition());
         this.sendInfo.emit(marker.infoPredio);
       } else {
@@ -107,10 +117,10 @@ export class MapComponent implements OnInit, AfterContentInit {
   }
 
   infoMarker(marker: google.maps.Marker, mensaje: string) {
-    let infoWindow = new google.maps.InfoWindow();
-    infoWindow.setOptions({maxWidth: 200});
-    infoWindow.setContent(mensaje);
-    infoWindow.open(this.map, marker);
+    this.infoWindow.close();
+    this.infoWindow.setOptions({maxWidth: 200});
+    this.infoWindow.setContent(mensaje);
+    this.infoWindow.open(this.map, marker);
   }
 
   geocodeDireccion(direccion) {
@@ -135,7 +145,7 @@ export class MapComponent implements OnInit, AfterContentInit {
 
   setAll(predios) {
     if (!(predios instanceof Array)) {
-      this.newMarker(new google.maps.LatLng(predios.ubicacionMaps.lat, predios.ubicacionMaps.lng), predios);
+      this.newMarker(new google.maps.LatLng(predios.ubicacionMaps.lat, predios.ubicacionMaps.lng), predios).setIcon('https://maps.gstatic.com/mapfiles/ms2/micons/sportvenue.png');
       this.setCenter(this.latitude, this.longitude);
     } else {
       for (let predio of predios) {
@@ -143,18 +153,5 @@ export class MapComponent implements OnInit, AfterContentInit {
         this.setCenter(this.latitude, this.longitude);
       }
     }
-  }
-
-  setUbicacion(predio) {
-    let marker = new google.maps.Marker({
-      position: predio.ubicacionMaps,
-      map: this.map,
-      infoPredio: predio
-    });
-    marker.addListener('click', () => {
-        this.infoMarker(marker, marker.infoPredio.nombrePredio);
-    });
-    this.map.panTo(marker.getPosition());
-    return marker;
   }
 }
