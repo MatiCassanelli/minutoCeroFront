@@ -53,15 +53,26 @@ export class NotificacionesComponent implements OnInit {
     this.observableService.cantNotificaciones.subscribe(res => {
       cantidad = res;
     });
+    this.openSnackBar();
     this.observableService.changeMessage(cantidad - 1);
     window.navigator.vibrate(200);
   }
 
 
   restarNotificacionPredio(notificacion, respuesta) {
-    this.reservaService.putEstado(notificacion._id, respuesta).subscribe(() => {
-      this.reservas.splice(this.reservas.indexOf(notificacion), 1);
+    let cantidad: number;
+    if (notificacion.estado === 'Solicitada') {
+      this.reservaService.putEstado(notificacion._id, respuesta).subscribe(() => {
+      });
+    }
+    this.reservas.splice(this.reservas.indexOf(notificacion), 1);
+    this.observableService.cantNotificaciones.subscribe(res => {
+      cantidad = res;
     });
+    this.openSnackBar();
+    this.observableService.changeMessage(cantidad - 1);
+    window.navigator.vibrate(200);
+
   }
 
   openSnackBar() {

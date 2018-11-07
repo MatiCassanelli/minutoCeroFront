@@ -29,6 +29,10 @@ export class ReservaService {
     return this.http.get<any>(this.api + 'notificaciones', global.httpOptions);
   }
 
+  getCantNotificacionesReserva() {
+    return this.http.get<number>(this.api + 'notificaciones/cantidad', global.httpOptions);
+  }
+
   putEstado(idReserva, estado) {
     return this.http.put<any>(this.api + idReserva + '/estado', {estado: estado}, global.httpOptions);
   }
