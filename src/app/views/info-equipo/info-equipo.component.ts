@@ -8,6 +8,8 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/ma
 import {ConfirmDialogPlantelComponent} from '../../component/confirm-dialog-plantel/confirm-dialog-plantel.component';
 import {ConfirmUbicacionDialogComponent} from '../registro-predio-mapa/registro-predio-mapa.component';
 import {NotificacionService} from '../../../services/notificacionService';
+import {DeporteService} from '../../../services/deporteService';
+import {ObservableService} from '../../observable.service';
 
 @Component({
   selector: 'app-info-equipo',
@@ -25,13 +27,16 @@ export class InfoEquipoComponent implements OnInit {
   @Input() id: string;
   display: boolean;
   dialogRef: MatDialogRef<DialogInvitarJugadorEquipoComponent>;
+  elimiarDialog: MatDialogRef<DialogEliminarEquipoComponent>;
   editable = false;
 
   constructor(private route: ActivatedRoute,
               private equipoService: EquipoService,
               private jugadorService: JugadorService,
               private dialog: MatDialog,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private observableService: ObservableService,
+              private router: Router) {
     this.routeSub = this.route.params.subscribe((params) => {
       if (params['id']) {
         this.id = params.id;
@@ -103,6 +108,32 @@ export class InfoEquipoComponent implements OnInit {
     console.log(array);
     return array;
   }
+
+  eliminarJugador(idJugador) {
+    this.jugadores.splice(this.jugadores.indexOf(idJugador), 1);
+    this.equipoService.eliminarJugador(this.equipo._id, idJugador._id).subscribe(res => {
+      console.log(res);
+    });
+  }
+
+  showEliminarDialog() {
+    this.elimiarDialog = this.dialog.open(DialogEliminarEquipoComponent, {
+      width: '600px',
+      maxWidth: null
+    });
+    this.elimiarDialog.afterClosed().subscribe(res => {
+      debugger;
+      if(res)
+        this.eliminarEquipo();
+    });
+  }
+
+  eliminarEquipo() {
+    this.equipoService.eliminarEquipo(this.equipo._id).subscribe(res => {
+      this.observableService.tieneEquipo(false);
+      this.router.navigateByUrl('/partido');
+    });
+  }
 }
 
 @Component({
@@ -136,6 +167,32 @@ export class DialogInvitarJugadorEquipoComponent implements OnInit {
       this.dialogRef.close(this.jugadoresInvitar);
     else
       this.dialogRef.close();
+  }
+
+}
+
+@Component({
+  selector: 'app-dialog-eliminar-equipo',
+  template: `<h1 mat-dialog-title>Eliminar equipo?</h1>
+  <mat-dialog-content>
+    <p>Si confirmás, no vas a poder volver atrás la acción.</p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button type="button" mat-dialog-close>Cancelar</button>
+    <button mat-button type="submit" (click)="submit()">Aceptar</button>
+  </mat-dialog-actions>`
+})
+export class DialogEliminarEquipoComponent implements OnInit {
+
+  constructor(private dialogRef: MatDialogRef<DialogEliminarEquipoComponent>,
+              @Inject(MAT_DIALOG_DATA) public data) {
+  }
+
+  ngOnInit() {
+  }
+
+  submit() {
+      this.dialogRef.close(true);
   }
 
 }

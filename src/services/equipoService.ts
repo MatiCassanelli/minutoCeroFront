@@ -28,5 +28,11 @@ export class EquipoService {
     return this.http.get<Equipo>(this.api + 'miEquipo', global.httpOptions);
   }
 
+  eliminarJugador(idEquipo, idJugador) {
+    return this.http.delete(this.api + idEquipo + '/' + idJugador, global.httpOptions);
+  }
 
+  eliminarEquipo(idEquipo) {
+    return this.http.delete(this.api + idEquipo, global.httpOptions);
+  }
 }

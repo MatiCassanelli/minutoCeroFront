@@ -1,6 +1,7 @@
 .fab-container {
   position: fixed;
-  bottom: 15px;
+  /*bottom: 15px;*/
+  bottom: 0;
   right: 15px;
   z-index: 100;
   display: flex;
@@ -22,4 +23,14 @@ button {
 .fab-toggler {
   float: right;
   z-index: 100;
+}
+
+.btnEliminar {
+  /*position: fixed;*/
+  /*bottom: 0;*/
+  margin-top: 5px;
+  left: 15px;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
 }

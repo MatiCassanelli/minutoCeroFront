@@ -68,7 +68,11 @@ import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
 import { DragScrollModule } from 'ngx-drag-scroll';
 import { AppComponent } from './app.component';
 import { CrearEquipoComponent } from './views/crear-equipo/crear-equipo.component';
-import {DialogInvitarJugadorEquipoComponent, InfoEquipoComponent} from './views/info-equipo/info-equipo.component';
+import {
+  DialogEliminarEquipoComponent,
+  DialogInvitarJugadorEquipoComponent,
+  InfoEquipoComponent
+} from './views/info-equipo/info-equipo.component';
 import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component';
 import { EstrellasJugadorComponent } from './component/estrellas-jugador/estrellas-jugador.component';
 import { InvitarJugadoresComponent } from './component/invitar-jugadores/invitar-jugadores.component';
@@ -196,7 +200,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     ReservaPredioComponent,
     ReservaDialogComponent,
     ReservaInfoComponent,
-    CardNotificacionReservaComponent
+    CardNotificacionReservaComponent,
+    DialogEliminarEquipoComponent
   ],
   imports: [
     AppRouting,
@@ -292,6 +297,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   entryComponents: [MapComponent, MapDialogComponent,
     ConfirmDialogPlantelComponent, ConfirmUbicacionDialogComponent,
     DialogInvitarJugadorEquipoComponent, NotificacionesComponent, NuevaCanchaComponent,
-    DialogResultadoComponent, DialogConfirmAmistadComponent, ReservaDialogComponent]
+    DialogResultadoComponent, DialogConfirmAmistadComponent, ReservaDialogComponent, DialogEliminarEquipoComponent]
 })
 export class AppModule { }

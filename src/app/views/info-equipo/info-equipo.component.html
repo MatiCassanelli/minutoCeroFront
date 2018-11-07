@@ -1,11 +1,23 @@
-<div >
+<div>
   <h3 style="text-align: left; display: inline-flex">
     {{equipo?.nombre}}
   </h3>
 </div>
 
+<h4 mat-subheader>Capitan</h4>
+<app-estrellas-jugador [capitan]="capitan"></app-estrellas-jugador>
 
-<app-estrellas-jugador [jugadores]="jugadores" [capitan]="capitan"></app-estrellas-jugador>
+<h4 mat-subheader>Jugadores</h4>
+<div *ngFor="let jugador of jugadores" style="width: 100%; margin-bottom: 0">
+  <app-estrellas-jugador [capitan]="jugador" style="width: 100%"></app-estrellas-jugador>
+  <button *ngIf="editable" mat-icon-button (click)="eliminarJugador(jugador)">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<button *ngIf="editable" mat-raised-button class="btnEliminar" color="warn" (click)="showEliminarDialog()">Eliminar equipo</button>
+<!--<app-estrellas-jugador [jugadores]="jugadores" [capitan]="capitan"></app-estrellas-jugador>-->
+
+
 <div *ngIf="editable" class="fab-container">
   <button mat-fab class="fab-toggler" color="primary"
           (click)="showDialog()">
