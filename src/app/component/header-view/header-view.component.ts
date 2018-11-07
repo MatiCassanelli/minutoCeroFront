@@ -30,6 +30,9 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
   tieneEquipo: boolean;
   subscription: Subscription;
   mobileQuery: MediaQueryList;
+  height = window.innerHeight
+    || document.documentElement.clientHeight
+    || document.body.clientHeight;
 
   private _mobileQueryListener: () => void;
   logoutApi = environment.baseUrl + '/auth/logout';
