@@ -134,6 +134,7 @@ import { FullCalendarModule } from 'ng-fullcalendar';
 import {ReservaService} from '../services/reservaService';
 import { ReservaPredioComponent } from './views/reserva-predio/reserva-predio.component';
 import { ReservaInfoComponent } from './views/reserva-info/reserva-info.component';
+import { CardNotificacionReservaComponent } from './component/card-notificacion-reserva/card-notificacion-reserva.component';
 
 
 
@@ -194,7 +195,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     DialogConfirmAmistadComponent,
     ReservaPredioComponent,
     ReservaDialogComponent,
-    ReservaInfoComponent
+    ReservaInfoComponent,
+    CardNotificacionReservaComponent
   ],
   imports: [
     AppRouting,

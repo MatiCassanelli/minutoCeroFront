@@ -24,12 +24,13 @@ export class ReservaService {
   getAllReservas() {
     return this.http.get<any>(this.api + 'all', global.httpOptions);
   }
-  // getPartidos(estado) {
-  //   return this.http.get<Array<Partido>>(this.api + '/estado/' + estado, global.httpOptions);
-  // }
-  //
-  // getPartido(id) {
-  //   return this.http.get<Partido>(this.api + id, global.httpOptions);
-  // }
+
+  getNotificacionesReserva() {
+    return this.http.get<any>(this.api + 'notificaciones', global.httpOptions);
+  }
+
+  putEstado(idReserva, estado) {
+    return this.http.put<any>(this.api + idReserva + '/estado', {estado: estado}, global.httpOptions);
+  }
 
 }

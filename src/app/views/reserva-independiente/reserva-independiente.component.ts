@@ -96,6 +96,7 @@ export class ReservaIndependienteComponent implements OnInit {
       cancha = res[0];
       this.reservaService.createReserva({
         estado: 'Solicitada',
+        jugador: localStorage.getItem('id'),
         dia: this.fechaPartido,
         cancha: cancha._id
       }).subscribe(reserva => {

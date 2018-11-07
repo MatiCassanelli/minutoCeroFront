@@ -1,0 +1,14 @@
+<div style="margin: 3%;">
+  <mat-card>
+    <!--<mat-card-header>-->
+      <!--{{reserva.estado}}-->
+    <!--</mat-card-header>-->
+    <mat-card-content>
+      {{mensaje}}
+    </mat-card-content>
+    <mat-card-actions style="text-align: right;" *ngIf="reserva.estado === 'Solicitada'">
+      <button mat-raised-button (click)="responder('Rechazada')" color="warn">Rechazar</button>
+      <button mat-raised-button (click)="responder('Reservada')" color="primary">Aceptar</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
