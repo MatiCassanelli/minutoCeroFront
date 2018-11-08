@@ -16,7 +16,8 @@ export class MapComponent implements OnInit, AfterContentInit {
   map: google.maps.Map;
   latitude = -31.416798;
   longitude = -64.183674;
-  predios: Predio[];
+  // predios: Predio[];
+  predios: any;
   infoWindow = new google.maps.InfoWindow();
   @Input() direccion: string;
   @Input() geoposicion: boolean;
@@ -56,10 +57,10 @@ export class MapComponent implements OnInit, AfterContentInit {
         };
         this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
         this.initMap(position.coords.latitude, position.coords.longitude);
+        this.setCenter(this.latitude, this.longitude);
         if (this.predios !== undefined) {
           this.setAll(this.predios);
         }
-        this.setCenter(this.latitude, this.longitude);
       });
     } else {
       console.log('No hay geoposicion');
@@ -84,7 +85,7 @@ export class MapComponent implements OnInit, AfterContentInit {
     marker.setTitle('Estás acá ');
   }
 
-  newMarker(position, predio: Predio = null): google.maps.Marker {
+  newMarker(position, predio = null): google.maps.Marker {
     let marker = new google.maps.Marker({
       position: position,
       map: this.map,
@@ -95,7 +96,7 @@ export class MapComponent implements OnInit, AfterContentInit {
     }
     marker.addListener('click', () => {
       if (predio !== null) {
-        this.infoMarker(marker, marker.infoPredio.nombrePredio + ' ' + marker.infoPredio.direccion);
+        this.infoMarker(marker, marker.infoPredio.predio.nombrePredio + ' ' + marker.infoPredio.direccion);
         if (this.clickedMarker !== marker) {
           this.clickedMarker.setIcon(null);
           marker.setIcon('https://maps.gstatic.com/mapfiles/ms2/micons/sportvenue.png');
@@ -144,14 +145,21 @@ export class MapComponent implements OnInit, AfterContentInit {
   }
 
   setAll(predios) {
-    if (!(predios instanceof Array)) {
+    debugger;
+    if (!(predios.disponibles)) {
       this.newMarker(new google.maps.LatLng(predios.ubicacionMaps.lat, predios.ubicacionMaps.lng), predios).setIcon('https://maps.gstatic.com/mapfiles/ms2/micons/sportvenue.png');
-      this.setCenter(this.latitude, this.longitude);
+      // this.setCenter(this.latitude, this.longitude);
     } else {
-      for (let predio of predios) {
-        this.newMarker(new google.maps.LatLng(predio.ubicacionMaps.lat, predio.ubicacionMaps.lng), predio);
-        this.setCenter(this.latitude, this.longitude);
+      for (let predio of predios.disponibles) {
+        this.newMarker(new google.maps.LatLng(predio.predio.ubicacionMaps.lat, predio.predio.ubicacionMaps.lng), predio);
+      }
+      for (let predio of predios.preReservados) {
+        this.newMarker(new google.maps.LatLng(predio.predio.ubicacionMaps.lat, predio.predio.ubicacionMaps.lng), predio);
+      }
+      for (let predio of predios.noDisponibles) {
+        this.newMarker(new google.maps.LatLng(predio.predio.ubicacionMaps.lat, predio.predio.ubicacionMaps.lng), predio);
       }
     }
+    this.setCenter(this.latitude, this.longitude);
   }
 }

@@ -15,6 +15,7 @@ import {AmazingTimePickerService} from 'amazing-time-picker';
 import * as moment from 'moment';
 import {ReservaService} from '../../../services/reservaService';
 import {Deporte} from '../../models/deporte';
+import {Cancha} from '../../models/cancha';
 
 
 @Component({
@@ -34,9 +35,10 @@ export class ReservaIndependienteComponent implements OnInit {
   form: FormGroup;
   deporte: Deporte;
   deportes: Deporte[];
-  predios: Predio[];
+  // predios: Predio[];
+  predios: any;
   selectedPredio: Predio;
-  canchaSeleccionada: any;
+  canchaSeleccionada: Cancha;
   fechaPartido: Date;
   ubicacion = {
     lat: String,
@@ -65,9 +67,6 @@ export class ReservaIndependienteComponent implements OnInit {
       // this.tiposCancha = [];
       this.deportes = res;
     });
-    this.predioService.getAllPredios().subscribe(predios => {
-      this.predios = predios;
-    });
   }
 
   open() {
@@ -82,26 +81,26 @@ export class ReservaIndependienteComponent implements OnInit {
   }
 
   getTipoCancha(event) {
-    this.canchaSeleccionada = event;
+    // this.canchaSeleccionada = event;
     this.deporte = this.deportes.find(x => x._id === event);
+    if (this.deporte && this.fechaPartido)
+      this.getPredioConDisponibilidad();
   }
 
   getFecha(event) {
     this.fechaPartido = event;
+    if (this.deporte && this.fechaPartido)
+      this.getPredioConDisponibilidad();
   }
 
   reservar() {
-    let cancha;
-    this.predioService.getCanchasWithPredio(this.selectedPredio._id).subscribe(res => {
-      cancha = res[0];
-      this.reservaService.createReserva({
-        estado: 'Solicitada',
-        jugador: localStorage.getItem('id'),
-        dia: this.fechaPartido,
-        cancha: cancha._id
-      }).subscribe(reserva => {
-        this.router.navigateByUrl('/partido');
-      });
+    this.reservaService.createReserva({
+      estado: 'Solicitada',
+      jugador: localStorage.getItem('id'),
+      dia: this.fechaPartido,
+      cancha: this.canchaSeleccionada
+    }).subscribe(reserva => {
+      this.router.navigateByUrl('/partido');
     });
   }
 
@@ -114,9 +113,24 @@ export class ReservaIndependienteComponent implements OnInit {
     this.fileNameDialogRef.afterClosed().subscribe((res) => {
       if (res) {
         this.ubicacion = res.ubicacion;
-        this.selectedPredio = res.predio;
+        this.selectedPredio = res.predio.predio;
+        this.canchaSeleccionada = res.predio.cancha;
         this.mostrarLabel = true;
       }
     });
+  }
+
+  getPredioConDisponibilidad() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        console.log('Hay geoposicion');
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        this.predioService.getPredioConDisponibilidad(this.deporte._id, 30, latitude, longitude, this.fechaPartido).subscribe(predios => {
+          console.log(predios);
+          this.predios = predios;
+        });
+      });
+    }
   }
 }

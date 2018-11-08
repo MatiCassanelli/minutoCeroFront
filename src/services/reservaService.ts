@@ -37,4 +37,7 @@ export class ReservaService {
     return this.http.put<any>(this.api + idReserva + '/estado', {estado: estado}, global.httpOptions);
   }
 
+  getByEstado(estado) {
+    return this.http.get<any>(this.api + '/estado/' + estado, global.httpOptions);
+  }
 }

@@ -35,56 +35,59 @@ export class HomePredioComponent implements OnInit {
 
   ngOnInit() {
     this.authService.logIn('Predio');
-    this.reservaService.getAllReservas().subscribe(res => {
-      this.reservas = res;
-      for (let reserva of res) {
-        let r = {
-          id: reserva._id,
-          title: reserva.cancha.nombreCancha,
-          start: moment(reserva.dia).format('YYYY-MM-DD').toString() + 'T' + moment(reserva.dia).format('HH:mm:ss').toString(),
-          end: moment(reserva.dia).format('YYYY-MM-DD').toString() + 'T' + moment(reserva.dia).add(1, 'h').format('HH:mm:ss').toString()
+    this.reservaService.getByEstado('Reservada').subscribe(res => {
+      this.reservaService.getByEstado('Completada').subscribe(res2 => {
+        this.reservas = res.concat(res2);
+        for (let reserva of res) {
+          let r = {
+            id: reserva._id,
+            title: reserva.cancha.nombreCancha,
+            start: moment(reserva.dia).format('YYYY-MM-DD').toString() + 'T' + moment(reserva.dia).format('HH:mm:ss').toString(),
+            end: moment(reserva.dia).format('YYYY-MM-DD').toString() + 'T' + moment(reserva.dia).add(1, 'h').format('HH:mm:ss').toString()
+          };
+          this.data.push(r);
+        }
+        this.calendarOptions = {
+          editable: true,
+          contentHeight: () => {
+            console.log(screen.height);
+            if (screen.width < 577) {
+              return 600;
+            } else {
+              return 750;
+            }
+          },
+          eventLimit: false,
+          header: {
+            left: 'prev,next,today',
+            center: 'title',
+            right: 'month,agendaDay,listMonth'
+          },
+          scrollTime: moment.duration(moment().add(1, 'h').get('h'), 'hours'),
+          dayNamesShort: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+          dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+          monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+          buttonText: {
+            today: 'Hoy',
+            month: 'Mes',
+            day: 'Agenda',
+            list: 'Lista'
+          },
+          views: {
+            basic: {
+              titleFormat: 'MMMM YYYY',
+            },
+            agenda: {
+              titleFormat: 'DD MMMM YYYY'
+            },
+            day: {
+              titleFormat: 'DD MMMM YYYY'
+            }
+          },
+          events: this.data
         };
-        this.data.push(r);
-      }
-      this.calendarOptions = {
-        editable: true,
-        contentHeight: () => {
-          console.log(screen.height);
-          if (screen.width < 577) {
-            return 600;
-          } else {
-            return 750;
-          }
-        },
-        eventLimit: false,
-        header: {
-          left: 'prev,next,today',
-          center: 'title',
-          right: 'month,agendaDay,listMonth'
-        },
-        scrollTime: moment.duration(moment().add(1, 'h').get('h'), 'hours'),
-        dayNamesShort: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
-        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-        buttonText: {
-          today: 'Hoy',
-          month: 'Mes',
-          day: 'Agenda',
-          list: 'Lista'
-        },
-        views: {
-          basic: {
-            titleFormat: 'MMMM YYYY',
-          },
-          agenda: {
-            titleFormat: 'DD MMMM YYYY'
-          },
-          day: {
-            titleFormat: 'DD MMMM YYYY'
-          }
-        },
-        events: this.data
-      };
+
+      });
     });
   }
 
@@ -145,12 +148,14 @@ export class HomePredioComponent implements OnInit {
 @Component({
   selector: 'app-reserva-dialog',
   // templateUrl: './app-reserva-dialog.component.html',
-  template: `<app-reserva-info [reservaId]="data.reservaId"></app-reserva-info>`
+  template: `
+    <app-reserva-info [reservaId]="data.reservaId"></app-reserva-info>`
 })
 export class ReservaDialogComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<ReservaDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data) { }
+              @Inject(MAT_DIALOG_DATA) public data) {
+  }
 
   ngOnInit() {
   }

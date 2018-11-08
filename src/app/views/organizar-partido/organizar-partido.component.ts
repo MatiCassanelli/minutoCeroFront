@@ -16,6 +16,7 @@ import {MapDialogComponent} from '../../component/map-dialog/map-dialog.componen
 import {MapComponent} from '../../component/map/map.component';
 import {ReservaService} from '../../../services/reservaService';
 import {Deporte} from '../../models/deporte';
+import {Cancha} from '../../models/cancha';
 
 
 @Component({
@@ -34,9 +35,10 @@ export class OrganizarPartidoComponent implements OnInit {
   form: FormGroup;
   deporte: Deporte;
   deportes: Deporte[];
-  predios: Predio[];
+  // predios: Predio[];
+  predios: any;
   selectedPredio: Predio;
-  canchaSeleccionada: Deporte;
+  canchaSeleccionada: Cancha;
   fechaPartido: Date;
   plantelLocal: Plantel;
   plantelVisitante: Plantel;
@@ -64,9 +66,7 @@ export class OrganizarPartidoComponent implements OnInit {
       // this.tiposCancha = [];
       this.deportes = res;
     });
-    this.predioService.getAllPredios().subscribe(predios => {
-      this.predios = predios;
-    });
+
     this.plantelLocal = new Plantel();
     this.plantelVisitante = new Plantel();
   }
@@ -81,35 +81,29 @@ export class OrganizarPartidoComponent implements OnInit {
   }
 
   getTipoCancha(event) {
-    this.canchaSeleccionada = event;
+    // this.canchaSeleccionada = event;
     this.deporte = this.deportes.find(x => x._id === event);
+    if(this.deporte && this.fechaPartido)
+      this.getPredioConDisponibilidad();
   }
 
   getFecha(event) {
     this.fechaPartido = event;
+    if(this.deporte && this.fechaPartido)
+      this.getPredioConDisponibilidad();
   }
 
   crearPartido() {
-    let cancha: any;
-    // const infoPartido = {
-    //   nombreDeporte: this.deporte.nombre,
-    //   nombrePredio: this.selectedPredio.nombrePredio,
-    //   dia: this.fechaPartido,
-    //   organizador: JSON.parse(localStorage.getItem('usuario'))
-    // };
-    // console.log(infoPartido);
-    forkJoin(this.predioService.getCanchasWithPredio(this.selectedPredio._id),
-      this.plantelService.createPlantel(this.plantelLocal.jugadoresConfirmados, 'Local', this.deporte.cantJugadores),
+    forkJoin(this.plantelService.createPlantel(this.plantelLocal.jugadoresConfirmados, 'Local', this.deporte.cantJugadores),
       this.plantelService.createPlantel(this.plantelVisitante.jugadoresConfirmados, 'Visitante', this.deporte.cantJugadores)).subscribe(res => {
-      cancha = res[0][0];
-      let local = res[1];
-      let visitante = res[2];
+      let local = res[0];
+      let visitante = res[1];
       this.partidoService.createPartido({
         deporte: this.deporte._id,
         grupoLocal: local,
         grupoVisitante: visitante,
         dia: this.fechaPartido,
-        cancha: cancha._id,
+        cancha: this.canchaSeleccionada,
         horasDeJuego: 1
       }).subscribe(() => {
         forkJoin(this.plantelService.updatePlantel(local._id, local.jugadoresConfirmados, this.plantelLocal.jugadores),
@@ -117,7 +111,8 @@ export class OrganizarPartidoComponent implements OnInit {
           this.reservaService.createReserva({
             estado: 'PreReserva',
             dia: this.fechaPartido,
-            cancha: cancha._id
+            cancha: this.canchaSeleccionada,
+            jugador: localStorage.getItem('id')
           }).subscribe(reserva => {
             this.router.navigateByUrl('/partido');
           });
@@ -136,10 +131,26 @@ export class OrganizarPartidoComponent implements OnInit {
     this.fileNameDialogRef.afterClosed().subscribe((res) => {
       if (res) {
         this.ubicacion = res.ubicacion;
-        this.selectedPredio = res.predio;
+        debugger;
+        this.selectedPredio = res.predio.predio;
+        this.canchaSeleccionada = res.predio.cancha;
         this.mostrarLabel = true;
       }
     });
+  }
+
+  getPredioConDisponibilidad() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        console.log('Hay geoposicion');
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        this.predioService.getPredioConDisponibilidad(this.deporte._id, 30, latitude, longitude, this.fechaPartido).subscribe(predios => {
+          console.log(predios);
+          this.predios = predios;
+        });
+      });
+    }
   }
 }
 

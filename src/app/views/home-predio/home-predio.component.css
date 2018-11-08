@@ -1,0 +1,3 @@
+.fc-scroller .fc-day-grid-container {
+  overflow-y: hidden !important;
+}

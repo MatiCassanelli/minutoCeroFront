@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import * as global from '../app/app.global';
 import {Predio} from '../app/models/predio';
-import {environment} from "../environments/environment";
+import {environment} from '../environments/environment';
 import {Cancha} from '../app/models/cancha';
 
 @Injectable()
@@ -28,7 +28,7 @@ export class PredioService {
         this.http.put<Predio>(this.api + 'ubicacion', ub, global.httpOptions).subscribe(respredio => {
           return respredio;
         });
-    });
+      });
   }
 
   getAllPredios() {
@@ -38,6 +38,7 @@ export class PredioService {
   getCanchasWithPredio(idPredio) {
     return this.http.get<Array<Cancha>>(this.api + idPredio + '/canchas', global.httpOptions);
   }
+
   getCanchas() {
     return this.http.get<Array<Cancha>>(this.api + 'canchas', global.httpOptions);
   }
@@ -50,7 +51,12 @@ export class PredioService {
     return this.http.post<Predio>(this.api + 'canchas/crear', {canchas: canchas}, global.httpOptions);
   }
 
-  setConfiguracionHorarios (horarios) {
+  setConfiguracionHorarios(horarios) {
     return this.http.put<Predio>(this.api + 'configuracionHorario', horarios, global.httpOptions);
+  }
+
+  getPredioConDisponibilidad(idDeporte, kilometros, lat, lng, dia) {
+    return this.http.get<any>(this.api + '/cercanos/idDeporte=' + idDeporte + '&kilometros=' + kilometros + '&longitud=' + lng + '&latitud=' +
+      lat + '&dia=' + dia, global.httpOptions);
   }
 }
