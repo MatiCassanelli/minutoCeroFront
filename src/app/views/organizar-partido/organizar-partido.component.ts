@@ -131,10 +131,11 @@ export class OrganizarPartidoComponent implements OnInit {
     this.fileNameDialogRef.afterClosed().subscribe((res) => {
       if (res) {
         this.ubicacion = res.ubicacion;
-        debugger;
-        this.selectedPredio = res.predio.predio;
-        this.canchaSeleccionada = res.predio.cancha;
-        this.mostrarLabel = true;
+        if(res.predio) {
+          this.selectedPredio = res.predio.predio;
+          this.canchaSeleccionada = res.predio.cancha;
+          this.mostrarLabel = true;
+        }
       }
     });
   }

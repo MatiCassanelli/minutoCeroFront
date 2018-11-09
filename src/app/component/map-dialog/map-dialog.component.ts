@@ -15,6 +15,7 @@ export class MapDialogComponent implements OnInit {
     lat: String
   };
   predio: Predio;
+  disabled = true;
 
   constructor(private dialogRef: MatDialogRef<MapDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data) {
@@ -33,6 +34,7 @@ export class MapDialogComponent implements OnInit {
   }
 
   getPredio(event) {
+    this.disabled = false;
     this.predio = event;
   }
 

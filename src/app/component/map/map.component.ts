@@ -85,25 +85,29 @@ export class MapComponent implements OnInit, AfterContentInit {
     marker.setTitle('Estás acá ');
   }
 
-  newMarker(position, predio = null): google.maps.Marker {
+  newMarker(position, predio = null, color = null): google.maps.Marker {
     let marker = new google.maps.Marker({
       position: position,
       map: this.map,
-      infoPredio: predio
+      infoPredio: predio,
+      icon: 'https://maps.gstatic.com/mapfiles/ms2/micons/' + color + '-dot.png'
     });
     if (predio === null) {
       marker.setIcon(this.icons.library.icon);
     }
     marker.addListener('click', () => {
-      if (predio !== null) {
-        this.infoMarker(marker, marker.infoPredio.predio.nombrePredio + ' ' + marker.infoPredio.direccion);
-        if (this.clickedMarker !== marker) {
-          this.clickedMarker.setIcon(null);
-          marker.setIcon('https://maps.gstatic.com/mapfiles/ms2/micons/sportvenue.png');
-          this.clickedMarker = marker;
+      debugger;
+      if (predio) {
+        this.infoMarker(marker, (predio.nombrePredio || marker.infoPredio.predio.nombrePredio).toString() + '<br>' + (predio.direccion || marker.infoPredio.predio.direccion).toString());
+        if(marker.infoPredio.cancha) {
+          if (this.clickedMarker !== marker) {
+            this.clickedMarker.setIcon('https://maps.gstatic.com/mapfiles/ms2/micons/' + color + '-dot.png');
+            marker.setIcon('https://maps.gstatic.com/mapfiles/ms2/micons/sportvenue.png');
+            this.clickedMarker = marker;
+          }
+          this.sendUbicacion.emit(marker.getPosition());
+          this.sendInfo.emit(marker.infoPredio);
         }
-        this.sendUbicacion.emit(marker.getPosition());
-        this.sendInfo.emit(marker.infoPredio);
       } else {
         this.infoMarker(marker, 'Estás acá(' + marker.getPosition().toString() + ')');
         this.sendUbicacion.emit(marker.getPosition());
@@ -145,19 +149,18 @@ export class MapComponent implements OnInit, AfterContentInit {
   }
 
   setAll(predios) {
-    debugger;
     if (!(predios.disponibles)) {
       this.newMarker(new google.maps.LatLng(predios.ubicacionMaps.lat, predios.ubicacionMaps.lng), predios).setIcon('https://maps.gstatic.com/mapfiles/ms2/micons/sportvenue.png');
       // this.setCenter(this.latitude, this.longitude);
     } else {
       for (let predio of predios.disponibles) {
-        this.newMarker(new google.maps.LatLng(predio.predio.ubicacionMaps.lat, predio.predio.ubicacionMaps.lng), predio);
+        this.newMarker(new google.maps.LatLng(predio.predio.ubicacionMaps.lat, predio.predio.ubicacionMaps.lng), predio, 'green');
       }
       for (let predio of predios.preReservados) {
-        this.newMarker(new google.maps.LatLng(predio.predio.ubicacionMaps.lat, predio.predio.ubicacionMaps.lng), predio);
+        this.newMarker(new google.maps.LatLng(predio.predio.ubicacionMaps.lat, predio.predio.ubicacionMaps.lng), predio, 'yellow');
       }
       for (let predio of predios.noDisponibles) {
-        this.newMarker(new google.maps.LatLng(predio.predio.ubicacionMaps.lat, predio.predio.ubicacionMaps.lng), predio);
+        this.newMarker(new google.maps.LatLng(predio.ubicacionMaps.lat, predio.ubicacionMaps.lng), predio, 'red');
       }
     }
     this.setCenter(this.latitude, this.longitude);
