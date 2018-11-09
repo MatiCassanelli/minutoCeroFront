@@ -9,13 +9,13 @@
     </ng-template>
     <ng-template [ngIf]="!yaAmigos && solicitudEnviada && !solicitudRecibida">
       <button style="text-align:right" mat-raised-button
-              color="primary" (click)="cancelarSolicitud()">
+              color="primary" (click)="cancelarSolicitud()" class="btnDerecha">
         Solicitud enviada
       </button>
     </ng-template>
     <ng-template [ngIf]="solicitudRecibida">
       <button style="text-align:right" mat-raised-button
-              color="primary" (click)="openDialog()">
+              color="primary" (click)="openDialog()" class="btnDerecha">
         Aceptar/Rechazar
       </button>
     </ng-template>
