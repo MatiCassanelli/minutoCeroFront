@@ -77,7 +77,9 @@ export class PerfilJugadorComponent implements OnInit {
   }
 
   eliminarAmistad() {
-    alert('Deberia borrar la amistad');
+    this.amistadService.eliminarAmigo(this.jugador._id).subscribe(res => {
+      this.yaAmigos = false;
+    });
   }
 
   openDialog() {

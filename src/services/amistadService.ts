@@ -20,4 +20,8 @@ export class AmistadService {
   getAmigos() {
     return this.http.get<Array<Jugador>>(this.api, global.httpOptions);
   }
+
+  eliminarAmigo(idAmigo) {
+    return this.http.delete(this.api + idAmigo, global.httpOptions);
+  }
 }
