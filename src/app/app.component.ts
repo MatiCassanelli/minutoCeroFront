@@ -51,17 +51,17 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notificacionService.getCantNotificaciones().subscribe(res2 => {
           if (res.toString() === 'false')
             res = 0;
-          if(res2.toString() === 'false')
+          if (res2.toString() === 'false')
             res2 = 0;
           this.cantidad = res + res2;
           this.observableService.changeMessage(this.cantidad);
         });
-
       });
 
       const socket = socketIo(environment.socketUrl);
       socket.on('Reserva' + localStorage.getItem('id'), (data) => {
         console.log('Reserva', data);
+        debugger;
         this.observableService.cantNotificaciones.subscribe(res => {
           if (!this.paso) {
             this.cantidad = res + 1;
@@ -73,6 +73,7 @@ export class AppComponent implements OnInit, OnDestroy {
       });
       socket.on('Notificacion' + localStorage.getItem('id'), (data) => {
         console.log('Notificacion', data);
+        debugger;
         this.observableService.cantNotificaciones.subscribe(res => {
           if (!this.paso) {
             this.cantidad = res + 1;
