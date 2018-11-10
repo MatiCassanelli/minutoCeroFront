@@ -52,7 +52,7 @@ export class PredioService {
   }
 
   setConfiguracionHorarios(horarios) {
-    return this.http.put<Predio>(this.api + 'configuracionHorario', horarios, global.httpOptions);
+    return this.http.put<Predio>(this.api + 'configuracionDiaNoche', horarios, global.httpOptions);
   }
 
   getPredioConDisponibilidad(idDeporte, kilometros, lat, lng, dia) {

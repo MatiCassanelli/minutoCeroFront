@@ -11,6 +11,9 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import {MapDialogComponent} from '../../component/map-dialog/map-dialog.component';
 import {debug} from 'util';
 import {JugadorService} from '../../../services/jugadorService';
+import {ReservaService} from '../../../services/reservaService';
+import {Reserva} from '../../models/reserva';
+import {DeporteService} from '../../../services/deporteService';
 
 @Component({
   selector: 'app-partido',
@@ -22,17 +25,20 @@ export class PartidoComponent implements OnInit {
 
   idPartido: string;
   partido: Partido;
-  displayDialog = false;
+  reserva: Reserva;
   predio: Predio;
   plantelLocal: Plantel;
   plantelVisitante: Plantel;
   fileNameDialogRef: MatDialogRef<MapDialogComponent>;
   editable: boolean;
+  titulo: string;
 
   constructor(private route: ActivatedRoute,
               private jugadorService: JugadorService,
               private partidoService: PartidoService,
               private predioService: PredioService,
+              private reservaService: ReservaService,
+              private deporteService: DeporteService,
               private dialog: MatDialog) {
   }
 
@@ -40,9 +46,22 @@ export class PartidoComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.idPartido = params.id;
       this.partidoService.getPartido(this.idPartido).subscribe(partido => {
-        this.partido = partido;
-        this.editable = (localStorage.getItem('id') === this.partido.organizador.toString());
-        this.getPredio(partido.cancha);
+        if (partido) {
+          this.partido = partido;
+          this.titulo = 'Partido';
+          this.editable = (localStorage.getItem('id') === this.partido.organizador.toString());
+          this.getPredio(partido.cancha);
+        } else {
+          this.reservaService.getReservaById(this.idPartido).subscribe(res => {
+            this.reserva = res;
+            this.titulo = 'Reserva';
+            this.deporteService.getDeporteById(res.cancha.deporte.toString()).subscribe(dep => {
+              this.reserva.cancha.deporte = dep.nombre;
+            });
+            this.getPredio(res.cancha);
+          });
+        }
+
       });
     });
   }
@@ -66,5 +85,15 @@ export class PartidoComponent implements OnInit {
       width: '600px',
       maxWidth: null,
     });
+  }
+
+  cancelarReserva(reserva) {
+    if(this.partido){  // es reserva entonces
+      alert('Partido cancelado' + reserva._id);
+    } else if(this.reserva){
+      this.reservaService.cancelarReserva(reserva._id).subscribe((res) => {
+        this.reserva.estado = 'Cancelada';
+      });
+    }
   }
 }

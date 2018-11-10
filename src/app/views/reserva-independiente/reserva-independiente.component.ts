@@ -35,7 +35,6 @@ export class ReservaIndependienteComponent implements OnInit {
   form: FormGroup;
   deporte: Deporte;
   deportes: Deporte[];
-  // predios: Predio[];
   predios: any;
   selectedPredio: Predio;
   canchaSeleccionada: Cancha;
@@ -48,7 +47,6 @@ export class ReservaIndependienteComponent implements OnInit {
   fileNameDialogRef: MatDialogRef<MapDialogComponent>;
   public selectedTime: string;
   date = new FormControl(new Date());
-  serializedDate = new FormControl((new Date()).toISOString());
 
   constructor(private fb: FormBuilder,
               private plantelService: PlantelService,

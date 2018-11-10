@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ReservaService} from '../../../services/reservaService';
+import {Reserva} from '../../models/reserva';
 
 @Component({
   selector: 'app-reserva-info',
@@ -10,7 +11,7 @@ export class ReservaInfoComponent implements OnInit {
 
   editable = true;
   @Input() reservaId: string;
-  reserva: any;
+  reserva: Reserva;
   jugador: {
     nombre: string,
     apellido: string,
@@ -27,7 +28,7 @@ export class ReservaInfoComponent implements OnInit {
         this.jugador = {
           nombre: res.jugador.nombre,
           apellido: res.jugador.apellido,
-          telefono: res.jugador.telefono
+          telefono: ''
         };
       } else {
         this.jugador = {

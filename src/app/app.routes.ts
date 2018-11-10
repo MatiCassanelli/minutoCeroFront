@@ -24,6 +24,8 @@ import {CargaNuevaCanchaComponent} from './views/carga-nueva-cancha/carga-nueva-
 import {RegistroPredioStepsComponent} from './views/registro-predio-steps/registro-predio-steps.component';
 import {RankingJugadorComponent} from './views/ranking-jugador/ranking-jugador.component';
 import {ReservaPredioComponent} from './views/reserva-predio/reserva-predio.component';
+import {HorariosPredioComponent} from './views/horarios-predio/horarios-predio.component';
+import {ListadoReservasJugadorComponent} from './views/listado-reservas-jugador/listado-reservas-jugador.component';
 
 const appRoutes: Routes = [
   {
@@ -55,8 +57,9 @@ const appRoutes: Routes = [
     children: [
       {path: '', component: HomePredioComponent},
       {path: 'registro', component: RegistroPredioStepsComponent, canActivate: [AuthGuardService, RoleGuardService]},
-      {path: 'registro/1', component: RegistrarPredio1Component, canActivate: [AuthGuardService, RoleGuardService]},
-      {path: 'registro/2', component: RegistroPredioMapaComponent, canActivate: [AuthGuardService, RoleGuardService]},
+      {path: 'horarios', component: HorariosPredioComponent, canActivate: [AuthGuardService, RoleGuardService]},
+      // {path: 'registro/1', component: RegistrarPredio1Component, canActivate: [AuthGuardService, RoleGuardService]},
+      // {path: 'registro/2', component: RegistroPredioMapaComponent, canActivate: [AuthGuardService, RoleGuardService]},
       {path: 'nuevaCancha', component: CargaNuevaCanchaComponent, canActivate: [AuthGuardService, RoleGuardService]}
     ],
   },
@@ -66,6 +69,7 @@ const appRoutes: Routes = [
   {path: 'reservaCancha', component: ReservaPredioComponent},
   {path: 'jugador/:id', component: PerfilJugadorComponent},
   {path: 'ranking', component: RankingJugadorComponent},
+  {path: 'misReservas', component: ListadoReservasJugadorComponent},
 
   {path: '**', component: PageNotFoundComponent},
 ];

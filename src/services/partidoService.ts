@@ -20,6 +20,10 @@ export class PartidoService {
     return this.http.get<Array<Partido>>(this.api + '/estado/' + estado, global.httpOptions);
   }
 
+  getPartidoByReserva(reserva) {
+    return this.http.get<Partido>(this.api + reserva.cancha._id + '/' + reserva.jugador + '/' + reserva.dia, global.httpOptions);
+  }
+
   getPartido(id) {
     return this.http.get<Partido>(this.api + id, global.httpOptions);
   }

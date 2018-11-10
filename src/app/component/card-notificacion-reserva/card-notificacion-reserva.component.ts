@@ -17,9 +17,9 @@ export class CardNotificacionReservaComponent implements OnInit {
 
   ngOnInit() {
     if (this.reserva.estado === 'Solicitada') {
-      this.mensaje = 'Tenés una solicitud pendiente para la ' + this.reserva.cancha.nombreCancha + ' para el dia ' + moment(this.reserva.dia).format('DD/MM HH:mm');
+      this.mensaje = 'Solicitud de reserva para ' + this.reserva.cancha.nombreCancha;
     } else if (this.reserva.estado === 'PreReserva') {
-      this.mensaje = 'Se pre reservó la cancha ' + this.reserva.cancha.nombreCancha + '. Esperando que se complete el minimo.'
+      this.mensaje = 'PreReserva ' + this.reserva.cancha.nombreCancha;
     }
   }
 

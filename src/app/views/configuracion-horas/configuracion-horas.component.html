@@ -1,7 +1,4 @@
-<div class="container">
-  <p>Para poder determinar el precio de las canchas automaticamente, necesitamos que nos indiques el horario en el que
-    las luces se encienden, y en el que están apagadas</p>
-
+<!--<div class="container">-->
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       Horario sin luces
@@ -34,8 +31,8 @@
                   [defaultDate]="defaultDate"></p-calendar>
     </div>
   </mat-expansion-panel>
-</div>
+<!--</div>-->
 <button mat-button (click)="sendHorarios()"
-        *ngIf="(this.horarios?.dia.desde && this.horarios?.dia.hasta
+        [disabled]="!(this.horarios?.dia.desde && this.horarios?.dia.hasta
           && this.horarios?.noche.desde && this.horarios?.noche.hasta)">Aceptar
 </button>

@@ -5,6 +5,8 @@
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Dia/Noche</ng-template>
+    <p>Para poder determinar el precio de las canchas automaticamente, necesitamos que nos indiques el horario en el que
+      las luces se encienden, y en el que están apagadas</p>
     <app-configuracion-horas (stepEmit)="siguiente($event, stepper)"></app-configuracion-horas>
   </mat-step>
   <mat-step>

@@ -23,4 +23,8 @@ export class DeporteService {
   getDeportes() {
     return this.http.get<Array<Deporte>>(this.api, httpOptions);
   }
+
+  getDeporteById(id) {
+    return this.http.get<Deporte>(this.api + id, httpOptions);
+  }
 }

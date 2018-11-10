@@ -1,0 +1,16 @@
+<div style="margin: 3%;" *ngFor="let reserva of misReservas" (click)="goDetail(reserva)">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title style="font-size: 16px">
+        {{reserva?.cancha.nombreCancha}} - {{reserva?.cancha.predio.nombrePredio}}
+        <small>({{reserva?.estado}})</small>
+        <br>
+        {{reserva.dia | date:'dd/MM/yy - HH:mm'}}
+      </mat-card-title>
+    </mat-card-header>
+    <!--<mat-card-actions style="text-align: right;"-->
+                      <!--*ngIf="reserva.estado !== 'Cancelada' && reserva.estado !== 'Completada' && reserva.estado !== 'Completada'">-->
+      <!--<button mat-raised-button color="warn">Cancelar Reserva</button>-->
+    <!--</mat-card-actions>-->
+  </mat-card>
+</div>

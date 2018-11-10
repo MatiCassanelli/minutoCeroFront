@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as global from '../app/app.global';
 import {environment} from "../environments/environment";
 import {Partido} from '../app/models/partido';
+import {Reserva} from '../app/models/reserva';
 
 @Injectable()
 export class ReservaService {
@@ -18,11 +19,11 @@ export class ReservaService {
   }
 
   getReservaById (idReserva) {
-    return this.http.get<any>(this.api + idReserva, global.httpOptions);
+    return this.http.get<Reserva>(this.api + idReserva, global.httpOptions);
   }
 
-  getAllReservas() {
-    return this.http.get<any>(this.api + 'all', global.httpOptions);
+  getMisReservas() {
+    return this.http.get<any>(this.api + 'misReservas', global.httpOptions);
   }
 
   getNotificacionesReserva() {
@@ -39,5 +40,9 @@ export class ReservaService {
 
   getByEstado(estado) {
     return this.http.get<any>(this.api + '/estado/' + estado, global.httpOptions);
+  }
+
+  cancelarReserva(idReserva) {
+    return this.http.delete(this.api + '/independiente/' + idReserva, global.httpOptions);
   }
 }

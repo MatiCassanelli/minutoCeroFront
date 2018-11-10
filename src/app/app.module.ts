@@ -139,6 +139,8 @@ import {ReservaService} from '../services/reservaService';
 import { ReservaPredioComponent } from './views/reserva-predio/reserva-predio.component';
 import { ReservaInfoComponent } from './views/reserva-info/reserva-info.component';
 import { CardNotificacionReservaComponent } from './component/card-notificacion-reserva/card-notificacion-reserva.component';
+import { HorariosPredioComponent } from './views/horarios-predio/horarios-predio.component';
+import { ListadoReservasJugadorComponent } from './views/listado-reservas-jugador/listado-reservas-jugador.component';
 
 
 
@@ -201,7 +203,9 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     ReservaDialogComponent,
     ReservaInfoComponent,
     CardNotificacionReservaComponent,
-    DialogEliminarEquipoComponent
+    DialogEliminarEquipoComponent,
+    HorariosPredioComponent,
+    ListadoReservasJugadorComponent
   ],
   imports: [
     AppRouting,
