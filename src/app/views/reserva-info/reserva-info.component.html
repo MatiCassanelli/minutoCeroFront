@@ -2,27 +2,26 @@
 <mat-card>
   <mat-card-header>
     <h3>Reserva</h3>
-    <button mat-button (click)="editable = !editable">Editar</button>
   </mat-card-header>
   <mat-card-content>
     <div class="form-group row">
       <label for="datos" class="col-sm-2 col-form-label"><strong>Datos jugador</strong></label>
       <div id="datos" class="col-sm-10">
         <mat-form-field>
-          <input matInput placeholder="Nombre" [readonly]="editable" required [(ngModel)]="jugador.nombre">
+          <input matInput placeholder="Nombre" [readonly]="editable" required [value]="jugador?.nombre">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Apellido" required [(ngModel)]="jugador.apellido" [readonly]="editable">
+          <input matInput placeholder="Apellido" required [value]="jugador?.apellido" [readonly]="editable">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Teléfono de Contacto" type="number" required [(ngModel)]="jugador.telefono"
+          <input matInput placeholder="Teléfono de Contacto" type="number" required [value]="jugador?.telefono"
                  [readonly]="editable">
         </mat-form-field>
       </div>
     </div>
 
     <div readonly="editable">
-      <app-fecha-hora [readOnly]="editable" [fecha]="reserva?.dia"></app-fecha-hora>
+      <app-fecha-hora *ngIf="reserva" [readOnly]="editable" [fecha]="reserva.dia"></app-fecha-hora>
     </div>
 
     <div class="form-group row">
@@ -35,7 +34,7 @@
         <!--</mat-option>-->
         <!--</mat-select>-->
         <mat-select id="cancha" placeholder="Cancha" required [value]="reserva?.cancha.nombreCancha">
-          <mat-option *ngFor="let c of [reserva?.cancha]" [value]="c.nombreCancha">
+          <mat-option *ngFor="let c of [reserva?.cancha]" [value]="c?.nombreCancha">
             {{c?.nombreCancha}}
           </mat-option>
         </mat-select>
@@ -48,5 +47,8 @@
     </div>
   </mat-card-content>
 
+  <mat-card-actions *ngIf="reserva?.jugadorNoRegistrado">
+    <button mat-raised-button color="warn" (click)="cancelarReserva()">Cancelar Reserva</button>
+  </mat-card-actions>
 </mat-card>
 <!--</div>-->

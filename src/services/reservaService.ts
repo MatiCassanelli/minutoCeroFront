@@ -45,4 +45,8 @@ export class ReservaService {
   cancelarReserva(idReserva) {
     return this.http.delete(this.api + '/independiente/' + idReserva, global.httpOptions);
   }
+
+  cancelarReservaPredio(idReserva) {
+    return this.http.delete(this.api + '/predio/' + idReserva, global.httpOptions);
+  }
 }

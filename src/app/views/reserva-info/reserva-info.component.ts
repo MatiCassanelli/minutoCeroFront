@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ReservaService} from '../../../services/reservaService';
 import {Reserva} from '../../models/reserva';
 
@@ -17,6 +17,7 @@ export class ReservaInfoComponent implements OnInit {
     apellido: string,
     telefono: string
   };
+  @Output() cancelarEmit: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private reservaService: ReservaService) {
   }
@@ -32,11 +33,18 @@ export class ReservaInfoComponent implements OnInit {
         };
       } else {
         this.jugador = {
-          nombre: res.jugadorNoRegistrado.nombre,
-          apellido: res.jugadorNoRegistrado.apellido,
-          telefono: res.jugadorNoRegistrado.telefono
+          nombre: res.jugadorNoRegistrado.nombre || '',
+          apellido: res.jugadorNoRegistrado.apellido || '',
+          telefono: res.jugadorNoRegistrado.telefono || ''
         };
       }
+    });
+  }
+
+  cancelarReserva() {
+    this.reservaService.cancelarReservaPredio(this.reserva._id).subscribe(res => {
+      console.log(res);
+      this.cancelarEmit.emit(true);
     });
   }
 

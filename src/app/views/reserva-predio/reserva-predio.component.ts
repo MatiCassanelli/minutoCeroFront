@@ -6,6 +6,7 @@ import {Cancha} from '../../models/cancha';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {switchMap} from 'rxjs/operator/switchMap';
 import * as moment from 'moment';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-reserva-predio',
@@ -26,7 +27,8 @@ export class ReservaPredioComponent implements OnInit {
   constructor(private reservaService: ReservaService,
               private predioService: PredioService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private location: Location) {
   }
 
   ngOnInit() {
@@ -67,7 +69,7 @@ export class ReservaPredioComponent implements OnInit {
   }
 
   volver() {
-    this.volverEmit.emit(false);
+    this.location.back();
   }
 
 }

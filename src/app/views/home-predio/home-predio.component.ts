@@ -94,9 +94,6 @@ export class HomePredioComponent implements OnInit {
   clickButton(model: any) {
     // debugger;
     const view = this.ucCalendar.fullCalendar('getView');
-    // console.log(' model.date', model.detail.date.format('YYYY-MM-DD'));
-
-
     if (view.type === 'month' && model.type === 'dayClick') {
       this.ucCalendar.fullCalendar('changeView', 'agendaDay');
       this.ucCalendar.fullCalendar('gotoDate', model.detail.date);
@@ -105,8 +102,7 @@ export class HomePredioComponent implements OnInit {
       // this.router.navigateByUrl('/reservaCancha');
         this.router.navigate(['/reservaCancha', {fecha: moment.parseZone(model.detail.date.toString()).format()}]);
     }
-    // this.hidden = false;
-    // console.log(model);
+
     this.displayEvent = model;
   }
 
@@ -134,13 +130,12 @@ export class HomePredioComponent implements OnInit {
         reservaId: reservaId
       }
     });
-    // this.fileNameDialogRef.afterClosed().subscribe((res) => {
-    //   if (res) {
-    //     this.ubicacion = res.ubicacion;
-    //     this.selectedPredio = res.predio;
-    //     this.mostrarLabel = true;
-    //   }
-    // });
+    this.fileNameDialogRef.beforeClose().subscribe(res => {
+      if(res){
+        this.ucCalendar.fullCalendar( 'removeEvents', [reservaId]);
+        this.data.splice(this.data.indexOf(reservaId), 1);
+      }
+    });
   }
 }
 
@@ -149,7 +144,7 @@ export class HomePredioComponent implements OnInit {
   selector: 'app-reserva-dialog',
   // templateUrl: './app-reserva-dialog.component.html',
   template: `
-    <app-reserva-info [reservaId]="data.reservaId"></app-reserva-info>`
+    <app-reserva-info [reservaId]="data.reservaId" (cancelarEmit)="cancelar($event)"></app-reserva-info>`
 })
 export class ReservaDialogComponent implements OnInit {
 
@@ -158,6 +153,10 @@ export class ReservaDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  cancelar(event) {
+    this.dialogRef.close(event);
   }
 
 }
