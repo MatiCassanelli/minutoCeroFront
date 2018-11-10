@@ -122,7 +122,6 @@ export class InfoEquipoComponent implements OnInit {
       maxWidth: null
     });
     this.elimiarDialog.afterClosed().subscribe(res => {
-      debugger;
       if(res)
         this.eliminarEquipo();
     });

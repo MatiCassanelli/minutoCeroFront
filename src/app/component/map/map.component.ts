@@ -96,7 +96,6 @@ export class MapComponent implements OnInit, AfterContentInit {
       marker.setIcon(this.icons.library.icon);
     }
     marker.addListener('click', () => {
-      debugger;
       if (predio) {
         this.infoMarker(marker, (predio.nombrePredio || marker.infoPredio.predio.nombrePredio).toString() + '<br>' + (predio.direccion || marker.infoPredio.predio.direccion).toString());
         if(marker.infoPredio.cancha) {

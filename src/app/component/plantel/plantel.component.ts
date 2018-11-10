@@ -214,7 +214,6 @@ export class PlantelComponent implements OnInit {
         for (let j of this.jugadoresAInvitar)
           this.plantelLocal.jugadores.push(j);
       } else {
-        debugger;
         this.plantelService.updatePlantel(this.plantelLocal._id, null, this.jugadoresAInvitar).subscribe(res => {
           if(res)
             this.plantelLocal.jugadores = res.jugadores;
