@@ -89,7 +89,10 @@ export class PartidoComponent implements OnInit {
 
   cancelarReserva(reserva) {
     if(this.partido){  // es reserva entonces
-      alert('Partido cancelado' + reserva._id);
+      this.partidoService.cancelarPartido(reserva._id).subscribe(res => {
+        console.log(res);
+        debugger;
+      })
     } else if(this.reserva){
       this.reservaService.cancelarReserva(reserva._id).subscribe((res) => {
         this.reserva.estado = 'Cancelada';

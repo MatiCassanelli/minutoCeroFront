@@ -32,4 +32,8 @@ export class PartidoService {
     return this.http.put<Partido>(this.api + 'resultado/' + idPartido, resultado, global.httpOptions);
   }
 
+  cancelarPartido (idPartido) {
+    return this.http.delete(this.api + idPartido, global.httpOptions);
+  }
+
 }

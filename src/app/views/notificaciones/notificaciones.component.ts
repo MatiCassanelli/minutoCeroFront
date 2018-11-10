@@ -38,18 +38,22 @@ export class NotificacionesComponent implements OnInit {
       this.reservaService.getNotificacionesReserva().subscribe(res => {
         this.reservas = res;
       });
+      this.notificacionService.getNotificaciones().subscribe(res => {
+        this.notificaciones = res['notificaciones'];
+      });
     }
 
   }
 
   restarNotificacion(notificacion) {
-    this.openSnackBar();
     let cantidad: number;
     if (notificacion.tipo === 'n') {
       this.notificacionService.updateNotificacion(notificacion.value._id).subscribe(() => {
       });
+      this.notificaciones.splice(this.notificaciones.indexOf(notificacion.value), 1);
+    } else {
+      this.solicitudes.splice(this.solicitudes.indexOf(notificacion.value), 1);
     }
-    this.solicitudes.splice(this.notificaciones.indexOf(notificacion), 1);
     this.observableService.cantNotificaciones.subscribe(res => {
       cantidad = res;
     });
