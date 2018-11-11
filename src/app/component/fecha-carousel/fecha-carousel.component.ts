@@ -2,6 +2,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {AmazingTimePickerService} from 'amazing-time-picker';
 import {Horario} from '../../models/horario';
+import {Predio} from '../../models/predio';
+import {PredioService} from '../../../services/predioService';
 
 @Component({
   selector: 'app-fecha-carousel',
@@ -10,16 +12,14 @@ import {Horario} from '../../models/horario';
 })
 export class FechaCarouselComponent implements OnInit {
 
-  // horariosForm: FormGroup;
-  // // horarios: FormArray;
-
   dias: string[];
   horarios: Horario[];
   abre = false;
   defaultDate = new Date();
+  predio: Predio;
   @Output() emitHorario: EventEmitter<Array<Horario>> = new EventEmitter<Array<Horario>>();
 
-  constructor(private atp: AmazingTimePickerService,
+  constructor(private predioService: PredioService,
               private _formBuilder: FormBuilder) {
     this.horarios = [];
     this.dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
@@ -31,11 +31,17 @@ export class FechaCarouselComponent implements OnInit {
   }
 
   ngOnInit() {
-    // const start = new Date();
-    // this.remainder = 60 - (start.getMinutes() % 60);
     const today = new Date();
     this.defaultDate.setHours(this.redondearHora(today.getHours(), today.getMinutes())[0]);
     this.defaultDate.setMinutes(this.redondearHora(today.getHours(), today.getMinutes())[1]);
+    // this.predioService.getPredio(localStorage.getItem('id')).subscribe(predio => {
+    //   this.predio = predio;
+    //   for (let i = 0; i < predio.horario.length; i++) {
+    //     this.horarios[i].dia = predio.horario[i].dia;
+    //     this.horarios[i].abre = true;
+    //     this.horarios[i].horario = predio.horario[i].horario;
+    //   }
+    // });
   }
 
   private redondearHora(hours, minutes) {
@@ -45,14 +51,6 @@ export class FechaCarouselComponent implements OnInit {
     let h = ((((minutes / 105) + .5) | 0) + hours) % 24;
     return [h, m];
   }
-
-
-  // addHorario(value) {
-  //   this.horarios.push(value);
-  // }
-  // removeHorario(value) {
-  //   this.horarios.splice(this.horarios.indexOf(value.dia), 1);
-  // }
 
   sendHorarios() {
     let asd = [];
@@ -78,27 +76,3 @@ export class FechaCarouselComponent implements OnInit {
     });
   }
 }
-
-// this.dias = [ 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
-// public config: SwiperConfigInterface = {
-//   a11y: true,
-//   direction: 'horizontal',
-//   slidesPerView: 1,
-//   keyboard: true,
-//   mousewheel: true,
-//   scrollbar: false,
-//   navigation: false,
-//   pagination: true
-// };
-//
-// private scrollbar: SwiperScrollbarInterface = {
-//   el: '.swiper-scrollbar',
-//   hide: false,
-//   draggable: true
-// };
-//
-// private pagination: SwiperPaginationInterface = {
-//   el: '.swiper-pagination',
-//   clickable: true,
-//   hideOnClick: false
-// };

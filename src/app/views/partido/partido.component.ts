@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {PartidoService} from '../../../services/partidoService';
 import {Partido} from '../../models/partido';
@@ -14,6 +14,7 @@ import {JugadorService} from '../../../services/jugadorService';
 import {ReservaService} from '../../../services/reservaService';
 import {Reserva} from '../../models/reserva';
 import {DeporteService} from '../../../services/deporteService';
+import {Cancha} from '../../models/cancha';
 
 @Component({
   selector: 'app-partido',
@@ -27,11 +28,14 @@ export class PartidoComponent implements OnInit {
   partido: Partido;
   reserva: Reserva;
   predio: Predio;
+  predios: Predio[];
+  canchaSeleccionada: Cancha;
   plantelLocal: Plantel;
   plantelVisitante: Plantel;
   fileNameDialogRef: MatDialogRef<MapDialogComponent>;
   editable: boolean;
   titulo: string;
+  reelegirPredio = false;
 
   constructor(private route: ActivatedRoute,
               private jugadorService: JugadorService,
@@ -45,23 +49,52 @@ export class PartidoComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.idPartido = params.id;
+      this.reelegirPredio = params.reelegir;
       this.partidoService.getPartido(this.idPartido).subscribe(partido => {
         if (partido) {
           this.partido = partido;
           this.titulo = 'Partido';
           this.editable = (localStorage.getItem('id') === this.partido.organizador.toString());
-          this.getPredio(partido.cancha);
+          if (!this.reelegirPredio)
+            this.getPredio(partido.cancha);
+          else {
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(position => {
+                console.log('Hay geoposicion');
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                this.predioService.getPredioConDisponibilidad(partido.deporte._id, 30, latitude, longitude, partido.dia).subscribe(predios => {
+                  this.predios = predios;
+                });
+              });
+            }
+          }
+          // this.getPredio(partido.cancha);
         } else {
           this.reservaService.getReservaById(this.idPartido).subscribe(res => {
             this.reserva = res;
             this.titulo = 'Reserva';
+            let idDeporte = '';
             this.deporteService.getDeporteById(res.cancha.deporte.toString()).subscribe(dep => {
               this.reserva.cancha.deporte = dep.nombre;
+              idDeporte = dep._id;
+              if (!this.reelegirPredio)
+                this.getPredio(res.cancha);
+              else {
+                if (navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition(position => {
+                    console.log('Hay geoposicion');
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    this.predioService.getPredioConDisponibilidad(idDeporte, 30, latitude, longitude, res.dia).subscribe(predios => {
+                      this.predios = predios;
+                    });
+                  });
+                }
+              }
             });
-            this.getPredio(res.cancha);
           });
         }
-
       });
     });
   }
@@ -81,18 +114,36 @@ export class PartidoComponent implements OnInit {
   openDialog() {
     // this.fileNameDialogRef = this.dialog.open(MapComponent, {
     this.fileNameDialogRef = this.dialog.open(MapDialogComponent, {
-      data: this.predio,
+      data: this.predio || this.predios,
       width: '600px',
       maxWidth: null,
+    });
+    this.fileNameDialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        if (res.predio) {
+          this.predio = res.predio.predio;
+          this.canchaSeleccionada = res.predio.cancha;
+          if (this.partido)
+            this.partidoService.updateCancha(this.partido._id, this.canchaSeleccionada).subscribe(res2 => {
+              console.log(res2);
+            });
+          else {
+            if (this.reserva)
+              this.reservaService.updateCancha(this.reserva._id, this.canchaSeleccionada).subscribe(res2 => {
+                console.log(res2);
+              });
+          }
+        }
+      }
     });
   }
 
   cancelarReserva(reserva) {
-    if(this.partido){  // es reserva entonces
+    if (this.partido) {  // es reserva entonces
       this.partidoService.cancelarPartido(reserva._id).subscribe(res => {
         console.log(res);
       });
-    } else if(this.reserva){
+    } else if (this.reserva) {
       this.reservaService.cancelarReserva(reserva._id).subscribe((res) => {
         this.reserva.estado = 'Cancelada';
       });

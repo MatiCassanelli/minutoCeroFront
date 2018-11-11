@@ -49,4 +49,8 @@ export class ReservaService {
   cancelarReservaPredio(idReserva) {
     return this.http.delete(this.api + '/predio/' + idReserva, global.httpOptions);
   }
+
+  updateCancha(idReserva, idCancha) {
+    return this.http.put<Reserva>(this.api + idReserva + '/ubicacion', {cancha: idCancha}, global.httpOptions);
+  }
 }

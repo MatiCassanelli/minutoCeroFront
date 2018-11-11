@@ -22,7 +22,7 @@ export class ListadoReservasJugadorComponent implements OnInit {
   }
 
   goDetail(reserva) {
-    this.partidoService.getPartidoByReserva(reserva).subscribe(res => {
+    this.partidoService.getPartidoByReserva(reserva.cancha._id, reserva.jugador, reserva.dia).subscribe(res => {
       if(res)
         this.router.navigateByUrl('/partido/' + res._id);
       else

@@ -18,7 +18,7 @@ export class PredioService {
   }
 
   setUbicacion(ub) {
-    this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + ub.lat + ',' + ub.lng + '&key=AIzaSyBBbAYKGDWUQn05DaopQRrfy5YJMum_H7Y')
+    this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + ub.lat + ',' + ub.lng + '&key=AIzaSyBsn7tFiyBEzol0JCAYmoqfBb1IjVvMVuI')
       .subscribe(res => {
         ub = {
           lat: ub.lat,

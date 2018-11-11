@@ -1,7 +1,11 @@
-<div style="margin: 3%;" (swipeLeft) = "swipeEvent()" (swipeRight) = "swipeEvent()">
+<div style="margin: 3%;" (swipeLeft) = "swipeEvent()" (swipeRight) = "swipeEvent()"
+  (click)="goToPartido()">
   <mat-card>
     <mat-card-header>
       {{mensaje}}
     </mat-card-header>
+    <mat-card-subtitle *ngIf="noti?.reserva">
+      Podés volver a elegir un predio sin tener que cambiar más nada. Apretá y aprovechá!
+    </mat-card-subtitle>
   </mat-card>
 </div>

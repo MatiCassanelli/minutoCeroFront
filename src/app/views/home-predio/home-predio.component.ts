@@ -131,8 +131,8 @@ export class HomePredioComponent implements OnInit {
       }
     });
     this.fileNameDialogRef.beforeClose().subscribe(res => {
-      if(res){
-        this.ucCalendar.fullCalendar( 'removeEvents', [reservaId]);
+      if (res) {
+        this.ucCalendar.fullCalendar('removeEvents', [reservaId]);
         this.data.splice(this.data.indexOf(reservaId), 1);
       }
     });

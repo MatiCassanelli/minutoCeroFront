@@ -2,7 +2,7 @@
   <div *ngFor="let notificacion of notificaciones">
     <app-card-notificacion *ngIf="notificacion.tipo !== 'PartidoFinalizado'; else partidoFinalizado"
                            (swipe)="restarNotificacion({value:notificacion, tipo:'n'})"
-                           [mensaje]="notificacion.mensaje"></app-card-notificacion>
+                           [noti]="notificacion"></app-card-notificacion>
     <ng-template #partidoFinalizado>
       <app-card-notificacion-resultado-partido [idPartido]="notificacion.partido"
                                                [mensaje]="notificacion.mensaje"

@@ -20,8 +20,8 @@ export class PartidoService {
     return this.http.get<Array<Partido>>(this.api + '/estado/' + estado, global.httpOptions);
   }
 
-  getPartidoByReserva(reserva) {
-    return this.http.get<Partido>(this.api + reserva.cancha._id + '/' + reserva.jugador + '/' + reserva.dia, global.httpOptions);
+  getPartidoByReserva(idCancha, idJugador, dia) {
+    return this.http.get<Partido>(this.api + idCancha + '/' + idJugador + '/' + dia, global.httpOptions);
   }
 
   getPartido(id) {
@@ -30,6 +30,10 @@ export class PartidoService {
 
   updateResultado(idPartido, resultado) {
     return this.http.put<Partido>(this.api + 'resultado/' + idPartido, resultado, global.httpOptions);
+  }
+
+  updateCancha(idPartido, idCancha) {
+    return this.http.put<Partido>(this.api + idPartido + '/ubicacion', {cancha: idCancha}, global.httpOptions);
   }
 
   cancelarPartido (idPartido) {

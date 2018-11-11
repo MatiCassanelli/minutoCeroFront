@@ -4,7 +4,7 @@ export class Predio {
   _id: string
   nombrePredio: string;
   telefono: string;
-  horarios: Horario[];
+  horario: Horario[];
   ubicacionMaps: {
     lat: string,
     lng: string
