@@ -290,7 +290,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     JugadorService,
     AmistadService,
     EquipoService,
-    // {provide: LocationStrategy, useClass: HashLocationStrategy},
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     EquipoService,
     DeporteService,
     PredioService,
