@@ -82,7 +82,10 @@ export class PlantelComponent implements OnInit {
           });
         }
       }
-
+    });
+    this.jugadorService.getJugadorById(localStorage.getItem('id')).subscribe(j => {
+      this.plantelLocal.jugadoresConfirmados.push(j[0]);
+      this.sendPlantel.emit([this.plantelLocal, this.plantelVisitante]);
     });
   }
 
@@ -146,23 +149,25 @@ export class PlantelComponent implements OnInit {
 
   openDialog(j, localia, accion) {
     // this.fileNameDialogRef = this.dialog.open(MapComponent, {
-    this.dialogRef = this.dialog.open(ConfirmDialogPlantelComponent, {
-      data: {
-        jugador: j,
-        localia: localia,
-        accion: accion //if en el otro componennt para eliminar o agregar
-      },
-      width: '600px',
-      maxWidth: null,
-    });
-    this.dialogRef.afterClosed().subscribe((jc) => {
-      if (jc && accion === 'confirm')
-        this.addJugadorConfirmado(jc, localia);
-      if (jc && accion === 'remove') {
-        this.removeConfirmado(jc, localia);
-      }
+    if (this.plantelLocal.jugadoresConfirmados.indexOf(j) !== 0) {
+      this.dialogRef = this.dialog.open(ConfirmDialogPlantelComponent, {
+        data: {
+          jugador: j,
+          localia: localia,
+          accion: accion //if en el otro componennt para eliminar o agregar
+        },
+        width: '600px',
+        maxWidth: null,
+      });
+      this.dialogRef.afterClosed().subscribe((jc) => {
+        if (jc && accion === 'confirm')
+          this.addJugadorConfirmado(jc, localia);
+        if (jc && accion === 'remove') {
+          this.removeConfirmado(jc, localia);
+        }
 
-    });
+      });
+    }
   }
 
   removeConfirmado(jugador, localia) {
@@ -215,7 +220,7 @@ export class PlantelComponent implements OnInit {
           this.plantelLocal.jugadores.push(j);
       } else {
         this.plantelService.updatePlantel(this.plantelLocal._id, null, this.jugadoresAInvitar).subscribe(res => {
-          if(res)
+          if (res)
             this.plantelLocal.jugadores = res.jugadores;
         });
       }
@@ -227,7 +232,7 @@ export class PlantelComponent implements OnInit {
           this.plantelVisitante.jugadores.push(j);
       } else {
         this.plantelService.updatePlantel(this.plantelVisitante._id, null, this.jugadoresAInvitar).subscribe(res => {
-          if(res)
+          if (res)
             this.plantelVisitante.jugadores = res.jugadores;
         });
       }

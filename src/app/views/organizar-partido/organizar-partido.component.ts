@@ -74,10 +74,12 @@ export class OrganizarPartidoComponent implements OnInit {
   getPlanteles(event) {
     this.plantelLocal = event[0];
     this.plantelVisitante = event[1];
-    if (!this.deporte.cantJugadores)
+    const cantLocal = this.plantelLocal.jugadoresConfirmados.length || 0;
+    const cantVisitante = this.plantelVisitante.jugadoresConfirmados.length || 0;
+    if (!this.deporte)
       this.porcentajeOcupacion = 0;
-    this.porcentajeOcupacion = (this.plantelLocal.jugadoresConfirmados.length +
-      this.plantelVisitante.jugadoresConfirmados.length) / this.deporte.cantJugadores * 100;
+    else
+      this.porcentajeOcupacion = (cantLocal + cantVisitante) / this.deporte.cantJugadores * 100;
   }
 
   getTipoCancha(event) {
@@ -143,11 +145,9 @@ export class OrganizarPartidoComponent implements OnInit {
   getPredioConDisponibilidad() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
-        console.log('Hay geoposicion');
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
         this.predioService.getPredioConDisponibilidad(this.deporte._id, 30, latitude, longitude, this.fechaPartido).subscribe(predios => {
-          console.log(predios);
           this.predios = predios;
         });
       });

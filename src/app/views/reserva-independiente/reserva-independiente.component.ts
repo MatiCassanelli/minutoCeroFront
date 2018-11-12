@@ -125,7 +125,6 @@ export class ReservaIndependienteComponent implements OnInit {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
         this.predioService.getPredioConDisponibilidad(this.deporte._id, 30, latitude, longitude, this.fechaPartido).subscribe(predios => {
-          console.log(predios);
           this.predios = predios;
         });
       });

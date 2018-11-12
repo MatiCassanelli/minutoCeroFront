@@ -47,7 +47,6 @@ export class MapComponent implements OnInit, AfterContentInit {
   ngAfterContentInit() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
-        console.log('Hay geoposicion');
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
         let mapProp = {
