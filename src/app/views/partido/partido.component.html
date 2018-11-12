@@ -30,7 +30,7 @@
   </div>
   <mat-card-actions style="text-align: right;"
                     *ngIf="(!partido && reserva?.estado !== 'Cancelada' && reserva?.estado !== 'Completada') ||
-  (!reserva && partido?.estado !== 'Jugando' && partido?.estado !== 'Finalizado')">
+  (!reserva && partido?.estado !== 'Jugando' && partido?.estado !== 'Finalizado') && mostrarBoton">
     <button mat-raised-button color="warn" (click)="cancelarReserva(reserva || partido)">Cancelar {{titulo}}</button>
   </mat-card-actions>
   <!--</p-card>-->

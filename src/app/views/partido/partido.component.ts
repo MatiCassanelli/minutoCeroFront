@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {PartidoService} from '../../../services/partidoService';
 import {Partido} from '../../models/partido';
 import {PredioService} from '../../../services/predioService';
@@ -36,8 +36,10 @@ export class PartidoComponent implements OnInit {
   editable: boolean;
   titulo: string;
   reelegirPredio = false;
+  mostrarBoton = false;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private jugadorService: JugadorService,
               private partidoService: PartidoService,
               private predioService: PredioService,
@@ -52,6 +54,8 @@ export class PartidoComponent implements OnInit {
       this.reelegirPredio = params.reelegir;
       this.partidoService.getPartido(this.idPartido).subscribe(partido => {
         if (partido) {
+          if(partido.organizador.toString() === localStorage.getItem('id'))
+            this.mostrarBoton = true;
           this.partido = partido;
           this.titulo = 'Partido';
           this.editable = (localStorage.getItem('id') === this.partido.organizador.toString());
@@ -72,6 +76,8 @@ export class PartidoComponent implements OnInit {
           // this.getPredio(partido.cancha);
         } else {
           this.reservaService.getReservaById(this.idPartido).subscribe(res => {
+            if(res.jugador.toString() === localStorage.getItem('id'))
+              this.mostrarBoton = true;
             this.reserva = res;
             this.titulo = 'Reserva';
             let idDeporte = '';
@@ -142,10 +148,12 @@ export class PartidoComponent implements OnInit {
     if (this.partido) {  // es reserva entonces
       this.partidoService.cancelarPartido(reserva._id).subscribe(res => {
         console.log(res);
+        this.router.navigateByUrl('/partido');
       });
     } else if (this.reserva) {
       this.reservaService.cancelarReserva(reserva._id).subscribe((res) => {
         this.reserva.estado = 'Cancelada';
+        this.router.navigateByUrl('/partido');
       });
     }
   }
