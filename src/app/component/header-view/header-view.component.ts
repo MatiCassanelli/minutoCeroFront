@@ -65,7 +65,7 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.equipoService.getMiEquipo().subscribe(res => {
-      if (res) {
+      if (res[0]) {
         this.observableService.tieneEquipo(true);
       } else {
         this.observableService.tieneEquipo(false);
