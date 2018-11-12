@@ -49,18 +49,18 @@ export class AuthService {
             this.router.navigateByUrl('/unauthorized');
           return;
         }
-        else {
-          this.router.navigateByUrl('/login');
-          return;
-        }
+        // else {
+        //   this.router.navigateByUrl('/login');
+        //   return;
+        // }
       });
-      // debugger;
-      // this.router.navigateByUrl('/login');
-      // return;
+
     }
   }
 
   logOut() {
     localStorage.removeItem('usuario');
+    localStorage.removeItem('type');
+    localStorage.removeItem('id');
   }
 }

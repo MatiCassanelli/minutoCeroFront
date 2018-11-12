@@ -1,15 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RequestInterceptor} from "../services/request.interceptor";
 import 'hammerjs';
 
 
 // Routes imports
-import {AppRouting} from './app.routes';
+import { AppRouting } from './app.routes';
+
 
 // PrimeNg imports
 import {AccordionModule, MenubarModule} from 'primeng/primeng';
@@ -61,9 +64,6 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
 
 
-
-
-
 // Components imports
 import { DragScrollModule } from 'ngx-drag-scroll';
 import { AppComponent } from './app.component';
@@ -84,6 +84,7 @@ import { MapComponent } from './component/map/map.component';
 import {ConfirmUbicacionDialogComponent, RegistroPredioMapaComponent} from './views/registro-predio-mapa/registro-predio-mapa.component';
 import {HeaderViewComponent} from './component/header-view/header-view.component';
 import {HomePredioComponent, ReservaDialogComponent} from './views/home-predio/home-predio.component';
+
 
 // Swiper-wrapper library
 import { SwiperModule } from 'ngx-swiper-wrapper';
@@ -281,6 +282,11 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     {
       provide: SWIPER_CONFIG,
       useValue: DEFAULT_SWIPER_CONFIG
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true
     },
     AuthService,
     RoleService,

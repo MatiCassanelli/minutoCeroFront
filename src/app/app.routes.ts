@@ -29,16 +29,6 @@ import {ListadoReservasJugadorComponent} from './views/listado-reservas-jugador/
 
 const appRoutes: Routes = [
   {
-    path: 'equipo',
-    children: [
-      {path: 'miEquipo', component: InfoEquipoComponent},
-      {path: 'crear', component: CrearEquipoComponent},
-      {path: 'info/:id', component: InfoEquipoComponent}
-    ],
-    data:{type: 'Jugador'},
-    canActivateChild: [AuthGuardService, RoleGuardService]
-  },
-  {
     path: 'partido',
     data:{type: 'Jugador'},
     children: [
@@ -48,9 +38,6 @@ const appRoutes: Routes = [
       {path: 'organizar', component: OrganizarPartidoComponent, canActivate:[AuthGuardService, RoleGuardService]}
     ],
   },
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
-  {path: 'login', component: LoginComponent},
-  {path: 'unauthorized', component: UnauthorizedComponent},
   {
     path: 'predio',
     data: { type: 'Predio'},
@@ -63,15 +50,68 @@ const appRoutes: Routes = [
       {path: 'nuevaCancha', component: CargaNuevaCanchaComponent, canActivate: [AuthGuardService, RoleGuardService]}
     ],
   },
-  {path: 'notificaciones', component: NotificacionesComponent},
-  {path: 'puntuaciones', component: PuntuacionComponent},
-  {path: 'reservaIndependiente', component: ReservaIndependienteComponent}, // reserva de cancha jugador
-  {path: 'reservaCancha', component: ReservaPredioComponent},
-  {path: 'jugador/:id', component: PerfilJugadorComponent},
-  {path: 'ranking', component: RankingJugadorComponent},
-  {path: 'misReservas', component: ListadoReservasJugadorComponent},
+  {
+    path: 'equipo',
+    children: [
+      {path: 'miEquipo', component: InfoEquipoComponent},
+      {path: 'crear', component: CrearEquipoComponent},
+      {path: 'info/:id', component: InfoEquipoComponent}
+    ],
+    data:{type: 'Jugador'},
+    canActivateChild: [AuthGuardService, RoleGuardService],
+    canActivate: [AuthGuardService, RoleGuardService]
+  },
 
-  {path: '**', component: PageNotFoundComponent},
+  //agregar data type
+  {
+    path: 'notificaciones',
+    component: NotificacionesComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'puntuaciones',
+    data:{type: 'Jugador'},
+    component: PuntuacionComponent,
+    canActivate: [AuthGuardService, RoleGuardService]
+  },
+  // reserva de cancha jugador
+  {
+    path: 'reservaIndependiente',
+    data:{type: 'Jugador'},
+    component: ReservaIndependienteComponent,
+    canActivate: [AuthGuardService, RoleGuardService]
+  },
+  {
+    path: 'reservaCancha',
+    data:{type: 'Jugador'},
+    component: ReservaPredioComponent,
+    canActivate: [AuthGuardService, RoleGuardService]
+  },
+  {
+    path: 'jugador/:id',
+    data:{type: 'Jugador'},
+    component: PerfilJugadorComponent,
+    canActivate: [AuthGuardService, RoleGuardService]
+  },
+  {
+    path: 'ranking',
+    data:{type: 'Jugador'},
+    component: RankingJugadorComponent,
+    canActivate: [AuthGuardService, RoleGuardService]
+  },
+  {
+    path: 'misReservas',
+    data:{type: 'Jugador'},
+    component: ListadoReservasJugadorComponent,
+    canActivate: [AuthGuardService, RoleGuardService]
+  },
+
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: 'login', component: LoginComponent},
+  {path: 'unauthorized', component: UnauthorizedComponent},
+  {path: '**', component: PageNotFoundComponent}
+
+
 ];
 
 export const AppRouting = RouterModule.forRoot(appRoutes);
