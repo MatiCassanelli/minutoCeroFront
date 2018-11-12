@@ -47,6 +47,7 @@ export class ReservaIndependienteComponent implements OnInit {
   fileNameDialogRef: MatDialogRef<MapDialogComponent>;
   public selectedTime: string;
   date = new FormControl(new Date());
+  abrirMapa = false;
 
   constructor(private fb: FormBuilder,
               private plantelService: PlantelService,
@@ -126,6 +127,7 @@ export class ReservaIndependienteComponent implements OnInit {
         const longitude = position.coords.longitude;
         this.predioService.getPredioConDisponibilidad(this.deporte._id, 30, latitude, longitude, this.fechaPartido).subscribe(predios => {
           this.predios = predios;
+          this.abrirMapa = true;
         });
       });
     }

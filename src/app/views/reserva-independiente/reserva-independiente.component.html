@@ -6,7 +6,7 @@
   <div class="form-group row">
     <label for="Mapa" class="col-sm-2 col-form-label"><strong>Ubicación</strong></label>
     <div class="col-sm-10">
-      <button mat-raised-button id="Mapa" color="primary" class="col-sm-12" (click)="openDialog()">Ubicación</button>
+      <button mat-raised-button id="Mapa" color="primary" class="col-sm-12" [disabled]="!abrirMapa" (click)="openDialog()">Ubicación</button>
     </div>
     <div *ngIf="mostrarLabel">
       <label class="col-12 col-form-label"><strong>Predio elegido: </strong>
