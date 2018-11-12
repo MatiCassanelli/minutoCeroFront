@@ -15,7 +15,6 @@ export class RequestInterceptor implements HttpInterceptor{
     return next.handle(request).do((event: HttpEvent<any>) => {
       if(event instanceof HttpResponse){}
     }, (err: any) => {
-      debugger;
       if(err instanceof HttpErrorResponse){
         if(err.status === 401){
           if(this.authService.isLoggedIn())
