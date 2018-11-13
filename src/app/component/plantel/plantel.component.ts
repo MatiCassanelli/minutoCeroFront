@@ -194,22 +194,24 @@ export class PlantelComponent implements OnInit {
   }
 
   getJugadores(event) {
-    this.traeJugadores = true;
-    // this.jugadoresAInvitar = event;
+    debugger;
+    this.jugadoresAInvitar = event;
     for (let i of event) {
-      //   if (this.plantelLocal.jugadores.find(x => x._id === i._id) ||
-      //     this.plantelLocal.jugadoresConfirmados.find(x => x._id === i._id) ||
-      //     this.plantelVisitante.jugadores.find(x => x._id === i._id) ||
-      //     this.plantelVisitante.jugadoresConfirmados.find(x => x._id === i._id))
-      //     this.jugadoresAInvitar.splice(this.jugadoresAInvitar.indexOf(i), 1);
-      // }
-      if (!(this.plantelLocal.jugadores.find(x => x._id === i._id) ||
-        this.plantelLocal.jugadoresConfirmados.find(x => x._id === i._id) ||
-        this.plantelVisitante.jugadores.find(x => x._id === i._id) ||
-        this.plantelVisitante.jugadoresConfirmados.find(x => x._id === i._id)) &&
-        !this.jugadoresAInvitar.find(x => x._id === i._id))
-        this.jugadoresAInvitar.push(i);
-    }
+        if (this.plantelLocal.jugadores.find(x => x._id === i._id) ||
+          this.plantelLocal.jugadoresConfirmados.find(x => x._id === i._id) ||
+          this.plantelVisitante.jugadores.find(x => x._id === i._id) ||
+          this.plantelVisitante.jugadoresConfirmados.find(x => x._id === i._id) ||
+          !this.jugadoresAInvitar.find(x => x._id === i._id))
+          this.jugadoresAInvitar.splice(this.jugadoresAInvitar.indexOf(i), 1);
+      }
+    this.traeJugadores = true;
+    //   if (!(this.plantelLocal.jugadores.find(x => x._id === i._id) ||
+    //     this.plantelLocal.jugadoresConfirmados.find(x => x._id === i._id) ||
+    //     this.plantelVisitante.jugadores.find(x => x._id === i._id) ||
+    //     this.plantelVisitante.jugadoresConfirmados.find(x => x._id === i._id)) &&
+    //     !this.jugadoresAInvitar.find(x => x._id === i._id))
+    //     this.jugadoresAInvitar.push(i);
+    // }
   }
 
 
