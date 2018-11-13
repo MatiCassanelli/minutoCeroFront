@@ -63,11 +63,6 @@ export class PartidoComponent implements OnInit {
           this.editable = (localStorage.getItem('id') === this.partido.organizador.toString());
           if (!this.reelegirPredio)
             this.getPredio(partido.cancha);
-          this.plantelLocal = partido.grupoLocal;
-          this.plantelVisitante = partido.grupoVisitante;
-          if (partido.grupoLocal.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id')) ||
-            partido.grupoVisitante.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id')))
-            this.abandonar = true;
           else {
             if (navigator.geolocation) {
               navigator.geolocation.getCurrentPosition(position => {
@@ -80,7 +75,11 @@ export class PartidoComponent implements OnInit {
               });
             }
           }
-          // this.getPredio(partido.cancha);
+          this.plantelLocal = partido.grupoLocal;
+          this.plantelVisitante = partido.grupoVisitante;
+          if (partido.grupoLocal.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id')) ||
+            partido.grupoVisitante.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id')))
+            this.abandonar = true;
         } else {
           this.reservaService.getReservaById(this.idPartido).subscribe(res => {
             if (res.jugador.toString() === localStorage.getItem('id'))

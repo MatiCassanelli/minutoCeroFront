@@ -72,6 +72,7 @@ export class OrganizarPartidoComponent implements OnInit {
   }
 
   getPlanteles(event) {
+    debugger;
     this.plantelLocal = event[0];
     this.plantelVisitante = event[1];
     const cantLocal = this.plantelLocal.jugadoresConfirmados.length || 0;
@@ -108,8 +109,8 @@ export class OrganizarPartidoComponent implements OnInit {
         cancha: this.canchaSeleccionada,
         horasDeJuego: 1
       }).subscribe(() => {
-        forkJoin(this.plantelService.updatePlantel(local._id, local.jugadoresConfirmados, this.plantelLocal.jugadores),
-          this.plantelService.updatePlantel(visitante._id, visitante.jugadoresConfirmados, this.plantelVisitante.jugadores)).subscribe(() => {
+        forkJoin(this.plantelService.updatePlantel(local._id, null, this.plantelLocal.jugadores),
+          this.plantelService.updatePlantel(visitante._id, null, this.plantelVisitante.jugadores)).subscribe(() => {
           this.reservaService.createReserva({
             estado: 'PreReserva',
             dia: this.fechaPartido,
