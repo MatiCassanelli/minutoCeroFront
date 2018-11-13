@@ -44,4 +44,8 @@ export class PlantelService {
     }, global.httpOptions);
   }
 
+  abandonarPartido(idPlantel, idJugador) {
+    debugger;
+    return this.http.put<Plantel>(this.api + idPlantel + '/jugador/' + idJugador, null, global.httpOptions);
+  }
 }

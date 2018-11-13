@@ -20,19 +20,22 @@
     <div class="form-group row">
       <label for="Mapa" class="col-sm-2 col-form-label"><strong>Ubicación</strong></label>
       <div class="col-sm-10">
-        <button mat-raised-button id="Mapa" color="primary" class="col-sm-12"
-                [disabled]="!(deporte && fechaPartido)" (click)="openDialog()">Ubicación</button>
+        <button mat-raised-button id="Mapa" color="primary" class="col-sm-12" (click)="openDialog()">Ubicación</button>
       </div>
       <label class="col-12 col-form-label"><strong>Predio: </strong>{{predio?.nombrePredio}} -
         {{predio?.direccion}}</label>
     </div>
     <app-plantel *ngIf="partido" [setIdPartido]="idPartido" [editable]="editable"
-                 (sendPlantel)="getPlanteles($event)"></app-plantel>
+                 ></app-plantel>
+                 <!--(sendPlantel)="getPlanteles($event)"></app-plantel>-->
   </div>
   <mat-card-actions style="text-align: right;"
                     *ngIf="(!partido && reserva?.estado !== 'Cancelada' && reserva?.estado !== 'Completada') ||
   (!reserva && partido?.estado !== 'Jugando' && partido?.estado !== 'Finalizado') && mostrarBoton">
     <button mat-raised-button color="warn" (click)="cancelarReserva(reserva || partido)">Cancelar {{titulo}}</button>
+  </mat-card-actions>
+  <mat-card-actions *ngIf="abandonar">
+    <button mat-raised-button color="warn" (click)="abandonarPartido()">Abandonar partido</button>
   </mat-card-actions>
   <!--</p-card>-->
 </div>

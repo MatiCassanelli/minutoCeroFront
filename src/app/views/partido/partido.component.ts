@@ -37,11 +37,13 @@ export class PartidoComponent implements OnInit {
   titulo: string;
   reelegirPredio = false;
   mostrarBoton = false;
+  abandonar = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private jugadorService: JugadorService,
               private partidoService: PartidoService,
+              private plantelService: PlantelService,
               private predioService: PredioService,
               private reservaService: ReservaService,
               private deporteService: DeporteService,
@@ -54,13 +56,18 @@ export class PartidoComponent implements OnInit {
       this.reelegirPredio = params.reelegir;
       this.partidoService.getPartido(this.idPartido).subscribe(partido => {
         if (partido) {
-          if(partido.organizador.toString() === localStorage.getItem('id'))
+          if (partido.organizador.toString() === localStorage.getItem('id'))
             this.mostrarBoton = true;
           this.partido = partido;
           this.titulo = 'Partido';
           this.editable = (localStorage.getItem('id') === this.partido.organizador.toString());
           if (!this.reelegirPredio)
             this.getPredio(partido.cancha);
+          this.plantelLocal = partido.grupoLocal;
+          this.plantelVisitante = partido.grupoVisitante;
+          if (partido.grupoLocal.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id')) ||
+            partido.grupoVisitante.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id')))
+            this.abandonar = true;
           else {
             if (navigator.geolocation) {
               navigator.geolocation.getCurrentPosition(position => {
@@ -76,7 +83,7 @@ export class PartidoComponent implements OnInit {
           // this.getPredio(partido.cancha);
         } else {
           this.reservaService.getReservaById(this.idPartido).subscribe(res => {
-            if(res.jugador.toString() === localStorage.getItem('id'))
+            if (res.jugador.toString() === localStorage.getItem('id'))
               this.mostrarBoton = true;
             this.reserva = res;
             this.titulo = 'Reserva';
@@ -112,10 +119,10 @@ export class PartidoComponent implements OnInit {
     });
   }
 
-  getPlanteles(event) {
-    this.plantelLocal = event[0];
-    this.plantelVisitante = event[1];
-  }
+  // getPlanteles(event) {
+  //   this.plantelLocal = event[0];
+  //   this.plantelVisitante = event[1];
+  // }
 
   openDialog() {
     // this.fileNameDialogRef = this.dialog.open(MapComponent, {
@@ -156,5 +163,19 @@ export class PartidoComponent implements OnInit {
         this.router.navigateByUrl('/partido');
       });
     }
+  }
+
+  abandonarPartido() {
+    const esLocal = this.plantelLocal.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id'));
+    const esVisitante = this.plantelVisitante.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id'));
+    if(esLocal)
+      this.plantelService.abandonarPartido(this.plantelLocal._id, localStorage.getItem('id')).subscribe(() => {
+        this.plantelLocal.jugadoresConfirmados.splice(this.plantelLocal.jugadoresConfirmados.indexOf(esLocal), 1)
+      });
+    if(esVisitante)
+      this.plantelService.abandonarPartido(this.plantelVisitante._id, localStorage.getItem('id')).subscribe(res => {
+        this.plantelVisitante.jugadoresConfirmados.splice(this.plantelVisitante.jugadoresConfirmados.indexOf(esLocal), 1)
+      });
+
   }
 }

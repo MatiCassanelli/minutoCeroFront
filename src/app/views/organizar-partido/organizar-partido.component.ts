@@ -35,7 +35,6 @@ export class OrganizarPartidoComponent implements OnInit {
   form: FormGroup;
   deporte: Deporte;
   deportes: Deporte[];
-  // predios: Predio[];
   predios: any;
   selectedPredio: Predio;
   canchaSeleccionada: Cancha;

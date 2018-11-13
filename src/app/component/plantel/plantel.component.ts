@@ -72,6 +72,10 @@ export class PlantelComponent implements OnInit {
       this.noIds = true;
       this.plantelLocal = new Plantel();
       this.plantelVisitante = new Plantel();
+      this.jugadorService.getJugadorById(localStorage.getItem('id')).subscribe(j => {
+        this.plantelLocal.jugadoresConfirmados.push(j[0]);
+        this.sendPlantel.emit([this.plantelLocal, this.plantelVisitante]);
+      });
     }
     this.equipoService.getMiEquipo().subscribe(res => {
       if (res) {
@@ -82,10 +86,6 @@ export class PlantelComponent implements OnInit {
           });
         }
       }
-    });
-    this.jugadorService.getJugadorById(localStorage.getItem('id')).subscribe(j => {
-      this.plantelLocal.jugadoresConfirmados.push(j[0]);
-      this.sendPlantel.emit([this.plantelLocal, this.plantelVisitante]);
     });
   }
 
