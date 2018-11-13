@@ -83,8 +83,9 @@ const appRoutes: Routes = [
   },
   {
     path: 'reservaCancha',
+    data:{type: 'Predio'},
     component: ReservaPredioComponent,
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService, RoleGuardService]
   },
   {
     path: 'jugador/:id',
