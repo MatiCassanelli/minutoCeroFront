@@ -23,6 +23,7 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
   @ViewChild('drawer') sidenav: MatSidenav;
 
   @Input() tipoJugador: string;
+  titulo = 'Minuto Cero';
 
   // @Input() cantidad: number;
   @Input() cantidad: number;
