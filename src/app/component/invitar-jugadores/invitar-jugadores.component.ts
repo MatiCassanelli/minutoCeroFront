@@ -118,6 +118,7 @@ export class InvitarJugadoresComponent implements OnInit {
       state.apellido.indexOf(filterValue) === 0 ||
       state.apellido.toLowerCase().indexOf(filterValue) === 0);
   }
+
   ngOnChanges() {
     this.isReset = true;
     // this.jugadoresChipList.slice(0, this.jugadoresChipList.length - 1);

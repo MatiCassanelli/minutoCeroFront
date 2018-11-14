@@ -1,14 +1,6 @@
 <div class="form-group row" *ngIf="partido?.estado !== 'Jugando' && partido?.estado !== 'Finalizado'">
   <label for="jugador" class="col-sm-2 col-form-label"><strong>Jugadores a invitar</strong></label>
   <div class="btn-group col-sm-2 col-form-label" role="group">
-    <!--<mat-button-toggle-group #group="matButtonToggleGroup">-->
-    <!--<mat-button-toggle value="local" class="col-6" >-->
-    <!--Local-->
-    <!--</mat-button-toggle>-->
-    <!--<mat-button-toggle value="visitante" class="col-6" >-->
-    <!--Visitante-->
-    <!--</mat-button-toggle>-->
-    <!--</mat-button-toggle-group>-->
     <button mat-raised-button [ngClass]="{'press': clickedLocal}" color="primary" class="col-6"
             (click)="clickedLocal = true; clickedVisitante = false; activarComponent('local')">Local
     </button>
@@ -16,7 +8,7 @@
             (click)="clickedVisitante = true; clickedLocal = false; activarComponent('visitante')">Visitante
     </button>
   </div>
-  <div *ngIf="!disabled" class="col-sm-8">
+  <div *ngIf="!disabled && Confirmado; else noPartido" class="col-sm-8">
     <app-invitar-jugadores [queTraer]="'Amigos'" id="jugador" (notifyParent)="getJugadores($event)"
                            [isReset]="resetForm"></app-invitar-jugadores>
     <mat-checkbox *ngIf="tieneEquipo" [color]="'primary'" [checked]="invitacionEquipo" (change)="invitarEquipo()">
@@ -24,6 +16,13 @@
     </mat-checkbox>
     <button mat-raised-button class="ui-grid-col-12" color="primary" (click)="invitarJugadores()">Invitar</button>
   </div>
+  <ng-template #noPartido>
+    <div class="col-sm-8">
+      <button *ngIf="!disabled && !Confirmado && !Invitado" mat-raised-button class="ui-grid-col-12" color="primary"
+              (click)="sumarsePartido()">Sumarse al equipo {{localidad}}
+      </button>
+    </div>
+  </ng-template>
 </div>
 <div class="row">
   <div class="ui-g-5">
@@ -47,21 +46,6 @@
       </mat-list-item>
       <mat-divider></mat-divider>
     </mat-list>
-    <!--<p-scrollPanel [style]="{width: '100%', height: '200px'}">-->
-    <!--<div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: left">-->
-    <!--<span style="padding: 0px 0px 15px;">Confirmados</span>-->
-    <!--</div>-->
-    <!--<div *ngFor="let j of plantelLocal?.jugadoresConfirmados">-->
-    <!--<p (click)="!editable || openDialog(j, 'local', 'remove')"><b>{{j.nombre}} {{j.apellido}}</b></p>-->
-    <!--</div>-->
-    <!--<div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: left">-->
-    <!--<span style="padding: 0px 0px 15px;">No Confirmados</span>-->
-    <!--</div>-->
-    <!--<div *ngFor="let j of plantelLocal?.jugadores">-->
-    <!--&lt;!&ndash;<p (click)="confirm1(j, 'local')">{{j.nombre}} {{j.apellido}}</p>&ndash;&gt;-->
-    <!--<p (click)="!editable ||openDialog(j, 'local', 'confirm')">{{j.nombre}} {{j.apellido}}</p>-->
-    <!--</div>-->
-    <!--</p-scrollPanel>-->
   </div>
   <div class="ui-g-2 text-center">
     <p *ngIf="plantelVisitante?.jugadoresConfirmados.length > 0 || plantelVisitante?.jugadores.length > 0
@@ -88,19 +72,5 @@
       </mat-list-item>
       <mat-divider></mat-divider>
     </mat-list>
-    <!--<p-scrollPanel [style]="{width: '100%', height: '200px'}">-->
-    <!--<div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: left">-->
-    <!--<span style="padding: 0px 0px 15px;">Confirmados</span>-->
-    <!--</div>-->
-    <!--<div *ngFor="let j of plantelVisitante?.jugadoresConfirmados">-->
-    <!--<p (click)="!editable ||openDialog(j, 'visitante', 'remove')"><b>{{j.nombre}} {{j.apellido}}</b></p>-->
-    <!--</div>-->
-    <!--<div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: left">-->
-    <!--<span style="padding: 0px 0px 15px;">No Confirmados</span>-->
-    <!--</div>-->
-    <!--<div *ngFor="let j of plantelVisitante?.jugadores">-->
-    <!--<p (click)="!editable ||openDialog(j, 'visitante', 'confirm')">{{j.nombre}} {{j.apellido}}</p>-->
-    <!--</div>-->
-    <!--</p-scrollPanel>-->
   </div>
 </div>

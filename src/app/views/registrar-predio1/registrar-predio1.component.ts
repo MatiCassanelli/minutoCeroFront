@@ -31,6 +31,7 @@ export class RegistrarPredio1Component implements OnInit {
 
   getHorarios(event) {
     this.horarios = event;
+
     this.stepEmit.emit({infoContacto: {
         nombre: this.nombreHoraForm.get('nombrePredio').value,
         telefono: this.nombreHoraForm.get('telefono').value,

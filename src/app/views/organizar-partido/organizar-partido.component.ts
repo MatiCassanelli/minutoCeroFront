@@ -35,7 +35,6 @@ export class OrganizarPartidoComponent implements OnInit {
   form: FormGroup;
   deporte: Deporte;
   deportes: Deporte[];
-  // predios: Predio[];
   predios: any;
   selectedPredio: Predio;
   canchaSeleccionada: Cancha;
@@ -97,8 +96,8 @@ export class OrganizarPartidoComponent implements OnInit {
   }
 
   crearPartido() {
-    forkJoin(this.plantelService.createPlantel(this.plantelLocal.jugadoresConfirmados, 'Local', this.deporte.cantJugadores),
-      this.plantelService.createPlantel(this.plantelVisitante.jugadoresConfirmados, 'Visitante', this.deporte.cantJugadores)).subscribe(res => {
+    forkJoin(this.plantelService.createPlantel(this.plantelLocal.jugadoresConfirmados, 'Local', this.deporte.cantJugadores / 2),
+      this.plantelService.createPlantel(this.plantelVisitante.jugadoresConfirmados, 'Visitante', this.deporte.cantJugadores / 2)).subscribe(res => {
       let local = res[0];
       let visitante = res[1];
       this.partidoService.createPartido({
@@ -109,8 +108,8 @@ export class OrganizarPartidoComponent implements OnInit {
         cancha: this.canchaSeleccionada,
         horasDeJuego: 1
       }).subscribe(() => {
-        forkJoin(this.plantelService.updatePlantel(local._id, local.jugadoresConfirmados, this.plantelLocal.jugadores),
-          this.plantelService.updatePlantel(visitante._id, visitante.jugadoresConfirmados, this.plantelVisitante.jugadores)).subscribe(() => {
+        forkJoin(this.plantelService.updatePlantel(local._id, null, this.plantelLocal.jugadores),
+          this.plantelService.updatePlantel(visitante._id, null, this.plantelVisitante.jugadores)).subscribe(() => {
           this.reservaService.createReserva({
             estado: 'PreReserva',
             dia: this.fechaPartido,

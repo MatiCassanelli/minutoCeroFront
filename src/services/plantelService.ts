@@ -17,12 +17,6 @@ export class PlantelService {
   }
 
   createPlantel(jugadoresConfirmados, localidad, cantMaximaJugadores) {
-    // return this.http.post<Plantel>(this.api, {
-    //   'jugadoresConfirmados': plantel.jugadoresConfirmados,
-    //   'jugadores': plantel.jugadores,
-    //   'localidad': localidad,
-    //   'cantMaximaJugadores': cantMaximaJugadores
-    // }, global.httpOptions);
     return this.http.post<Plantel>(this.api, {
       'jugadoresConfirmados': jugadoresConfirmados,
       'localidad': localidad,
@@ -37,11 +31,14 @@ export class PlantelService {
     }, global.httpOptions);
   }
 
-  confirmarJugador(idPlantel, jugadorParaConfirmar) {
+  confirmarJugador(idPlantel, jugadorParaConfirmar, jugador = jugadorParaConfirmar) {
     return this.http.put<Plantel>(this.api + idPlantel, {
       'jugadoresConfirmados': jugadorParaConfirmar,
-      'jugadores': jugadorParaConfirmar
+      'jugadores': jugador
     }, global.httpOptions);
   }
 
+  abandonarPartido(idPlantel, idJugador) {
+    return this.http.put<Plantel>(this.api + idPlantel + '/jugador/' + idJugador, null, global.httpOptions);
+  }
 }

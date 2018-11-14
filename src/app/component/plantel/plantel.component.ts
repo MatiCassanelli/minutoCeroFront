@@ -39,6 +39,9 @@ export class PlantelComponent implements OnInit {
   jugadoresEquipo: Jugador[] = [];
   clickedLocal = false;
   clickedVisitante = false;
+  Confirmado = false;
+  Invitado = false;
+  @Input() ejecutar;
 
   @Input()
   set setIdPartido(name: string) {
@@ -46,6 +49,7 @@ export class PlantelComponent implements OnInit {
   }
 
   @Output() sendPlantel: EventEmitter<Array<Plantel>> = new EventEmitter<Array<Plantel>>();
+  @Output() jugadorSumado: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() editable = true;
 
   constructor(private plantelService: PlantelService,
@@ -72,6 +76,10 @@ export class PlantelComponent implements OnInit {
       this.noIds = true;
       this.plantelLocal = new Plantel();
       this.plantelVisitante = new Plantel();
+      this.jugadorService.getJugadorById(localStorage.getItem('id')).subscribe(j => {
+        this.plantelLocal.jugadoresConfirmados.push(j[0]);
+        this.sendPlantel.emit([this.plantelLocal, this.plantelVisitante]);
+      });
     }
     this.equipoService.getMiEquipo().subscribe(res => {
       if (res) {
@@ -83,10 +91,6 @@ export class PlantelComponent implements OnInit {
         }
       }
     });
-    this.jugadorService.getJugadorById(localStorage.getItem('id')).subscribe(j => {
-      this.plantelLocal.jugadoresConfirmados.push(j[0]);
-      this.sendPlantel.emit([this.plantelLocal, this.plantelVisitante]);
-    });
   }
 
   getJugadoresPlantel(plantel, condicion) {
@@ -96,6 +100,11 @@ export class PlantelComponent implements OnInit {
       }
       plantel.jugadores = res.jugadores;
       plantel.jugadoresConfirmados = res.jugadoresConfirmados;
+      debugger;
+      if (plantel.jugadoresConfirmados.find(x => x._id === localStorage.getItem('id')))
+        this.Confirmado = true;
+      else if (plantel.jugadores.find(x => x._id === localStorage.getItem('id')))
+        this.Invitado = true;
       if (condicion === 'local' && res.jugadores.length > 0) {
         this.localInvitados = true;
       }
@@ -194,22 +203,23 @@ export class PlantelComponent implements OnInit {
   }
 
   getJugadores(event) {
-    this.traeJugadores = true;
-    // this.jugadoresAInvitar = event;
-    for (let i of event) {
-      //   if (this.plantelLocal.jugadores.find(x => x._id === i._id) ||
-      //     this.plantelLocal.jugadoresConfirmados.find(x => x._id === i._id) ||
-      //     this.plantelVisitante.jugadores.find(x => x._id === i._id) ||
-      //     this.plantelVisitante.jugadoresConfirmados.find(x => x._id === i._id))
-      //     this.jugadoresAInvitar.splice(this.jugadoresAInvitar.indexOf(i), 1);
-      // }
-      if (!(this.plantelLocal.jugadores.find(x => x._id === i._id) ||
+    this.jugadoresAInvitar = event;
+    for (let i of this.jugadoresAInvitar) {
+      if (this.plantelLocal.jugadores.find(x => x._id === i._id) ||
         this.plantelLocal.jugadoresConfirmados.find(x => x._id === i._id) ||
         this.plantelVisitante.jugadores.find(x => x._id === i._id) ||
-        this.plantelVisitante.jugadoresConfirmados.find(x => x._id === i._id)) &&
+        this.plantelVisitante.jugadoresConfirmados.find(x => x._id === i._id) ||
         !this.jugadoresAInvitar.find(x => x._id === i._id))
-        this.jugadoresAInvitar.push(i);
+        this.jugadoresAInvitar.splice(this.jugadoresAInvitar.indexOf(i), 1);
     }
+    this.traeJugadores = true;
+    //   if (!(this.plantelLocal.jugadores.find(x => x._id === i._id) ||
+    //     this.plantelLocal.jugadoresConfirmados.find(x => x._id === i._id) ||
+    //     this.plantelVisitante.jugadores.find(x => x._id === i._id) ||
+    //     this.plantelVisitante.jugadoresConfirmados.find(x => x._id === i._id)) &&
+    //     !this.jugadoresAInvitar.find(x => x._id === i._id))
+    //     this.jugadoresAInvitar.push(i);
+    // }
   }
 
 
@@ -265,6 +275,36 @@ export class PlantelComponent implements OnInit {
       this.invitacionEquipo = false;
       // this.jugadoresEquipo = [];
     }
+  }
+
+  sumarsePartido() {
+    if (this.localidad === 'local'){
+      this.plantelService.confirmarJugador(this.plantelLocal._id, [localStorage.getItem('id')], null).subscribe(res => {
+        this.plantelLocal.jugadoresConfirmados = res.jugadoresConfirmados;
+        this.Confirmado = true;
+      });
+    } else if (this.localidad === 'visitante') {
+      this.plantelService.confirmarJugador(this.plantelVisitante._id, [localStorage.getItem('id')], null).subscribe(res => {
+        this.plantelVisitante.jugadoresConfirmados = res.jugadoresConfirmados;
+        this.Confirmado = true;
+      });
+    }
+    this.jugadorSumado.emit(true);
+  }
+
+  abandonarPartido() {
+    const esLocal = this.plantelLocal.jugadoresConfirmados.find(x => x._id === localStorage.getItem('id'));
+    const esVisitante = this.plantelVisitante.jugadoresConfirmados.find(x => x._id === localStorage.getItem('id'));
+    if (esLocal)
+      this.plantelService.abandonarPartido(this.plantelLocal._id, localStorage.getItem('id')).subscribe(() => {
+        this.plantelLocal.jugadoresConfirmados.splice(this.plantelLocal.jugadoresConfirmados.indexOf(esLocal), 1);
+        this.Confirmado = false;
+      });
+    if (esVisitante)
+      this.plantelService.abandonarPartido(this.plantelVisitante._id, localStorage.getItem('id')).subscribe(res => {
+        this.plantelVisitante.jugadoresConfirmados.splice(this.plantelVisitante.jugadoresConfirmados.indexOf(esLocal), 1);
+        this.Confirmado = false;
+      });
   }
 }
 

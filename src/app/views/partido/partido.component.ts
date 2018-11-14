@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PartidoService} from '../../../services/partidoService';
 import {Partido} from '../../models/partido';
@@ -15,6 +15,7 @@ import {ReservaService} from '../../../services/reservaService';
 import {Reserva} from '../../models/reserva';
 import {DeporteService} from '../../../services/deporteService';
 import {Cancha} from '../../models/cancha';
+import {PlantelComponent} from '../../component/plantel/plantel.component';
 
 @Component({
   selector: 'app-partido',
@@ -37,11 +38,15 @@ export class PartidoComponent implements OnInit {
   titulo: string;
   reelegirPredio = false;
   mostrarBoton = false;
+  abandonar = false;
+  clickAbandonar = false;
+  @ViewChild('appPlantel') appPlantel: PlantelComponent;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private jugadorService: JugadorService,
               private partidoService: PartidoService,
+              private plantelService: PlantelService,
               private predioService: PredioService,
               private reservaService: ReservaService,
               private deporteService: DeporteService,
@@ -54,7 +59,7 @@ export class PartidoComponent implements OnInit {
       this.reelegirPredio = params.reelegir;
       this.partidoService.getPartido(this.idPartido).subscribe(partido => {
         if (partido) {
-          if(partido.organizador.toString() === localStorage.getItem('id'))
+          if (partido.organizador.toString() === localStorage.getItem('id'))
             this.mostrarBoton = true;
           this.partido = partido;
           this.titulo = 'Partido';
@@ -73,10 +78,15 @@ export class PartidoComponent implements OnInit {
               });
             }
           }
-          // this.getPredio(partido.cancha);
+          this.plantelLocal = partido.grupoLocal;
+          this.plantelVisitante = partido.grupoVisitante;
+          if ((partido.grupoLocal.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id')) ||
+            partido.grupoVisitante.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id'))) &&
+          partido.organizador.toString() !== localStorage.getItem('id'))
+            this.abandonar = true;
         } else {
           this.reservaService.getReservaById(this.idPartido).subscribe(res => {
-            if(res.jugador.toString() === localStorage.getItem('id'))
+            if (res.jugador.toString() === localStorage.getItem('id'))
               this.mostrarBoton = true;
             this.reserva = res;
             this.titulo = 'Reserva';
@@ -112,10 +122,10 @@ export class PartidoComponent implements OnInit {
     });
   }
 
-  getPlanteles(event) {
-    this.plantelLocal = event[0];
-    this.plantelVisitante = event[1];
-  }
+  // getPlanteles(event) {
+  //   this.plantelLocal = event[0];
+  //   this.plantelVisitante = event[1];
+  // }
 
   openDialog() {
     // this.fileNameDialogRef = this.dialog.open(MapComponent, {
@@ -157,4 +167,14 @@ export class PartidoComponent implements OnInit {
       });
     }
   }
+
+  setAbandonar(event) {
+    this.abandonar = event;
+  }
+
+  abandonarPartido() {
+    this.appPlantel.abandonarPartido();
+    this.abandonar = false;
+  }
+
 }
