@@ -29,13 +29,16 @@
                  ></app-plantel>
                  <!--(sendPlantel)="getPlanteles($event)"></app-plantel>-->
   </div>
-  <mat-card-actions style="text-align: right;"
-                    *ngIf="(!partido && reserva?.estado !== 'Cancelada' && reserva?.estado !== 'Completada') ||
-  (!reserva && partido?.estado !== 'Jugando' && partido?.estado !== 'Finalizado') && mostrarBoton">
-    <button mat-raised-button color="warn" (click)="cancelarReserva(reserva || partido)">Cancelar {{titulo}}</button>
-  </mat-card-actions>
-  <mat-card-actions *ngIf="abandonar">
+  <mat-card-actions *ngIf="abandonar; else noOrg">
     <button mat-raised-button color="warn" (click)="abandonarPartido()">Abandonar partido</button>
   </mat-card-actions>
+  <ng-template #noOrg>
+    <mat-card-actions style="text-align: right;"
+                      *ngIf="(!partido && reserva?.estado !== 'Cancelada' && reserva?.estado !== 'Completada') ||
+  (!reserva && partido?.estado !== 'Jugando' && partido?.estado !== 'Finalizado') && mostrarBoton">
+      <button mat-raised-button color="warn" (click)="cancelarReserva(reserva || partido)">Cancelar {{titulo}}</button>
+    </mat-card-actions>
+  </ng-template>
+
   <!--</p-card>-->
 </div>

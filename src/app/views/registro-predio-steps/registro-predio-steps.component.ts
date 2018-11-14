@@ -6,6 +6,7 @@ import {Horario} from '../../models/horario';
 import {Cancha} from '../../models/cancha';
 import {PredioService} from '../../../services/predioService';
 import {forkJoin} from 'rxjs/observable/forkJoin';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-registro-predio-steps',
@@ -34,19 +35,12 @@ export class RegistroPredioStepsComponent implements OnInit {
     }
   };
 
-  // predio = JSON.parse(localStorage.getItem('usuario'));
-
   constructor(private _formBuilder: FormBuilder,
-              private predioService: PredioService) {
+              private predioService: PredioService,
+              private router: Router) {
   }
 
   ngOnInit() {
-    // this.firstFormGroup = this._formBuilder.group({
-    //   firstCtrl: ['', Validators.required]
-    // });
-    // this.secondFormGroup = this._formBuilder.group({
-    //   secondCtrl: ['', Validators.required]
-    // });
   }
 
   siguiente(event, stepper: MatStepper) {
@@ -55,34 +49,51 @@ export class RegistroPredioStepsComponent implements OnInit {
       this.horarios = event.infoContacto.horarios;
       this.nombrePredio = event.infoContacto.nombre;
       this.telefono = event.infoContacto.telefono;
+      this.predioService.createPredio({nombre: this.nombrePredio, telefono: this.telefono, step: 1}).subscribe((res) => {
+        console.log(res);
+        this.predioService.setHorarios(this.horarios, 1).subscribe(() => {
+
+        });
+      });
     }
-    if (event.canchas)
-      this.canchas = event.canchas;
-    if(event.configHoras)
+
+    if (event.configHoras) {
       this.configHoras = event.configHoras;
-    if (event.ubicacion)
+      this.predioService.setConfiguracionHorarios(this.configHoras, 2).subscribe(() => {
+      });
+    }
+
+    if (event.canchas) {
+      this.canchas = event.canchas;
+      this.predioService.setCanchas(this.canchas, 3).subscribe(() => {
+      });
+    }
+
+    if (event.ubicacion) {
       this.ubicacion = event.ubicacion;
+      this.predioService.setUbicacion(this.ubicacion, 4);
+    }
+
     if (event)
       stepper.next();
   }
 
   crearPredio() {
-    this.predioService.createPredio({
-      nombre: this.nombrePredio,
-      telefono: this.telefono,
-      ubicacion: this.ubicacion,
-      horarios: this.horarios
-    }).subscribe(() => {
-      forkJoin(this.predioService.setConfiguracionHorarios(this.configHoras),
-      this.predioService.setCanchas(this.canchas)).subscribe(() => {
-        const asd = this.predioService.setUbicacion(this.ubicacion);
-        console.log(asd);
-      });
-    });
-
-    // console.log('horarios', this.horarios);
-    // console.log('canchas', this.canchas);
-    // console.log('ubicacion', this.ubicacion);
+    this.router.navigateByUrl('/predio');
   }
+
+  //   this.predioService.createPredio({
+  //     nombre: this.nombrePredio,
+  //     telefono: this.telefono,
+  //     ubicacion: this.ubicacion,
+  //     horarios: this.horarios
+  //   }).subscribe(() => {
+  //     forkJoin(this.predioService.setConfiguracionHorarios(this.configHoras),
+  //     this.predioService.setCanchas(this.canchas)).subscribe(() => {
+  //       const asd = this.predioService.setUbicacion(this.ubicacion);
+  //       console.log(asd);
+  //     });
+  //   });
+  // }
 
 }

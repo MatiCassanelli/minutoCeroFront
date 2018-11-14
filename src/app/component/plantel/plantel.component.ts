@@ -73,7 +73,6 @@ export class PlantelComponent implements OnInit {
       this.plantelLocal = new Plantel();
       this.plantelVisitante = new Plantel();
       this.jugadorService.getJugadorById(localStorage.getItem('id')).subscribe(j => {
-        debugger;
         this.plantelLocal.jugadoresConfirmados.push(j[0]);
         this.sendPlantel.emit([this.plantelLocal, this.plantelVisitante]);
       });
@@ -195,7 +194,6 @@ export class PlantelComponent implements OnInit {
   }
 
   getJugadores(event) {
-    debugger;
     this.jugadoresAInvitar = event;
     for (let i of this.jugadoresAInvitar) {
       if (this.plantelLocal.jugadores.find(x => x._id === i._id) ||
@@ -217,7 +215,6 @@ export class PlantelComponent implements OnInit {
 
 
   invitarJugadores() {
-    debugger;
     if (this.localidad === 'local') {
       if (this.noIds) {
         for (let j of this.jugadoresAInvitar)

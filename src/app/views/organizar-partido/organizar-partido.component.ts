@@ -72,7 +72,6 @@ export class OrganizarPartidoComponent implements OnInit {
   }
 
   getPlanteles(event) {
-    debugger;
     this.plantelLocal = event[0];
     this.plantelVisitante = event[1];
     const cantLocal = this.plantelLocal.jugadoresConfirmados.length || 0;

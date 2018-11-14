@@ -77,8 +77,9 @@ export class PartidoComponent implements OnInit {
           }
           this.plantelLocal = partido.grupoLocal;
           this.plantelVisitante = partido.grupoVisitante;
-          if (partido.grupoLocal.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id')) ||
-            partido.grupoVisitante.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id')))
+          if ((partido.grupoLocal.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id')) ||
+            partido.grupoVisitante.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id'))) &&
+          partido.organizador.toString() !== localStorage.getItem('id'))
             this.abandonar = true;
         } else {
           this.reservaService.getReservaById(this.idPartido).subscribe(res => {

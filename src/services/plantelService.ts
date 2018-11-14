@@ -40,12 +40,11 @@ export class PlantelService {
   confirmarJugador(idPlantel, jugadorParaConfirmar) {
     return this.http.put<Plantel>(this.api + idPlantel, {
       'jugadoresConfirmados': jugadorParaConfirmar,
-      'jugadores': null
+      'jugadores': jugadorParaConfirmar
     }, global.httpOptions);
   }
 
   abandonarPartido(idPlantel, idJugador) {
-    debugger;
     return this.http.put<Plantel>(this.api + idPlantel + '/jugador/' + idJugador, null, global.httpOptions);
   }
 }
