@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$my-theme-jugador-primary: mat-palette($mat-light-green, 700);
+$my-theme-jugador-accent: mat-palette($mat-light-green, 700);
+$my-theme-jugador-warn: mat-palette($mat-red);
+
+$my-theme-jugador: mat-light-theme($my-theme-jugador-primary, $my-theme-jugador-accent, $my-theme-jugador-warn);
+
+@include angular-material-theme($my-theme-jugador);
