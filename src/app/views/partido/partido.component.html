@@ -25,12 +25,11 @@
       <label class="col-12 col-form-label"><strong>Predio: </strong>{{predio?.nombrePredio}} -
         {{predio?.direccion}}</label>
     </div>
-    <app-plantel *ngIf="partido" [setIdPartido]="idPartido" [editable]="editable"
-                 ></app-plantel>
+    <app-plantel #appPlantel *ngIf="partido" [setIdPartido]="idPartido" [editable]="editable"></app-plantel>
                  <!--(sendPlantel)="getPlanteles($event)"></app-plantel>-->
   </div>
   <mat-card-actions *ngIf="abandonar; else noOrg">
-    <button mat-raised-button color="warn" (click)="abandonarPartido()">Abandonar partido</button>
+    <button mat-raised-button color="warn" (click)="appPlantel.abandonarPartido()">Abandonar partido</button>
   </mat-card-actions>
   <ng-template #noOrg>
     <mat-card-actions style="text-align: right;"

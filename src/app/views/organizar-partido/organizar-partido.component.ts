@@ -96,8 +96,8 @@ export class OrganizarPartidoComponent implements OnInit {
   }
 
   crearPartido() {
-    forkJoin(this.plantelService.createPlantel(this.plantelLocal.jugadoresConfirmados, 'Local', this.deporte.cantJugadores),
-      this.plantelService.createPlantel(this.plantelVisitante.jugadoresConfirmados, 'Visitante', this.deporte.cantJugadores)).subscribe(res => {
+    forkJoin(this.plantelService.createPlantel(this.plantelLocal.jugadoresConfirmados, 'Local', this.deporte.cantJugadores / 2),
+      this.plantelService.createPlantel(this.plantelVisitante.jugadoresConfirmados, 'Visitante', this.deporte.cantJugadores / 2)).subscribe(res => {
       let local = res[0];
       let visitante = res[1];
       this.partidoService.createPartido({

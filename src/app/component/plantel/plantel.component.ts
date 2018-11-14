@@ -39,6 +39,9 @@ export class PlantelComponent implements OnInit {
   jugadoresEquipo: Jugador[] = [];
   clickedLocal = false;
   clickedVisitante = false;
+  Confirmado = false;
+  Invitado = false;
+  @Input() ejecutar;
 
   @Input()
   set setIdPartido(name: string) {
@@ -96,6 +99,11 @@ export class PlantelComponent implements OnInit {
       }
       plantel.jugadores = res.jugadores;
       plantel.jugadoresConfirmados = res.jugadoresConfirmados;
+      debugger;
+      if (plantel.jugadoresConfirmados.find(x => x._id === localStorage.getItem('id')))
+        this.Confirmado = true;
+      else if (plantel.jugadores.find(x => x._id === localStorage.getItem('id')))
+        this.Invitado = true;
       if (condicion === 'local' && res.jugadores.length > 0) {
         this.localInvitados = true;
       }
@@ -201,7 +209,7 @@ export class PlantelComponent implements OnInit {
         this.plantelVisitante.jugadores.find(x => x._id === i._id) ||
         this.plantelVisitante.jugadoresConfirmados.find(x => x._id === i._id) ||
         !this.jugadoresAInvitar.find(x => x._id === i._id))
-          this.jugadoresAInvitar.splice(this.jugadoresAInvitar.indexOf(i), 1);
+        this.jugadoresAInvitar.splice(this.jugadoresAInvitar.indexOf(i), 1);
     }
     this.traeJugadores = true;
     //   if (!(this.plantelLocal.jugadores.find(x => x._id === i._id) ||
@@ -266,6 +274,33 @@ export class PlantelComponent implements OnInit {
       this.invitacionEquipo = false;
       // this.jugadoresEquipo = [];
     }
+  }
+
+  sumarsePartido() {
+    if (this.localidad === 'local'){
+      this.plantelService.confirmarJugador(this.plantelLocal._id, [localStorage.getItem('id')], null).subscribe(res => {
+        this.plantelLocal.jugadoresConfirmados = res.jugadoresConfirmados;
+        this.Confirmado = true;
+      });
+    } else if (this.localidad === 'visitante') {
+      this.plantelService.confirmarJugador(this.plantelVisitante._id, [localStorage.getItem('id')], null).subscribe(res => {
+        this.plantelVisitante.jugadoresConfirmados = res.jugadoresConfirmados;
+        this.Confirmado = true;
+      });
+    }
+  }
+
+  abandonarPartido() {
+    const esLocal = this.plantelLocal.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id'));
+    const esVisitante = this.plantelVisitante.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id'));
+    if (esLocal)
+      this.plantelService.abandonarPartido(this.plantelLocal._id, localStorage.getItem('id')).subscribe(() => {
+        this.plantelLocal.jugadoresConfirmados.splice(this.plantelLocal.jugadoresConfirmados.indexOf(esLocal), 1);
+      });
+    if (esVisitante)
+      this.plantelService.abandonarPartido(this.plantelVisitante._id, localStorage.getItem('id')).subscribe(res => {
+        this.plantelVisitante.jugadoresConfirmados.splice(this.plantelVisitante.jugadoresConfirmados.indexOf(esLocal), 1);
+      });
   }
 }
 

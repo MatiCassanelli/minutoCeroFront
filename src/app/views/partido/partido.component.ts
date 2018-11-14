@@ -38,6 +38,7 @@ export class PartidoComponent implements OnInit {
   reelegirPredio = false;
   mostrarBoton = false;
   abandonar = false;
+  clickAbandonar = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -166,16 +167,17 @@ export class PartidoComponent implements OnInit {
   }
 
   abandonarPartido() {
-    const esLocal = this.plantelLocal.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id'));
-    const esVisitante = this.plantelVisitante.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id'));
-    if(esLocal)
-      this.plantelService.abandonarPartido(this.plantelLocal._id, localStorage.getItem('id')).subscribe(() => {
-        this.plantelLocal.jugadoresConfirmados.splice(this.plantelLocal.jugadoresConfirmados.indexOf(esLocal), 1)
-      });
-    if(esVisitante)
-      this.plantelService.abandonarPartido(this.plantelVisitante._id, localStorage.getItem('id')).subscribe(res => {
-        this.plantelVisitante.jugadoresConfirmados.splice(this.plantelVisitante.jugadoresConfirmados.indexOf(esLocal), 1)
-      });
-
+    this.clickAbandonar = true;
+    // const esLocal = this.plantelLocal.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id'));
+    // const esVisitante = this.plantelVisitante.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id'));
+    // if(esLocal)
+    //   this.plantelService.abandonarPartido(this.plantelLocal._id, localStorage.getItem('id')).subscribe(() => {
+    //     this.plantelLocal.jugadoresConfirmados.splice(this.plantelLocal.jugadoresConfirmados.indexOf(esLocal), 1)
+    //   });
+    // if(esVisitante)
+    //   this.plantelService.abandonarPartido(this.plantelVisitante._id, localStorage.getItem('id')).subscribe(res => {
+    //     this.plantelVisitante.jugadoresConfirmados.splice(this.plantelVisitante.jugadoresConfirmados.indexOf(esLocal), 1)
+    //   });
   }
+
 }
