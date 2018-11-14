@@ -49,6 +49,7 @@ export class PlantelComponent implements OnInit {
   }
 
   @Output() sendPlantel: EventEmitter<Array<Plantel>> = new EventEmitter<Array<Plantel>>();
+  @Output() jugadorSumado: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() editable = true;
 
   constructor(private plantelService: PlantelService,
@@ -288,18 +289,21 @@ export class PlantelComponent implements OnInit {
         this.Confirmado = true;
       });
     }
+    this.jugadorSumado.emit(true);
   }
 
   abandonarPartido() {
-    const esLocal = this.plantelLocal.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id'));
-    const esVisitante = this.plantelVisitante.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id'));
+    const esLocal = this.plantelLocal.jugadoresConfirmados.find(x => x._id === localStorage.getItem('id'));
+    const esVisitante = this.plantelVisitante.jugadoresConfirmados.find(x => x._id === localStorage.getItem('id'));
     if (esLocal)
       this.plantelService.abandonarPartido(this.plantelLocal._id, localStorage.getItem('id')).subscribe(() => {
         this.plantelLocal.jugadoresConfirmados.splice(this.plantelLocal.jugadoresConfirmados.indexOf(esLocal), 1);
+        this.Confirmado = false;
       });
     if (esVisitante)
       this.plantelService.abandonarPartido(this.plantelVisitante._id, localStorage.getItem('id')).subscribe(res => {
         this.plantelVisitante.jugadoresConfirmados.splice(this.plantelVisitante.jugadoresConfirmados.indexOf(esLocal), 1);
+        this.Confirmado = false;
       });
   }
 }

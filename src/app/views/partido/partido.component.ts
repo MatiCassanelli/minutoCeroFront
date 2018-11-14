@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PartidoService} from '../../../services/partidoService';
 import {Partido} from '../../models/partido';
@@ -15,6 +15,7 @@ import {ReservaService} from '../../../services/reservaService';
 import {Reserva} from '../../models/reserva';
 import {DeporteService} from '../../../services/deporteService';
 import {Cancha} from '../../models/cancha';
+import {PlantelComponent} from '../../component/plantel/plantel.component';
 
 @Component({
   selector: 'app-partido',
@@ -39,6 +40,7 @@ export class PartidoComponent implements OnInit {
   mostrarBoton = false;
   abandonar = false;
   clickAbandonar = false;
+  @ViewChild('appPlantel') appPlantel: PlantelComponent;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -166,18 +168,13 @@ export class PartidoComponent implements OnInit {
     }
   }
 
+  setAbandonar(event) {
+    this.abandonar = event;
+  }
+
   abandonarPartido() {
-    this.clickAbandonar = true;
-    // const esLocal = this.plantelLocal.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id'));
-    // const esVisitante = this.plantelVisitante.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id'));
-    // if(esLocal)
-    //   this.plantelService.abandonarPartido(this.plantelLocal._id, localStorage.getItem('id')).subscribe(() => {
-    //     this.plantelLocal.jugadoresConfirmados.splice(this.plantelLocal.jugadoresConfirmados.indexOf(esLocal), 1)
-    //   });
-    // if(esVisitante)
-    //   this.plantelService.abandonarPartido(this.plantelVisitante._id, localStorage.getItem('id')).subscribe(res => {
-    //     this.plantelVisitante.jugadoresConfirmados.splice(this.plantelVisitante.jugadoresConfirmados.indexOf(esLocal), 1)
-    //   });
+    this.appPlantel.abandonarPartido();
+    this.abandonar = false;
   }
 
 }
