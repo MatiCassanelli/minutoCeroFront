@@ -41,7 +41,6 @@ export class AuthService {
   logIn() {
     this.http.get<Usuario>(this.api + 'usuarioInfo', httpOptions).subscribe(res => {
       if (res) {
-        debugger;
         localStorage.setItem('usuario', JSON.stringify(res));
         localStorage.setItem('type', res.type);
         localStorage.setItem('id', res._id);
