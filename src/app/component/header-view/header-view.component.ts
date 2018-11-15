@@ -46,19 +46,7 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-    this.subscription = this.observableService.getTieneEquipo().subscribe(data => {
-      this.tieneEquipo = data.equipo;
-    });
-    this.observableService.cantNotificaciones.subscribe(res => {
-      this.cantidad = res;
-    });
-    this.observableService.usuarioLogueado.subscribe(res => {
-      this.mostrarMenu = res;
-      if(localStorage.getItem('type'))
-        this.tipoJugador = localStorage.getItem('type');
-    });
-    if(localStorage.getItem('usuario'))
-      this.mostrarMenu = true;
+
   }
 
   logOut() {
@@ -73,16 +61,29 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.equipoService.getMiEquipo().subscribe(res => {
-      if (res[0]) {
-        this.observableService.tieneEquipo(true);
-      } else {
-        this.observableService.tieneEquipo(false);
+    this.subscription = this.observableService.getTieneEquipo().subscribe(data => {
+      this.tieneEquipo = data.equipo;
+    });
+    this.observableService.cantNotificaciones.subscribe(res => {
+      this.cantidad = res;
+    });
+    this.observableService.usuarioLogueado.subscribe(res => {
+      this.mostrarMenu = res;
+      if(localStorage.getItem('type'))
+        this.tipoJugador = localStorage.getItem('type');
+      if(this.tipoJugador === 'Jugador'){
+        this.equipoService.getMiEquipo().subscribe(res => {
+          if (res[0]) {
+            this.observableService.tieneEquipo(true);
+          } else {
+            this.observableService.tieneEquipo(false);
+          }
+        });
       }
     });
-    // this.observableService.cantNotificaciones.subscribe(res => {
-    //   this.cantidad = res;
-    // });
+    if(localStorage.getItem('usuario'))
+      this.mostrarMenu = true;
+
   }
 
   restarNotificacion() {
