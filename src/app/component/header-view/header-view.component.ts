@@ -61,6 +61,15 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    if(localStorage.getItem('type') === 'Jugador'){
+      this.equipoService.getMiEquipo().subscribe(res2 => {
+        if (res2[0]) {
+          this.observableService.tieneEquipo(true);
+        } else {
+          this.observableService.tieneEquipo(false);
+        }
+      });
+    }
     this.subscription = this.observableService.getTieneEquipo().subscribe(data => {
       this.tieneEquipo = data.equipo;
     });
@@ -71,21 +80,11 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
       this.mostrarMenu = res;
       if(localStorage.getItem('type'))
         this.tipoJugador = localStorage.getItem('type');
-      if(this.tipoJugador === 'Jugador'){
-        this.equipoService.getMiEquipo().subscribe(res2 => {
-          if (res2[0]) {
-            this.observableService.tieneEquipo(true);
-          } else {
-            this.observableService.tieneEquipo(false);
-          }
-        });
-      }
     });
-    if(localStorage.getItem('type'))
+    if(localStorage.getItem('type')){
       this.tipoJugador = localStorage.getItem('type');
-    if(localStorage.getItem('usuario'))
       this.mostrarMenu = true;
-
+    }
   }
 
   restarNotificacion() {

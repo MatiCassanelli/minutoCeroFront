@@ -8,7 +8,7 @@
             (click)="clickedVisitante = true; clickedLocal = false; activarComponent('visitante')">Visitante
     </button>
   </div>
-  <div *ngIf="!disabled && Confirmado; else noPartido" class="col-sm-8">
+  <div *ngIf="!disabled && confirmado; else noPartido" class="col-sm-8">
     <app-invitar-jugadores [queTraer]="'Amigos'" id="jugador" (notifyParent)="getJugadores($event)"
                            [isReset]="resetForm"></app-invitar-jugadores>
     <mat-checkbox *ngIf="tieneEquipo" [color]="'primary'" [checked]="invitacionEquipo" (change)="invitarEquipo()">
@@ -18,7 +18,7 @@
   </div>
   <ng-template #noPartido>
     <div class="col-sm-8">
-      <button *ngIf="!disabled && !Confirmado && !Invitado" mat-raised-button class="ui-grid-col-12" color="primary"
+      <button *ngIf="!disabled && !confirmado && !invitado" mat-raised-button class="ui-grid-col-12" color="primary"
               (click)="sumarsePartido()">Sumarse al equipo {{localidad}}
       </button>
     </div>

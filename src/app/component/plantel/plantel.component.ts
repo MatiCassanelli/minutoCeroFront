@@ -39,8 +39,8 @@ export class PlantelComponent implements OnInit {
   jugadoresEquipo: Jugador[] = [];
   clickedLocal = false;
   clickedVisitante = false;
-  Confirmado = false;
-  Invitado = false;
+  confirmado = false;
+  invitado = false;
   @Input() ejecutar;
 
   @Input()
@@ -78,6 +78,7 @@ export class PlantelComponent implements OnInit {
       this.plantelVisitante = new Plantel();
       this.jugadorService.getJugadorById(localStorage.getItem('id')).subscribe(j => {
         this.plantelLocal.jugadoresConfirmados.push(j[0]);
+        this.confirmado = true;
         this.sendPlantel.emit([this.plantelLocal, this.plantelVisitante]);
       });
     }
@@ -101,9 +102,9 @@ export class PlantelComponent implements OnInit {
       plantel.jugadores = res.jugadores;
       plantel.jugadoresConfirmados = res.jugadoresConfirmados;
       if (plantel.jugadoresConfirmados.find(x => x._id === localStorage.getItem('id')))
-        this.Confirmado = true;
+        this.confirmado = true;
       else if (plantel.jugadores.find(x => x._id === localStorage.getItem('id')))
-        this.Invitado = true;
+        this.invitado = true;
       if (condicion === 'local' && res.jugadores.length > 0) {
         this.localInvitados = true;
       }
@@ -280,12 +281,12 @@ export class PlantelComponent implements OnInit {
     if (this.localidad === 'local'){
       this.plantelService.confirmarJugador(this.plantelLocal._id, [localStorage.getItem('id')], null).subscribe(res => {
         this.plantelLocal.jugadoresConfirmados = res.jugadoresConfirmados;
-        this.Confirmado = true;
+        this.confirmado = true;
       });
     } else if (this.localidad === 'visitante') {
       this.plantelService.confirmarJugador(this.plantelVisitante._id, [localStorage.getItem('id')], null).subscribe(res => {
         this.plantelVisitante.jugadoresConfirmados = res.jugadoresConfirmados;
-        this.Confirmado = true;
+        this.confirmado = true;
       });
     }
     this.jugadorSumado.emit(true);
@@ -297,12 +298,12 @@ export class PlantelComponent implements OnInit {
     if (esLocal)
       this.plantelService.abandonarPartido(this.plantelLocal._id, localStorage.getItem('id')).subscribe(() => {
         this.plantelLocal.jugadoresConfirmados.splice(this.plantelLocal.jugadoresConfirmados.indexOf(esLocal), 1);
-        this.Confirmado = false;
+        this.confirmado = false;
       });
     if (esVisitante)
       this.plantelService.abandonarPartido(this.plantelVisitante._id, localStorage.getItem('id')).subscribe(res => {
         this.plantelVisitante.jugadoresConfirmados.splice(this.plantelVisitante.jugadoresConfirmados.indexOf(esLocal), 1);
-        this.Confirmado = false;
+        this.confirmado = false;
       });
   }
 }
