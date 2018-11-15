@@ -34,7 +34,6 @@ export class HomePredioComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.logIn('Predio');
     this.reservaService.getByEstado('Reservada').subscribe(res => {
       this.reservaService.getByEstado('Completada').subscribe(res2 => {
         this.reservas = res.concat(res2);
@@ -92,7 +91,6 @@ export class HomePredioComponent implements OnInit {
   }
 
   clickButton(model: any) {
-    // debugger;
     const view = this.ucCalendar.fullCalendar('getView');
     if (view.type === 'month' && model.type === 'dayClick') {
       this.ucCalendar.fullCalendar('changeView', 'agendaDay');

@@ -35,20 +35,24 @@ const appRoutes: Routes = [
       {path: '', component: HomeJugadorComponent},
       {path: 'organizar', component: OrganizarPartidoComponent},
       {path: ':id', component: PartidoComponent},
-      {path: 'organizar', component: OrganizarPartidoComponent, canActivate:[AuthGuardService, RoleGuardService]}
+      {path: 'organizar', component: OrganizarPartidoComponent}
     ],
+    canActivate: [AuthGuardService, RoleGuardService],
+    canActivateChild: [AuthGuardService, RoleGuardService]
   },
   {
     path: 'predio',
     data: { type: 'Predio'},
     children: [
       {path: '', component: HomePredioComponent},
-      {path: 'registro', component: RegistroPredioStepsComponent, canActivate: [AuthGuardService, RoleGuardService]},
-      {path: 'horarios', component: HorariosPredioComponent, canActivate: [AuthGuardService, RoleGuardService]},
+      {path: 'registro', component: RegistroPredioStepsComponent},
+      {path: 'horarios', component: HorariosPredioComponent},
       // {path: 'registro/1', component: RegistrarPredio1Component, canActivate: [AuthGuardService, RoleGuardService]},
       // {path: 'registro/2', component: RegistroPredioMapaComponent, canActivate: [AuthGuardService, RoleGuardService]},
-      {path: 'nuevaCancha', component: CargaNuevaCanchaComponent, canActivate: [AuthGuardService, RoleGuardService]}
+      {path: 'nuevaCancha', component: CargaNuevaCanchaComponent}
     ],
+    canActivate: [AuthGuardService, RoleGuardService],
+    canActivateChild: [AuthGuardService, RoleGuardService]
   },
   {
     path: 'equipo',

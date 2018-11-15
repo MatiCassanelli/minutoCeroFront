@@ -5,8 +5,7 @@ import {RoleService} from "./role.service";
 
 @Injectable()
 export class RoleGuardService implements CanActivate, CanActivateChild{
-  constructor(public authService: AuthService,
-              public router: Router,
+  constructor(public router: Router,
               private roleService: RoleService){}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
@@ -19,6 +18,7 @@ export class RoleGuardService implements CanActivate, CanActivateChild{
   }
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    debugger;
     if(this.roleService.checkType(route.data["type"]))
       return true;
     else{

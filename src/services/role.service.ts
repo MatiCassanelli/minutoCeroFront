@@ -22,10 +22,8 @@ export class RoleService {
 
   }
 
-  isAllowed(type){
-    if(!this.checkType(type))
-      return false;
-    return true;
+  redirectToRegistro(number){
+    this.router.navigateByUrl('/predio/registro');
   }
 
   redirectToHome(){

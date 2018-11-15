@@ -31,31 +31,29 @@ export class AuthService {
     return false
   }
 
-  logIn(type) {
-    if (localStorage.getItem('usuario') !== null) {
-      if (!this.roleService.isAllowed(type)) {
-        this.router.navigateByUrl('/unauthorized');
+  isFirstTime() {
+    if (localStorage.getItem('loggingIn') !== null) {
+      return true;
+    }
+    return false;
+  }
+
+  logIn() {
+    this.http.get<Usuario>(this.api + 'usuarioInfo', httpOptions).subscribe(res => {
+      if (res) {
+        debugger;
+        localStorage.setItem('usuario', JSON.stringify(res));
+        localStorage.setItem('type', res.type);
+        localStorage.setItem('id', res._id);
+        localStorage.removeItem('loggingIn');
+        if(res.type === 'Jugador' || res.stepRegistro === 6)
+          this.roleService.redirectToHome();
+        else {
+          this.roleService.redirectToRegistro(res.stepRegistro)
+        }
         return;
       }
-    }
-    else {
-      this.http.get<Usuario>(this.api + 'usuarioInfo', httpOptions).subscribe(res => {
-        if (res) {
-          localStorage.setItem('usuario', JSON.stringify(res));
-          localStorage.setItem('type', res.type);
-          localStorage.setItem('id', res._id);
-          // this.roleService.redirectToHome();
-          if (!this.roleService.isAllowed(type))
-            this.router.navigateByUrl('/unauthorized');
-          return;
-        }
-        // else {
-        //   this.router.navigateByUrl('/login');
-        //   return;
-        // }
-      });
-
-    }
+    });
   }
 
   logOut() {

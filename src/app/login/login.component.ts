@@ -31,8 +31,6 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private roleService: RoleService) {
     this.predio = false;
-    this.facebook = this.url + '/auth/login/facebook/jugador/';
-    this.google = this.url + '/auth/login/google/jugador/';
   }
 
   ngOnInit() {
@@ -55,5 +53,14 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  loggingInFb() {
+    localStorage.setItem('loggingIn', 'true');
+    window.location.href=this.facebook;
+  }
+
+  loggingInGl() {
+    localStorage.setItem('loggingIn', 'true');
+    window.location.href=this.google;
+  }
 }
 
