@@ -31,6 +31,8 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private roleService: RoleService) {
     this.predio = false;
+    this.facebook = this.url + '/auth/login/facebook/jugador/';
+    this.google = this.url + '/auth/login/google/jugador/';
   }
 
   ngOnInit() {
