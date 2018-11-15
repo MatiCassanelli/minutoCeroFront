@@ -72,8 +72,8 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
       if(localStorage.getItem('type'))
         this.tipoJugador = localStorage.getItem('type');
       if(this.tipoJugador === 'Jugador'){
-        this.equipoService.getMiEquipo().subscribe(res => {
-          if (res[0]) {
+        this.equipoService.getMiEquipo().subscribe(res2 => {
+          if (res2[0]) {
             this.observableService.tieneEquipo(true);
           } else {
             this.observableService.tieneEquipo(false);
@@ -81,6 +81,8 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
         });
       }
     });
+    if(localStorage.getItem('type'))
+      this.tipoJugador = localStorage.getItem('type');
     if(localStorage.getItem('usuario'))
       this.mostrarMenu = true;
 

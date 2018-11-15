@@ -6,7 +6,7 @@ import { Subject } from 'rxjs/Subject';
 export class ObservableService {
 
   private equipo$ = new Subject<any>();
-  private messageSource = new BehaviorSubject(1);
+  private messageSource = new BehaviorSubject(0);
   private logueado = new Subject<boolean>();
   cantNotificaciones = this.messageSource.asObservable();
   usuarioLogueado = this.logueado.asObservable();
