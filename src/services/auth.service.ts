@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {Usuario} from "../app/models/usuario";
 import {RoleService} from "./role.service";
 import {environment} from "../environments/environment";
+import {ObservableService} from '../app/observable.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -20,7 +21,8 @@ export class AuthService {
 
   constructor(private http: HttpClient,
               private router: Router,
-              private roleService: RoleService) {
+              private roleService: RoleService,
+              private observableService: ObservableService) {
 
   }
 
@@ -45,6 +47,7 @@ export class AuthService {
         localStorage.setItem('type', res.type);
         localStorage.setItem('id', res._id);
         localStorage.removeItem('loggingIn');
+        this.observableService.loguear(true);
         if(res.type === 'Jugador' || res.stepRegistro === 5)
           this.roleService.redirectToHome();
         else {
@@ -59,5 +62,6 @@ export class AuthService {
     localStorage.removeItem('usuario');
     localStorage.removeItem('type');
     localStorage.removeItem('id');
+    this.observableService.loguear(false);
   }
 }

@@ -100,7 +100,6 @@ export class PlantelComponent implements OnInit {
       }
       plantel.jugadores = res.jugadores;
       plantel.jugadoresConfirmados = res.jugadoresConfirmados;
-      debugger;
       if (plantel.jugadoresConfirmados.find(x => x._id === localStorage.getItem('id')))
         this.Confirmado = true;
       else if (plantel.jugadores.find(x => x._id === localStorage.getItem('id')))

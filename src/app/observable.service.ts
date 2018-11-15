@@ -7,7 +7,9 @@ export class ObservableService {
 
   private equipo$ = new Subject<any>();
   private messageSource = new BehaviorSubject(1);
+  private logueado = new Subject<boolean>();
   cantNotificaciones = this.messageSource.asObservable();
+  usuarioLogueado = this.logueado.asObservable();
 
   constructor() {}
   tieneEquipo(data: boolean) {
@@ -20,6 +22,10 @@ export class ObservableService {
 
   changeMessage(message: number) {
     this.messageSource.next(message);
+  }
+
+  loguear(asd: boolean) {
+    this.logueado.next(asd);
   }
 
 }

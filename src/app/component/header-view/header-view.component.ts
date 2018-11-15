@@ -22,7 +22,7 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
 
   @ViewChild('drawer') sidenav: MatSidenav;
 
-  @Input() tipoJugador: string;
+  tipoJugador: string;
   titulo = 'Minuto Cero';
 
   // @Input() cantidad: number;
@@ -37,6 +37,7 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
 
   private _mobileQueryListener: () => void;
   logoutApi = environment.baseUrl + '/auth/logout';
+  mostrarMenu: boolean;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
               private authService: AuthService,
@@ -51,6 +52,13 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
     this.observableService.cantNotificaciones.subscribe(res => {
       this.cantidad = res;
     });
+    this.observableService.usuarioLogueado.subscribe(res => {
+      this.mostrarMenu = res;
+      if(localStorage.getItem('type'))
+        this.tipoJugador = localStorage.getItem('type');
+    });
+    if(localStorage.getItem('usuario'))
+      this.mostrarMenu = true;
   }
 
   logOut() {
@@ -61,7 +69,7 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
     console.log('destroying');
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 
   ngOnInit() {
