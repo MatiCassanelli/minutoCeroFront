@@ -23,7 +23,7 @@ export class RoleService {
   }
 
   redirectToRegistro(number){
-    this.router.navigateByUrl('/predio/registro');
+    this.router.navigate(['/predio/registro', {step: number}]);
   }
 
   redirectToHome(){

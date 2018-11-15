@@ -46,10 +46,10 @@ export class AuthService {
         localStorage.setItem('type', res.type);
         localStorage.setItem('id', res._id);
         localStorage.removeItem('loggingIn');
-        if(res.type === 'Jugador' || res.stepRegistro === 6)
+        if(res.type === 'Jugador' || res.stepRegistro === 5)
           this.roleService.redirectToHome();
         else {
-          this.roleService.redirectToRegistro(res.stepRegistro)
+          this.roleService.redirectToRegistro(res.stepRegistro);
         }
         return;
       }

@@ -13,7 +13,7 @@
     <div class="fab-container">
       <button mat-icon-button routerLink="/notificaciones" (click)="titulo='Notificaciones'">
         <mat-icon>notifications</mat-icon>
-        <span *ngIf="cantidad > 0" class="badge">{{cantidad}}</span>
+        <span *ngIf="cantidad > 0" class="badge" [style]="{'background-color':'accent'}">{{cantidad}}</span>
       </button>
     </div>
 

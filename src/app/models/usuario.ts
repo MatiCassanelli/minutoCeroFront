@@ -3,6 +3,6 @@ export class Usuario {
   _id: string;
   nombre: string;
   apellido: string;
-  email:string;
-  stepRegistro:Number;
+  email: string;
+  stepRegistro: Number;
 }
