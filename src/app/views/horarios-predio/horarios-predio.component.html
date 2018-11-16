@@ -1,7 +1,7 @@
 <div class="container">
   <h4>Horarios para Día y Noche</h4>
-  <app-configuracion-horas></app-configuracion-horas>
+  <app-configuracion-horas (stepEmit)="getConfigHorarios($event)"></app-configuracion-horas>
 
   <h4 style="padding-top: 20px;">Horarios de apertura</h4>
-  <app-fecha-carousel></app-fecha-carousel>
+  <app-fecha-carousel (emitHorario)="getHorario($event)"></app-fecha-carousel>
 </div>

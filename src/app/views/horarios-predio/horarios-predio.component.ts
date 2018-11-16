@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-horarios-predio',
@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HorariosPredioComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
+  getHorario(event) {
+    console.log(event);
+  }
+
+  getConfigHorarios(event) {
+
+  }
 }

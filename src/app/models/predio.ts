@@ -10,4 +10,14 @@ export class Predio {
     lng: string
   };
   direccion: string;
+  configHorario: {
+    dia: {
+      desde: Date,
+      hasta: Date
+    },
+    noche: {
+      desde: Date,
+      hasta: Date
+    }
+  };
 }

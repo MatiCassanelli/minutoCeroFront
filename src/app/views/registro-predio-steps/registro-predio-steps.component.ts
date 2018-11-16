@@ -15,6 +15,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class RegistroPredioStepsComponent implements OnInit, AfterViewInit {
 
+  predio: Predio;
   isLinear = true;
   step = 1;
   nombrePredio: string;
@@ -65,12 +66,13 @@ export class RegistroPredioStepsComponent implements OnInit, AfterViewInit {
       this.nombrePredio = event.infoContacto.nombre;
       this.telefono = event.infoContacto.telefono;
       this.predioService.createPredio({nombre: this.nombrePredio, telefono: this.telefono, step: 1}).subscribe((res) => {
-        this.predioService.setHorarios(this.horarios, 1).subscribe(() => {
+        this.predioService.setHorarios(this.horarios, 1).subscribe((asd) => {
         });
       });
     }
 
     if (event.configHoras) {
+      debugger;
       this.configHoras = event.configHoras;
       this.predioService.setConfiguracionHorarios(this.configHoras, 2).subscribe(() => {
       });

@@ -1,8 +1,8 @@
 export class Horario {
   dia: String;
   horario: [{
-    desde: Date,
-    hasta: Date
+    desde: any,
+    hasta: any
   }];
   abre: boolean;
 }

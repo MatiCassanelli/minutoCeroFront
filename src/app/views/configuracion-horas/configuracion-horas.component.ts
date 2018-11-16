@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {PredioService} from '../../../services/predioService';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-configuracion-horas',
@@ -10,12 +11,12 @@ export class ConfiguracionHorasComponent implements OnInit {
 
   horarios: {
     dia: {
-      desde: Date,
-      hasta: Date
+      desde: any,
+      hasta: any,
     },
     noche: {
-      desde: Date,
-      hasta: Date
+      desde: any,
+      hasta: any,
     }
   };
   defaultDate = new Date();
@@ -29,9 +30,15 @@ export class ConfiguracionHorasComponent implements OnInit {
   }
 
   ngOnInit() {
-    const today = new Date();
-    this.defaultDate.setHours(this.redondearHora(today.getHours(), today.getMinutes())[0]);
-    this.defaultDate.setMinutes(this.redondearHora(today.getHours(), today.getMinutes())[1]);
+    // const today = new Date();
+    // this.defaultDate.setHours(this.redondearHora(today.getHours(), today.getMinutes())[0]);
+    // this.defaultDate.setMinutes(this.redondearHora(today.getHours(), today.getMinutes())[1]);
+    this.predioService.getPredio(localStorage.getItem('id')).subscribe(res => {
+      this.horarios.dia.desde = moment(res.configHorario.dia.desde).format('HH:mm');
+      this.horarios.dia.hasta = moment(res.configHorario.dia.hasta).format('HH:mm');
+      this.horarios.noche.desde = moment(res.configHorario.noche.desde).format('HH:mm');
+      this.horarios.noche.hasta = moment(res.configHorario.noche.hasta).format('HH:mm');
+    });
   }
 
   private redondearHora(hours, minutes) {
@@ -41,6 +48,12 @@ export class ConfiguracionHorasComponent implements OnInit {
   }
 
   sendHorarios() {
+    debugger;
+    this.horarios.dia.desde = moment().hours(this.horarios.dia.desde.toString().split(':')[0]).minutes(this.horarios.dia.desde.toString().split(':')[1]).toDate()
+    this.horarios.noche.desde = moment().hours(this.horarios.noche.desde.toString().split(':')[0]).minutes(this.horarios.noche.desde.toString().split(':')[1]).toDate()
+    this.horarios.dia.hasta = moment().hours(this.horarios.dia.hasta.toString().split(':')[0]).minutes(this.horarios.dia.hasta.toString().split(':')[1]).toDate()
+    this.horarios.noche.hasta = moment().hours(this.horarios.noche.hasta.toString().split(':')[0]).minutes(this.horarios.noche.hasta.toString().split(':')[1]).toDate()
+
     this.stepEmit.emit({
       configHoras: this.horarios
     });
