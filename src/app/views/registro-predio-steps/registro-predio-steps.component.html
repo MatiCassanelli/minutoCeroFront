@@ -1,7 +1,7 @@
 <mat-horizontal-stepper [linear]="isLinear" labelPosition="bottom" #stepper style="height: 100%;" >
   <mat-step>
     <ng-template matStepLabel>Horarios</ng-template>
-    <app-registrar-predio1 (stepEmit)="siguiente($event, stepper)"></app-registrar-predio1>
+    <app-registrar-predio1 (stepEmit)="siguiente($event, stepper)" [predio]="predio"></app-registrar-predio1>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Dia/Noche</ng-template>

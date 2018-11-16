@@ -4,6 +4,7 @@ import {AmazingTimePickerService} from 'amazing-time-picker';
 import {Horario} from '../../models/horario';
 import {Predio} from '../../models/predio';
 import {PredioService} from '../../../services/predioService';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-fecha-carousel',
@@ -34,14 +35,21 @@ export class FechaCarouselComponent implements OnInit {
     const today = new Date();
     this.defaultDate.setHours(this.redondearHora(today.getHours(), today.getMinutes())[0]);
     this.defaultDate.setMinutes(this.redondearHora(today.getHours(), today.getMinutes())[1]);
-    // this.predioService.getPredio(localStorage.getItem('id')).subscribe(predio => {
-    //   this.predio = predio;
-    //   for (let i = 0; i < predio.horario.length; i++) {
-    //     this.horarios[i].dia = predio.horario[i].dia;
-    //     this.horarios[i].abre = true;
-    //     this.horarios[i].horario = predio.horario[i].horario;
-    //   }
-    // });
+    this.predioService.getPredio(localStorage.getItem('id')).subscribe(predio => {
+      this.predio = predio;
+      for (let i = 0; i < predio.horario.length; i++) {
+        for (let k = 0; k < this.horarios.length; k++) {
+          if(this.horarios[k].dia === predio.horario[i].dia){
+            this.horarios[k].abre = true;
+            for (let j = 0; j < predio.horario[i].horario.length; j++) {
+              this.horarios[k].horario[j].desde = moment(predio.horario[i].horario[j].desde).format('HH:mm');
+              this.horarios[k].horario[j].hasta = moment(predio.horario[i].horario[j].hasta).format('HH:mm');
+            }
+          }
+        }
+
+      }
+    });
   }
 
   private redondearHora(hours, minutes) {
@@ -54,19 +62,19 @@ export class FechaCarouselComponent implements OnInit {
 
   sendHorarios() {
     let asd = [];
-    for (let a of this.horarios)
-      asd.push(a);
-    for (let i of asd) {
+    for (let i of this.horarios) {
       if (i.abre) {
         for (let j of i.horario) {
-          if (!j.desde || !j.hasta)
-            i.horario.splice(i.horario.indexOf(j), 1);
+          if (!(j.desde instanceof Date))
+            // j.desde = moment(j.desde.toString()).toDate();
+            j.desde = moment().hours(j.desde.toString().split(':')[0]).minutes(j.desde.toString().split(':')[1]).toDate()
+          if (!(j.hasta instanceof Date))
+            j.hasta = moment().hours(j.hasta.toString().split(':')[0]).minutes(j.hasta.toString().split(':')[1]).toDate()
         }
-      } else {
-        this.horarios.splice(this.horarios.indexOf(i), 1);
+        asd.push(i);
       }
     }
-    this.emitHorario.emit(this.horarios);
+    this.emitHorario.emit(asd);
   }
 
   agregarHorario(i) {

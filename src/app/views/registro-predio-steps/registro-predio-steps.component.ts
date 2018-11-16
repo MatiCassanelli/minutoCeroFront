@@ -15,6 +15,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class RegistroPredioStepsComponent implements OnInit, AfterViewInit {
 
+  predio: Predio;
   isLinear = true;
   step = 1;
   nombrePredio: string;
@@ -53,7 +54,7 @@ export class RegistroPredioStepsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    for (let i = 0; i < this.step; i++) {
+    for (let i = 1; i < this.step; i++) {
       this.stepper.next();
     }
   }
@@ -65,9 +66,7 @@ export class RegistroPredioStepsComponent implements OnInit, AfterViewInit {
       this.nombrePredio = event.infoContacto.nombre;
       this.telefono = event.infoContacto.telefono;
       this.predioService.createPredio({nombre: this.nombrePredio, telefono: this.telefono, step: 1}).subscribe((res) => {
-        console.log(res);
-        this.predioService.setHorarios(this.horarios, 1).subscribe(() => {
-
+        this.predioService.setHorarios(this.horarios, 1).subscribe((asd) => {
         });
       });
     }
@@ -94,7 +93,10 @@ export class RegistroPredioStepsComponent implements OnInit, AfterViewInit {
   }
 
   crearPredio() {
-    this.router.navigateByUrl('/predio');
+    this.predioService.updateStep(5).subscribe(() => {
+      this.router.navigateByUrl('/predio');
+    });
+
   }
 
   //   this.predioService.createPredio({

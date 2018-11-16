@@ -1,34 +1,9 @@
 <div class="container">
-  <app-map #mapa (sendUbicacion)="getUbicacion($event)"></app-map>
-  <!--<div class="form-group">-->
-  <!--<input id="input" type="text" [(ngModel)]="direccion" placeholder="Ingrese dirección">-->
-  <!--<input matInput placeholder="Ingrese dirección" [(ngModel)]="direccion">-->
-  <!--<button mat-button (click)="mapa.geocodeDireccion(direccion)">Buscar</button>-->
+  <app-map #mapa (sendUbicacion)="getUbicacion($event)" [setIdPartido]="predio"></app-map>
   <form class="example-form">
     <mat-form-field class="example-full-width">
       <input matInput placeholder="Ingrese dirección" [(ngModel)]="direccion" [ngModelOptions]="{standalone: true}">
     </mat-form-field>
     <button mat-button (click)="mapa.geocodeDireccion(direccion)">Buscar</button>
   </form>
-  <!--</div>-->
-
-  <!--<button mat-button color="warn">Cancelar</button>-->
-  <!--<button mat-button color="primary">Aceptar</button>-->
-
-  <!--<div class="row">-->
-    <!--<div class="ui-grid-col-3"></div>-->
-    <!--<div class="ui-grid-col-2">-->
-      <!--<button pButton type="submit" icon="pi pi-check" label="Confirm"></button>-->
-    <!--</div>-->
-    <!--<div class="ui-grid-col-2">-->
-    <!--</div>-->
-    <!--<div class="ui-grid-col-2">-->
-      <!--<button pButton type="button" icon="pi pi-times" label="Cancelar"></button>-->
-    <!--</div>-->
-    <!--<div class="ui-grid-col-3"></div>-->
-  <!--</div>-->
-
-  <!--<p-confirmDialog acceptLabel="Sí" rejectLabel="No"></p-confirmDialog>-->
-
-  <!--<button type="button" (click)="confirm1()" pButton icon="pi pi-check" label="Confirm"></button>-->
 </div>

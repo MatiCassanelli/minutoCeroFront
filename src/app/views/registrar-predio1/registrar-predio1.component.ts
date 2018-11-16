@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Predio} from '../../models/predio';
 import {PredioService} from '../../../services/predioService';
@@ -17,9 +17,11 @@ export class RegistrarPredio1Component implements OnInit {
   nombreHoraForm: FormGroup;
   horarios: Horario[];
   disabled = true;
+  @Input() predio: Predio;
   @Output() stepEmit: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder,
+              private predioService: PredioService) {
   }
 
   ngOnInit() {
@@ -27,6 +29,15 @@ export class RegistrarPredio1Component implements OnInit {
       nombrePredio: ['', Validators.required],
       telefono: ['', Validators.required],
     });
+    this.predioService.getPredio(localStorage.getItem('id')).subscribe(res => {
+      if(res) {
+        this.nombreHoraForm.controls['nombrePredio'].setValue(res.nombrePredio);
+        this.nombreHoraForm.controls['telefono'].setValue(res.telefono);
+        // this.nombreHoraForm.setValue({telefono: res.telefono});
+      }
+    });
+
+
   }
 
   getHorarios(event) {

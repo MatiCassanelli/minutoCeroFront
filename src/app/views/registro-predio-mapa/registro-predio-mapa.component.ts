@@ -4,6 +4,7 @@ import {ConfirmationService} from 'primeng/api';
 import {Router} from '@angular/router';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {ConfirmDialogPlantelComponent} from '../../component/confirm-dialog-plantel/confirm-dialog-plantel.component';
+import {Predio} from '../../models/predio';
 
 @Component({
   selector: 'app-registro-predio-mapa',
@@ -22,6 +23,8 @@ export class RegistroPredioMapaComponent implements OnInit {
   @Output() ubicacionSeleccionada: EventEmitter<any> = new EventEmitter<any>();
   dialogRef: MatDialogRef<ConfirmUbicacionDialogComponent>;
 
+  predio: Predio;
+
   constructor(private predioService: PredioService,
               private confirmationService: ConfirmationService,
               private router: Router,
@@ -29,6 +32,12 @@ export class RegistroPredioMapaComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.predioService.getPredio(localStorage.getItem('id')).subscribe(res => {
+      if(res) {
+        this.predio = res;
+        // this.nombreHoraForm.setValue({telefono: res.telefono});
+      }
+    });
   }
 
   getUbicacion(event) {
