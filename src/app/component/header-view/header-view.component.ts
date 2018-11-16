@@ -78,9 +78,25 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
     });
     this.observableService.usuarioLogueado.subscribe(res => {
       this.mostrarMenu = res;
+      if(localStorage.getItem('type') === 'Jugador'){
+        this.equipoService.getMiEquipo().subscribe(res2 => {
+          if (res2[0]) {
+            this.observableService.tieneEquipo(true);
+          } else {
+            this.observableService.tieneEquipo(false);
+          }
+        });
+      }
+      this.subscription = this.observableService.getTieneEquipo().subscribe(data => {
+        this.tieneEquipo = data.equipo;
+      });
+      this.observableService.cantNotificaciones.subscribe(res3 => {
+        this.cantidad = res3;
+      });
       if(localStorage.getItem('type'))
         this.tipoJugador = localStorage.getItem('type');
     });
+
     if(localStorage.getItem('type')){
       this.tipoJugador = localStorage.getItem('type');
       this.mostrarMenu = true;

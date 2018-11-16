@@ -67,6 +67,7 @@ export class RegistroPredioStepsComponent implements OnInit, AfterViewInit {
       this.telefono = event.infoContacto.telefono;
       this.predioService.createPredio({nombre: this.nombrePredio, telefono: this.telefono, step: 1}).subscribe((res) => {
         this.predioService.setHorarios(this.horarios, 1).subscribe((asd) => {
+          this._actualizarStep(1);
         });
       });
     }
@@ -74,18 +75,21 @@ export class RegistroPredioStepsComponent implements OnInit, AfterViewInit {
     if (event.configHoras) {
       this.configHoras = event.configHoras;
       this.predioService.setConfiguracionHorarios(this.configHoras, 2).subscribe(() => {
+        this._actualizarStep(2);
       });
     }
 
     if (event.canchas) {
       this.canchas = event.canchas;
       this.predioService.setCanchas(this.canchas, 3).subscribe(() => {
+        this._actualizarStep(3);
       });
     }
 
     if (event.ubicacion) {
       this.ubicacion = event.ubicacion;
       this.predioService.setUbicacion(this.ubicacion, 4);
+      this._actualizarStep(4);
     }
 
     if (event)
@@ -93,24 +97,17 @@ export class RegistroPredioStepsComponent implements OnInit, AfterViewInit {
   }
 
   crearPredio() {
-    this.predioService.updateStep(5).subscribe(() => {
+    this.predioService.updateStep(5).subscribe((res) => {
+      this._actualizarStep(5);
       this.router.navigateByUrl('/predio');
     });
 
   }
 
-  //   this.predioService.createPredio({
-  //     nombre: this.nombrePredio,
-  //     telefono: this.telefono,
-  //     ubicacion: this.ubicacion,
-  //     horarios: this.horarios
-  //   }).subscribe(() => {
-  //     forkJoin(this.predioService.setConfiguracionHorarios(this.configHoras),
-  //     this.predioService.setCanchas(this.canchas)).subscribe(() => {
-  //       const asd = this.predioService.setUbicacion(this.ubicacion);
-  //       console.log(asd);
-  //     });
-  //   });
-  // }
+  private _actualizarStep(step) {
+    let usuario = JSON.parse(localStorage.getItem('usuario'));
+    usuario.stepRegistro = step;
+    localStorage.setItem('usuario', JSON.stringify(usuario));
+  }
 
 }
