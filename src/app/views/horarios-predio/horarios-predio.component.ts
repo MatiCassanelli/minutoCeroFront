@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {PredioService} from '../../../services/predioService';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-horarios-predio',
@@ -7,17 +9,28 @@ import {Component, OnInit} from '@angular/core';
 })
 export class HorariosPredioComponent implements OnInit {
 
-  constructor() {
+  constructor(private predioService: PredioService,
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
   }
 
   getHorario(event) {
-    console.log(event);
+    this.predioService.setHorarios(event).subscribe((asd) => {
+      this._openSnackBar();
+    });
   }
 
   getConfigHorarios(event) {
+    this.predioService.setConfiguracionHorarios(event).subscribe((asd) => {
+      this._openSnackBar();
+    });
+  }
 
+  private _openSnackBar() {
+    this.snackBar.open('Horarios Actualizados', '', {
+      duration: 750,
+    });
   }
 }

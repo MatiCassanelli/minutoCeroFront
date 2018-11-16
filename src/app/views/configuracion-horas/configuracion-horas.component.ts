@@ -30,9 +30,9 @@ export class ConfiguracionHorasComponent implements OnInit {
   }
 
   ngOnInit() {
-    // const today = new Date();
-    // this.defaultDate.setHours(this.redondearHora(today.getHours(), today.getMinutes())[0]);
-    // this.defaultDate.setMinutes(this.redondearHora(today.getHours(), today.getMinutes())[1]);
+    const today = new Date();
+    this.defaultDate.setHours(this.redondearHora(today.getHours(), today.getMinutes())[0]);
+    this.defaultDate.setMinutes(this.redondearHora(today.getHours(), today.getMinutes())[1]);
     this.predioService.getPredio(localStorage.getItem('id')).subscribe(res => {
       this.horarios.dia.desde = moment(res.configHorario.dia.desde).format('HH:mm');
       this.horarios.dia.hasta = moment(res.configHorario.dia.hasta).format('HH:mm');
