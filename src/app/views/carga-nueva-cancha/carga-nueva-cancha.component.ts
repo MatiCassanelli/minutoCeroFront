@@ -3,6 +3,7 @@ import {PredioService} from '../../../services/predioService';
 import {Cancha} from '../../models/cancha';
 import {Deporte} from '../../models/deporte';
 import {DeporteService} from '../../../services/deporteService';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-carga-nueva-cancha',
@@ -16,7 +17,8 @@ export class CargaNuevaCanchaComponent implements OnInit {
   @Input() steps = false;
   @Output() canchasSeleccionada: EventEmitter<any> = new EventEmitter<any>();
   constructor(private predioService: PredioService,
-              private deporteService: DeporteService) {  }
+              private deporteService: DeporteService,
+              private router: Router) {  }
 
   ngOnInit() {
     this.deporteService.getDeportes().subscribe(res => {
@@ -35,13 +37,11 @@ export class CargaNuevaCanchaComponent implements OnInit {
   }
 
   agregarCanchas() {
-    console.log(this.canchas);
     if (this.steps) {
       this.canchasSeleccionada.emit({canchas: this.canchas});
     } else {
-      console.log('no step');
       this.predioService.setCanchas(this.canchas).subscribe(res => {
-        console.log(res);
+        this.router.navigateByUrl('/predio');
       });
     }
   }
