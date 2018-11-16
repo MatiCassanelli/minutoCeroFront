@@ -23,6 +23,8 @@ export class RoleGuardService implements CanActivate, CanActivateChild{
         else
           this.roleService.redirectToRegistro(stepRegistro);
       }
+      else
+        return true;
     }
     else{
       this.router.navigateByUrl('/unauthorized');
@@ -45,6 +47,8 @@ export class RoleGuardService implements CanActivate, CanActivateChild{
         else
           this.roleService.redirectToRegistro(stepRegistro);
       }
+      else
+        return true;
     }
     else{
       this.router.navigateByUrl('/unauthorized');
