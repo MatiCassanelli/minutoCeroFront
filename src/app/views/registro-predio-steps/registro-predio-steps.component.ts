@@ -72,7 +72,6 @@ export class RegistroPredioStepsComponent implements OnInit, AfterViewInit {
     }
 
     if (event.configHoras) {
-      debugger;
       this.configHoras = event.configHoras;
       this.predioService.setConfiguracionHorarios(this.configHoras, 2).subscribe(() => {
       });
@@ -94,7 +93,10 @@ export class RegistroPredioStepsComponent implements OnInit, AfterViewInit {
   }
 
   crearPredio() {
-    this.router.navigateByUrl('/predio');
+    this.predioService.updateStep(5).subscribe(() => {
+      this.router.navigateByUrl('/predio');
+    });
+
   }
 
   //   this.predioService.createPredio({

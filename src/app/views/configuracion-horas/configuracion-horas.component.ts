@@ -48,11 +48,14 @@ export class ConfiguracionHorasComponent implements OnInit {
   }
 
   sendHorarios() {
-    debugger;
-    this.horarios.dia.desde = moment().hours(this.horarios.dia.desde.toString().split(':')[0]).minutes(this.horarios.dia.desde.toString().split(':')[1]).toDate()
-    this.horarios.noche.desde = moment().hours(this.horarios.noche.desde.toString().split(':')[0]).minutes(this.horarios.noche.desde.toString().split(':')[1]).toDate()
-    this.horarios.dia.hasta = moment().hours(this.horarios.dia.hasta.toString().split(':')[0]).minutes(this.horarios.dia.hasta.toString().split(':')[1]).toDate()
-    this.horarios.noche.hasta = moment().hours(this.horarios.noche.hasta.toString().split(':')[0]).minutes(this.horarios.noche.hasta.toString().split(':')[1]).toDate()
+    if (!(this.horarios.dia.desde instanceof Date))
+      this.horarios.dia.desde = moment().hours(this.horarios.dia.desde.toString().split(':')[0]).minutes(this.horarios.dia.desde.toString().split(':')[1]).toDate();
+    if (!(this.horarios.dia.hasta instanceof Date))
+      this.horarios.dia.hasta = moment().hours(this.horarios.dia.hasta.toString().split(':')[0]).minutes(this.horarios.dia.hasta.toString().split(':')[1]).toDate();
+    if (!(this.horarios.noche.desde instanceof Date))
+      this.horarios.noche.desde = moment().hours(this.horarios.noche.desde.toString().split(':')[0]).minutes(this.horarios.noche.desde.toString().split(':')[1]).toDate();
+    if (!(this.horarios.noche.hasta instanceof Date))
+      this.horarios.noche.hasta = moment().hours(this.horarios.noche.hasta.toString().split(':')[0]).minutes(this.horarios.noche.hasta.toString().split(':')[1]).toDate();
 
     this.stepEmit.emit({
       configHoras: this.horarios

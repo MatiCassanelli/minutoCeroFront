@@ -43,6 +43,10 @@ export class PredioService {
     return this.http.put<Predio>(this.api + 'horario', {horario: horarios, step: step}, global.httpOptions);
   }
 
+  updateStep(step) {
+    return this.http.put<Predio>(this.api + '/step/' + step, null, global.httpOptions);
+  }
+
   getPredioConDisponibilidad(idDeporte, kilometros, lat, lng, dia) {
     return this.http.get<any>(this.api + '/cercanos/idDeporte=' + idDeporte + '&kilometros=' + kilometros + '&longitud=' + lng + '&latitud=' +
       lat + '&dia=' + dia, global.httpOptions);

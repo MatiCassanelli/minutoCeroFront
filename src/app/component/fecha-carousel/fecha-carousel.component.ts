@@ -78,7 +78,6 @@ export class FechaCarouselComponent implements OnInit {
   }
 
   agregarHorario(i) {
-    debugger;
     this.horarios[i].horario.push({
       desde: null,
       hasta: null
