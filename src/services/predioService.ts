@@ -68,4 +68,8 @@ export class PredioService {
     return this.http.get<Predio>(this.api + idPredio + '/info', global.httpOptions);
   }
 
+  getMisCanchasDisponibles(dia) {
+    return this.http.get<Array<Cancha>>(this.api + '/canchas/dia=' + dia, global.httpOptions);
+  }
+
 }

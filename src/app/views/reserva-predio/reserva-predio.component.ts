@@ -35,18 +35,22 @@ export class ReservaPredioComponent implements OnInit {
     this.route.params.subscribe((params) => {
         if (params.fecha) {
           this.fecha = moment(params.fecha.split('Z')[0]).toDate();
+          debugger;
+          this.predioService.getMisCanchasDisponibles(this.fecha).subscribe(res => {
+            this.canchas = res;
+          });
         } else
           this.fecha = null;
       }
     );
 
-    this.predioService.getCanchasWithPredio(localStorage.getItem('id')).subscribe(res => {
-      this.canchas = res;
-    });
   }
 
   getFecha(fecha) {
     this.fecha = fecha;
+    this.predioService.getMisCanchasDisponibles(this.fecha).subscribe(res => {
+      this.canchas = res;
+    });
   }
 
   reservar() {

@@ -45,6 +45,8 @@
       </mat-nav-list>
       <ng-template #Predio>
         <mat-nav-list>
+          <a mat-list-item routerLink="/predio" (click)="snav.toggle(); titulo='Minuto Cero'">Reservas</a>
+          <mat-divider></mat-divider>
           <a mat-list-item routerLink="/predio/nuevaCancha" (click)="snav.toggle(); titulo='Mis Canchas'">Mis Canchas</a>
           <mat-divider></mat-divider>
           <a mat-list-item routerLink="/predio/horarios" (click)="snav.toggle(); titulo='Mis Horarios'">Mis Horarios</a>
