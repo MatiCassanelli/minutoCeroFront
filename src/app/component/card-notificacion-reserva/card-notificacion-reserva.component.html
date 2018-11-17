@@ -1,4 +1,4 @@
-<div style="margin: 3%;" (swipeLeft) = "restarNotificacion.emit('')" (swipeRight) = "restarNotificacion.emit('')">
+<div style="margin: 3%;" (swipeLeft)="restarNotificacion.emit('')" (swipeRight)="restarNotificacion.emit('')">
   <mat-card>
     <mat-card-title style="font-size: 16px">
       {{mensaje}} <br>
@@ -7,8 +7,15 @@
     <mat-card-subtitle *ngIf="reserva.estado === 'PreReserva'">
       Esperando que se complete el minimo.
     </mat-card-subtitle>
+    <mat-card-subtitle *ngIf="reserva.estado === 'Solicitada'">
+      <p *ngIf="reserva?.jugador?.calificacionPredio?.cantCalificaciones > 0; else noCalificacion">% Asistencia a
+        Reservas Previas: {{reserva?.jugador?.calificacionPredio?.porcentajeCalificacionesPositivas}}</p>
+      <ng-template #noCalificacion>
+        <p>El jugador todavia no posee ninguna referencia de su asistencia a reservas previas</p>
+      </ng-template>
+    </mat-card-subtitle>
     <!--<mat-card-content>-->
-      <!--<p>Esperando minimo de jugadores</p>-->
+    <!--<p>Esperando minimo de jugadores</p>-->
     <!--</mat-card-content>-->
     <mat-card-actions style="text-align: right;" *ngIf="reserva.estado === 'Solicitada'">
       <button mat-raised-button (click)="responder('Cancelada')" color="warn">Rechazar</button>

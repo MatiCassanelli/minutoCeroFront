@@ -74,9 +74,9 @@ const appRoutes: Routes = [
   },
   {
     path: 'puntuaciones',
-    data:{type: 'Jugador'},
+    // data:{type: 'Jugador'},
     component: PuntuacionComponent,
-    canActivate: [AuthGuardService, RoleGuardService]
+    // canActivate: [AuthGuardService, RoleGuardService]
   },
   // reserva de cancha jugador
   {

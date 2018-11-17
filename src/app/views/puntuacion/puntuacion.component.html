@@ -1,6 +1,13 @@
-<div *ngFor="let predio of predios">
-  <app-card-calificacion (sendCalificacion)="setCalificacion($event)" [predio]="predio"></app-card-calificacion>
+<div *ngIf="quienPuntua === 'Jugador'; else predio">
+  <div *ngFor="let predio of predios">
+    <app-card-calificacion (sendCalificacion)="setCalificacion($event)" [predio]="predio"></app-card-calificacion>
+  </div>
+  <div *ngFor="let jugador of jugadores">
+    <app-card-calificacion (sendCalificacion)="setCalificacion($event)" [jugador]="jugador"></app-card-calificacion>
+  </div>
 </div>
-<div *ngFor="let jugador of jugadores">
-  <app-card-calificacion (sendCalificacion)="setCalificacion($event)" [jugador]="jugador"></app-card-calificacion>
-</div>
+<ng-template #predio>
+  <div *ngFor="let jugador of jugadores">
+    <app-calificacion-desde-predio [jugador]="jugador" (sendCalificacion)="setCalificacion($event)"></app-calificacion-desde-predio>
+  </div>
+</ng-template>

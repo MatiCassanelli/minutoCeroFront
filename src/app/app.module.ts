@@ -142,7 +142,19 @@ import { ReservaInfoComponent } from './views/reserva-info/reserva-info.componen
 import { CardNotificacionReservaComponent } from './component/card-notificacion-reserva/card-notificacion-reserva.component';
 import { HorariosPredioComponent } from './views/horarios-predio/horarios-predio.component';
 import { ListadoReservasJugadorComponent } from './views/listado-reservas-jugador/listado-reservas-jugador.component';
+import { CalificacionDesdePredioComponent } from './component/calificacion-desde-predio/calificacion-desde-predio.component';
 
+// Import angular-fusioncharts
+import { FusionChartsModule } from 'angular-fusioncharts';
+
+// Import FusionCharts library and chart modules
+import * as FusionCharts from 'fusioncharts';
+import * as Widgets from 'fusioncharts/fusioncharts.widgets';
+
+import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+
+// Pass the fusioncharts library and chart modules
+FusionChartsModule.fcRoot(FusionCharts, Widgets, FusionTheme);
 
 
 
@@ -206,7 +218,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     CardNotificacionReservaComponent,
     DialogEliminarEquipoComponent,
     HorariosPredioComponent,
-    ListadoReservasJugadorComponent
+    ListadoReservasJugadorComponent,
+    CalificacionDesdePredioComponent
   ],
   imports: [
     AppRouting,
@@ -268,7 +281,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatSlideToggleModule,
     MatCheckboxModule,
     FullCalendarModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    FusionChartsModule
   ],
   bootstrap: [AppComponent],
   schemas: [

@@ -35,7 +35,6 @@ export class ReservaPredioComponent implements OnInit {
     this.route.params.subscribe((params) => {
         if (params.fecha) {
           this.fecha = moment(params.fecha.split('Z')[0]).toDate();
-          debugger;
           this.predioService.getMisCanchasDisponibles(this.fecha).subscribe(res => {
             this.canchas = res;
           });

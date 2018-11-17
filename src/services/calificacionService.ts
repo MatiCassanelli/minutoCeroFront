@@ -21,10 +21,14 @@ export class CalificacionService {
     return this.http.get<Array<Predio>>(this.api + 'predios', global.httpOptions);
   }
 
+  getJugadoresParaPredio() {
+    return this.http.get<Array<Jugador>>(this.api + 'jugadores/predio', global.httpOptions);
+  }
+
   putCalificacionJugador(calificacion, jugador) {
-    return this.http.put<Jugador>(this.api + 'jugador/' + jugador, calificacion, global.httpOptions);
+    return this.http.put<Jugador>(this.api + 'jugador/' + jugador, {calificacion: calificacion}, global.httpOptions);
   }
   putCalificacionPredio(calificacion, jugador) {
-    return this.http.put<Predio>(this.api + 'predio/' + jugador, calificacion, global.httpOptions);
+    return this.http.put<Predio>(this.api + 'predio/' + jugador, {calificacion: calificacion}, global.httpOptions);
   }
 }

@@ -3,7 +3,8 @@
     <mat-expansion-panel-header>
       <mat-panel-title>
         <div *ngIf="jugador; else espredio">
-          Jugador
+          <!--Jugador-->
+          <img [src]="jugador?.img" style="height: 25px;">
           <!--<mat-icon>directions_run</mat-icon>-->
         </div>
         <ng-template #espredio>

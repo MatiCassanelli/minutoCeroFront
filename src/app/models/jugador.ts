@@ -13,11 +13,15 @@ export class Jugador {
     puntaje: number
   };
   type: string;
-  photos: any;
   historial: {
       cantVictorias: number,
       cantEmpates: number,
       cantDerrotas: number
+  };
+  calificacionPredio: {
+      cantCalificaciones: number,
+      cantCalificacionesPositivas: number,
+      porcentajeCalificacionesPositivas: number
   };
 }
 
