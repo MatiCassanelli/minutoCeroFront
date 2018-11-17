@@ -26,6 +26,8 @@ import {RankingJugadorComponent} from './views/ranking-jugador/ranking-jugador.c
 import {ReservaPredioComponent} from './views/reserva-predio/reserva-predio.component';
 import {HorariosPredioComponent} from './views/horarios-predio/horarios-predio.component';
 import {ListadoReservasJugadorComponent} from './views/listado-reservas-jugador/listado-reservas-jugador.component';
+import {ResumenDeCuentaComponent} from './views/resumen-de-cuenta/resumen-de-cuenta.component';
+import {DetalleCuentaMensualComponent} from './views/detalle-cuenta-mensual/detalle-cuenta-mensual.component';
 
 const appRoutes: Routes = [
   {
@@ -109,7 +111,18 @@ const appRoutes: Routes = [
     component: ListadoReservasJugadorComponent,
     canActivate: [AuthGuardService, RoleGuardService]
   },
-
+  {
+    path: 'resumenCuenta',
+    data:{type: 'Predio'},
+    component: ResumenDeCuentaComponent,
+    canActivate: [AuthGuardService, RoleGuardService]
+  },
+  {
+    path: 'detalleMensual/:mes',
+    data:{type: 'Predio'},
+    component: DetalleCuentaMensualComponent,
+    canActivate: [AuthGuardService, RoleGuardService]
+  },
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'unauthorized', component: UnauthorizedComponent},

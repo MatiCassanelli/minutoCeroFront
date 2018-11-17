@@ -153,6 +153,9 @@ import * as Widgets from 'fusioncharts/fusioncharts.widgets';
 
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 import {PlantelService} from '../services/plantelService';
+import { ResumenDeCuentaComponent } from './views/resumen-de-cuenta/resumen-de-cuenta.component';
+import { CardResumenMensualComponent } from './component/card-resumen-mensual/card-resumen-mensual.component';
+import { DetalleCuentaMensualComponent } from './views/detalle-cuenta-mensual/detalle-cuenta-mensual.component';
 
 // Pass the fusioncharts library and chart modules
 FusionChartsModule.fcRoot(FusionCharts, Widgets, FusionTheme);
@@ -220,7 +223,10 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     DialogEliminarEquipoComponent,
     HorariosPredioComponent,
     ListadoReservasJugadorComponent,
-    CalificacionDesdePredioComponent
+    CalificacionDesdePredioComponent,
+    ResumenDeCuentaComponent,
+    CardResumenMensualComponent,
+    DetalleCuentaMensualComponent
   ],
   imports: [
     AppRouting,
