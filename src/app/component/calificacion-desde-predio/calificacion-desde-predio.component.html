@@ -1,0 +1,29 @@
+<div style="margin: 3%;">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div>
+          <img [src]="jugador?.img" style="height: 25px;">
+        </div>
+      </mat-panel-title>
+      <mat-panel-description>
+        <div>
+          {{jugador?.nombre}} {{jugador?.apellido}}
+        </div>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="form-group">
+      <mat-checkbox [(ngModel)]="asistio">El jugador asistió a la reserva?</mat-checkbox>
+    </div>
+    <!--<fusioncharts-->
+      <!--width="50%"-->
+      <!--height="100"-->
+      <!--type="hlineargauge"-->
+      <!--[dataSource]="dataSource">-->
+    <!--</fusioncharts>-->
+    <mat-action-row>
+      <button mat-button color="warn">Cancelar</button>
+      <button mat-button color="primary" (click)="setPuntaje()">Aceptar</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</div>
