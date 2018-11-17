@@ -16,6 +16,8 @@ import {Reserva} from '../../models/reserva';
 import {DeporteService} from '../../../services/deporteService';
 import {Cancha} from '../../models/cancha';
 import {PlantelComponent} from '../../component/plantel/plantel.component';
+import * as socketIo from "socket.io-client";
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-partido',
@@ -67,23 +69,15 @@ export class PartidoComponent implements OnInit {
           if (!this.reelegirPredio)
             this.getPredio(partido.cancha);
           else {
-            if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(position => {
-                console.log('Hay geoposicion');
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
-                this.predioService.getPredioConDisponibilidad(partido.deporte._id, 30, latitude, longitude, partido.dia).subscribe(predios => {
-                  this.predios = predios;
-                });
-              });
-            }
+            this._getPrediosConDisponibilidad(partido.deporte._id, partido.dia);
           }
           this.plantelLocal = partido.grupoLocal;
           this.plantelVisitante = partido.grupoVisitante;
           if ((partido.grupoLocal.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id')) ||
             partido.grupoVisitante.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id'))) &&
-          partido.organizador.toString() !== localStorage.getItem('id'))
+            partido.organizador.toString() !== localStorage.getItem('id')){
             this.abandonar = true;
+          }
         } else {
           this.reservaService.getReservaById(this.idPartido).subscribe(res => {
             if (res.jugador.toString() === localStorage.getItem('id'))
@@ -97,16 +91,7 @@ export class PartidoComponent implements OnInit {
               if (!this.reelegirPredio)
                 this.getPredio(res.cancha);
               else {
-                if (navigator.geolocation) {
-                  navigator.geolocation.getCurrentPosition(position => {
-                    console.log('Hay geoposicion');
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-                    this.predioService.getPredioConDisponibilidad(idDeporte, 30, latitude, longitude, res.dia).subscribe(predios => {
-                      this.predios = predios;
-                    });
-                  });
-                }
+                this._getPrediosConDisponibilidad(idDeporte, res.dia);
               }
             });
           });
@@ -177,4 +162,22 @@ export class PartidoComponent implements OnInit {
     this.abandonar = false;
   }
 
+  private _getPrediosConDisponibilidad(deporte, dia) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        console.log('Hay geoposicion');
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        this.predioService.getPredioConDisponibilidad(deporte, 30, latitude, longitude, dia).subscribe(predios => {
+          this.predios = predios;
+        });
+      });
+    } else {
+      const latitude = -31.416798;
+      const longitude = -64.183674;
+      this.predioService.getPredioConDisponibilidad(deporte, 30, latitude, longitude, dia).subscribe(predios => {
+        this.predios = predios;
+      });
+    }
+  }
 }

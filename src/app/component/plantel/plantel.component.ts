@@ -9,6 +9,8 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import {ConfirmDialogPlantelComponent} from '../confirm-dialog-plantel/confirm-dialog-plantel.component';
 import {EquipoService} from '../../../services/equipoService';
 import {JugadorService} from '../../../services/jugadorService';
+import * as socketIo from "socket.io-client";
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-plantel',
@@ -71,6 +73,7 @@ export class PlantelComponent implements OnInit {
         this.idOrganizador = partido.organizador._id;
         this.getJugadoresPlantel(this.plantelLocal, 'local');
         this.getJugadoresPlantel(this.plantelVisitante, 'visitante');
+        this._abrirSocket(partido._id);
       });
     } else {
       this.noIds = true;
@@ -305,6 +308,27 @@ export class PlantelComponent implements OnInit {
         this.plantelVisitante.jugadoresConfirmados.splice(this.plantelVisitante.jugadoresConfirmados.indexOf(esLocal), 1);
         this.confirmado = false;
       });
+  }
+
+  private _abrirSocket(idPartido) {
+    const socket = socketIo(environment.socketUrl);
+    socket.on('Partido' + idPartido, (data) => {
+      if(data.Aceptado) {
+        if(this.plantelLocal.jugadores.includes(data.Aceptado)){
+          this.plantelLocal.jugadoresConfirmados.push(data.Aceptado);
+          this.plantelLocal.jugadores.splice(this.plantelLocal.jugadores.indexOf(data.Aceptado), 1);
+        } else {
+          this.plantelVisitante.jugadoresConfirmados.push(data.Aceptado);
+          this.plantelVisitante.jugadores.splice(this.plantelVisitante.jugadores.indexOf(data.Aceptado), 1);
+        }
+      } else if (data.Rechazado) {
+        if(this.plantelLocal.jugadores.includes(data.Rechazado)){
+          this.plantelLocal.jugadores.splice(this.plantelLocal.jugadores.indexOf(data.Rechazado), 1);
+        } else {
+          this.plantelVisitante.jugadores.splice(this.plantelVisitante.jugadores.indexOf(data.Rechazado), 1);
+        }
+      }
+    });
   }
 }
 

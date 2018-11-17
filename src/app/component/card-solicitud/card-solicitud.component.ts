@@ -26,7 +26,6 @@ export class CardSolicitudComponent implements OnInit {
       this.restarNotificacion.emit();
       if (respuesta === 'Rechazado' && this.solicitud.tipo === 'Partido' && this.solicitud.plantel) {
         this.plantelService.updatePlantel(this.solicitud.plantel, null, [localStorage.getItem('id')]).subscribe((p) => {
-debugger;
         });
       }
       if (respuesta === 'Aceptado' && this.solicitud.tipo === 'Equipo')
