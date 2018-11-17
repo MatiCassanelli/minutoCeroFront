@@ -152,6 +152,7 @@ import * as FusionCharts from 'fusioncharts';
 import * as Widgets from 'fusioncharts/fusioncharts.widgets';
 
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+import {PlantelService} from '../services/plantelService';
 
 // Pass the fusioncharts library and chart modules
 FusionChartsModule.fcRoot(FusionCharts, Widgets, FusionTheme);
@@ -316,7 +317,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     PredioService,
     PartidoService,
     ReservaService,
-    ObservableService
+    ObservableService,
+    PlantelService
   ],
   entryComponents: [MapComponent, MapDialogComponent,
     ConfirmDialogPlantelComponent, ConfirmUbicacionDialogComponent,
