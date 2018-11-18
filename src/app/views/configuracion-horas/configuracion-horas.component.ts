@@ -34,11 +34,12 @@ export class ConfiguracionHorasComponent implements OnInit {
     this.defaultDate.setHours(this.redondearHora(today.getHours(), today.getMinutes())[0]);
     this.defaultDate.setMinutes(this.redondearHora(today.getHours(), today.getMinutes())[1]);
     this.predioService.getPredio(localStorage.getItem('id')).subscribe(res => {
-      debugger;
-      this.horarios.dia.desde = moment.utc(res.configHorario.dia.desde).format('HH:mm');
-      this.horarios.dia.hasta = moment.utc(res.configHorario.dia.hasta).format('HH:mm');
-      this.horarios.noche.desde = moment.utc(res.configHorario.noche.desde).format('HH:mm');
-      this.horarios.noche.hasta = moment.utc(res.configHorario.noche.hasta).format('HH:mm');
+      if(res.configHorario){
+        this.horarios.dia.desde = moment.utc(res.configHorario.dia.desde).format('HH:mm');
+        this.horarios.dia.hasta = moment.utc(res.configHorario.dia.hasta).format('HH:mm');
+        this.horarios.noche.desde = moment.utc(res.configHorario.noche.desde).format('HH:mm');
+        this.horarios.noche.hasta = moment.utc(res.configHorario.noche.hasta).format('HH:mm');
+      }
     });
   }
 
@@ -49,7 +50,6 @@ export class ConfiguracionHorasComponent implements OnInit {
   }
 
   sendHorarios() {
-    debugger;
     if (this.horarios.dia.desde instanceof Date)
       this.horarios.dia.desde = moment.utc().hours(this.horarios.dia.desde.getHours()).minutes(this.horarios.dia.desde.getMinutes()).format();
     else
