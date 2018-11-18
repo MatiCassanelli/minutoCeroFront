@@ -22,6 +22,10 @@ export class RoleService {
 
   }
 
+  redirectToResumen(){
+    this.router.navigateByUrl('/predio/resumenCuenta');
+  }
+
   redirectToRegistro(number){
     this.router.navigate(['/predio/registro', {step: number}]);
   }

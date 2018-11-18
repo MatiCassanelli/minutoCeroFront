@@ -32,26 +32,27 @@ import {DetalleCuentaMensualComponent} from './views/detalle-cuenta-mensual/deta
 const appRoutes: Routes = [
   {
     path: 'partido',
-    data:{type: 'Jugador'},
+    data: {type: 'Jugador'},
     children: [
       {path: '', component: HomeJugadorComponent},
       {path: 'organizar', component: OrganizarPartidoComponent},
-      {path: ':id', component: PartidoComponent},
-      {path: 'organizar', component: OrganizarPartidoComponent}
+      {path: ':id', component: PartidoComponent}
     ],
     canActivate: [AuthGuardService, RoleGuardService],
     canActivateChild: [AuthGuardService, RoleGuardService]
   },
   {
     path: 'predio',
-    data: { type: 'Predio'},
+    data: {type: 'Predio'},
     children: [
       {path: '', component: HomePredioComponent},
       {path: 'registro', component: RegistroPredioStepsComponent},
       {path: 'horarios', component: HorariosPredioComponent},
       // {path: 'registro/1', component: RegistrarPredio1Component, canActivate: [AuthGuardService, RoleGuardService]},
       // {path: 'registro/2', component: RegistroPredioMapaComponent, canActivate: [AuthGuardService, RoleGuardService]},
-      {path: 'nuevaCancha', component: CargaNuevaCanchaComponent}
+      {path: 'nuevaCancha', component: CargaNuevaCanchaComponent},
+      {path: 'resumenCuenta', component: ResumenDeCuentaComponent},
+      {path: 'detalleMensual/:id', component: DetalleCuentaMensualComponent},
     ],
     canActivate: [AuthGuardService, RoleGuardService],
     canActivateChild: [AuthGuardService, RoleGuardService]
@@ -63,7 +64,7 @@ const appRoutes: Routes = [
       {path: 'crear', component: CrearEquipoComponent},
       {path: 'info/:id', component: InfoEquipoComponent}
     ],
-    data:{type: 'Jugador'},
+    data: {type: 'Jugador'},
     canActivateChild: [AuthGuardService, RoleGuardService],
     canActivate: [AuthGuardService, RoleGuardService]
   },
@@ -83,46 +84,36 @@ const appRoutes: Routes = [
   // reserva de cancha jugador
   {
     path: 'reservaIndependiente',
-    data:{type: 'Jugador'},
+    data: {type: 'Jugador'},
     component: ReservaIndependienteComponent,
     canActivate: [AuthGuardService, RoleGuardService]
   },
   {
     path: 'reservaCancha',
-    data:{type: 'Predio'},
+    data: {type: 'Predio'},
     component: ReservaPredioComponent,
     canActivate: [AuthGuardService, RoleGuardService]
   },
   {
     path: 'jugador/:id',
-    data:{type: 'Jugador'},
+    data: {type: 'Jugador'},
     component: PerfilJugadorComponent,
     canActivate: [AuthGuardService, RoleGuardService]
   },
   {
     path: 'ranking',
-    data:{type: 'Jugador'},
+    data: {type: 'Jugador'},
     component: RankingJugadorComponent,
     canActivate: [AuthGuardService, RoleGuardService]
   },
   {
     path: 'misReservas',
-    data:{type: 'Jugador'},
+    data: {type: 'Jugador'},
     component: ListadoReservasJugadorComponent,
     canActivate: [AuthGuardService, RoleGuardService]
   },
-  {
-    path: 'resumenCuenta',
-    data:{type: 'Predio'},
-    component: ResumenDeCuentaComponent,
-    canActivate: [AuthGuardService, RoleGuardService]
-  },
-  {
-    path: 'detalleMensual/:id',
-    data:{type: 'Predio'},
-    component: DetalleCuentaMensualComponent,
-    canActivate: [AuthGuardService, RoleGuardService]
-  },
+
+
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'unauthorized', component: UnauthorizedComponent},

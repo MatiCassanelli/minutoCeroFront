@@ -12,23 +12,29 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.authService.isLoggedIn()) {
-      return true;
+      if(this.authService.updateLocalStorage(state))
+        return true;
     }
-    if (this.authService.isFirstTime()) {
+    else if (this.authService.isFirstTime()) {
       this.authService.logIn();
     }
     else {
       this.router.navigateByUrl('/login');
       return false;
     }
-
   }
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.authService.isLoggedIn()) {
-      return true;
+      if(this.authService.updateLocalStorage(state))
+        return true;
     }
-    this.router.navigateByUrl('/login');
-    return false;
+    else if (this.authService.isFirstTime()) {
+      this.authService.logIn();
+    }
+    else {
+      this.router.navigateByUrl('/login');
+      return false;
+    }
   }
 }
