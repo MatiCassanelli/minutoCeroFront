@@ -31,14 +31,19 @@ export class DetalleCuentaMensualComponent implements OnInit {
         data.push({
           isTotalsRow: true,
           fechaReserva: null,
-          cancha: 'Total del mes',
+          cancha: {
+            id: '',
+            nombreCancha: 'Total del mes'
+          },
           precio: totalAlquilerCanchas,
           comision: totalComision
         });
         data.push({
           isTotalsRow: true,
           fechaReserva: null,
-          cancha: 'Subtotal',
+          cancha: {
+            id: '',
+            nombreCancha: 'Subtotal'},
           precio: null,
           comision: this.resumen.detalle.subtotal
         });
@@ -46,7 +51,9 @@ export class DetalleCuentaMensualComponent implements OnInit {
           data.push({
             isTotalsRow: true,
             fechaReserva: null,
-            cancha: 'Recargo',
+            cancha: {
+              id: '',
+              nombreCancha: 'Recargo'},
             precio: null,
             comision: this.resumen.detalle.recargo
           });
@@ -54,7 +61,9 @@ export class DetalleCuentaMensualComponent implements OnInit {
         data.push({
           isTotalsRow: true,
           fechaReserva: null,
-          cancha: 'Total',
+          cancha: {
+            id: '',
+            nombreCancha: 'Total a abonar'},
           precio: null,
           comision: this.resumen.detalle.total
         });

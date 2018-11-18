@@ -11,7 +11,10 @@ export class ResumenCuenta {
     total: number,
     lineasDeFacturacion: [
       {
-        cancha: string,
+        cancha: {
+          id: string,
+          nombreCancha: string
+        },
         fechaReserva: Date,
         precio: number,
         comision: number,
