@@ -34,10 +34,11 @@ export class ConfiguracionHorasComponent implements OnInit {
     this.defaultDate.setHours(this.redondearHora(today.getHours(), today.getMinutes())[0]);
     this.defaultDate.setMinutes(this.redondearHora(today.getHours(), today.getMinutes())[1]);
     this.predioService.getPredio(localStorage.getItem('id')).subscribe(res => {
-      this.horarios.dia.desde = moment(res.configHorario.dia.desde).format('HH:mm');
-      this.horarios.dia.hasta = moment(res.configHorario.dia.hasta).format('HH:mm');
-      this.horarios.noche.desde = moment(res.configHorario.noche.desde).format('HH:mm');
-      this.horarios.noche.hasta = moment(res.configHorario.noche.hasta).format('HH:mm');
+      debugger;
+      this.horarios.dia.desde = moment.utc(res.configHorario.dia.desde).format('HH:mm');
+      this.horarios.dia.hasta = moment.utc(res.configHorario.dia.hasta).format('HH:mm');
+      this.horarios.noche.desde = moment.utc(res.configHorario.noche.desde).format('HH:mm');
+      this.horarios.noche.hasta = moment.utc(res.configHorario.noche.hasta).format('HH:mm');
     });
   }
 
@@ -48,14 +49,23 @@ export class ConfiguracionHorasComponent implements OnInit {
   }
 
   sendHorarios() {
-    if (!(this.horarios.dia.desde instanceof Date))
-      this.horarios.dia.desde = moment().hours(this.horarios.dia.desde.toString().split(':')[0]).minutes(this.horarios.dia.desde.toString().split(':')[1]).toDate();
-    if (!(this.horarios.dia.hasta instanceof Date))
-      this.horarios.dia.hasta = moment().hours(this.horarios.dia.hasta.toString().split(':')[0]).minutes(this.horarios.dia.hasta.toString().split(':')[1]).toDate();
-    if (!(this.horarios.noche.desde instanceof Date))
-      this.horarios.noche.desde = moment().hours(this.horarios.noche.desde.toString().split(':')[0]).minutes(this.horarios.noche.desde.toString().split(':')[1]).toDate();
-    if (!(this.horarios.noche.hasta instanceof Date))
-      this.horarios.noche.hasta = moment().hours(this.horarios.noche.hasta.toString().split(':')[0]).minutes(this.horarios.noche.hasta.toString().split(':')[1]).toDate();
+    debugger;
+    if (this.horarios.dia.desde instanceof Date)
+      this.horarios.dia.desde = moment.utc().hours(this.horarios.dia.desde.getHours()).minutes(this.horarios.dia.desde.getMinutes()).format();
+    else
+      this.horarios.dia.desde = moment.utc().hours(this.horarios.dia.desde.toString().split(':')[0]).minutes(this.horarios.dia.desde.toString().split(':')[1]).toDate();
+    if (this.horarios.dia.hasta instanceof Date)
+      this.horarios.dia.hasta = moment.utc().hours(this.horarios.dia.hasta.getHours()).minutes(this.horarios.dia.hasta.getMinutes()).format();
+    else
+      this.horarios.dia.hasta = moment.utc().hours(this.horarios.dia.hasta.toString().split(':')[0]).minutes(this.horarios.dia.hasta.toString().split(':')[1]).toDate();
+    if (this.horarios.noche.desde instanceof Date)
+      this.horarios.noche.desde = moment.utc().hours(this.horarios.noche.desde.getHours()).minutes(this.horarios.noche.desde.getMinutes()).format();
+    else
+      this.horarios.noche.desde = moment.utc().hours(this.horarios.noche.desde.toString().split(':')[0]).minutes(this.horarios.noche.desde.toString().split(':')[1]).toDate();
+    if (this.horarios.noche.hasta instanceof Date)
+      this.horarios.noche.hasta = moment.utc().hours(this.horarios.noche.hasta.getHours()).minutes(this.horarios.noche.hasta.getMinutes()).format();
+    else
+      this.horarios.noche.hasta = moment.utc().hours(this.horarios.noche.hasta.toString().split(':')[0]).minutes(this.horarios.noche.hasta.toString().split(':')[1]).toDate();
 
     this.stepEmit.emit({
       configHoras: this.horarios
