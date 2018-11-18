@@ -76,7 +76,6 @@ import {
 import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component';
 import { EstrellasJugadorComponent } from './component/estrellas-jugador/estrellas-jugador.component';
 import { InvitarJugadoresComponent } from './component/invitar-jugadores/invitar-jugadores.component';
-import { NavBarComponent} from './component/nav-bar/nav-bar.component';
 import { LoginComponent } from './login/login.component';
 import { FechaCarouselComponent } from './component/fecha-carousel/fecha-carousel.component';
 import { RegistrarPredio1Component } from './views/registrar-predio1/registrar-predio1.component';
@@ -177,7 +176,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     PageNotFoundComponent,
     EstrellasJugadorComponent,
     InvitarJugadoresComponent,
-    NavBarComponent,
     LoginComponent,
     LoginComponent,
     FechaCarouselComponent,

@@ -39,11 +39,11 @@ export class FechaCarouselComponent implements OnInit {
       this.predio = predio;
       for (let i = 0; i < predio.horario.length; i++) {
         for (let k = 0; k < this.horarios.length; k++) {
-          if(this.horarios[k].dia === predio.horario[i].dia){
+          if (this.horarios[k].dia === predio.horario[i].dia) {
             this.horarios[k].abre = true;
             for (let j = 0; j < predio.horario[i].horario.length; j++) {
-              this.horarios[k].horario[j].desde = moment(predio.horario[i].horario[j].desde).format('HH:mm');
-              this.horarios[k].horario[j].hasta = moment(predio.horario[i].horario[j].hasta).format('HH:mm');
+              this.horarios[k].horario[j].desde = moment.utc(predio.horario[i].horario[j].desde).format('HH:mm');
+              this.horarios[k].horario[j].hasta = moment.utc(predio.horario[i].horario[j].hasta).format('HH:mm');
             }
           }
         }
@@ -65,11 +65,14 @@ export class FechaCarouselComponent implements OnInit {
     for (let i of this.horarios) {
       if (i.abre) {
         for (let j of i.horario) {
-          if (!(j.desde instanceof Date))
-            // j.desde = moment(j.desde.toString()).toDate();
-            j.desde = moment().hours(j.desde.toString().split(':')[0]).minutes(j.desde.toString().split(':')[1]).toDate()
-          if (!(j.hasta instanceof Date))
-            j.hasta = moment().hours(j.hasta.toString().split(':')[0]).minutes(j.hasta.toString().split(':')[1]).toDate()
+          if (j.desde instanceof Date)
+            j.desde = moment.utc().hours(j.desde.getHours()).minutes(j.desde.getMinutes());
+          else
+            j.desde = moment.utc().hours(j.desde.toString().split(':')[0]).minutes(j.desde.toString().split(':')[1]);
+          if (j.hasta instanceof Date)
+            j.hasta = moment.utc().hours(j.hasta.getHours()).minutes(j.hasta.getMinutes());
+          else
+            j.hasta = moment.utc().hours(j.hasta.toString().split(':')[0]).minutes(j.hasta.toString().split(':')[1])
         }
         asd.push(i);
       }

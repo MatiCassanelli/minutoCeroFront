@@ -6,6 +6,7 @@ import {Usuario} from "../app/models/usuario";
 import {RoleService} from "./role.service";
 import {environment} from "../environments/environment";
 import {ObservableService} from '../app/observable.service';
+import moment = require("moment");
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -30,7 +31,25 @@ export class AuthService {
     if (localStorage.getItem('usuario') !== null) {
       return true;
     }
-    return false
+  }
+
+  updateLocalStorage(state) {
+    if (!(moment.utc().isSame(localStorage.getItem('date'), 'day'))) {
+      this.http.get<Usuario>(this.api + 'usuarioInfo', httpOptions).subscribe(res => {
+        if (res) {
+          let todayDate = moment.utc().startOf('day').format();
+          localStorage.setItem('usuario', JSON.stringify(res));
+          localStorage.setItem('type', res.type);
+          localStorage.setItem('id', res._id);
+          localStorage.setItem('date', todayDate.toString());
+          this.router.navigateByUrl(state.url);
+        } else {
+          this.logOut();
+        }
+      });
+    } else {
+      return true;
+    }
   }
 
   isFirstTime() {
@@ -43,17 +62,21 @@ export class AuthService {
   logIn() {
     this.http.get<Usuario>(this.api + 'usuarioInfo', httpOptions).subscribe(res => {
       if (res) {
+        let todayDate = moment.utc().startOf('day').format();
         localStorage.setItem('usuario', JSON.stringify(res));
         localStorage.setItem('type', res.type);
         localStorage.setItem('id', res._id);
+        localStorage.setItem('date', todayDate.toString());
         localStorage.removeItem('loggingIn');
         this.observableService.loguear(true);
-        if(res.type === 'Jugador' || res.stepRegistro === 5)
+        if (res.type === 'Jugador' || res.stepRegistro === 5)
           this.roleService.redirectToHome();
         else {
           this.roleService.redirectToRegistro(res.stepRegistro);
         }
         return;
+      } else {
+        this.logOut();
       }
     });
   }
