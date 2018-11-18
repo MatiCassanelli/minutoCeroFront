@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatTableDataSource} from '@angular/material';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ResumenService} from '../../../services/resumenService';
 import {ResumenCuenta} from '../../models/resumenCuenta';
 
@@ -17,7 +17,8 @@ export class DetalleCuentaMensualComponent implements OnInit {
   resumen: ResumenCuenta;
 
   constructor(private route: ActivatedRoute,
-              private resumenService: ResumenService) {
+              private resumenService: ResumenService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -75,5 +76,9 @@ export class DetalleCuentaMensualComponent implements OnInit {
 
   isTotalsRow = (_, rowData) => rowData.isTotalsRow;
   // isTotalsRow = (data, index) => index === this.dataSource.data.length;
+
+  goToPagar() {
+    window.location.href = this.resumen.linkMercadoPago;
+  }
 }
 

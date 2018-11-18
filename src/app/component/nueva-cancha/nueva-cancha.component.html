@@ -2,12 +2,12 @@
   <mat-expansion-panel-header>
     <mat-panel-title *ngIf="cancha.nombreCancha; else noTiene">
       {{cancha.nombreCancha}}
-      <span class="spacer"></span>
-      <mat-icon (click)="emitEliminarCancha()">delete</mat-icon>
     </mat-panel-title>
     <ng-template #noTiene>
       Nueva Cancha
     </ng-template>
+    <span class="spacer"></span>
+    <mat-icon (click)="emitEliminarCancha()">delete</mat-icon>
   </mat-expansion-panel-header>
   <mat-form-field>
     <input matInput placeholder="Nombre" required [(ngModel)]="cancha.nombreCancha"/>
@@ -29,19 +29,6 @@
     </ng-template>
   </mat-form-field>
   <mat-form-field>
-    <!--<mat-select *ngIf="!sueloPadre; else NoSuelo" placeholder="Tipo de Suelo" required [(ngModel)]="cancha.tipoSuelo">-->
-      <!--<mat-option *ngFor="let suelo of tipoSuelo" [value]="suelo">-->
-        <!--{{suelo}}-->
-      <!--</mat-option>-->
-    <!--</mat-select>-->
-    <!--<ng-template #NoSuelo>-->
-      <!--<mat-select [disabled]="true" placeholder="Tipo de Suelo" required-->
-                  <!--[(ngModel)]="cancha.tipoSuelo">-->
-        <!--<mat-option *ngFor="let suelo of [sueloPadre]" [value]="suelo">-->
-          <!--{{suelo}}-->
-        <!--</mat-option>-->
-      <!--</mat-select>-->
-    <!--</ng-template>-->
     <mat-select placeholder="Tipo de Suelo" required [(ngModel)]="cancha.tipoSuelo">
       <mat-option *ngFor="let suelo of tipoSuelo" [value]="suelo">
         {{suelo}}
@@ -58,7 +45,7 @@
            [(ngModel)]="cancha.precioNoche">
     <span matPrefix>$&nbsp;</span>
   </mat-form-field>
-  <button mat-raised-button *ngIf="cancha.nombreCancha && cancha.deporte &&
+  <button mat-stroked-button *ngIf="cancha.nombreCancha && cancha.deporte &&
   cancha.tipoSuelo && cancha.precioDia && cancha.precioNoche && imprime" (click)="nuevaSubCancha(cancha)"
           style="margin-bottom: 2%">
     <small>Contiene canchas internas</small>

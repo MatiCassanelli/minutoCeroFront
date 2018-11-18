@@ -81,6 +81,8 @@
 
   </mat-table>
 
-  <button mat-raised-button color="primary" class="ui-grid-col-6" *ngIf="resumen?.estado !== 'Pagado' && resumen?.estado !== 'Vigente'">Pagar</button>
+  <button mat-raised-button color="primary" class="ui-grid-col-6" (click)="goToPagar()"
+          *ngIf="resumen?.linkMercadoPago">Pagar
+  </button>
 </div>
 

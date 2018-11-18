@@ -22,4 +22,5 @@ export class ResumenCuenta {
       }]
   };
   predio: string;
+  linkMercadoPago: string;
 }
