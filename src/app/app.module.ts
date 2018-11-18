@@ -57,7 +57,7 @@ import {
   MatInputModule,
   MatNativeDateModule, MatOptionModule, MatSelectModule,
   MatSliderModule, MatSlideToggleModule,
-  MatSnackBarModule, MatStepperModule
+  MatSnackBarModule, MatStepperModule, MatTableModule
 } from '@angular/material';
 import {MatExpansionModule} from '@angular/material';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -156,6 +156,8 @@ import {PlantelService} from '../services/plantelService';
 import { ResumenDeCuentaComponent } from './views/resumen-de-cuenta/resumen-de-cuenta.component';
 import { CardResumenMensualComponent } from './component/card-resumen-mensual/card-resumen-mensual.component';
 import { DetalleCuentaMensualComponent } from './views/detalle-cuenta-mensual/detalle-cuenta-mensual.component';
+import {CdkTableModule} from '@angular/cdk/table';
+import {ResumenService} from '../services/resumenService';
 
 // Pass the fusioncharts library and chart modules
 FusionChartsModule.fcRoot(FusionCharts, Widgets, FusionTheme);
@@ -289,6 +291,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatCheckboxModule,
     FullCalendarModule,
     MatButtonToggleModule,
+    MatTableModule,
+    CdkTableModule,
     FusionChartsModule
   ],
   bootstrap: [AppComponent],
@@ -324,7 +328,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     PartidoService,
     ReservaService,
     ObservableService,
-    PlantelService
+    PlantelService,
+    ResumenService
   ],
   entryComponents: [MapComponent, MapDialogComponent,
     ConfirmDialogPlantelComponent, ConfirmUbicacionDialogComponent,

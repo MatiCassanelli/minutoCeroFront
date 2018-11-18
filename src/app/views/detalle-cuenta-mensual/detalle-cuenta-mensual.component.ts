@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {MatTableDataSource} from '@angular/material';
 import {ActivatedRoute} from '@angular/router';
+import {ResumenService} from '../../../services/resumenService';
+import {ResumenCuenta} from '../../models/resumenCuenta';
+
 
 @Component({
   selector: 'app-detalle-cuenta-mensual',
@@ -8,13 +12,59 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class DetalleCuentaMensualComponent implements OnInit {
 
-  mes: string;
-  constructor(private route: ActivatedRoute) { }
+  displayedColumns = ['Cancha', 'Fecha', 'PrecioCancha', 'Comisión'];
+  dataSource = new MatTableDataSource<any>();
+  resumen: ResumenCuenta;
+
+  constructor(private route: ActivatedRoute,
+              private resumenService: ResumenService) {
+  }
 
   ngOnInit() {
     this.route.params.subscribe(param => {
-      this.mes = param.mes;
+      this.resumenService.getResumenById(param.id).subscribe(res => {
+        this.resumen = res;
+        console.log(this.resumen);
+        const data = this.resumen.detalle.lineasDeFacturacion.slice();
+        const totalAlquilerCanchas = data.reduce((accum, curr) => accum + curr.precio, 0);
+        const totalComision = data.reduce((accum, curr) => accum + curr.comision, 0);
+        data.push({
+          isTotalsRow: true,
+          fechaReserva: null,
+          cancha: 'Total del mes',
+          precio: totalAlquilerCanchas,
+          comision: totalComision
+        });
+        data.push({
+          isTotalsRow: true,
+          fechaReserva: null,
+          cancha: 'Subtotal',
+          precio: null,
+          comision: this.resumen.detalle.subtotal
+        });
+        if (this.resumen.detalle.recargo && this.resumen.detalle.recargo > 0) {
+          data.push({
+            isTotalsRow: true,
+            fechaReserva: null,
+            cancha: 'Recargo',
+            precio: null,
+            comision: this.resumen.detalle.recargo
+          });
+        }
+        data.push({
+          isTotalsRow: true,
+          fechaReserva: null,
+          cancha: 'Total',
+          precio: null,
+          comision: this.resumen.detalle.total
+        });
+
+        this.dataSource.data = data;
+      });
     });
   }
 
+  isTotalsRow = (_, rowData) => rowData.isTotalsRow;
+  // isTotalsRow = (data, index) => index === this.dataSource.data.length;
 }
+

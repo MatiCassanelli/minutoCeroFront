@@ -118,7 +118,7 @@ const appRoutes: Routes = [
     canActivate: [AuthGuardService, RoleGuardService]
   },
   {
-    path: 'detalleMensual/:mes',
+    path: 'detalleMensual/:id',
     data:{type: 'Predio'},
     component: DetalleCuentaMensualComponent,
     canActivate: [AuthGuardService, RoleGuardService]

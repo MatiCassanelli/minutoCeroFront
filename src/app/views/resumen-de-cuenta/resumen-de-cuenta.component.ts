@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ResumenService} from '../../../services/resumenService';
 
 @Component({
   selector: 'app-resumen-de-cuenta',
@@ -7,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResumenDeCuentaComponent implements OnInit {
 
+  resumenes = [];
   meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-  constructor() { }
+  constructor(private resumenService: ResumenService) { }
 
   ngOnInit() {
+    this.resumenService.getResumenes().subscribe(res => {
+      this.resumenes = res;
+    });
   }
 
 }

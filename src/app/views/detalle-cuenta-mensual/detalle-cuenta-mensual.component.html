@@ -1,1 +1,84 @@
-<p>{{mes}}</p>
+<!--<mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">-->
+
+<!--&lt;!&ndash;- Note that these columns can be defined in any order.-->
+<!--The actual rendered columns are set as a property on the row definition" &ndash;&gt;-->
+
+<!--&lt;!&ndash; Position Column &ndash;&gt;-->
+<!--<ng-container matColumnDef="position">-->
+<!--<mat-header-cell *matHeaderCellDef> No. </mat-header-cell>-->
+<!--<mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>-->
+<!--<td mat-footer-cell *matFooterCellDef> Total </td>-->
+<!--</ng-container>-->
+
+<!--&lt;!&ndash; Name Column &ndash;&gt;-->
+<!--<ng-container matColumnDef="name">-->
+<!--<mat-header-cell *matHeaderCellDef> Name </mat-header-cell>-->
+<!--<mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>-->
+<!--</ng-container>-->
+
+<!--&lt;!&ndash; Weight Column &ndash;&gt;-->
+<!--<ng-container matColumnDef="weight">-->
+<!--<mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>-->
+<!--<mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>-->
+<!--</ng-container>-->
+
+<!--&lt;!&ndash; Symbol Column &ndash;&gt;-->
+<!--<ng-container matColumnDef="symbol">-->
+<!--<th mat-header-cell *matHeaderCellDef> Symbol </th>-->
+<!--<td mat-cell *matCellDef="let element"> {{element.symbol}} </td>-->
+<!--</ng-container>-->
+
+<!--<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>-->
+<!--<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>-->
+<!--</mat-table>-->
+<div class="example-container mat-elevation-z8">
+  <mat-table #table [dataSource]="dataSource">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="Fecha">
+      <mat-header-cell *matHeaderCellDef class="rows"> Fecha</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="rows"> {{element.fechaReserva | date: 'dd/MM/yyyy'}}</mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="Cancha">
+      <mat-header-cell *matHeaderCellDef class="rows"> Cancha</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="rows"> {{element.cancha}}</mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="PrecioCancha">
+      <mat-header-cell *matHeaderCellDef class="rows"> Precio Cancha</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="rows"> {{element.precio}}</mat-cell>
+    </ng-container>
+
+    <!-- Color Column -->
+    <ng-container matColumnDef="Comisión">
+      <mat-header-cell *matHeaderCellDef class="rows"> Comisión</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="rows"> {{element.comision}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="empty">
+      <mat-header-cell *matHeaderCellDef class="rows"></mat-header-cell>
+      <mat-cell *matCellDef="let element" class="rows">Total del mes</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="subtotal">
+      <mat-header-cell *matHeaderCellDef class="rows"></mat-header-cell>
+      <mat-cell *matCellDef="let element" class="rows"> Subtotal a pagar</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="total">
+      <mat-header-cell *matHeaderCellDef class="rows"></mat-header-cell>
+      <mat-cell *matCellDef="let element" class="rows"> Total</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns; when: isTotalsRow" class="totals-row"></mat-row>
+
+  </mat-table>
+</div>
+

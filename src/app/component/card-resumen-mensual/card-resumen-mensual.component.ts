@@ -1,4 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {ResumenCuenta} from '../../models/resumenCuenta';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-card-resumen-mensual',
@@ -7,10 +9,13 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class CardResumenMensualComponent implements OnInit {
 
-  @Input() mes: string;
+  @Input() resumen: ResumenCuenta;
+  mesFacturacion: string;
   constructor() { }
 
   ngOnInit() {
+    this.mesFacturacion = moment(this.resumen.periodoDesde).locale('es').format('MMMM');
+    this.mesFacturacion = this.mesFacturacion.replace(this.mesFacturacion[0], this.mesFacturacion[0].toUpperCase());
   }
 
 }
