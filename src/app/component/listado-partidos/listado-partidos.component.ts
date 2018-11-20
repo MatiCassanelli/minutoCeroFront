@@ -15,10 +15,12 @@ export class ListadoPartidosComponent implements OnInit {
 
   partidosIncompletos: Partido[];
   estado: string;
+
   @Input()
   set setEstadoPartido(name: string) {
     this.estado = name;
   }
+
   predios = [];
 
   constructor(private partidoService: PartidoService,
@@ -29,7 +31,15 @@ export class ListadoPartidosComponent implements OnInit {
   ngOnInit() {
     this.partidoService.getPartidos(this.estado).subscribe(incompletos => {
       this.partidosIncompletos = incompletos;
-      this.getInfoPredio(incompletos);
+      if (this.estado === 'Incompleto') {
+        this.partidoService.getPartidos('CasiCompleto').subscribe(casiCompleto => {
+          this.partidosIncompletos = this.partidosIncompletos.concat(casiCompleto);
+          this.getInfoPredio(this.partidosIncompletos);
+        });
+      }
+      else {
+        this.getInfoPredio(incompletos);
+      }
     });
   }
 
