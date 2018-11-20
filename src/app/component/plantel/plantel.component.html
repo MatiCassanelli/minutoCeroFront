@@ -41,7 +41,7 @@
       <mat-divider></mat-divider>
     </div>
     <mat-list *ngFor="let j of plantelLocal?.jugadores">
-      <mat-list-item (click)="!editable ||openDialog(j, 'local', 'confirm')">
+      <mat-list-item (click)="!editable || !confirmarLocal || openDialog(j, 'local', 'confirm')">
         <p>{{j.nombre}} {{j.apellido}}</p>
       </mat-list-item>
       <mat-divider></mat-divider>
@@ -67,7 +67,7 @@
       <mat-divider></mat-divider>
     </div>
     <mat-list *ngFor="let j of plantelVisitante?.jugadores">
-      <mat-list-item (click)="!editable ||openDialog(j, 'visitante', 'confirm')">
+      <mat-list-item (click)="!editable || !confirmarVisitante || openDialog(j, 'visitante', 'confirm')">
         <p>{{j.nombre}} {{j.apellido}}</p>
       </mat-list-item>
       <mat-divider></mat-divider>

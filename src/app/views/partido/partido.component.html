@@ -25,7 +25,7 @@
       <label class="col-12 col-form-label"><strong>Predio: </strong>{{predio?.nombrePredio}} -
         {{predio?.direccion}}</label>
     </div>
-    <app-plantel #appPlantel *ngIf="partido" [setIdPartido]="idPartido" [editable]="editable"
+    <app-plantel #appPlantel *ngIf="partido" [setIdPartido]="idPartido" [editable]="editable" [maximoPorEquipo]="partido?.deporte.cantJugadores/2"
                  (jugadorSumado)="setAbandonar($event)"></app-plantel>
   </div>
   <mat-card-actions *ngIf="abandonar; else noOrg">

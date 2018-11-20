@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <app-plantel (sendPlantel)="getPlanteles($event)"></app-plantel>
+    <app-plantel (sendPlantel)="getPlanteles($event)" [maximoPorEquipo]="deporte?.cantJugadores/2"></app-plantel>
   </div>
   <p>Porcentaje de Confirmacion: {{porcentajeOcupacion?.toFixed(2)}}. Debe superar el 80% para poder reservar</p>
 
