@@ -25,25 +25,14 @@
     </div>
 
     <div class="form-group row">
-      <label for="cancha" class="col-sm-2 col-form-label"><strong>Tipo de Cancha</strong></label>
+      <label for="cancha" class="col-sm-2 col-form-label"><strong>Cancha</strong></label>
       <div class="col-sm-10">
-        <!--<mat-select id="cancha" placeholder="Cancha" required-->
-        <!--(selectionChange)="sendCancha($event)">-->
-        <!--<mat-option *ngFor="let c of canchas" [value]="c">-->
-        <!--{{c?.nombreCancha}}-->
-        <!--</mat-option>-->
-        <!--</mat-select>-->
         <mat-select id="cancha" placeholder="Cancha" required [value]="reserva?.cancha.nombreCancha">
           <mat-option *ngFor="let c of [reserva?.cancha]" [value]="c?.nombreCancha">
             {{c?.nombreCancha}}
           </mat-option>
         </mat-select>
       </div>
-    </div>
-    <div style="text-align: right; padding: 6px 15px">
-      <!--<button mat-raised-button color="warn" (click)="volver()">Cancelar</button>-->
-      <!--<button mat-raised-button color="primary" (click)="reservar()"-->
-      <!--[disabled]="!(nombreJugador && apellidoJugador && telefono && fecha && cancha)">Reservar</button>-->
     </div>
   </mat-card-content>
 

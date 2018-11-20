@@ -68,11 +68,11 @@ export class FechaCarouselComponent implements OnInit {
           if (j.desde instanceof Date)
             j.desde = moment.utc().hours(j.desde.getHours()).minutes(j.desde.getMinutes());
           else
-            j.desde = moment.utc().hours(j.desde.toString().split(':')[0]).minutes(j.desde.toString().split(':')[1]);
+            j.desde = moment.utc().hours(j.desde.toString().split(':')[0]).minutes(j.desde.toString().split(':')[1]).toDate();
           if (j.hasta instanceof Date)
             j.hasta = moment.utc().hours(j.hasta.getHours()).minutes(j.hasta.getMinutes());
           else
-            j.hasta = moment.utc().hours(j.hasta.toString().split(':')[0]).minutes(j.hasta.toString().split(':')[1])
+            j.hasta = moment.utc().hours(j.hasta.toString().split(':')[0]).minutes(j.hasta.toString().split(':')[1]).toDate();
         }
         asd.push(i);
       }

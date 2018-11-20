@@ -60,22 +60,20 @@ export class MapComponent implements OnInit, AfterContentInit {
         if (this.predios !== undefined) {
           this.setAll(this.predios);
         }
+      }, error => {
+        console.log('No hay geoposicion');
+        let mapProp = {
+          center: new google.maps.LatLng(this.latitude, this.longitude),
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
+        this.initMap(this.latitude, this.longitude);
+        if (this.predios !== undefined) {
+          this.setAll(this.predios);
+        }
       });
-    } else {
-      console.log('No hay geoposicion');
-      let mapProp = {
-        center: new google.maps.LatLng(this.latitude, this.longitude),
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
-      this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
-      this.initMap(this.latitude, this.longitude);
-      if (this.predios !== undefined) {
-        this.setAll(this.predios);
-      }
-
     }
-
   }
 
   initMap(lat, lng) {

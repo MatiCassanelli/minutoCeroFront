@@ -85,13 +85,13 @@ export class OrganizarPartidoComponent implements OnInit {
   getTipoCancha(event) {
     // this.canchaSeleccionada = event;
     this.deporte = this.deportes.find(x => x._id === event);
-    if(this.deporte && this.fechaPartido)
+    if (this.deporte && this.fechaPartido)
       this.getPredioConDisponibilidad();
   }
 
   getFecha(event) {
     this.fechaPartido = event;
-    if(this.deporte && this.fechaPartido)
+    if (this.deporte && this.fechaPartido)
       this.getPredioConDisponibilidad();
   }
 
@@ -133,7 +133,7 @@ export class OrganizarPartidoComponent implements OnInit {
     this.fileNameDialogRef.afterClosed().subscribe((res) => {
       if (res) {
         this.ubicacion = res.ubicacion;
-        if(res.predio) {
+        if (res.predio) {
           this.selectedPredio = res.predio.predio;
           this.canchaSeleccionada = res.predio.cancha;
           this.mostrarLabel = true;
@@ -147,6 +147,14 @@ export class OrganizarPartidoComponent implements OnInit {
       navigator.geolocation.getCurrentPosition(position => {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
+        this.predioService.getPredioConDisponibilidad(this.deporte._id, 30, latitude, longitude, this.fechaPartido).subscribe(predios => {
+          this.predios = predios;
+          this.abrirMapa = true;
+        });
+      }, error => {
+        console.log('no geo');
+        const latitude = -31.416798;
+        const longitude = -64.183674;
         this.predioService.getPredioConDisponibilidad(this.deporte._id, 30, latitude, longitude, this.fechaPartido).subscribe(predios => {
           this.predios = predios;
           this.abrirMapa = true;

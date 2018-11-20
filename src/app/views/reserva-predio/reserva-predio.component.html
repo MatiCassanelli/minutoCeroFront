@@ -18,7 +18,7 @@
 
   <app-fecha-hora [fecha]="fecha" (dateTimeEmitter)="getFecha($event)"></app-fecha-hora>
   <div class="form-group row">
-    <label for="cancha" class="col-sm-2 col-form-label"><strong>Tipo de Cancha</strong></label>
+    <label for="cancha" class="col-sm-2 col-form-label"><strong>Cancha</strong></label>
     <div class="col-sm-10">
       <mat-select *ngIf="canchas" id="cancha" placeholder="Cancha" required
                   (selectionChange)="sendCancha($event)">

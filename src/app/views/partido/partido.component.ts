@@ -16,7 +16,7 @@ import {Reserva} from '../../models/reserva';
 import {DeporteService} from '../../../services/deporteService';
 import {Cancha} from '../../models/cancha';
 import {PlantelComponent} from '../../component/plantel/plantel.component';
-import * as socketIo from "socket.io-client";
+import * as socketIo from 'socket.io-client';
 import {environment} from '../../../environments/environment';
 
 @Component({
@@ -75,7 +75,7 @@ export class PartidoComponent implements OnInit {
           this.plantelVisitante = partido.grupoVisitante;
           if ((partido.grupoLocal.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id')) ||
             partido.grupoVisitante.jugadoresConfirmados.find(x => x.toString() === localStorage.getItem('id'))) &&
-            partido.organizador.toString() !== localStorage.getItem('id')){
+            partido.organizador.toString() !== localStorage.getItem('id')) {
             this.abandonar = true;
           }
         } else {
@@ -171,12 +171,13 @@ export class PartidoComponent implements OnInit {
         this.predioService.getPredioConDisponibilidad(deporte, 30, latitude, longitude, dia).subscribe(predios => {
           this.predios = predios;
         });
-      });
-    } else {
-      const latitude = -31.416798;
-      const longitude = -64.183674;
-      this.predioService.getPredioConDisponibilidad(deporte, 30, latitude, longitude, dia).subscribe(predios => {
-        this.predios = predios;
+      }, error => {
+        console.log('no geo');
+        const latitude = -31.416798;
+        const longitude = -64.183674;
+        this.predioService.getPredioConDisponibilidad(deporte, 30, latitude, longitude, dia).subscribe(predios => {
+          this.predios = predios;
+        });
       });
     }
   }
