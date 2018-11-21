@@ -160,7 +160,7 @@ export class InfoEquipoComponent implements OnInit {
   selector: 'app-dialog-invitar-jugador-equipo',
   template: `<h1 mat-dialog-title>Invitar jugadores</h1>
   <mat-dialog-content>
-    <app-invitar-jugadores [queTraer]="'Jugadores'" (notifyParent)="getJugadores($event)"></app-invitar-jugadores>
+    <app-invitar-jugadores [queTraer]="'JugadoresSinEquipo'" (notifyParent)="getJugadores($event)"></app-invitar-jugadores>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-button type="button" mat-dialog-close>Cancelar</button>

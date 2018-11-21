@@ -28,4 +28,8 @@ export class JugadorService {
     return this.http.get<Array<Jugador>>(this.api + 'ranking', global.httpOptions);
   }
 
+  getJugadoresSinEquipo() {
+    return this.http.get<Array<Jugador>>(this.api + 'jugadoresSinEquipo', global.httpOptions);
+  }
+
 }

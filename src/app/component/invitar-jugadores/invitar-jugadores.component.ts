@@ -42,20 +42,33 @@ export class InvitarJugadoresComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.jugadorService.getJugadores().subscribe((resp) => {  // deberia ser un getamigos
-    if(this.queTraer === 'Amigos'){
-      this.amistadService.getAmigos().subscribe((resp) => {
-        this.jugadores = resp;
-        for (let jugador of resp) {
-          this.nombreJugador.push(jugador.nombre + jugador.apellido);
-        }
-        this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
-          startWith(null),
-          map(fruit => fruit ? this._filter(fruit) : this.jugadores.slice()));
-      });
-    } else{
-      if(this.queTraer === 'Jugadores'){
+    switch (this.queTraer) {
+      case 'Amigos': {
+        this.amistadService.getAmigos().subscribe((resp) => {
+          this.jugadores = resp;
+          for (let jugador of resp) {
+            this.nombreJugador.push(jugador.nombre + jugador.apellido);
+          }
+          this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
+            startWith(null),
+            map(fruit => fruit ? this._filter(fruit) : this.jugadores.slice()));
+        });
+        break;
+      }
+      case 'Jugadores': {
         this.jugadorService.getJugadores().subscribe((resp) => {
+          this.jugadores = resp;
+          for (let jugador of resp) {
+            this.nombreJugador.push(jugador.nombre + jugador.apellido);
+          }
+          this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
+            startWith(null),
+            map(fruit => fruit ? this._filter(fruit) : this.jugadores.slice()));
+        });
+        break;
+      }
+      case 'JugadoresSinEquipo': {
+        this.jugadorService.getJugadoresSinEquipo().subscribe((resp) => {
           this.jugadores = resp;
           for (let jugador of resp) {
             this.nombreJugador.push(jugador.nombre + jugador.apellido);
