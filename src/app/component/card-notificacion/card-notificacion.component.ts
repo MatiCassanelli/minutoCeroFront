@@ -23,10 +23,10 @@ export class CardNotificacionComponent implements OnInit {
   ngOnInit() {
     if(this.noti.reserva) {
       this.mensaje = this.noti.mensaje;
-      if (this.mensaje.includes('Reservada'))
-        this.mensaje = this.mensaje.replace('Reservada', 'Aceptada');
-      if (this.mensaje.includes('Cancelada'))
-        this.mensaje = this.mensaje.replace('Cancelada', 'Rechazada');
+      // if (this.mensaje.includes('Reservada'))
+      //   this.mensaje = this.mensaje.replace('Reservada', 'Aceptada');
+      // if (this.mensaje.includes('Cancelada'))
+      //   this.mensaje = this.mensaje.replace('Cancelada', 'Rechazada');
     }
     this.mensaje = this.noti.mensaje;
   }
