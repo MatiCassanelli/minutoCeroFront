@@ -74,7 +74,10 @@ export class HomePredioComponent implements OnInit {
           },
           views: {
             basic: {
-              titleFormat: 'MMMM YYYY',
+              titleFormat: 'MMMM YYYY'
+            },
+            month:{
+              fixedWeekCount:false
             },
             agenda: {
               titleFormat: 'DD MMMM YYYY'

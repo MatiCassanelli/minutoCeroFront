@@ -13,6 +13,7 @@ export class CardNotificacionComponent implements OnInit {
   @Input() mensaje: string;
   @Input() noti: any;
   @Output() swipe: EventEmitter<boolean> = new EventEmitter<boolean>();
+  mostrarSubtitulo = false;
 
 
   constructor(private router: Router,
@@ -23,10 +24,8 @@ export class CardNotificacionComponent implements OnInit {
   ngOnInit() {
     if(this.noti.reserva) {
       this.mensaje = this.noti.mensaje;
-      // if (this.mensaje.includes('Reservada'))
-      //   this.mensaje = this.mensaje.replace('Reservada', 'Aceptada');
-      // if (this.mensaje.includes('Cancelada'))
-      //   this.mensaje = this.mensaje.replace('Cancelada', 'Rechazada');
+      if (this.mensaje.includes('Rechazada'))
+        this.mostrarSubtitulo = true;
     }
     this.mensaje = this.noti.mensaje;
   }
