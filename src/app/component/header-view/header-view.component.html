@@ -3,7 +3,7 @@
     <button mat-icon-button (click)="snav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <h1 *ngIf="tipoJugador === 'Jugador'; else headerPredio" class="example-app-name" routerLink="/partido"
+    <h1 *ngIf="tipoJugador === 'Jugador'; else headerPredio" class="example-app-name" routerLink="/jugador"
         (click)="titulo = 'Minuto Cero'">{{titulo}}</h1>
     <ng-template #headerPredio>
       <h1 class="example-app-name" routerLink="/predio" (click)="titulo = 'Minuto Cero'">{{titulo}}</h1>
@@ -11,10 +11,16 @@
     <!--<app-buscador-jugadores *ngIf="tipoJugador === 'Jugador'" style="width: 100%;"></app-buscador-jugadores>-->
     <span class="spacer"></span>
     <div class="fab-container">
-      <button mat-icon-button routerLink="/notificaciones" (click)="titulo='Notificaciones'">
+      <button *ngIf="tipoJugador === 'Jugador'; else NotiPredio" mat-icon-button routerLink="/jugador/notificaciones" (click)="titulo='Notificaciones'">
         <mat-icon>notifications</mat-icon>
         <span *ngIf="cantidad > 0" class="badge" [style]="{'background-color':'primary'}">{{cantidad}}</span>
       </button>
+      <ng-template #NotiPredio>
+        <button mat-icon-button routerLink="/predio/notificaciones" (click)="titulo='Notificaciones'">
+          <mat-icon>notifications</mat-icon>
+          <span *ngIf="cantidad > 0" class="badge" [style]="{'background-color':'primary'}">{{cantidad}}</span>
+        </button>
+      </ng-template>
     </div>
 
   </mat-toolbar>
@@ -25,9 +31,9 @@
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list *ngIf="tipoJugador === 'Jugador'; else Predio">
-        <a mat-list-item routerLink="/partido" (click)="snav.toggle(); titulo = 'Minuto Cero'">Partidos</a>
+        <a mat-list-item routerLink="/jugador" (click)="snav.toggle(); titulo = 'Minuto Cero'">Partidos</a>
         <mat-divider></mat-divider>
-        <a mat-list-item routerLink="/misReservas" (click)="snav.toggle(); titulo = 'Mis Reservas'">Mis Reservas</a>
+        <a mat-list-item routerLink="/jugador/misReservas" (click)="snav.toggle(); titulo = 'Mis Reservas'">Mis Reservas</a>
         <mat-divider></mat-divider>
         <a *ngIf="tieneEquipo; else noTieneEquipo" mat-list-item routerLink="/equipo/miEquipo"
            (click)="snav.toggle(); titulo = 'Mi Equipo'">Mi Equipo</a>
@@ -35,11 +41,11 @@
         <ng-template #noTieneEquipo>
           <a mat-list-item routerLink="/equipo/crear" (click)="snav.toggle(); titulo = 'Crear Equipo'">Crear Equipo</a>
         </ng-template>
-        <a mat-list-item routerLink="/ranking" (click)="snav.toggle(); titulo = 'Ranking'">Ranking Jugadores</a>
+        <a mat-list-item routerLink="/jugador/ranking" (click)="snav.toggle(); titulo = 'Ranking'">Ranking Jugadores</a>
         <mat-divider></mat-divider>
-        <a mat-list-item routerLink="/puntuaciones" (click)="snav.toggle(); titulo='Calificación'">Calificar</a>
+        <a mat-list-item routerLink="/jugador/puntuaciones" (click)="snav.toggle(); titulo='Calificación'">Calificar</a>
         <mat-divider></mat-divider>
-        <a mat-list-item routerLink="/reservaIndependiente" (click)="snav.toggle(); titulo='Reservar Cancha'">Reservar Cancha</a>
+        <a mat-list-item routerLink="/jugador/reservaIndependiente" (click)="snav.toggle(); titulo='Reservar Cancha'">Reservar Cancha</a>
         <mat-divider></mat-divider>
         <a mat-list-item (click)="logOut()">Log Out</a>
       </mat-nav-list>
@@ -51,7 +57,7 @@
           <mat-divider></mat-divider>
           <a mat-list-item routerLink="/predio/horarios" (click)="snav.toggle(); titulo='Mis Horarios'">Mis Horarios</a>
           <mat-divider></mat-divider>
-          <a mat-list-item routerLink="/puntuaciones" (click)="snav.toggle(); titulo='Calificación'">Calificar Jugadores</a>
+          <a mat-list-item routerLink="/predio/puntuaciones" (click)="snav.toggle(); titulo='Calificación'">Calificar Jugadores</a>
           <mat-divider></mat-divider>
           <a mat-list-item routerLink="/predio/resumenCuenta" (click)="snav.toggle(); titulo='Calificación'">Resumen de Cuenta</a>
           <mat-divider></mat-divider>

@@ -23,9 +23,8 @@
   <p>Porcentaje de Confirmacion: {{porcentajeOcupacion?.toFixed(2)}}. Debe superar el 80% para poder reservar</p>
 
   <div style="text-align: right; padding: 6px 15px">
-    <button mat-raised-button color="warn" routerLink="../">Cancelar</button>
+    <button mat-raised-button color="warn" routerLink="/jugador">Cancelar</button>
     <button mat-raised-button color="primary"
             [disabled]="!(deporte && fechaPartido && selectedPredio)" (click)="crearPartido()">Aceptar</button>
   </div>
-
 </div>

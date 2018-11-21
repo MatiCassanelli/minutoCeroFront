@@ -21,6 +21,6 @@ export class RankingJugadorComponent implements OnInit {
   }
 
   goPerfil(id) {
-   this.router.navigateByUrl('/jugador/' + id) ;
+   this.router.navigateByUrl('/jugador/jugador/' + id) ;
   }
 }

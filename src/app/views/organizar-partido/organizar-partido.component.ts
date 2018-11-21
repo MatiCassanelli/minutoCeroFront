@@ -116,7 +116,7 @@ export class OrganizarPartidoComponent implements OnInit {
             cancha: this.canchaSeleccionada,
             jugador: localStorage.getItem('id')
           }).subscribe(reserva => {
-            this.router.navigateByUrl('/partido');
+            this.router.navigateByUrl('/jugador');
           });
         });
 

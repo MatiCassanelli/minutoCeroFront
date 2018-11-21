@@ -99,7 +99,7 @@ export class ReservaIndependienteComponent implements OnInit {
       dia: this.fechaPartido,
       cancha: this.canchaSeleccionada
     }).subscribe(reserva => {
-      this.router.navigateByUrl('/partido');
+      this.router.navigateByUrl('/jugador');
     });
   }
 

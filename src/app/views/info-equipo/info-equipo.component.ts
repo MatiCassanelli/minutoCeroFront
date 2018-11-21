@@ -130,7 +130,7 @@ export class InfoEquipoComponent implements OnInit {
   eliminarEquipo() {
     this.equipoService.eliminarEquipo(this.equipo._id).subscribe(res => {
       this.observableService.tieneEquipo(false);
-      this.router.navigateByUrl('/partido');
+      this.router.navigateByUrl('/equipo/crear');
     });
   }
 }

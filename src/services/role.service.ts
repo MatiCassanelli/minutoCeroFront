@@ -32,7 +32,7 @@ export class RoleService {
 
   redirectToHome(){
     if(this.checkType('Jugador'))
-      this.router.navigateByUrl('/partido');
+      this.router.navigateByUrl('/jugador');
     else
       this.router.navigateByUrl('/predio');
   }

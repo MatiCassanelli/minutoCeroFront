@@ -44,7 +44,7 @@ export class BuscadorJugadoresComponent implements OnInit {
     console.log(event.option.value);
     this.jugadorCtrl.reset();
     this.jugadorInput.nativeElement.value = null;
-    this.router.navigateByUrl('/jugador/' + event.option.value._id);
+    this.router.navigateByUrl('/jugador/jugador/' + event.option.value._id);
     // this.jugadorCtrl.setValue(event.option.value.nombre + ' ' + event.option.value.apellido);
   }
 }
