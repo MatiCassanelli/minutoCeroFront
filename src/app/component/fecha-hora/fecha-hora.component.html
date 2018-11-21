@@ -3,14 +3,14 @@
   <div id="horario" class="col-sm-10">
     <form [formGroup]="dateTimeForm">
       <mat-form-field>
-        <input matInput [min]="minDate" [matDatepicker]="picker1" [readonly]="readOnly" (click)="picker1.open()"
+        <input matInput [min]="minDate" [matDatepicker]="picker1" [readonly]="true" (click)="picker1.open()"
                placeholder="Dia" [formControl]="date" required (dateInput)="inputForm()">
-        <mat-datepicker-toggle matSuffix [for]="picker1" [disabled]="readOnly"></mat-datepicker-toggle>
+        <mat-datepicker-toggle matSuffix [for]="picker1" [disabled]="true"></mat-datepicker-toggle>
         <mat-datepicker touchUi #picker1></mat-datepicker>
       </mat-form-field>
       <mat-form-field class="example-full-width" >
         <input matInput value="{{selectedTime}}" placeholder="Hora" required [formControl]="time"
-               [readonly]="readOnly" (click)="open()">
+               [readonly]="true" (click)="open()">
         <mat-icon matSuffix *ngIf="fechaSelected === true && !readOnly; else noClick" (click)="open()" >schedule</mat-icon>
         <ng-template #noClick>
           <mat-icon matSuffix>schedule</mat-icon>
