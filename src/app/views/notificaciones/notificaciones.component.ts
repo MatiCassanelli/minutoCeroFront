@@ -4,6 +4,7 @@ import {MatSnackBar} from '@angular/material';
 import {EquipoService} from '../../../services/equipoService';
 import {ObservableService} from '../../observable.service';
 import {ReservaService} from '../../../services/reservaService';
+import {debug} from 'util';
 
 
 @Component({
@@ -64,8 +65,12 @@ export class NotificacionesComponent implements OnInit {
 
   restarNotificacionPredio(notificacion, respuesta) {
     let cantidad: number;
+    debugger;
     if (notificacion.estado === 'Solicitada') {
       this.reservaService.putEstado(notificacion._id, respuesta).subscribe(() => {
+      });
+    } else {
+      this.reservaService.putEstado(notificacion._id, 'Vista').subscribe(() => {
       });
     }
     this.reservas.splice(this.reservas.indexOf(notificacion), 1);
