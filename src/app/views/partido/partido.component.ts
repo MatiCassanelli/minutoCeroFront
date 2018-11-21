@@ -18,6 +18,7 @@ import {Cancha} from '../../models/cancha';
 import {PlantelComponent} from '../../component/plantel/plantel.component';
 import * as socketIo from 'socket.io-client';
 import {environment} from '../../../environments/environment';
+import {ConfirmDialogComponent} from '../../component/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-partido',
@@ -42,6 +43,7 @@ export class PartidoComponent implements OnInit {
   mostrarBoton = false;
   abandonar = false;
   clickAbandonar = false;
+  confirmDialog: MatDialogRef<ConfirmDialogComponent>;
   @ViewChild('appPlantel') appPlantel: PlantelComponent;
 
   constructor(private route: ActivatedRoute,
@@ -139,16 +141,16 @@ export class PartidoComponent implements OnInit {
     });
   }
 
-  cancelarReserva(reserva) {
+  private cancelarReserva(reserva) {
     if (this.partido) {  // es reserva entonces
       this.partidoService.cancelarPartido(reserva._id).subscribe(res => {
         console.log(res);
-        this.router.navigateByUrl('/jugador');
+        this.router.navigateByUrl('/jugador/misReservas');
       });
     } else if (this.reserva) {
       this.reservaService.cancelarReserva(reserva._id).subscribe((res) => {
         this.reserva.estado = 'Cancelada';
-        this.router.navigateByUrl('/jugador');
+        this.router.navigateByUrl('/jugador/misReservas');
       });
     }
   }
@@ -180,5 +182,16 @@ export class PartidoComponent implements OnInit {
         });
       });
     }
+  }
+
+  showConfirmDialog(idReserva) {
+    this.confirmDialog = this.dialog.open(ConfirmDialogComponent, {
+      width: '600px',
+      maxWidth: null
+    });
+    this.confirmDialog.afterClosed().subscribe(res => {
+      if (res && res.respuesta === 'Aceptar')
+        this.cancelarReserva(idReserva);
+    });
   }
 }

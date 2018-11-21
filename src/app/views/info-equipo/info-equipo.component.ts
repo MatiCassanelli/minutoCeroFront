@@ -10,6 +10,7 @@ import {ConfirmUbicacionDialogComponent} from '../registro-predio-mapa/registro-
 import {NotificacionService} from '../../../services/notificacionService';
 import {DeporteService} from '../../../services/deporteService';
 import {ObservableService} from '../../observable.service';
+import {ConfirmDialogComponent} from '../../component/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-info-equipo',
@@ -28,6 +29,7 @@ export class InfoEquipoComponent implements OnInit {
   display: boolean;
   dialogRef: MatDialogRef<DialogInvitarJugadorEquipoComponent>;
   elimiarDialog: MatDialogRef<DialogEliminarEquipoComponent>;
+  confirmarEliminar: MatDialogRef<ConfirmDialogComponent>;
   editable = false;
 
   constructor(private route: ActivatedRoute,
@@ -116,13 +118,24 @@ export class InfoEquipoComponent implements OnInit {
     });
   }
 
+  showConfirmDialog(idJugador) {
+    this.confirmarEliminar = this.dialog.open(ConfirmDialogComponent, {
+      width: '600px',
+      maxWidth: null
+    });
+    this.confirmarEliminar.afterClosed().subscribe(res => {
+      if (res && res.respuesta === 'Aceptar')
+        this.eliminarJugador(idJugador);
+    });
+  }
+
   showEliminarDialog() {
     this.elimiarDialog = this.dialog.open(DialogEliminarEquipoComponent, {
       width: '600px',
       maxWidth: null
     });
     this.elimiarDialog.afterClosed().subscribe(res => {
-      if(res)
+      if (res)
         this.eliminarEquipo();
     });
   }
@@ -191,7 +204,7 @@ export class DialogEliminarEquipoComponent implements OnInit {
   }
 
   submit() {
-      this.dialogRef.close(true);
+    this.dialogRef.close(true);
   }
 
 }

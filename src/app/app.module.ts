@@ -157,6 +157,7 @@ import { CardResumenMensualComponent } from './component/card-resumen-mensual/ca
 import { DetalleCuentaMensualComponent } from './views/detalle-cuenta-mensual/detalle-cuenta-mensual.component';
 import {CdkTableModule} from '@angular/cdk/table';
 import {ResumenService} from '../services/resumenService';
+import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialog.component';
 
 // Pass the fusioncharts library and chart modules
 FusionChartsModule.fcRoot(FusionCharts, Widgets, FusionTheme);
@@ -226,7 +227,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     CalificacionDesdePredioComponent,
     ResumenDeCuentaComponent,
     CardResumenMensualComponent,
-    DetalleCuentaMensualComponent
+    DetalleCuentaMensualComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     AppRouting,
@@ -332,6 +334,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   entryComponents: [MapComponent, MapDialogComponent,
     ConfirmDialogPlantelComponent, ConfirmUbicacionDialogComponent,
     DialogInvitarJugadorEquipoComponent, NotificacionesComponent, NuevaCanchaComponent,
-    DialogResultadoComponent, DialogConfirmAmistadComponent, ReservaDialogComponent, DialogEliminarEquipoComponent]
+    DialogResultadoComponent, DialogConfirmAmistadComponent, ReservaDialogComponent,
+    DialogEliminarEquipoComponent, ConfirmDialogComponent]
 })
 export class AppModule { }

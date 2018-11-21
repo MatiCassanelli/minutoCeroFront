@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ReservaService} from '../../../services/reservaService';
 import {PartidoService} from '../../../services/partidoService';
 import {Router} from '@angular/router';
+import {ConfirmDialogComponent} from '../../component/confirm-dialog/confirm-dialog.component';
+import {MatDialog, MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-listado-reservas-jugador',

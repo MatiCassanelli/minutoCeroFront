@@ -10,7 +10,7 @@
 <h4 mat-subheader>Jugadores</h4>
 <div *ngFor="let jugador of jugadores" style="width: 100%; margin-bottom: 0; position: relative">
   <app-estrellas-jugador [capitan]="jugador" style="width: 100%"></app-estrellas-jugador>
-  <button *ngIf="editable" mat-icon-button (click)="eliminarJugador(jugador)" style="position: absolute;
+  <button *ngIf="editable" mat-icon-button (click)="showConfirmDialog(jugador)" style="position: absolute;
     right: 5px;
     top: 0px;">
     <mat-icon>close</mat-icon>
