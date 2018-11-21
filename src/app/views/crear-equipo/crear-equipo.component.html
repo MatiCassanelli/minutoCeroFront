@@ -16,7 +16,7 @@
                          (jugadoresInvitados)="setChecked($event)"></app-invitar-jugadores>
 
   <div style="text-align: right; padding: 6px 15px">
-    <button mat-raised-button type="button" color="warn">Cancelar</button>
+    <button mat-raised-button type="button" color="warn" routerLink="../../">Cancelar</button>
     <button mat-raised-button type="button" (click)="onSubmit()" color="primary"
             [disabled]="!(nombreEquipo && deporte)">Crear
     </button>

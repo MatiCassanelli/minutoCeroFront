@@ -90,7 +90,7 @@ export class PlantelComponent implements OnInit {
       });
     }
     this.equipoService.getMiEquipo().subscribe(res => {
-      if (res) {
+      if (res[0]) {
         this.tieneEquipo = true;
         for (let j of res[0].jugadores) {
           this.jugadorService.getJugadorById(j.toString()).subscribe(jug => {

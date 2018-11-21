@@ -29,7 +29,7 @@
     </div>
   </div>
   <div style="text-align: right; padding: 6px 15px">
-    <button mat-raised-button color="warn" (click)="volver()">Cancelar</button>
+    <button mat-raised-button color="warn"  routerLink="../">Cancelar</button>
     <button mat-raised-button color="primary" (click)="reservar()"
             [disabled]="!(nombreJugador && apellidoJugador && telefono && fecha && cancha)">Reservar</button>
   </div>
