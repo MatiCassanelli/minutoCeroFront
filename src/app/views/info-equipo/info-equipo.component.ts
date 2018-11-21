@@ -21,7 +21,6 @@ import {ConfirmDialogComponent} from '../../component/confirm-dialog/confirm-dia
 export class InfoEquipoComponent implements OnInit {
 
   jugadores: Array<Jugador>;
-  jugadoresPorInvitar: Jugador[];
   capitan: Jugador;
   routeSub: any;
   equipo: Equipo;
@@ -30,6 +29,7 @@ export class InfoEquipoComponent implements OnInit {
   dialogRef: MatDialogRef<DialogInvitarJugadorEquipoComponent>;
   elimiarDialog: MatDialogRef<DialogEliminarEquipoComponent>;
   confirmarEliminar: MatDialogRef<ConfirmDialogComponent>;
+  abandonable = false;
   editable = false;
 
   constructor(private route: ActivatedRoute,
@@ -124,8 +124,12 @@ export class InfoEquipoComponent implements OnInit {
       maxWidth: null
     });
     this.confirmarEliminar.afterClosed().subscribe(res => {
-      if (res && res.respuesta === 'Aceptar')
+      if (res && res.respuesta === 'Aceptar'){
         this.eliminarJugador(idJugador);
+        this.observableService.tieneEquipo(false);
+        this.router.navigateByUrl('/jugador');
+      }
+
     });
   }
 
@@ -145,6 +149,10 @@ export class InfoEquipoComponent implements OnInit {
       this.observableService.tieneEquipo(false);
       this.router.navigateByUrl('/equipo/crear');
     });
+  }
+
+  abandonarEquipo() {
+    this.showConfirmDialog(JSON.parse(localStorage.getItem('usuario')));
   }
 }
 

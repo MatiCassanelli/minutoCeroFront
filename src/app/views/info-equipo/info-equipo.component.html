@@ -16,9 +16,12 @@
     <mat-icon>close</mat-icon>
   </button>
 </div>
-<button *ngIf="editable" mat-raised-button class="btnEliminar" color="warn" (click)="showEliminarDialog()">Eliminar
-  equipo
-</button>
+<button *ngIf="editable; else noEditable" mat-raised-button class="btnEliminar" color="warn"
+        (click)="showEliminarDialog()">Eliminar equipo</button>
+
+<ng-template #noEditable>
+  <button mat-raised-button color="warn" (click)="abandonarEquipo()">Abandonar Equipo</button>
+</ng-template>
 <!--<app-estrellas-jugador [jugadores]="jugadores" [capitan]="capitan"></app-estrellas-jugador>-->
 
 
