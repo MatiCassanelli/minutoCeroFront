@@ -341,8 +341,6 @@ export class PlantelComponent implements OnInit {
   }
 
   deshabilitarConfirmar(condicion) {
-    debugger;
-
     if(condicion === 'local') {
       this.confirmarLocal = !(this.plantelLocal.jugadoresConfirmados.length === this.maximoPorEquipo);
     }

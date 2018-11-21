@@ -27,6 +27,7 @@ export class CargaNuevaCanchaComponent implements OnInit {
     this.predioService.getCanchas().subscribe(res => {
       if(res.length > 0){
         this.canchas = res;
+        this.canchasSeleccionada.emit({canchas: this.canchas});
       } else
         this.canchas = [];
     });

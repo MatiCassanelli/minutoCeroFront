@@ -36,12 +36,12 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Precio Diurno" type="number" class="example-right-align"
+    <input matInput placeholder="Precio Diurno" (keypress)="numberOnly($event)" type="text" class="example-right-align"
            [(ngModel)]="cancha.precioDia">
     <span matPrefix>$&nbsp;</span>
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="Precio Nocturno" type="number" class="example-right-align"
+    <input matInput placeholder="Precio Nocturno" (keypress)="numberOnly($event)" type="text" class="example-right-align"
            [(ngModel)]="cancha.precioNoche">
     <span matPrefix>$&nbsp;</span>
   </mat-form-field>

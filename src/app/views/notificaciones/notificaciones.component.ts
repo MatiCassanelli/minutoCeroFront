@@ -29,7 +29,6 @@ export class NotificacionesComponent implements OnInit {
   ngOnInit() {
     if (localStorage.getItem('type') === 'Jugador') {
       this.notificacionService.getNotificaciones().subscribe(res => {
-        console.log(res);
         this.solicitudes = res['solicitudes'];
         this.notificaciones = res['notificaciones'];
       });

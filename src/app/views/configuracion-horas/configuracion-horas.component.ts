@@ -39,6 +39,7 @@ export class ConfiguracionHorasComponent implements OnInit {
         this.horarios.dia.hasta = moment.utc(res.configHorario.dia.hasta).format('HH:mm');
         this.horarios.noche.desde = moment.utc(res.configHorario.noche.desde).format('HH:mm');
         this.horarios.noche.hasta = moment.utc(res.configHorario.noche.hasta).format('HH:mm');
+        this.sendHorarios();
       }
     });
   }

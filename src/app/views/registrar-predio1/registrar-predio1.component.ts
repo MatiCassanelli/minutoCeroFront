@@ -1,9 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Predio} from '../../models/predio';
 import {PredioService} from '../../../services/predioService';
 import {Router} from '@angular/router';
 import {Horario} from '../../models/horario';
+import {MatStepper} from '@angular/material';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class RegistrarPredio1Component implements OnInit {
   disabled = true;
   @Input() predio: Predio;
   @Output() stepEmit: EventEmitter<any> = new EventEmitter<any>();
+
 
   constructor(private _formBuilder: FormBuilder,
               private predioService: PredioService) {
@@ -36,8 +38,6 @@ export class RegistrarPredio1Component implements OnInit {
         // this.nombreHoraForm.setValue({telefono: res.telefono});
       }
     });
-
-
   }
 
   getHorarios(event) {

@@ -47,8 +47,8 @@ export class FechaCarouselComponent implements OnInit {
             }
           }
         }
-
       }
+      this.sendHorarios();
     });
   }
 

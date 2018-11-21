@@ -1,19 +1,19 @@
 <mat-list>
   <mat-list-item>
-    <img matListAvatar class="rounded-circle" src="http://placehold.it/60x60" alt="">
+    <img matListAvatar style="border-radius: 0; width: 50px; height: 50px;" [src]="'https://storage.googleapis.com/minutocero/Escudo%20azul.redimensionado.png'">
     <h4 *ngIf="!editable; else modificar" mat-line style="text-align: center">
       <strong>{{golesLocal}} - {{golesVisitante}}</strong>
     </h4>
     <ng-template #modificar>
       <div>
-        <input matInput placeholder="Local" [(ngModel)]="golesLocal" size="2" style="text-align: center">
+        <input matInput placeholder="Local" (keypress)="numberOnly($event)" type="text" [(ngModel)]="golesLocal" size="2" style="text-align: center">
         <span> - </span>
-        <input matInput placeholder="Visita" [(ngModel)]="golesVisitante" size="2" style="text-align: center">
+        <input matInput placeholder="Visita" (keypress)="numberOnly($event)" type="text" [(ngModel)]="golesVisitante" size="2" style="text-align: center">
       </div>
     </ng-template>
     <p mat-line style="text-align: center">{{partido?.dia | date:'dd/MM/yyyy - HH:mm'}}</p>
     <p mat-line style="text-align: center">{{predio?.nombrePredio}}</p>
-    <img mat-card-image class="rounded-circle" src="http://placehold.it/60x60" alt="">
+    <img mat-card-image style="border-radius: 0; width: 50px; height: 50px;" [src]="'https://storage.googleapis.com/minutocero/Escudo%20rojo.redimensionado.png'">
   </mat-list-item>
   <div *ngIf="editable" style="text-align: right">
     <button mat-button type="button" mat-dialog-close>Cancelar</button>
