@@ -130,13 +130,17 @@ export class MapComponent implements OnInit, AfterContentInit {
 
   private geocodeAddress(direccion, resultsMap = this.map): any {
     const geocoder = new google.maps.Geocoder();
-    let asd = this.newMarker(new google.maps.LatLng(this.latitude, this.longitude));
+    let marker = this.newMarker(new google.maps.LatLng(this.latitude, this.longitude));
+    marker.setDraggable(true);
+    marker.addListener('dragend', (event) => {
+      marker.setPosition(new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()));
+    });
     geocoder.geocode({'address': direccion}, function (results, status) {
       if (status === 'OK') {
-        asd.setMap(resultsMap);
-        asd.setIcon(null);
-        asd.setPosition(results[0].geometry.location);
-        asd.setTitle(results[0].formatted_address);
+        marker.setMap(resultsMap);
+        marker.setIcon(null);
+        marker.setPosition(results[0].geometry.location);
+        marker.setTitle(results[0].formatted_address);
         resultsMap.setCenter(new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()));
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
