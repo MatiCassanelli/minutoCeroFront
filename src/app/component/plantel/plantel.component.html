@@ -1,6 +1,12 @@
 <div class="form-group row" *ngIf="partido?.estado !== 'Jugando' && partido?.estado !== 'Finalizado'">
-  <label for="jugador" class="col-sm-2 col-form-label"><strong>Jugadores a invitar</strong></label>
-  <div class="btn-group col-sm-2 col-form-label" role="group">
+  <ng-template [ngIf]="confirmado">
+    <label for="jugador" class="col-sm-2 col-form-label"><strong>Jugadores a invitar</strong></label>
+  </ng-template>
+  <ng-template [ngIf]="!confirmado && !invitado">
+    <label for="jugador" class="col-sm-2 col-form-label"><strong>Equipos</strong></label>
+  </ng-template>
+
+  <div class="btn-group col-sm-2 col-form-label" role="group" *ngIf="confirmado || (!confirmado && !invitado)">
     <button mat-raised-button [ngClass]="{'press': clickedLocal}" color="primary" class="col-6"
             (click)="clickedLocal = true; clickedVisitante = false; activarComponent('local')">Local
     </button>
