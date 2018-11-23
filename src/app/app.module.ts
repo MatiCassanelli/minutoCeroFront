@@ -53,7 +53,7 @@ import {
   MatAutocomplete, MatAutocompleteModule, MatButtonToggleModule,
   MatCardModule, MatCheckboxModule, MatChipsModule,
   MatDialogModule,
-  MatFormFieldModule,
+  MatFormFieldModule, MatGridListModule,
   MatInputModule,
   MatNativeDateModule, MatOptionModule, MatSelectModule,
   MatSliderModule, MatSlideToggleModule,
@@ -293,7 +293,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatButtonToggleModule,
     MatTableModule,
     CdkTableModule,
-    FusionChartsModule
+    FusionChartsModule,
+    MatGridListModule
   ],
   bootstrap: [AppComponent],
   schemas: [

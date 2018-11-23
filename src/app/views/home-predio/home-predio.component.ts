@@ -12,6 +12,11 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {MapDialogComponent} from '../../component/map-dialog/map-dialog.component';
 import {forkJoin} from 'rxjs/observable/forkJoin';
 
+export interface ReservaCalendar {
+  color: string;
+  text: string;
+}
+
 @Component({
   selector: 'app-home-predio',
   templateUrl: './home-predio.component.html',
@@ -24,7 +29,12 @@ export class HomePredioComponent implements OnInit {
   data: any = [];
   reservas: any[];
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
-  hidden = true;
+  reservasCalendar: ReservaCalendar[] = [
+    {text: 'PreReserva', color: 'lightblue'},
+    {text: 'Two', color: 'lightgreen'},
+    {text: 'Three', color: 'lightpink'},
+    {text: 'Four', color: '#DDBDF1'},
+  ];
   fileNameDialogRef: MatDialogRef<ReservaDialogComponent>;
 
   constructor(private authService: AuthService,
@@ -35,86 +45,96 @@ export class HomePredioComponent implements OnInit {
   }
 
   ngOnInit() {
-        forkJoin(this.reservaService.getByEstado('PreReserva'),
-          this.reservaService.getByEstado('Reservada'),
-          this.reservaService.getByEstado('Completada'),
-          this.reservaService.getByEstado('Solicitada')).subscribe(res => {
+    forkJoin(this.reservaService.getByEstado('PreReserva'),
+      this.reservaService.getByEstado('Reservada'),
+      this.reservaService.getByEstado('Completada'),
+      this.reservaService.getByEstado('Solicitada')).subscribe(res => {
 
-        this.reservas = res[0].concat(res[1]).concat(res[2]).concat(res[3]);
-        let color: string;
-        for (let reserva of this.reservas) {
-          switch (reserva.estado) {
-            case 'PreReserva':{
-              color = '#B3E5FC';
-              break;
-            }
-            case 'Reservada':{
-              color = '#C8E6C9';
-              break;
-            }
-            case 'Solicitada':{
-              color = '#FFD54F';
-              break;
-            }
-            case 'Completada':{
-              color = '#CFD8DC';
-              break;
-            }
-
+      this.reservas = res[0].concat(res[1]).concat(res[2]).concat(res[3]);
+      let color: string;
+      for (let reserva of this.reservas) {
+        switch (reserva.estado) {
+          case 'PreReserva': {
+            color = '#B3E5FC';
+            this.reservasCalendar[0].color = color;
+            this.reservasCalendar[0].text = reserva.estado;
+            break;
           }
-          let r = {
-            id: reserva._id,
-            title: reserva.cancha.nombreCancha,
-            start: moment(reserva.dia).format('YYYY-MM-DD').toString() + 'T' + moment(reserva.dia).format('HH:mm:ss').toString(),
-            end: moment(reserva.dia).format('YYYY-MM-DD').toString() + 'T' + moment(reserva.dia).add(1, 'h').format('HH:mm:ss').toString(),
-            color: color
-          };
-          this.data.push(r);
-        }
-        this.calendarOptions = {
-          editable: true,
-          contentHeight: () => {
-            console.log(screen.height);
-            if (screen.width < 577) {
-              return 600;
-            } else {
-              return 750;
-            }
-          },
-          eventLimit: false,
-          header: {
-            left: 'prev,next,today',
-            center: 'title',
-            right: 'month,agendaDay,listMonth'
-          },
-          scrollTime: moment.duration(moment().add(1, 'h').get('h'), 'hours'),
-          dayNamesShort: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
-          dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-          monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-          buttonText: {
-            today: 'Hoy',
-            month: 'Mes',
-            day: 'Agenda',
-            list: 'Lista'
-          },
-          views: {
-            basic: {
-              titleFormat: 'MMMM YYYY'
-            },
-            month: {
-              fixedWeekCount: false
-            },
-            agenda: {
-              titleFormat: 'DD MMMM YYYY'
-            },
-            day: {
-              titleFormat: 'DD MMMM YYYY'
-            }
-          },
-          events: this.data
-        };
+          case 'Solicitada': {
+            color = '#FFD54F';
+            this.reservasCalendar[1].color = color;
+            this.reservasCalendar[1].text = reserva.estado;
+            break;
+          }
+          case 'Reservada': {
+            color = '#C8E6C9';
+            this.reservasCalendar[2].color = color;
+            this.reservasCalendar[2].text = reserva.estado;
+            break;
+          }
+          case 'Completada': {
+            color = '#CFD8DC';
+            this.reservasCalendar[3].color = color;
+            this.reservasCalendar[3].text = reserva.estado;
+            break;
+          }
 
-      });
+        }
+        let r = {
+          id: reserva._id,
+          title: reserva.cancha.nombreCancha,
+          start: moment(reserva.dia).format('YYYY-MM-DD').toString() + 'T' + moment(reserva.dia).format('HH:mm:ss').toString(),
+          end: moment(reserva.dia).format('YYYY-MM-DD').toString() + 'T' + moment(reserva.dia).add(1, 'h').format('HH:mm:ss').toString(),
+          color: color
+        };
+        this.data.push(r);
+      }
+      this.calendarOptions = {
+        editable: true,
+        contentHeight: () => {
+          console.log(screen.height);
+          if (screen.width < 577) {
+            return 600;
+          } else {
+            return 750;
+          }
+        },
+        eventLimit: false,
+        header: {
+          left: 'prev,next,today',
+          center: 'title',
+          right: 'month,agendaDay,listMonth'
+        },
+        scrollTime: moment.duration(moment().add(1, 'h').get('h'), 'hours'),
+        dayNamesShort: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        buttonText: {
+          today: 'Hoy',
+          month: 'Mes',
+          day: 'Agenda',
+          list: 'Lista'
+        },
+        views: {
+          basic: {
+            titleFormat: 'MMMM YYYY'
+          },
+          month: {
+            fixedWeekCount: false
+          },
+          agenda: {
+            titleFormat: 'DD MMMM YYYY',
+            nowIndicator: true
+          },
+          day: {
+            titleFormat: 'DD MMMM YYYY',
+            nowIndicator: true
+          }
+        },
+        events: this.data
+      };
+
+    });
   }
 
   clickButton(model: any) {
