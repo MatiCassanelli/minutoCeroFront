@@ -1,5 +1,5 @@
 <div class="container-fluid cuerpo ui-xl-4 ui-lg-4 ui-md-6 ui-sm-9">
-  <p-card class="ui-xl-4 ui-lg-4 ui-md-4 ui-sm-12" title="Login">
+  <p-card class="ui-xl-4 ui-lg-4 ui-md-4 ui-sm-12" title="{{tipo}}">
     <div class="container ui-fluid">
       <div class="row">
         <!--<button pButton type="button" class="ui-button facebook" label="Facebook"-->
@@ -11,6 +11,7 @@
         <!--onclick="location.href= global.serverURL + '/auth/login/google/jugador/'"></button>-->
         <!--<a (click)="loggingIn()" href="{{google}}" class="ui-button google">Google</a>-->
         <button mat-raised-button (click)="loggingInGl()" class="ui-grid-col-12 google">Google</button>
+        <br>
         <button mat-raised-button (click)="loggingInFb()" class="ui-grid-col-12 facebook">Facebook</button>
       </div>
       <!--<br>-->
@@ -23,9 +24,9 @@
   </p-card>
   <br>
 
-  <div *ngIf="predio; else SiPredio">
-    <button mat-raised-button (click)="setPredio('predio')">Ingresar como Predio</button>
-  </div>
+  <!--<div *ngIf="predio; else SiPredio">-->
+    <!--<button mat-raised-button (click)="setPredio('predio')">Ingresar como Predio</button>-->
+  <!--</div>-->
   <ng-template #SiPredio>
     <button mat-raised-button (click)="setPredio('jugador')">Ingresar como Jugador</button>
   </ng-template>
