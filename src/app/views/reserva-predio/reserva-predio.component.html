@@ -4,15 +4,19 @@
     <h3>Reservar cancha</h3>
     <label for="datos" class="col-sm-2 col-form-label"><strong>Datos jugador</strong></label>
     <div id="datos" class="col-sm-10">
-      <mat-form-field>
-        <input matInput placeholder="Nombre" required [(ngModel)]="nombreJugador">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Apellido" required [(ngModel)]="apellidoJugador">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Teléfono de Contacto" type="number" required [(ngModel)]="telefono">
-      </mat-form-field>
+      <form [formGroup]="reservaForm">
+        <mat-form-field>
+          <input matInput placeholder="Nombre" required formControlName="nombre">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Apellido" required formControlName="apellido">
+        </mat-form-field>
+        <mat-form-field>
+          <!--<input matInput placeholder="Teléfono de Contacto" type="number" required [(ngModel)]="telefono">-->
+          <input matInput placeholder="Teléfono de Contacto" class="form-control" type="text" appPhoneMask [maxlength]="14"
+                 formControlName="telefono" id="phone-number">
+        </mat-form-field>
+      </form>
     </div>
   </div>
 
@@ -29,8 +33,9 @@
     </div>
   </div>
   <div style="text-align: right; padding: 6px 15px">
-    <button mat-raised-button color="warn"  routerLink="../">Cancelar</button>
+    <button mat-raised-button color="warn" routerLink="../">Cancelar</button>
     <button mat-raised-button color="primary" (click)="reservar()"
-            [disabled]="!(nombreJugador && apellidoJugador && telefono && fecha && cancha)">Reservar</button>
+            [disabled]="!(reservaForm.valid && fecha && cancha)">Reservar
+    </button>
   </div>
 </div>

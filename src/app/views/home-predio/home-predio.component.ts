@@ -145,7 +145,7 @@ export class HomePredioComponent implements OnInit {
     } else {
       if (model.type === 'dayClick')
       // this.router.navigateByUrl('/reservaCancha');
-        this.router.navigate(['/reservaCancha', {fecha: moment.parseZone(model.detail.date.toString()).format()}]);
+        this.router.navigate(['/predio/reservaCancha', {fecha: moment.parseZone(model.detail.date.toString()).format()}]);
     }
 
     this.displayEvent = model;

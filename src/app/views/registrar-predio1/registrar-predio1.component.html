@@ -5,7 +5,7 @@
       <input matInput placeholder="Nombre Predio" formControlName="nombrePredio" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Teléfono de Contacto" id="telefono" formControlName="telefono" type="number" required>
+      <input matInput placeholder="Teléfono de Contacto" id="telefono" formControlName="telefono" appPhoneMask required>
     </mat-form-field>
     <app-fecha-carousel *ngIf="nombreHoraForm.valid" (emitHorario)="getHorarios($event)"></app-fecha-carousel>
   </form>
