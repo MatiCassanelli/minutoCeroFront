@@ -22,12 +22,12 @@ export class CardNotificacionComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.noti.reserva) {
+    if(this.noti && this.noti.reserva) {
       this.mensaje = this.noti.mensaje;
       if (this.mensaje.includes('Rechazada'))
         this.mostrarSubtitulo = true;
-    }
-    this.mensaje = this.noti.mensaje;
+    // this.mensaje = this.noti.mensaje;
+  }
   }
 
   swipeEvent() {

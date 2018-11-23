@@ -1,25 +1,29 @@
 <mat-horizontal-stepper [linear]="isLinear" labelPosition="bottom" #stepper style="height: 100%;" >
   <mat-step>
-    <ng-template matStepLabel>Horarios</ng-template>
+    <!--<ng-template matStepLabel>Horarios</ng-template>-->
+    <h4>Información de contacto</h4>
     <app-registrar-predio1 (stepEmit)="siguiente($event, stepper)" [predio]="predio"></app-registrar-predio1>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Dia/Noche</ng-template>
+    <!--<ng-template matStepLabel>Dia/Noche</ng-template>-->
+    <h4>Horarios de luces</h4>
     <p>Para poder determinar el precio de las canchas automaticamente, necesitamos que nos indiques el horario en el que
       las luces se encienden, y en el que están apagadas</p>
     <app-configuracion-horas (stepEmit)="siguiente($event, stepper)"></app-configuracion-horas>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Canchas</ng-template>
+    <!--<ng-template matStepLabel>Canchas</ng-template>-->
+    <h4>Canchas</h4>
     <app-carga-nueva-cancha (canchasSeleccionada)="siguiente($event, stepper)" [steps]="true"></app-carga-nueva-cancha>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Ubicacion</ng-template>
+    <!--<ng-template matStepLabel>Ubicacion</ng-template>-->
     <app-registro-predio-mapa [steps]="true"
                               (ubicacionSeleccionada)="siguiente($event, stepper)"></app-registro-predio-mapa>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Fin</ng-template>
+    <!--<ng-template matStepLabel>Fin</ng-template>-->
+    <h4>Ya casi terminás</h4>
     <p *ngIf="(nombrePredio && horarios && telefono && canchas && ubicacion); else otroTexto">Ya está todo listo para
       empezar a usar la aplicación! Dale a Finalizar y comenzá</p>
     <ng-template #otroTexto>Completá todos los pasos para poder continuar</ng-template>
