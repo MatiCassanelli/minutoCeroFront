@@ -45,7 +45,7 @@ export class InfoEquipoComponent implements OnInit {
         this.equipoService.getEquipo(this.id).subscribe(eq => {
           this.equipo = eq[0];
           this.jugadorService.getJugadorById(this.equipo.capitan).subscribe(cap => {
-            this.capitan = cap[0];
+            this.capitan = cap;
             if (this.capitan._id === localStorage.getItem('id'))
               this.editable = true;
           });
@@ -55,7 +55,7 @@ export class InfoEquipoComponent implements OnInit {
         this.equipoService.getMiEquipo().subscribe(eq => {
           this.equipo = eq[0];
           this.jugadorService.getJugadorById(this.equipo.capitan).subscribe(cap => {
-            this.capitan = cap[0];
+            this.capitan = cap;
             if (this.capitan._id === localStorage.getItem('id'))
               this.editable = true;
           });
@@ -103,7 +103,7 @@ export class InfoEquipoComponent implements OnInit {
     for (let jug of jugadores) {
       if (jug !== this.equipo.capitan) {
         this.jugadorService.getJugadorById(jug).subscribe(resp => {
-          array.push(resp[0]);
+          array.push(resp);
         });
       }
     }

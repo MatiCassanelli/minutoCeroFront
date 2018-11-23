@@ -1,8 +1,16 @@
-<div class="container" style="margin: 1%; height: 100%">
+<div class="container" style="margin: 1%; width: 100%">
   <!--<p>Display event : {{displayEvent | json}}</p>-->
-  <div *ngIf="calendarOptions" [hidden]="!hidden">
+  <div *ngIf="calendarOptions">
     <ng-fullcalendar #ucCalendar [options]="calendarOptions" (eventClick)="eventClick($event.detail)"
                      (clickButton)="clickButton($event.detail)"
                      (dayClick)="clickButton($event)"></ng-fullcalendar>
   </div>
 </div>
+<div class="container">
+  <mat-grid-list cols="4" rowHeight="20px">
+    <mat-grid-tile *ngFor="let tile of reservasCalendar" [style.background]="tile.color">
+      {{tile.text}}
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+

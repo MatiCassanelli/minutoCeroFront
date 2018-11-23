@@ -53,7 +53,7 @@ import {
   MatAutocomplete, MatAutocompleteModule, MatButtonToggleModule,
   MatCardModule, MatCheckboxModule, MatChipsModule,
   MatDialogModule,
-  MatFormFieldModule,
+  MatFormFieldModule, MatGridListModule,
   MatInputModule,
   MatNativeDateModule, MatOptionModule, MatSelectModule,
   MatSliderModule, MatSlideToggleModule,
@@ -158,6 +158,7 @@ import { DetalleCuentaMensualComponent } from './views/detalle-cuenta-mensual/de
 import {CdkTableModule} from '@angular/cdk/table';
 import {ResumenService} from '../services/resumenService';
 import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialog.component';
+import { PhoneMaskDirective } from './phone-mask.directive';
 
 // Pass the fusioncharts library and chart modules
 FusionChartsModule.fcRoot(FusionCharts, Widgets, FusionTheme);
@@ -228,7 +229,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     ResumenDeCuentaComponent,
     CardResumenMensualComponent,
     DetalleCuentaMensualComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    PhoneMaskDirective
   ],
   imports: [
     AppRouting,
@@ -293,7 +295,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatButtonToggleModule,
     MatTableModule,
     CdkTableModule,
-    FusionChartsModule
+    FusionChartsModule,
+    MatGridListModule
   ],
   bootstrap: [AppComponent],
   schemas: [

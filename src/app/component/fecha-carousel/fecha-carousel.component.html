@@ -13,7 +13,7 @@
         <label for="hasta{{dia}}" class="col-sm-2 col-form-label"><strong>Hasta</strong></label>
         <p-calendar id="hasta{{dia}}" [stepMinute]="30" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"
                     ondragover="true" class="col-sm-10" [(ngModel)]="hora.hasta"
-                    [defaultDate]="defaultDate"></p-calendar>
+                    [defaultDate]="defaultDate" [minDate]="hora.desde"></p-calendar>
       </div>
     </div>
     <button mat-raised-button (click)="agregarHorario(i)">Nuevo Horario</button>

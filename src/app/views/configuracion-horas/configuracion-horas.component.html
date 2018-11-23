@@ -1,36 +1,37 @@
 <!--<div class="container">-->
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      Horario sin luces
-    </mat-expansion-panel-header>
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    Horario sin luces
+  </mat-expansion-panel-header>
+  <div class="form-group">
     <div class="form-group">
       <label for="dia.desde" class="col-sm-2 col-form-label"><strong>Desde</strong></label>
       <p-calendar id="dia.desde" [stepMinute]="30" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"
                   ondragover="true" class="col-sm-10" [(ngModel)]="horarios?.dia.desde"
                   [defaultDate]="defaultDate"></p-calendar>
-      <label for="dia.hasta" class="col-sm-2 col-form-label"><strong>Hasta</strong></label>
+      <label class="col-sm-2 col-form-label"><strong>Hasta</strong></label>
       <p-calendar id="dia.hasta" [stepMinute]="30" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"
                   ondragover="true" class="col-sm-10" [(ngModel)]="horarios?.dia.hasta"
-                  [defaultDate]="defaultDate"></p-calendar>
-
+                  [defaultDate]="defaultDate" [minDate]="horarios.dia.desde"></p-calendar>
     </div>
-  </mat-expansion-panel>
+  </div>
+</mat-expansion-panel>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      Horario con luces
-    </mat-expansion-panel-header>
-    <div class="form-group">
-      <label for="noche.desde" class="col-sm-2 col-form-label"><strong>Desde</strong></label>
-      <p-calendar id="noche.desde" [stepMinute]="30" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"
-                  ondragover="true" class="col-sm-10" [(ngModel)]="horarios?.noche.desde"
-                  [defaultDate]="defaultDate"></p-calendar>
-      <label for="noche.hasta" class="col-sm-2 col-form-label"><strong>Hasta</strong></label>
-      <p-calendar id="noche.hasta" [stepMinute]="30" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"
-                  ondragover="true" class="col-sm-10" [(ngModel)]="horarios?.noche.hasta"
-                  [defaultDate]="defaultDate"></p-calendar>
-    </div>
-  </mat-expansion-panel>
+<mat-expansion-panel [disabled]="!(horarios?.dia.desde && horarios?.dia.hasta)">
+  <mat-expansion-panel-header>
+    Horario con luces
+  </mat-expansion-panel-header>
+  <div class="form-group">
+    <label for="noche.desde" class="col-sm-2 col-form-label"><strong>Desde</strong></label>
+    <p-calendar id="noche.desde" [stepMinute]="30" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"
+                ondragover="true" class="col-sm-10" [(ngModel)]="horarios?.noche.desde"
+                [defaultDate]="defaultDate"></p-calendar>
+    <label for="noche.hasta" class="col-sm-2 col-form-label"><strong>Hasta</strong></label>
+    <p-calendar id="noche.hasta" [stepMinute]="30" [readonlyInput]="true" [timeOnly]="true" [showTime]="true"
+                ondragover="true" class="col-sm-10" [(ngModel)]="horarios?.noche.hasta"
+                [defaultDate]="defaultDate" [minDate]="horarios.noche.desde"></p-calendar>
+  </div>
+</mat-expansion-panel>
 <!--</div>-->
 <button mat-button (click)="sendHorarios()"
         [disabled]="!(this.horarios?.dia.desde && this.horarios?.dia.hasta

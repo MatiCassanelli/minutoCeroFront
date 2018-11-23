@@ -9,7 +9,6 @@ import {PlantelService} from '../../../services/plantelService';
 import {ConfirmationService} from 'primeng/api';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {MapDialogComponent} from '../../component/map-dialog/map-dialog.component';
-import {debug} from 'util';
 import {JugadorService} from '../../../services/jugadorService';
 import {ReservaService} from '../../../services/reservaService';
 import {Reserva} from '../../models/reserva';
@@ -19,6 +18,7 @@ import {PlantelComponent} from '../../component/plantel/plantel.component';
 import * as socketIo from 'socket.io-client';
 import {environment} from '../../../environments/environment';
 import {ConfirmDialogComponent} from '../../component/confirm-dialog/confirm-dialog.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-partido',
@@ -54,7 +54,8 @@ export class PartidoComponent implements OnInit {
               private predioService: PredioService,
               private reservaService: ReservaService,
               private deporteService: DeporteService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private location: Location) {
   }
 
   ngOnInit() {
@@ -144,13 +145,13 @@ export class PartidoComponent implements OnInit {
   private cancelarReserva(reserva) {
     if (this.partido) {  // es reserva entonces
       this.partidoService.cancelarPartido(reserva._id).subscribe(res => {
-        console.log(res);
-        this.router.navigateByUrl('/jugador/misReservas');
+        // this.router.navigateByUrl('/jugador/misReservas');
+        this.location.back();
       });
     } else if (this.reserva) {
       this.reservaService.cancelarReserva(reserva._id).subscribe((res) => {
         this.reserva.estado = 'Cancelada';
-        this.router.navigateByUrl('/jugador/misReservas');
+        this.location.back();
       });
     }
   }

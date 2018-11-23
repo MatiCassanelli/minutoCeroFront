@@ -28,7 +28,13 @@ export class ReservaPredioComponent implements OnInit {
               private predioService: PredioService,
               private route: ActivatedRoute,
               private router: Router,
-              private location: Location) {
+              private location: Location,
+              private fb: FormBuilder) {
+    this.reservaForm = fb.group({
+      nombre: ['', [Validators.required]],
+      apellido: ['', [Validators.required]],
+      telefono: ['', [Validators.required]],
+    });
   }
 
   ngOnInit() {
@@ -55,9 +61,9 @@ export class ReservaPredioComponent implements OnInit {
   reservar() {
     this.reservaService.createReserva({
       jugadorNoRegistrado: {
-        nombre: this.nombreJugador,
-        apellido: this.apellidoJugador,
-        telefono: this.telefono
+        nombre: this.reservaForm.controls['nombre'].value,
+        apellido: this.reservaForm.controls['apellido'].value,
+        telefono: this.reservaForm.controls['telefono'].value
       },
       estado: 'Reservada',
       dia: this.fecha,

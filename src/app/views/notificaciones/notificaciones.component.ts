@@ -5,6 +5,8 @@ import {EquipoService} from '../../../services/equipoService';
 import {ObservableService} from '../../observable.service';
 import {ReservaService} from '../../../services/reservaService';
 import {debug} from 'util';
+import * as socketIo from "socket.io-client";
+import {environment} from '../../../environments/environment';
 
 
 @Component({
@@ -28,6 +30,17 @@ export class NotificacionesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getNotificaciones();
+    const socket = socketIo(environment.socketUrl);
+    socket.on('Notificacion' + localStorage.getItem('id'), (data) => {
+      this.getNotificaciones();
+    });
+    socket.on('Reserva' + localStorage.getItem('id'), (data) => {
+      this.getNotificaciones();
+    });
+  }
+
+  getNotificaciones() {
     if (localStorage.getItem('type') === 'Jugador') {
       this.notificacionService.getNotificaciones().subscribe(res => {
         this.solicitudes = res['solicitudes'];
@@ -42,7 +55,6 @@ export class NotificacionesComponent implements OnInit {
         this.notificaciones = res['notificaciones'];
       });
     }
-
   }
 
   restarNotificacion(notificacion) {
@@ -65,7 +77,6 @@ export class NotificacionesComponent implements OnInit {
 
   restarNotificacionPredio(notificacion, respuesta) {
     let cantidad: number;
-    debugger;
     if (notificacion.estado === 'Solicitada') {
       this.reservaService.putEstado(notificacion._id, respuesta).subscribe(() => {
       });

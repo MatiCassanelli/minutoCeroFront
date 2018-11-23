@@ -9,7 +9,7 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import {ConfirmDialogPlantelComponent} from '../confirm-dialog-plantel/confirm-dialog-plantel.component';
 import {EquipoService} from '../../../services/equipoService';
 import {JugadorService} from '../../../services/jugadorService';
-import * as socketIo from "socket.io-client";
+import * as socketIo from 'socket.io-client';
 import {environment} from '../../../environments/environment';
 
 @Component({
@@ -84,7 +84,7 @@ export class PlantelComponent implements OnInit {
       this.plantelLocal = new Plantel();
       this.plantelVisitante = new Plantel();
       this.jugadorService.getJugadorById(localStorage.getItem('id')).subscribe(j => {
-        this.plantelLocal.jugadoresConfirmados.push(j[0]);
+        this.plantelLocal.jugadoresConfirmados.push(j);
         this.confirmado = true;
         this.sendPlantel.emit([this.plantelLocal, this.plantelVisitante]);
       });
@@ -94,7 +94,7 @@ export class PlantelComponent implements OnInit {
         this.tieneEquipo = true;
         for (let j of res[0].jugadores) {
           this.jugadorService.getJugadorById(j.toString()).subscribe(jug => {
-            this.jugadoresEquipo.push(jug[0]);
+            this.jugadoresEquipo.push(jug);
           });
         }
       }
@@ -119,44 +119,6 @@ export class PlantelComponent implements OnInit {
         this.visitanteInvitados = true;
       }
     });
-  }
-
-  addJugadorConfirmado(jugador, localia: string) {
-    if (localia === 'local') {
-      let index: number = this.plantelLocal.jugadores.indexOf(jugador);
-      if (!this.noIds) { // para cuando entro a un partido ya organizado a invitar nuevos jugadores
-        return this.plantelService.confirmarJugador(this.plantelLocal._id, [jugador._id]).subscribe(res => {
-          this.plantelLocal.jugadoresConfirmados = res.jugadoresConfirmados;
-          this.plantelLocal.jugadores.splice(index, 1);
-          this.localSeleccionado = null;
-          this.deshabilitarConfirmar(localia);
-        });
-      } else {
-        if (this.plantelLocal.jugadoresConfirmados.indexOf(jugador) === -1)
-          this.plantelLocal.jugadoresConfirmados.push(jugador);
-        this.plantelLocal.jugadores.splice(index, 1);
-        this.localSeleccionado = null;
-        this.deshabilitarConfirmar(localia);
-      }
-    }
-
-    if (localia === 'visitante') {
-      const index: number = this.plantelVisitante.jugadores.indexOf(jugador);
-      if (!this.noIds) {
-        return this.plantelService.confirmarJugador(this.plantelVisitante._id, [jugador._id]).subscribe(res => {
-          this.plantelVisitante.jugadoresConfirmados = res.jugadoresConfirmados;
-          this.plantelVisitante.jugadores.splice(index, 1);
-          this.visitanteSeleccionado = null;
-          this.deshabilitarConfirmar(localia);
-        });
-      } else {
-        this.plantelVisitante.jugadoresConfirmados.push(jugador);
-        this.plantelVisitante.jugadores.splice(index, 1);
-        this.visitanteSeleccionado = null;
-        this.deshabilitarConfirmar(localia);
-      }
-    }
-    this.sendPlantel.emit([this.plantelLocal, this.plantelVisitante]);
   }
 
   activarComponent(localidad) {
@@ -286,7 +248,7 @@ export class PlantelComponent implements OnInit {
   }
 
   sumarsePartido() {
-    if (this.localidad === 'local'){
+    if (this.localidad === 'local') {
       this.plantelService.confirmarJugador(this.plantelLocal._id, [localStorage.getItem('id')], null).subscribe(res => {
         this.plantelLocal.jugadoresConfirmados = res.jugadoresConfirmados;
         this.confirmado = true;
@@ -307,44 +269,125 @@ export class PlantelComponent implements OnInit {
     const esVisitante = this.plantelVisitante.jugadoresConfirmados.find(x => x._id === localStorage.getItem('id'));
     if (esLocal)
       this.plantelService.abandonarPartido(this.plantelLocal._id, localStorage.getItem('id')).subscribe(() => {
-        this.plantelLocal.jugadoresConfirmados.splice(this.plantelLocal.jugadoresConfirmados.indexOf(esLocal), 1);
+        // this.plantelLocal.jugadoresConfirmados.splice(this.plantelLocal.jugadoresConfirmados.indexOf(esLocal), 1);
         this.confirmado = false;
         this.deshabilitarConfirmar('local');
       });
     if (esVisitante)
       this.plantelService.abandonarPartido(this.plantelVisitante._id, localStorage.getItem('id')).subscribe(res => {
-        this.plantelVisitante.jugadoresConfirmados.splice(this.plantelVisitante.jugadoresConfirmados.indexOf(esLocal), 1);
+        // this.plantelVisitante.jugadoresConfirmados.splice(this.plantelVisitante.jugadoresConfirmados.indexOf(esLocal), 1);
         this.confirmado = false;
         this.deshabilitarConfirmar('visitante');
       });
   }
 
+  addJugadorConfirmado(jugador, localia: string) {
+    if (localia === 'local') {
+      let index: number = this.plantelLocal.jugadores.indexOf(jugador);
+      if (!this.noIds) { // para cuando entro a un partido ya organizado a invitar nuevos jugadores
+        return this.plantelService.confirmarJugador(this.plantelLocal._id, [jugador._id]).subscribe(res => {
+          this.plantelLocal.jugadoresConfirmados = res.jugadoresConfirmados;
+          // this.plantelLocal.jugadores.splice(index, 1);
+          this.localSeleccionado = null;
+          this.deshabilitarConfirmar(localia);
+        });
+      } else {
+        if (this.plantelLocal.jugadoresConfirmados.indexOf(jugador) === -1)
+          this.plantelLocal.jugadoresConfirmados.push(jugador);
+        this.plantelLocal.jugadores.splice(index, 1);
+        this.localSeleccionado = null;
+        this.deshabilitarConfirmar(localia);
+      }
+    }
+
+    if (localia === 'visitante') {
+      const index: number = this.plantelVisitante.jugadores.indexOf(jugador);
+      if (!this.noIds) {
+        return this.plantelService.confirmarJugador(this.plantelVisitante._id, [jugador._id]).subscribe(res => {
+          this.plantelVisitante.jugadoresConfirmados = res.jugadoresConfirmados;
+          // this.plantelVisitante.jugadores.splice(index, 1);
+          this.visitanteSeleccionado = null;
+          this.deshabilitarConfirmar(localia);
+        });
+      } else {
+        this.plantelVisitante.jugadoresConfirmados.push(jugador);
+        this.plantelVisitante.jugadores.splice(index, 1);
+        this.visitanteSeleccionado = null;
+        this.deshabilitarConfirmar(localia);
+      }
+    }
+    this.sendPlantel.emit([this.plantelLocal, this.plantelVisitante]);
+  }
+
   private _abrirSocket(idPartido) {
     const socket = socketIo(environment.socketUrl);
     socket.on('Partido' + idPartido, (data) => {
-      if(data.Aceptado) {
-        if(this.plantelLocal.jugadores.includes(data.Aceptado)){
-          this.plantelLocal.jugadoresConfirmados.push(data.Aceptado);
-          this.plantelLocal.jugadores.splice(this.plantelLocal.jugadores.indexOf(data.Aceptado), 1);
-        } else {
-          this.plantelVisitante.jugadoresConfirmados.push(data.Aceptado);
-          this.plantelVisitante.jugadores.splice(this.plantelVisitante.jugadores.indexOf(data.Aceptado), 1);
+      if (data.AgregadoConfirmado) {
+        if (data.condicion === 'Local') {
+          let idJugadores = this.plantelLocal.jugadoresConfirmados.map(x => x._id);
+          this.jugadorService.getJugadorById(data.AgregadoConfirmado).subscribe(jugador => {
+            idJugadores = this.plantelLocal.jugadoresConfirmados.map(x => x._id);
+            if (!idJugadores.includes(data.AgregadoConfirmado))
+              this.plantelLocal.jugadoresConfirmados.push(jugador);
+          });
         }
-      } else if (data.Rechazado) {
-        if(this.plantelLocal.jugadores.includes(data.Rechazado)){
-          this.plantelLocal.jugadores.splice(this.plantelLocal.jugadores.indexOf(data.Rechazado), 1);
-        } else {
-          this.plantelVisitante.jugadores.splice(this.plantelVisitante.jugadores.indexOf(data.Rechazado), 1);
+        if (data.condicion === 'Visitante') {
+          let idJugadores = this.plantelVisitante.jugadoresConfirmados.map(x => x._id);
+          this.jugadorService.getJugadorById(data.AgregadoConfirmado).subscribe(jugador => {
+            idJugadores = this.plantelVisitante.jugadoresConfirmados.map(x => x._id);
+            if (!idJugadores.includes(data.AgregadoConfirmado))
+              this.plantelVisitante.jugadoresConfirmados.push(jugador);
+          });
+        }
+      }
+      if (data.AgregadoInvitado) {
+        if (data.condicion === 'Local') {
+          let idJugadores = this.plantelLocal.jugadores.map(x => x._id);
+          this.jugadorService.getJugadorById(data.AgregadoInvitado).subscribe(jugador => {
+            idJugadores = this.plantelLocal.jugadores.map(x => x._id);
+            if (!idJugadores.includes(data.AgregadoInvitado))
+              this.plantelLocal.jugadores.push(jugador);
+          });
+        }
+        if (data.condicion === 'Visitante') {
+          let idJugadores = this.plantelVisitante.jugadores.map(x => x._id);
+          this.jugadorService.getJugadorById(data.AgregadoInvitado).subscribe(jugador => {
+            idJugadores = this.plantelVisitante.jugadores.map(x => x._id);
+            if (!idJugadores.includes(data.AgregadoInvitado))
+              this.plantelVisitante.jugadores.push(jugador);
+          });
+        }
+      }
+
+      // esto es para cuando se elimina a algun jugador. ANDA PERFECTO
+      if (data.EliminadoInvitado) {
+        let idJugadoresLocal = this.plantelLocal.jugadores.map(x => x._id);
+        let idJugadoresVisitante = this.plantelVisitante.jugadores.map(x => x._id);
+        if (idJugadoresLocal.includes(data.EliminadoInvitado)) {
+          this.plantelLocal.jugadores.splice(idJugadoresLocal.indexOf(data.EliminadoInvitado), 1);
+        }
+        if (idJugadoresVisitante.includes(data.EliminadoInvitado)) {
+          this.plantelVisitante.jugadores.splice(idJugadoresVisitante.indexOf(data.EliminadoInvitado), 1);
+        }
+      }
+      if (data.EliminadoConfirmado) {
+        let idJugadoresLocal = this.plantelLocal.jugadoresConfirmados.map(x => x._id);
+        let idJugadoresVisitante = this.plantelVisitante.jugadoresConfirmados.map(x => x._id);
+        if (idJugadoresLocal.includes(data.EliminadoConfirmado)) {
+          this.plantelLocal.jugadoresConfirmados.splice(idJugadoresLocal.indexOf(data.EliminadoConfirmado), 1);
+        }
+        if (idJugadoresVisitante.includes(data.EliminadoConfirmado)) {
+          this.plantelVisitante.jugadoresConfirmados.splice(idJugadoresVisitante.indexOf(data.EliminadoConfirmado), 1);
         }
       }
     });
   }
 
   deshabilitarConfirmar(condicion) {
-    if(condicion === 'local') {
+    if (condicion === 'local') {
       this.confirmarLocal = !(this.plantelLocal.jugadoresConfirmados.length === this.maximoPorEquipo);
     }
-    if(condicion === 'visitante') {
+    if (condicion === 'visitante') {
       this.confirmarVisitante = !(this.plantelVisitante.jugadoresConfirmados.length === this.maximoPorEquipo);
     }
   }
