@@ -38,7 +38,7 @@ export class PerfilJugadorComponent implements OnInit {
     this.route.params.subscribe((params) => {
       if (params['id']) {
         this.jugadorService.getJugadorById(params['id']).subscribe(res => {
-          this.jugador = res[0];
+          this.jugador = res;
         });
         this.amistadService.getAmigos().subscribe(amigos => {
           if (amigos && amigos.find(x => x._id === params['id'])) {

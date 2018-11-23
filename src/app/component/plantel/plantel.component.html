@@ -8,10 +8,10 @@
 
   <div class="btn-group col-sm-2 col-form-label" role="group" *ngIf="confirmado || (!confirmado && !invitado)">
     <button mat-raised-button [ngClass]="{'press': clickedLocal}" color="primary" class="col-6"
-            (click)="clickedLocal = true; clickedVisitante = false; activarComponent('local')">Local
+            (click)="clickedLocal = true; clickedVisitante = false; !confirmarLocal || activarComponent('local')">Local
     </button>
     <button mat-raised-button [ngClass]="{'press': clickedVisitante}" color="primary" class="col-6"
-            (click)="clickedVisitante = true; clickedLocal = false; activarComponent('visitante')">Visitante
+            (click)="clickedVisitante = true; clickedLocal = false; !confirmarVisitante || activarComponent('visitante')">Visitante
     </button>
   </div>
   <div *ngIf="!disabled && confirmado; else noPartido" class="col-sm-8">
