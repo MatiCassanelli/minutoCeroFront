@@ -65,7 +65,6 @@ export class NotificacionesComponent implements OnInit {
 
   restarNotificacionPredio(notificacion, respuesta) {
     let cantidad: number;
-    debugger;
     if (notificacion.estado === 'Solicitada') {
       this.reservaService.putEstado(notificacion._id, respuesta).subscribe(() => {
       });

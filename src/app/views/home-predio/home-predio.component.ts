@@ -10,6 +10,7 @@ import {ReservaService} from '../../../services/reservaService';
 import * as moment from 'moment';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {MapDialogComponent} from '../../component/map-dialog/map-dialog.component';
+import {forkJoin} from 'rxjs/observable/forkJoin';
 
 @Component({
   selector: 'app-home-predio',
@@ -34,15 +35,39 @@ export class HomePredioComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reservaService.getByEstado('Reservada').subscribe(res => {
-      this.reservaService.getByEstado('Completada').subscribe(res2 => {
-        this.reservas = res.concat(res2);
-        for (let reserva of res) {
+        forkJoin(this.reservaService.getByEstado('PreReserva'),
+          this.reservaService.getByEstado('Reservada'),
+          this.reservaService.getByEstado('Completada'),
+          this.reservaService.getByEstado('Solicitada')).subscribe(res => {
+
+        this.reservas = res[0].concat(res[1]).concat(res[2]).concat(res[3]);
+        let color: string;
+        for (let reserva of this.reservas) {
+          switch (reserva.estado) {
+            case 'PreReserva':{
+              color = '#B3E5FC';
+              break;
+            }
+            case 'Reservada':{
+              color = '#C8E6C9';
+              break;
+            }
+            case 'Solicitada':{
+              color = '#FFD54F';
+              break;
+            }
+            case 'Completada':{
+              color = '#CFD8DC';
+              break;
+            }
+
+          }
           let r = {
             id: reserva._id,
             title: reserva.cancha.nombreCancha,
             start: moment(reserva.dia).format('YYYY-MM-DD').toString() + 'T' + moment(reserva.dia).format('HH:mm:ss').toString(),
-            end: moment(reserva.dia).format('YYYY-MM-DD').toString() + 'T' + moment(reserva.dia).add(1, 'h').format('HH:mm:ss').toString()
+            end: moment(reserva.dia).format('YYYY-MM-DD').toString() + 'T' + moment(reserva.dia).add(1, 'h').format('HH:mm:ss').toString(),
+            color: color
           };
           this.data.push(r);
         }
@@ -76,8 +101,8 @@ export class HomePredioComponent implements OnInit {
             basic: {
               titleFormat: 'MMMM YYYY'
             },
-            month:{
-              fixedWeekCount:false
+            month: {
+              fixedWeekCount: false
             },
             agenda: {
               titleFormat: 'DD MMMM YYYY'
@@ -90,7 +115,6 @@ export class HomePredioComponent implements OnInit {
         };
 
       });
-    });
   }
 
   clickButton(model: any) {
