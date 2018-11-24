@@ -42,13 +42,16 @@ export class FechaCarouselComponent implements OnInit {
           if (this.horarios[k].dia === predio.horario[i].dia) {
             this.horarios[k].abre = true;
             for (let j = 0; j < predio.horario[i].horario.length; j++) {
-              this.horarios[k].horario[j].desde = moment.utc(predio.horario[i].horario[j].desde).format('HH:mm');
-              this.horarios[k].horario[j].hasta = moment.utc(predio.horario[i].horario[j].hasta).format('HH:mm');
+              if(this.horarios[k].horario[j] === undefined){
+                this.horarios[k].horario.push({desde: null, hasta: null})
+              }
+              this.horarios[k].horario[j].desde = new Date(moment(predio.horario[i].horario[j].desde).add(3,'hours').format());
+              this.horarios[k].horario[j].hasta = new Date(moment(predio.horario[i].horario[j].hasta).add(3,'hours').format());
             }
           }
         }
       }
-      this.sendHorarios();
+      // this.sendHorarios();
     });
   }
 
@@ -61,23 +64,7 @@ export class FechaCarouselComponent implements OnInit {
   }
 
   sendHorarios() {
-    let asd = [];
-    for (let i of this.horarios) {
-      if (i.abre) {
-        for (let j of i.horario) {
-          if (j.desde instanceof Date)
-            j.desde = moment.utc().hours(j.desde.getHours()).minutes(j.desde.getMinutes());
-          else
-            j.desde = moment.utc().hours(j.desde.toString().split(':')[0]).minutes(j.desde.toString().split(':')[1]).toDate();
-          if (j.hasta instanceof Date)
-            j.hasta = moment.utc().hours(j.hasta.getHours()).minutes(j.hasta.getMinutes());
-          else
-            j.hasta = moment.utc().hours(j.hasta.toString().split(':')[0]).minutes(j.hasta.toString().split(':')[1]).toDate();
-        }
-        asd.push(i);
-      }
-    }
-    this.emitHorario.emit(asd);
+    this.emitHorario.emit(this.horarios);
   }
 
   agregarHorario(i) {
