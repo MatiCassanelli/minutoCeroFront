@@ -60,7 +60,6 @@ export class RegistroPredioStepsComponent implements OnInit, AfterViewInit {
   }
 
   siguiente(event, stepper: MatStepper) {
-    // console.log(event);
     if (event.infoContacto) {
       this.horarios = event.infoContacto.horarios;
       this.nombrePredio = event.infoContacto.nombre;

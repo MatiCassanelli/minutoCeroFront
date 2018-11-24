@@ -106,7 +106,6 @@ export class PartidoComponent implements OnInit {
   getPredio(cancha) {
     this.predioService.getPredio(cancha.predio).subscribe(ub => {
       this.predio = ub;
-      console.log(this.predio);
     });
   }
 
@@ -129,12 +128,10 @@ export class PartidoComponent implements OnInit {
           this.canchaSeleccionada = res.predio.cancha;
           if (this.partido)
             this.partidoService.updateCancha(this.partido._id, this.canchaSeleccionada).subscribe(res2 => {
-              console.log(res2);
             });
           else {
             if (this.reserva)
               this.reservaService.updateCancha(this.reserva._id, this.canchaSeleccionada).subscribe(res2 => {
-                console.log(res2);
               });
           }
         }
@@ -168,14 +165,12 @@ export class PartidoComponent implements OnInit {
   private _getPrediosConDisponibilidad(deporte, dia) {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
-        console.log('Hay geoposicion');
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
         this.predioService.getPredioConDisponibilidad(deporte, 30, latitude, longitude, dia).subscribe(predios => {
           this.predios = predios;
         });
       }, error => {
-        console.log('no geo');
         const latitude = -31.416798;
         const longitude = -64.183674;
         this.predioService.getPredioConDisponibilidad(deporte, 30, latitude, longitude, dia).subscribe(predios => {

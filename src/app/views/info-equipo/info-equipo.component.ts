@@ -85,7 +85,7 @@ export class InfoEquipoComponent implements OnInit {
         }, this.equipo._id).subscribe(resp => {
           refresh = true;
           this.equipo = resp;
-        }, error1 => console.log(error1));
+        });
       }
     });
     this.dialogRef.afterClosed().subscribe(res => {
@@ -107,14 +107,12 @@ export class InfoEquipoComponent implements OnInit {
         });
       }
     }
-    console.log(array);
     return array;
   }
 
   eliminarJugador(idJugador) {
     this.jugadores.splice(this.jugadores.indexOf(idJugador), 1);
     this.equipoService.eliminarJugador(this.equipo._id, idJugador._id).subscribe(res => {
-      console.log(res);
     });
   }
 

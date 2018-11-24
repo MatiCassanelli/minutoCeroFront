@@ -42,7 +42,6 @@ export class FechaHoraComponent implements OnInit {
     const remainder = 60 - (start.minute() % 60);
 
     let dateTime = moment(start).add(remainder, 'minutes');
-    console.log(dateTime);
     const amazingTimePicker = this.atp.open({
       time: dateTime.format('HH:mm'),
       onlyHour: true,

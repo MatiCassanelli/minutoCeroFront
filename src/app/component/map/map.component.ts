@@ -61,7 +61,6 @@ export class MapComponent implements OnInit, AfterContentInit {
           this.setAll(this.predios);
         }
       }, error => {
-        console.log('No hay geoposicion');
         let mapProp = {
           center: new google.maps.LatLng(this.latitude, this.longitude),
           zoom: 15,

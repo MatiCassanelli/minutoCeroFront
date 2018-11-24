@@ -25,7 +25,6 @@ export class DetalleCuentaMensualComponent implements OnInit {
     this.route.params.subscribe(param => {
       this.resumenService.getResumenById(param.id).subscribe(res => {
         this.resumen = res;
-        console.log(this.resumen);
         const data = this.resumen.detalle.lineasDeFacturacion.slice();
         const totalAlquilerCanchas = data.reduce((accum, curr) => accum + curr.precio, 0);
         const totalComision = data.reduce((accum, curr) => accum + curr.comision, 0);

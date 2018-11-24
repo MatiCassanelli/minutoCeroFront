@@ -66,7 +66,6 @@ export class ConfiguracionHorasComponent implements OnInit {
     };
     if (this.horarios.dia.desde instanceof Date)
       horariosFinal.dia.desde = moment.utc().hours(this.horarios.dia.desde.getHours()).minutes(this.horarios.dia.desde.getMinutes());
-// console.log(this.horarios.dia.desde)
     else
       this.horarios.dia.desde = moment.utc().hours(this.horarios.dia.desde.toString().split(':')[0]).minutes(this.horarios.dia.desde.toString().split(':')[1]).toDate();
     if (this.horarios.dia.hasta instanceof Date)

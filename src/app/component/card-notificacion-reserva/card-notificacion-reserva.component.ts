@@ -25,7 +25,6 @@ export class CardNotificacionReservaComponent implements OnInit {
 
   responder(rta) {
     this.restarNotificacion.emit(rta);
-    console.log(rta);
   }
 
 

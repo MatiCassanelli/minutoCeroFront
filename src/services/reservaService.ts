@@ -14,7 +14,6 @@ export class ReservaService {
   }
 
   createReserva(reserva) {
-    console.log(reserva);
     return this.http.post<any>(this.api, reserva, global.httpOptions);
   }
 
