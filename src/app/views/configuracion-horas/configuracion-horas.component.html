@@ -1,5 +1,6 @@
 <!--<div class="container">-->
-<mat-slide-toggle [checked]="luces" [color]="'accent'" (change)="luces = !luces">Iluminación artificial</mat-slide-toggle>
+<mat-slide-toggle [checked]="luces" [color]="'accent'" (change)="luces = !luces">Iluminación artificial
+</mat-slide-toggle>
 <mat-expansion-panel>
   <mat-expansion-panel-header>
     Horario sin luces
@@ -35,6 +36,6 @@
 </mat-expansion-panel>
 <!--</div>-->
 <button mat-button (click)="sendHorarios()"
-        [disabled]="!(this.horarios?.dia.desde && this.horarios?.dia.hasta
-          && this.horarios?.noche.desde && this.horarios?.noche.hasta)">Aceptar
+        [disabled]="!((horarios?.dia.desde && horarios?.dia.hasta && !luces) || (horarios?.dia.desde && horarios?.dia.hasta
+          && luces && horarios?.noche.desde && horarios?.noche.hasta))">Aceptar
 </button>
