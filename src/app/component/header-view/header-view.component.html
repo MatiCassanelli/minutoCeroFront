@@ -33,6 +33,8 @@
       <mat-nav-list *ngIf="tipoJugador === 'Jugador'; else Predio">
         <a mat-list-item routerLink="/jugador" (click)="snav.toggle(); titulo = 'Minuto Cero'">Partidos</a>
         <mat-divider></mat-divider>
+        <a mat-list-item routerLink="/jugador/misPartidos" (click)="snav.toggle(); titulo = 'Mis Partidos'">Mis Partidos</a>
+        <mat-divider></mat-divider>
         <a mat-list-item routerLink="/jugador/misReservas" (click)="snav.toggle(); titulo = 'Mis Reservas'">Mis Reservas</a>
         <mat-divider></mat-divider>
         <a *ngIf="tieneEquipo; else noTieneEquipo" mat-list-item routerLink="/equipo/miEquipo"
