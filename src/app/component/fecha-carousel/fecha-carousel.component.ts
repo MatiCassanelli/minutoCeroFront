@@ -14,14 +14,7 @@ import * as moment from 'moment';
 export class FechaCarouselComponent implements OnInit {
 
   dias: string[];
-  horarios: {
-    dia: String;
-    horario: [{
-      desde: any,
-      hasta: any
-    }];
-    abre: boolean;
-  }[];
+  horarios: Horario[];
   abre = false;
   defaultDate = new Date();
   predio: Predio;
@@ -70,8 +63,9 @@ export class FechaCarouselComponent implements OnInit {
 
   sendHorarios() {
     let asd = [];
-    let horariosFinal = this.horarios.slice();
-
+    let horariosFinal = new Array<Horario>();
+    for(let h of this.horarios)
+      horariosFinal.push(h);
     for (let i of horariosFinal) {
       if (i.abre) {
         for (let j of i.horario) {

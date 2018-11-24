@@ -19,7 +19,7 @@ export class CalificacionDesdePredioComponent implements OnInit {
   ngOnInit() {
   }
 
-  setPuntaje() {
+  setPuntaje(respuesta) {
     this.sendCalificacion.emit({puntuacion: this.asistio, jugador: this.jugador});
   }
 

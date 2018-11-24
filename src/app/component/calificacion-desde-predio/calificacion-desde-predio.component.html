@@ -12,18 +12,24 @@
         </div>
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <div class="form-group">
-      <mat-checkbox [(ngModel)]="asistio" color="accent">El jugador asistió a la reserva?</mat-checkbox>
-    </div>
+    <!--<div class="form-group">-->
+    <!--<mat-checkbox [(ngModel)]="asistio" color="accent">El jugador asistió a la reserva?</mat-checkbox>-->
+    <!--</div>-->
+    <p style="font-size: 15px;">El jugador asistió a la reserva?</p>
+    <p>
+      <small>Esto sirve para garantizar una mejor información cuando el jugador te quiera reserva nuevamente en un
+        futuro
+      </small>
+    </p>
     <!--<fusioncharts-->
-      <!--width="50%"-->
-      <!--height="100"-->
-      <!--type="hlineargauge"-->
-      <!--[dataSource]="dataSource">-->
+    <!--width="50%"-->
+    <!--height="100"-->
+    <!--type="hlineargauge"-->
+    <!--[dataSource]="dataSource">-->
     <!--</fusioncharts>-->
     <mat-action-row>
-      <button mat-button color="warn" routerLink="../">Cancelar</button>
-      <button mat-button color="primary" (click)="setPuntaje()">Aceptar</button>
+      <button mat-button color="warn" (click)="setPuntaje(false)">No</button>
+      <button mat-button color="primary" (click)="setPuntaje(true)">Sí</button>
     </mat-action-row>
   </mat-expansion-panel>
 </div>
