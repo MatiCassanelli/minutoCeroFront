@@ -14,7 +14,14 @@ import * as moment from 'moment';
 export class FechaCarouselComponent implements OnInit {
 
   dias: string[];
-  horarios: Horario[];
+  horarios: {
+    dia: String;
+    horario: [{
+      desde: any,
+      hasta: any
+    }];
+    abre: boolean;
+  }[];
   abre = false;
   defaultDate = new Date();
   predio: Predio;
@@ -42,13 +49,14 @@ export class FechaCarouselComponent implements OnInit {
           if (this.horarios[k].dia === predio.horario[i].dia) {
             this.horarios[k].abre = true;
             for (let j = 0; j < predio.horario[i].horario.length; j++) {
-              this.horarios[k].horario[j].desde = moment.utc(predio.horario[i].horario[j].desde).format('HH:mm');
-              this.horarios[k].horario[j].hasta = moment.utc(predio.horario[i].horario[j].hasta).format('HH:mm');
+              this.horarios[k].horario[j].desde = moment.utc(predio.horario[i].horario[j].desde).add('h', 3).toDate();
+              this.horarios[k].horario[j].hasta = moment.utc(predio.horario[i].horario[j].hasta).add('h', 3).toDate();
             }
           }
         }
       }
-      this.sendHorarios();
+      if (window.location.href.includes('registro'))
+        this.sendHorarios();
     });
   }
 
@@ -62,7 +70,9 @@ export class FechaCarouselComponent implements OnInit {
 
   sendHorarios() {
     let asd = [];
-    for (let i of this.horarios) {
+    let horariosFinal = this.horarios.slice();
+
+    for (let i of horariosFinal) {
       if (i.abre) {
         for (let j of i.horario) {
           if (j.desde instanceof Date)
