@@ -12,6 +12,7 @@ export class CardCalificacionComponent implements OnInit {
   @Input() jugador: Jugador;
   @Input() predio: Predio;
   @Output() sendCalificacion: EventEmitter<any> = new EventEmitter<any>();
+  expanded = false;
   puntuado = false;
   tags = [];
   puntaje1: number;
@@ -61,5 +62,12 @@ export class CardCalificacionComponent implements OnInit {
     if (this.puntaje1 && this.puntaje2 && this.puntaje3) {
       this.sendCalificacion.emit({puntuacion: puntuacion, jugador: usuario});
     }
+  }
+
+  setExpanded() {
+    if (this.expanded)
+      this.expanded = false;
+    else
+      this.expanded = true;
   }
 }
