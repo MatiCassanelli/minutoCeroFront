@@ -22,12 +22,11 @@ export class CardNotificacionComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.noti && this.noti.reserva) {
+    if (this.noti && this.noti.reserva) {
       this.mensaje = this.noti.mensaje;
       if (this.mensaje.includes('Rechazada'))
         this.mostrarSubtitulo = true;
-    // this.mensaje = this.noti.mensaje;
-  }
+    } else this.mensaje = this.noti.mensaje;
   }
 
   swipeEvent() {
@@ -35,10 +34,10 @@ export class CardNotificacionComponent implements OnInit {
   }
 
   goToPartido() {
-    if(this.noti.reserva){
+    if (this.noti.reserva) {
       this.reservaService.getReservaById(this.noti.reserva).subscribe(res => {
         this.partidoService.getPartidoByReserva(res.cancha._id, res.jugador._id, res.dia).subscribe(partido => {
-          if(partido)
+          if (partido)
             this.router.navigate(['/partido/' + partido._id, {reelegir: true}]);
           else
             this.router.navigate(['/partido/' + res._id, {reelegir: true}]);

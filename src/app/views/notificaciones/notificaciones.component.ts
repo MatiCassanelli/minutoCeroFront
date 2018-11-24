@@ -47,6 +47,7 @@ export class NotificacionesComponent implements OnInit {
         this.notificaciones = res['notificaciones'];
       });
     } else if (localStorage.getItem('type') === 'Predio') {
+      debugger;
       this.predio = true;
       this.reservaService.getNotificacionesReserva().subscribe(res => {
         this.reservas = res;

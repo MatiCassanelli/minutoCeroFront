@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PredioService} from '../../../services/predioService';
 import {MatSnackBar} from '@angular/material';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-horarios-predio',
@@ -10,7 +11,8 @@ import {MatSnackBar} from '@angular/material';
 export class HorariosPredioComponent implements OnInit {
 
   constructor(private predioService: PredioService,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -19,12 +21,14 @@ export class HorariosPredioComponent implements OnInit {
   getHorario(event) {
     this.predioService.setHorarios(event).subscribe((asd) => {
       this._openSnackBar();
+      // this.router.navigateByUrl('/predio');
     });
   }
 
   getConfigHorarios(event) {
     this.predioService.setConfiguracionHorarios(event).subscribe((asd) => {
       this._openSnackBar();
+      // this.router.navigateByUrl('/predio');
     });
   }
 

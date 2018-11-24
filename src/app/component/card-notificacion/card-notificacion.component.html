@@ -1,5 +1,5 @@
 <div style="margin: 3%;" (swipeLeft) = "swipeEvent()" (swipeRight) = "swipeEvent()"
-  (click)="goToPartido()">
+  (click)="!mostrarSubtitulo || goToPartido()">
   <mat-card>
     <mat-card-header>
       {{mensaje}}

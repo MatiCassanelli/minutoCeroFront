@@ -21,9 +21,9 @@
     <app-card-notificacion-reserva [reserva]="reserva" (restarNotificacion)="restarNotificacionPredio(reserva, $event)"></app-card-notificacion-reserva>
   </div>
   <div *ngFor="let notificacion of notificaciones">
-    <app-card-notificacion *ngIf="notificacion.tipo !== 'PartidoFinalizado'; else partidoFinalizado"
+    <app-card-notificacion *ngIf="notificacion?.tipo !== 'PartidoFinalizado'; else partidoFinalizado"
                            (swipe)="restarNotificacion({value:notificacion, tipo:'n'})"
-                           [mensaje]="notificacion.mensaje"></app-card-notificacion>
+                           [noti]="notificacion"></app-card-notificacion>
   </div>
 </ng-template>
 

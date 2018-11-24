@@ -28,7 +28,7 @@
     <app-plantel #appPlantel *ngIf="partido" [setIdPartido]="idPartido" [editable]="editable" [maximoPorEquipo]="partido?.deporte.cantJugadores/2"
                  (jugadorSumado)="setAbandonar($event)"></app-plantel>
   </div>
-  <mat-card-actions *ngIf="abandonar; else noOrg">
+  <mat-card-actions *ngIf="abandonar && partido?.estado !== 'Jugando' && partido?.estado !== 'Finalizado'; else noOrg">
     <button mat-raised-button color="warn" (click)="abandonarPartido()">Abandonar partido</button>
   </mat-card-actions>
   <ng-template #noOrg>

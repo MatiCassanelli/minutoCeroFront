@@ -1,4 +1,5 @@
 <!--<div class="container">-->
+<mat-slide-toggle [checked]="luces" [color]="'accent'" (change)="luces = !luces">Iluminación artificial</mat-slide-toggle>
 <mat-expansion-panel>
   <mat-expansion-panel-header>
     Horario sin luces
@@ -17,7 +18,7 @@
   </div>
 </mat-expansion-panel>
 
-<mat-expansion-panel [disabled]="!(horarios?.dia.desde && horarios?.dia.hasta)">
+<mat-expansion-panel *ngIf="luces" [disabled]="!(horarios?.dia.desde && horarios?.dia.hasta)">
   <mat-expansion-panel-header>
     Horario con luces
   </mat-expansion-panel-header>

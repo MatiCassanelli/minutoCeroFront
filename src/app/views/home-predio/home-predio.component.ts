@@ -112,7 +112,7 @@ export class HomePredioComponent implements OnInit {
         buttonText: {
           today: 'Hoy',
           month: 'Mes',
-          day: 'Agenda',
+          day: 'Dia',
           list: 'Lista'
         },
         views: {
