@@ -1,12 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import * as global from '../app/app.global';
 import {Router} from "@angular/router";
 import {Usuario} from "../app/models/usuario";
 import {RoleService} from "./role.service";
 import {environment} from "../environments/environment";
 import {ObservableService} from '../app/observable.service';
-import moment = require("moment");
+import * as moment from 'moment';
 
 const httpOptions = {
   headers: new HttpHeaders({
