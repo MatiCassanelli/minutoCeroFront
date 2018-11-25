@@ -61,6 +61,10 @@ export class ConfiguracionHorasComponent implements OnInit {
         dia: {
           desde: null,
           hasta: null,
+        },
+        noche: {
+          desde: null,
+          hasta: null
         }
       };
       if (this.horarios.dia.desde instanceof Date)
@@ -72,20 +76,17 @@ export class ConfiguracionHorasComponent implements OnInit {
       // console.log(this.horarios.dia.hasta)
       else
         this.horarios.dia.hasta = moment.utc().hours(this.horarios.dia.hasta.toString().split(':')[0]).minutes(this.horarios.dia.hasta.toString().split(':')[1]).toDate();
-      if (this.luces) {
-        horariosFinal['noche'] = {
-          desde: null,
-          hasta: null
-        };
-        if (this.horarios.noche.desde instanceof Date)
-          horariosFinal['noche'].desde = moment.utc().hours(this.horarios.noche.desde.getHours()).minutes(this.horarios.noche.desde.getMinutes());
-        else
-          this.horarios.noche.desde = moment.utc().hours(this.horarios.noche.desde.toString().split(':')[0]).minutes(this.horarios.noche.desde.toString().split(':')[1]).toDate();
-        if (this.horarios.noche.hasta instanceof Date)
-          horariosFinal['noche'].hasta = moment.utc().hours(this.horarios.noche.hasta.getHours()).minutes(this.horarios.noche.hasta.getMinutes());
-        else
-          this.horarios.noche.hasta = moment.utc().hours(this.horarios.noche.hasta.toString().split(':')[0]).minutes(this.horarios.noche.hasta.toString().split(':')[1]).toDate();
-      }
+
+      if (this.horarios.noche.desde instanceof Date)
+        horariosFinal.noche.desde = moment.utc().hours(this.horarios.noche.desde.getHours()).minutes(this.horarios.noche.desde.getMinutes());
+      else
+        this.horarios.noche.desde = moment.utc().hours(this.horarios.noche.desde.toString().split(':')[0]).minutes(this.horarios.noche.desde.toString().split(':')[1]).toDate();
+      if (this.horarios.noche.hasta instanceof Date)
+        horariosFinal.noche.hasta = moment.utc().hours(this.horarios.noche.hasta.getHours()).minutes(this.horarios.noche.hasta.getMinutes());
+      else
+        this.horarios.noche.hasta = moment.utc().hours(this.horarios.noche.hasta.toString().split(':')[0]).minutes(this.horarios.noche.hasta.toString().split(':')[1]).toDate();
+
+      debugger;
       this.stepEmit.emit({
         configHoras: horariosFinal
       });

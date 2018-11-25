@@ -73,7 +73,7 @@ export class RegistroPredioStepsComponent implements OnInit, AfterViewInit {
     }
 
     if (event.configHoras) {
-      this.configHoras = event.configHoras;
+      this.configHoras = event;
       if(event.configHoras.dia)
         this.mostrarPrecioNoche = true;
       this.predioService.setConfiguracionHorarios(this.configHoras, 2).subscribe(() => {
