@@ -124,8 +124,6 @@ export class InfoEquipoComponent implements OnInit {
     this.confirmarEliminar.afterClosed().subscribe(res => {
       if (res && res.respuesta === 'Aceptar'){
         this.eliminarJugador(idJugador);
-        this.observableService.tieneEquipo(false);
-        this.router.navigateByUrl('/jugador');
       }
 
     });

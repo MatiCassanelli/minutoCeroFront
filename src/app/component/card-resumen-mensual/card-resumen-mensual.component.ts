@@ -14,7 +14,7 @@ export class CardResumenMensualComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.mesFacturacion = moment(this.resumen.periodoDesde).locale('es').format('MMMM');
+    this.mesFacturacion = moment(this.resumen.periodoHasta).locale('es').format('MMMM');
     this.mesFacturacion = this.mesFacturacion.replace(this.mesFacturacion[0], this.mesFacturacion[0].toUpperCase());
   }
 
