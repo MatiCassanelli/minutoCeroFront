@@ -14,7 +14,7 @@
   <mat-step>
     <!--<ng-template matStepLabel>Canchas</ng-template>-->
     <h4>Canchas</h4>
-    <app-carga-nueva-cancha (canchasSeleccionada)="siguiente($event, stepper)" [steps]="true"></app-carga-nueva-cancha>
+    <app-carga-nueva-cancha [precioNoche]="mostrarPrecioNoche" (canchasSeleccionada)="siguiente($event, stepper)" [steps]="true"></app-carga-nueva-cancha>
   </mat-step>
   <mat-step>
     <!--<ng-template matStepLabel>Ubicacion</ng-template>-->

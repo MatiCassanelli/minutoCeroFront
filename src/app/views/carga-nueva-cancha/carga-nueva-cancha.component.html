@@ -1,5 +1,5 @@
 <div *ngFor="let cancha of canchas" style="padding: 2% 2% 0 2%">
-  <app-nueva-cancha [cancha]="cancha" (canchaEliminada)="eliminarCancha($event)"></app-nueva-cancha>
+  <app-nueva-cancha [cancha]="cancha" [precioNoche]="precioNoche" (canchaEliminada)="eliminarCancha($event)"></app-nueva-cancha>
 </div>
 <div class="fab-container">
   <button mat-fab class="fab-toggler" color="accent"

@@ -15,6 +15,7 @@ export class CargaNuevaCanchaComponent implements OnInit {
   canchas: Cancha[];
   deportes: Deporte[];
   @Input() steps = false;
+  @Input() precioNoche: boolean;
   @Output() canchasSeleccionada: EventEmitter<any> = new EventEmitter<any>();
   constructor(private predioService: PredioService,
               private deporteService: DeporteService,

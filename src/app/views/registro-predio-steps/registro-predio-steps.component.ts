@@ -22,6 +22,7 @@ export class RegistroPredioStepsComponent implements OnInit, AfterViewInit {
   telefono: string;
   horarios: Horario[];
   canchas: Cancha[];
+  mostrarPrecioNoche = false;
   ubicacion = {
     lat: String,
     lng: String
@@ -73,10 +74,14 @@ export class RegistroPredioStepsComponent implements OnInit, AfterViewInit {
 
     if (event.configHoras) {
       this.configHoras = event.configHoras;
+      if(event.configHoras.dia)
+        this.mostrarPrecioNoche = true;
       this.predioService.setConfiguracionHorarios(this.configHoras, 2).subscribe(() => {
         this._actualizarStep(2);
       });
     }
+    if(event.configHoras === null && !event.infoContacto && !event.canchas && !event.ubicacion)
+      this.mostrarPrecioNoche = false;
 
     if (event.canchas) {
       this.canchas = event.canchas;
