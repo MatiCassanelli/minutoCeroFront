@@ -43,7 +43,6 @@ export class ReservaInfoComponent implements OnInit {
 
   cancelarReserva() {
     this.reservaService.cancelarReservaPredio(this.reserva._id).subscribe(res => {
-      console.log(res);
       this.cancelarEmit.emit(true);
     });
   }

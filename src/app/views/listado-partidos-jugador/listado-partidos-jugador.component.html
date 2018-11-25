@@ -1,0 +1,12 @@
+<div style="margin: 3%;" *ngFor="let reserva of misPartidos" (click)="goDetail(reserva)">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title style="font-size: 16px">
+        {{reserva?.cancha.nombreCancha}} - {{reserva?.cancha.predio.nombrePredio}}
+        <small>({{reserva?.estado}})</small>
+        <br>
+        {{reserva.dia | date:'dd/MM/yy - HH:mm'}}
+      </mat-card-title>
+    </mat-card-header>
+  </mat-card>
+</div>

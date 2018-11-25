@@ -28,6 +28,8 @@ import {HorariosPredioComponent} from './views/horarios-predio/horarios-predio.c
 import {ListadoReservasJugadorComponent} from './views/listado-reservas-jugador/listado-reservas-jugador.component';
 import {ResumenDeCuentaComponent} from './views/resumen-de-cuenta/resumen-de-cuenta.component';
 import {DetalleCuentaMensualComponent} from './views/detalle-cuenta-mensual/detalle-cuenta-mensual.component';
+import {ListadoPartidosComponent} from './component/listado-partidos/listado-partidos.component';
+import {ListadoPartidosJugadorComponent} from './views/listado-partidos-jugador/listado-partidos-jugador.component';
 
 const appRoutes: Routes = [
   {
@@ -40,7 +42,8 @@ const appRoutes: Routes = [
       {path: 'jugador/:id', component: PerfilJugadorComponent},
       {path: 'ranking', component: RankingJugadorComponent},
       {path: 'misReservas', component: ListadoReservasJugadorComponent},
-      {path: 'puntuaciones', component: PuntuacionComponent}
+      {path: 'puntuaciones', component: PuntuacionComponent},
+      {path: 'misPartidos', component: ListadoPartidosJugadorComponent},
     ],
     canActivate: [AuthGuardService, RoleGuardService],
     canActivateChild: [AuthGuardService, RoleGuardService]
@@ -50,7 +53,7 @@ const appRoutes: Routes = [
     data: {type: 'Jugador'},
     children: [
       {path: 'organizar', component: OrganizarPartidoComponent},
-      {path: ':id', component: PartidoComponent}
+      {path: ':id', component: PartidoComponent},
     ],
     canActivate: [AuthGuardService, RoleGuardService],
     canActivateChild: [AuthGuardService, RoleGuardService]
@@ -83,51 +86,6 @@ const appRoutes: Routes = [
     canActivateChild: [AuthGuardService, RoleGuardService],
     canActivate: [AuthGuardService, RoleGuardService]
   },
-
-  // //agregar data type
-  // {
-  //   path: 'notificaciones',
-  //   component: NotificacionesComponent,
-  //   canActivate: [AuthGuardService]
-  // },
-  // {
-  //   path: 'puntuaciones',
-  //   // data:{type: 'Jugador'},
-  //   component: PuntuacionComponent,
-  //   // canActivate: [AuthGuardService, RoleGuardService]
-  // },
-  // reserva de cancha jugador
-  // {
-  //   path: 'reservaIndependiente',
-  //   data: {type: 'Jugador'},
-  //   component: ReservaIndependienteComponent,
-  //   canActivate: [AuthGuardService, RoleGuardService]
-  // },
-  // {
-  //   path: 'reservaCancha',
-  //   data: {type: 'Predio'},
-  //   component: ReservaPredioComponent,
-  //   canActivate: [AuthGuardService, RoleGuardService]
-  // },
-  // {
-  //   path: 'jugador/:id',
-  //   data: {type: 'Jugador'},
-  //   component: PerfilJugadorComponent,
-  //   canActivate: [AuthGuardService, RoleGuardService]
-  // },
-  // {
-  //   path: 'ranking',
-  //   data: {type: 'Jugador'},
-  //   component: RankingJugadorComponent,
-  //   canActivate: [AuthGuardService, RoleGuardService]
-  // },
-  // {
-  //   path: 'misReservas',
-  //   data: {type: 'Jugador'},
-  //   component: ListadoReservasJugadorComponent,
-  //   canActivate: [AuthGuardService, RoleGuardService]
-  // },
-
 
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},

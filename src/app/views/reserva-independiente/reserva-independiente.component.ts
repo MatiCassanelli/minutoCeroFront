@@ -122,7 +122,6 @@ export class ReservaIndependienteComponent implements OnInit {
   getPredioConDisponibilidad() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
-        console.log('Hay geoposicion');
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
         this.predioService.getPredioConDisponibilidad(this.deporte._id, 30, latitude, longitude, this.fechaPartido).subscribe(predios => {
@@ -130,7 +129,6 @@ export class ReservaIndependienteComponent implements OnInit {
           this.abrirMapa = true;
         });
       }, error => {
-        console.log('no geo');
         const latitude = -31.416798;
         const longitude = -64.183674;
         this.predioService.getPredioConDisponibilidad(this.deporte._id, 30, latitude, longitude, this.fechaPartido).subscribe(predios => {

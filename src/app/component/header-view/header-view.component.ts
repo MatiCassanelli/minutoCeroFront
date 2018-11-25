@@ -56,7 +56,6 @@ export class HeaderViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
-    console.log('destroying');
     // this.subscription.unsubscribe();
   }
 

@@ -41,7 +41,6 @@ export class BuscadorJugadoresComponent implements OnInit {
   }
 
   selected(event) {
-    console.log(event.option.value);
     this.jugadorCtrl.reset();
     this.jugadorInput.nativeElement.value = null;
     this.router.navigateByUrl('/jugador/jugador/' + event.option.value._id);

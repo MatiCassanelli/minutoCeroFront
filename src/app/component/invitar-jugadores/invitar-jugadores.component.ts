@@ -85,12 +85,6 @@ export class InvitarJugadoresComponent implements OnInit {
     const input = event.input;
     const value = event.value;
 
-    // Add our fruit
-    if ((value || '').trim()) {
-      // this.jugadoresSeleccionados.push(value);
-      console.log(value);
-    }
-
     // Reset the input value
     if (input) {
       input.value = '';

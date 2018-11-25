@@ -50,7 +50,6 @@ export class CardNotificacionResultadoPartidoComponent implements OnInit {
     this.dialogRef.beforeClose().subscribe((asd) => {
       if(asd && asd.resultado){
         this.partidoService.updateResultado(this.partido._id, asd.resultado).subscribe(res => {
-          console.log(res);
           this.swipe.emit(true);
         });
       }

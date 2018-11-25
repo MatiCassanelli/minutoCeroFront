@@ -50,8 +50,6 @@ export class CrearEquipoComponent implements OnInit {
 
   getJugadores(event) {
     this.jugadores = event;
-    console.log('recibiendo', event);
-    console.log('this.jugadores', this.jugadores);
 
   }
 
@@ -68,10 +66,9 @@ export class CrearEquipoComponent implements OnInit {
         this.equipoService.invitarJugadores({jugadores: jug}, eq._id).subscribe(() => {
           this.observableService.tieneEquipo(true);
           return this.router.navigateByUrl('/equipo/info/' + eq._id);
-        }, error1 => console.log(error1));
+        });
       }
     ).catch(err => {
-      console.log(err);
       return err;
     });
   }

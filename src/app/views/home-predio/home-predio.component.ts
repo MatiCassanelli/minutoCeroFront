@@ -92,7 +92,6 @@ export class HomePredioComponent implements OnInit {
       this.calendarOptions = {
         editable: true,
         contentHeight: () => {
-          console.log(screen.height);
           if (screen.width < 577) {
             return 600;
           } else {

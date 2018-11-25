@@ -159,6 +159,7 @@ import {CdkTableModule} from '@angular/cdk/table';
 import {ResumenService} from '../services/resumenService';
 import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialog.component';
 import { PhoneMaskDirective } from './phone-mask.directive';
+import { ListadoPartidosJugadorComponent } from './views/listado-partidos-jugador/listado-partidos-jugador.component';
 
 // Pass the fusioncharts library and chart modules
 FusionChartsModule.fcRoot(FusionCharts, Widgets, FusionTheme);
@@ -230,7 +231,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     CardResumenMensualComponent,
     DetalleCuentaMensualComponent,
     ConfirmDialogComponent,
-    PhoneMaskDirective
+    PhoneMaskDirective,
+    ListadoPartidosJugadorComponent
   ],
   imports: [
     AppRouting,

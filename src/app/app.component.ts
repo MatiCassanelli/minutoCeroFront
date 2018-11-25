@@ -39,7 +39,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
         const socket = socketIo(environment.socketUrl);
         socket.on('Notificacion' + localStorage.getItem('id'), (data) => {
-          console.log('Socket', data);
           this.observableService.cantNotificaciones.subscribe(res => {
             if (!this.paso) {
               this.cantidad = res + 1;
@@ -63,7 +62,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
         const socket = socketIo(environment.socketUrl);
         socket.on('Reserva' + localStorage.getItem('id'), (data) => {
-          console.log('Reserva', data);
           this.observableService.cantNotificaciones.subscribe(res => {
             if (!this.paso) {
               this.cantidad = res + 1;
@@ -74,7 +72,6 @@ export class AppComponent implements OnInit, OnDestroy {
           this.paso = false;
         });
         socket.on('Notificacion' + localStorage.getItem('id'), (data) => {
-          console.log('Notificacion', data);
           this.observableService.cantNotificaciones.subscribe(res => {
             if (!this.paso) {
               this.cantidad = res + 1;
@@ -99,7 +96,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
       const socket = socketIo(environment.socketUrl);
       socket.on('Notificacion' + localStorage.getItem('id'), (data) => {
-        console.log('Socket', data);
         this.observableService.cantNotificaciones.subscribe(res => {
           if (!this.paso) {
             this.cantidad = res + 1;
@@ -123,7 +119,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
       const socket = socketIo(environment.socketUrl);
       socket.on('Reserva' + localStorage.getItem('id'), (data) => {
-        console.log('Reserva', data);
         this.observableService.cantNotificaciones.subscribe(res => {
           if (!this.paso) {
             this.cantidad = res + 1;
@@ -134,7 +129,6 @@ export class AppComponent implements OnInit, OnDestroy {
         this.paso = false;
       });
       socket.on('Notificacion' + localStorage.getItem('id'), (data) => {
-        console.log('Notificacion', data);
         this.observableService.cantNotificaciones.subscribe(res => {
           if (!this.paso) {
             this.cantidad = res + 1;
@@ -148,7 +142,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('destroying');
     this.subscription.unsubscribe();
   }
 
