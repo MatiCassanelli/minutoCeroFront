@@ -3,6 +3,7 @@ import {DeporteService} from '../../../services/deporteService';
 import {Deporte} from '../../models/deporte';
 import {Cancha} from '../../models/cancha';
 import {FormControl, Validators} from '@angular/forms';
+import {PredioService} from '../../../services/predioService';
 
 @Component({
   selector: 'app-nueva-cancha',
@@ -18,8 +19,10 @@ export class NuevaCanchaComponent implements OnInit {
   @Input() deportePadre: string;
   @Input() sueloPadre: string;
   @Output() canchaEliminada: EventEmitter<Cancha> = new EventEmitter<Cancha>();
+  @Input() precioNoche = false;
   tipoSuelo = ['Tierra', 'Sintético', 'Natural'];
-  constructor(private deporteService: DeporteService) { }
+  constructor(private deporteService: DeporteService,
+              private predioService: PredioService) { }
 
   ngOnInit() {
     this.deporteService.getDeportes().subscribe(res => {
@@ -36,6 +39,12 @@ export class NuevaCanchaComponent implements OnInit {
         else
           this.deportes = res;
     });
+    if(!this.precioNoche) {
+      this.predioService.getPredio(this.cancha.predio).subscribe(predio => {
+        if(predio.configHorario)
+          this.precioNoche = true;
+      });
+    }
   }
 
   nuevaSubCancha(cancha) {

@@ -38,15 +38,13 @@ export class ConfiguracionHorasComponent implements OnInit {
     this.defaultDate.setMinutes(this.redondearHora(today.getHours(), today.getMinutes())[1]);
     this.predioService.getPredio(localStorage.getItem('id')).subscribe(res => {
       if (res.configHorario) {
+        this.luces = true;
         this.horarios.dia.desde = moment.utc(res.configHorario.dia.desde).add('h', 3).toDate();
         this.horarios.dia.hasta = moment.utc(res.configHorario.dia.hasta).add('h', 3).toDate();
-        if (this.horarios.noche.desde) {
-          this.luces = true;
-          this.horarios.noche.desde = moment.utc(res.configHorario.noche.desde).toDate();
-          this.horarios.noche.hasta = moment.utc(res.configHorario.noche.hasta).toDate();
-        }
-        if (window.location.href.includes('registro'))
-          this.sendHorarios();
+        this.horarios.noche.desde = moment.utc(res.configHorario.noche.desde).add('h', 3).toDate();
+        this.horarios.noche.hasta = moment.utc(res.configHorario.noche.hasta).add('h', 3).toDate();
+        // if (window.location.href.includes('registro'))
+        // this.sendHorarios();
       }
     });
   }
@@ -58,39 +56,45 @@ export class ConfiguracionHorasComponent implements OnInit {
   }
 
   sendHorarios() {
-    let horariosFinal = {
-      dia: {
-        desde: null,
-        hasta: null,
-      }
-    };
-    if (this.horarios.dia.desde instanceof Date)
-      horariosFinal.dia.desde = moment.utc().hours(this.horarios.dia.desde.getHours()).minutes(this.horarios.dia.desde.getMinutes());
-    else
-      this.horarios.dia.desde = moment.utc().hours(this.horarios.dia.desde.toString().split(':')[0]).minutes(this.horarios.dia.desde.toString().split(':')[1]).toDate();
-    if (this.horarios.dia.hasta instanceof Date)
-      horariosFinal.dia.hasta = moment.utc().hours(this.horarios.dia.hasta.getHours()).minutes(this.horarios.dia.hasta.getMinutes());
-    // console.log(this.horarios.dia.hasta)
-    else
-      this.horarios.dia.hasta = moment.utc().hours(this.horarios.dia.hasta.toString().split(':')[0]).minutes(this.horarios.dia.hasta.toString().split(':')[1]).toDate();
     if (this.luces) {
-      horariosFinal['noche'] = {
-        desde: null,
-        hasta: null
+      let horariosFinal = {
+        dia: {
+          desde: null,
+          hasta: null,
+        }
       };
-      if (this.horarios.noche.desde instanceof Date)
-        horariosFinal['noche'].desde = moment.utc().hours(this.horarios.noche.desde.getHours()).minutes(this.horarios.noche.desde.getMinutes());
+      if (this.horarios.dia.desde instanceof Date)
+        horariosFinal.dia.desde = moment.utc().hours(this.horarios.dia.desde.getHours()).minutes(this.horarios.dia.desde.getMinutes());
       else
-        this.horarios.noche.desde = moment.utc().hours(this.horarios.noche.desde.toString().split(':')[0]).minutes(this.horarios.noche.desde.toString().split(':')[1]).toDate();
-      if (this.horarios.noche.hasta instanceof Date)
-        horariosFinal['noche'].hasta = moment.utc().hours(this.horarios.noche.hasta.getHours()).minutes(this.horarios.noche.hasta.getMinutes());
+        this.horarios.dia.desde = moment.utc().hours(this.horarios.dia.desde.toString().split(':')[0]).minutes(this.horarios.dia.desde.toString().split(':')[1]).toDate();
+      if (this.horarios.dia.hasta instanceof Date)
+        horariosFinal.dia.hasta = moment.utc().hours(this.horarios.dia.hasta.getHours()).minutes(this.horarios.dia.hasta.getMinutes());
+      // console.log(this.horarios.dia.hasta)
       else
-        this.horarios.noche.hasta = moment.utc().hours(this.horarios.noche.hasta.toString().split(':')[0]).minutes(this.horarios.noche.hasta.toString().split(':')[1]).toDate();
+        this.horarios.dia.hasta = moment.utc().hours(this.horarios.dia.hasta.toString().split(':')[0]).minutes(this.horarios.dia.hasta.toString().split(':')[1]).toDate();
+      if (this.luces) {
+        horariosFinal['noche'] = {
+          desde: null,
+          hasta: null
+        };
+        if (this.horarios.noche.desde instanceof Date)
+          horariosFinal['noche'].desde = moment.utc().hours(this.horarios.noche.desde.getHours()).minutes(this.horarios.noche.desde.getMinutes());
+        else
+          this.horarios.noche.desde = moment.utc().hours(this.horarios.noche.desde.toString().split(':')[0]).minutes(this.horarios.noche.desde.toString().split(':')[1]).toDate();
+        if (this.horarios.noche.hasta instanceof Date)
+          horariosFinal['noche'].hasta = moment.utc().hours(this.horarios.noche.hasta.getHours()).minutes(this.horarios.noche.hasta.getMinutes());
+        else
+          this.horarios.noche.hasta = moment.utc().hours(this.horarios.noche.hasta.toString().split(':')[0]).minutes(this.horarios.noche.hasta.toString().split(':')[1]).toDate();
+      }
+      this.stepEmit.emit({
+        configHoras: horariosFinal
+      });
+    } else {
+      this.stepEmit.emit({
+        configHoras: null
+      });
     }
 
-    this.stepEmit.emit({
-      configHoras: horariosFinal
-    });
     // this.predioService.setConfiguracionHorarios(this.horarios).subscribe(res => {
     //   console.log(res);
     // });

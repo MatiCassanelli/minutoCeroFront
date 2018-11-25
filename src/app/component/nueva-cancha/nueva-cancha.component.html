@@ -40,7 +40,7 @@
            [(ngModel)]="cancha.precioDia">
     <span matPrefix>$&nbsp;</span>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field *ngIf="precioNoche">
     <input matInput placeholder="Precio Nocturno" (keypress)="numberOnly($event)" type="text" class="example-right-align"
            [(ngModel)]="cancha.precioNoche">
     <span matPrefix>$&nbsp;</span>

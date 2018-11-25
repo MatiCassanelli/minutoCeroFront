@@ -21,14 +21,12 @@ export class HorariosPredioComponent implements OnInit {
   getHorario(event) {
     this.predioService.setHorarios(event).subscribe((asd) => {
       this._openSnackBar();
-      // this.router.navigateByUrl('/predio');
     });
   }
 
   getConfigHorarios(event) {
     this.predioService.setConfiguracionHorarios(event).subscribe((asd) => {
       this._openSnackBar();
-      // this.router.navigateByUrl('/predio');
     });
   }
 
