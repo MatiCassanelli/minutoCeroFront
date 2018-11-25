@@ -54,7 +54,7 @@
   <div *ngIf="imprime">
     <div *ngFor="let subcancha of cancha.canchasHijas">
       <app-nueva-cancha (canchaEliminada)="eliminarCancha($event)" [sueloPadre]="cancha.tipoSuelo" [cancha]="subcancha"
-                        [deportePadre]="cancha.deporte"></app-nueva-cancha>
+                        [deportePadre]="cancha.deporte" [precioNoche]="precioNoche"></app-nueva-cancha>
     </div>
   </div>
 </mat-expansion-panel>

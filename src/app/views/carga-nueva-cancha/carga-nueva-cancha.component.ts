@@ -32,6 +32,12 @@ export class CargaNuevaCanchaComponent implements OnInit {
       } else
         this.canchas = [];
     });
+
+    debugger;
+    this.predioService.getPredio(localStorage.getItem('id')).subscribe(predio => {
+      if(predio.configHorario)
+        this.precioNoche = true;
+    });
   }
 
   nuevaCancha(){

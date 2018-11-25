@@ -39,12 +39,7 @@ export class NuevaCanchaComponent implements OnInit {
         else
           this.deportes = res;
     });
-    if(!this.precioNoche) {
-      this.predioService.getPredio(this.cancha.predio).subscribe(predio => {
-        if(predio.configHorario)
-          this.precioNoche = true;
-      });
-    }
+    console.log(this.precioNoche)
   }
 
   nuevaSubCancha(cancha) {
