@@ -16,6 +16,10 @@ export class PartidoService {
     return this.http.post<Partido>(this.api, partido, global.httpOptions);
   }
 
+  getAll() {
+    return this.http.get<Array<Partido>>(this.api + 'all', global.httpOptions);
+  }
+
   getPartidosJugados() {
     return this.http.get<Array<Partido>>(this.api + 'misPartidosJugados', global.httpOptions);
   }

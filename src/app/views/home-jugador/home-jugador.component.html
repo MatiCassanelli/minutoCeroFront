@@ -1,10 +1,10 @@
-<mat-tab-group>
+<mat-tab-group mat-stretch-tabs style="max-width: 100%">
   <mat-tab>
     <ng-template mat-tab-label>
       <!--<mat-icon class="example-tab-icon">thumb_up</mat-icon>-->
       Incompletos
     </ng-template>
-    <app-listado-partidos [setEstadoPartido]="'Incompleto'"></app-listado-partidos>
+    <app-listado-partidos [partidos]="partidosIncompletos" [setEstadoPartido]="'Incompleto'"></app-listado-partidos>
     <div class="fab-container">
       <button mat-fab class="fab-toggler" color="accent"
               aria-label="Button that displays a tooltip when focused or hovered over"
@@ -18,14 +18,14 @@
       <!--<mat-icon class="example-tab-icon">thumb_up</mat-icon>-->
       Jugando
     </ng-template>
-    <app-listado-partidos [setEstadoPartido]="'Jugando'"></app-listado-partidos>
+    <app-listado-partidos [partidos]="partidosJugando"></app-listado-partidos>
   </mat-tab>
   <mat-tab>
     <ng-template mat-tab-label>
       <!--<mat-icon class="example-tab-icon">thumb_up</mat-icon>-->
       Finalizados
     </ng-template>
-    <app-listado-partidos [setEstadoPartido]="'Finalizado'"></app-listado-partidos>
+    <app-listado-partidos [partidos]="partidosFinalizados"></app-listado-partidos>
 
   </mat-tab>
 </mat-tab-group>

@@ -1,7 +1,7 @@
 <div>
 <mat-list>
   <!--<mat-divider></mat-divider>-->
-  <mat-list-item *ngFor="let partido of partidosIncompletos; let i = index" (click)="goToPartido(partido._id)">
+  <mat-list-item *ngFor="let partido of partidos; let i = index" (click)="goToPartido(partido._id)">
 
     <img matListAvatar style="border-radius: 0; width: 50px; height: 50px;" [src]="'https://storage.googleapis.com/minutocero/Escudo%20azul.redimensionado.png'">
     <h4 mat-line style="text-align: center" *ngIf="partido.resultado; else hora"><b>{{partido?.resultado.golesLocal}} - {{partido?.resultado.golesVisitante}}</b></h4>
@@ -9,7 +9,7 @@
       <h4 mat-line style="text-align: center" ><b>{{partido?.dia | date:'HH:mm'}}</b></h4>
     </ng-template>
     <p mat-line style="text-align: center"> {{partido?.dia | date:'dd/MM/yyyy'}}</p>
-    <p mat-line style="text-align: center">{{predios[i]?.nombrePredio}}</p>
+    <p mat-line style="text-align: center">{{partido?.cancha.predio.nombrePredio}}</p>
     <img mat-card-image style="border-radius: 0; width: 50px; height: 50px;" class="imagenPartido" [src]="'https://storage.googleapis.com/minutocero/Escudo%20rojo.redimensionado.png'" alt="">
 
     <mat-divider></mat-divider>

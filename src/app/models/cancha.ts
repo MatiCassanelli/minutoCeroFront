@@ -1,4 +1,5 @@
 import {Deporte} from './deporte';
+import {Predio} from './predio';
 
 export class Cancha {
   _id: string;
@@ -6,7 +7,7 @@ export class Cancha {
   deporte: string;
   canchasHijas: Cancha[];
   tipoSuelo: ['Tierra', 'Sintetico', 'Natural'];
-  predio: string;
+  predio: string | Predio;
   precioDia: number;
   precioNoche: number;
 
