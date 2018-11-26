@@ -33,8 +33,8 @@ export class LoginComponent implements OnInit {
               private roleService: RoleService,
               private route: ActivatedRoute) {
     this.predio = false;
-    this.facebook = this.url + '/auth/login/facebook/jugador/';
-    this.google = this.url + '/auth/login/google/jugador/';
+    this.facebook = this.url + '/auth/login/facebook/jugador';
+    this.google = this.url + '/auth/login/google/jugador';
   }
 
   ngOnInit() {
@@ -53,13 +53,13 @@ export class LoginComponent implements OnInit {
   setPredio(bool) {
     if (bool === 'Predio') {
       this.predio = false;
-      this.facebook = this.url + '/auth/login/facebook/predio/';
-      this.google = this.url + '/auth/login/google/predio/';
+      this.facebook = this.url + '/auth/login/facebook/predio';
+      this.google = this.url + '/auth/login/google/predio';
     }
     if (bool === 'Jugador') {
       this.predio = true;
-      this.facebook = this.url + '/auth/login/facebook/jugador/';
-      this.google = this.url + '/auth/login/google/jugador/';
+      this.facebook = this.url + '/auth/login/facebook/jugador';
+      this.google = this.url + '/auth/login/google/jugador';
     }
   }
 
