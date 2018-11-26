@@ -16,6 +16,7 @@ export class ListadoPartidosComponent implements OnInit {
   partidosIncompletos: Partido[];
   estado: string;
 
+  @Input() partidos: Partido[];
   @Input()
   set setEstadoPartido(name: string) {
     this.estado = name;
@@ -29,27 +30,18 @@ export class ListadoPartidosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.partidoService.getPartidos(this.estado).subscribe(incompletos => {
-      this.partidosIncompletos = incompletos;
-      if (this.estado === 'Incompleto') {
-        this.partidoService.getPartidos('CasiCompleto').subscribe(casiCompleto => {
-          this.partidosIncompletos = this.partidosIncompletos.concat(casiCompleto);
-          this.getInfoPredio(this.partidosIncompletos);
-        });
-      }
-      else {
-        this.getInfoPredio(incompletos);
-      }
-    });
+    // this.getInfoPredio(this.partidos);
   }
 
-  getInfoPredio(partidos) {
-    for (let p of partidos) {
-      this.predioService.getPredio(p.cancha.predio.toString()).subscribe(rta => {
-        this.predios.push(rta);
-      });
-    }
-  }
+  // getInfoPredio(partidos) {
+  //   if(this.partidos) {
+  //     for (let p of partidos) {
+  //       // this.predioService.getPredio(p.cancha.predio.toString()).subscribe(rta => {
+  //         this.predios.push(p.cancha.predio.nombrePredio);
+  //       // });
+  //     }
+  //   }
+  // }
 
   goToPartido(idPartido) {
     this.router.navigateByUrl('/partido/' + idPartido);
