@@ -5,7 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
+    "build": "ng build --base-href /app/ --env=prod --aot",
+    "compress": "find dist/ -iname \"*.js\" -exec gzip -k -9 {} \\;",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
