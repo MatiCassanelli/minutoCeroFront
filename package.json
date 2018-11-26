@@ -6,8 +6,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --base-href /app/ --env=prod --aot",
-    "compress": "find dist/ -iname \"*.js\" -exec gzip -k -9 {} \\;",
-    "prod": "npm run build && npm run compress",
+    "compressgz": "find dist/ -iname \"*.js\" -exec gzip -k -9 {} \\;",
+    "compressbrotli": "find dist/ -iname \"*.js\" -exec brotli -k -9 {} \\;",
+    "prod": "npm run build && npm run compressgz && npm run compressbrotli",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
