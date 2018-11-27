@@ -39,7 +39,6 @@ export class NuevaCanchaComponent implements OnInit {
         else
           this.deportes = res;
     });
-    console.log(this.precioNoche)
   }
 
   nuevaSubCancha(cancha) {

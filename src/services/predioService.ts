@@ -14,7 +14,7 @@ export class PredioService {
   }
 
   createPredio(predio, step = null) {
-    return this.http.put<Predio>(this.api + '/crear', {predio: predio, step: step}, global.httpOptions);
+    return this.http.put<Predio>(this.api + '/crear', {nombre: predio.nombrePredio, telefono: predio.telefono, step: step}, global.httpOptions);
   }
 
   setUbicacion(ub, step = null) {

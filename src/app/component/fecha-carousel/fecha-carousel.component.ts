@@ -43,7 +43,7 @@ export class FechaCarouselComponent implements OnInit {
             this.horarios[k].abre = true;
             for (let j = 0; j < predio.horario[i].horario.length; j++) {
               if(this.horarios[k].horario[j] === undefined){
-                this.horarios[k].horario.push({desde: null, hasta: null})
+                this.horarios[k].horario.push({desde: null, hasta: null});
               }
               this.horarios[k].horario[j].desde = new Date(moment(predio.horario[i].horario[j].desde).add(3,'hours').format());
               this.horarios[k].horario[j].hasta = new Date(moment(predio.horario[i].horario[j].hasta).add(3,'hours').format());
@@ -51,7 +51,8 @@ export class FechaCarouselComponent implements OnInit {
           }
         }
       }
-      // this.sendHorarios();
+      if (window.location.href.includes('registro'))
+        this.sendHorarios();
     });
   }
 

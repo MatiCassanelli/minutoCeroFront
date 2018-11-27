@@ -43,8 +43,8 @@ export class ConfiguracionHorasComponent implements OnInit {
         this.horarios.dia.hasta = moment.utc(res.configHorario.dia.hasta).add('h', 3).toDate();
         this.horarios.noche.desde = moment.utc(res.configHorario.noche.desde).add('h', 3).toDate();
         this.horarios.noche.hasta = moment.utc(res.configHorario.noche.hasta).add('h', 3).toDate();
-        // if (window.location.href.includes('registro'))
-        // this.sendHorarios();
+        if (window.location.href.includes('registro'))
+          this.sendHorarios();
       }
     });
   }
@@ -86,7 +86,6 @@ export class ConfiguracionHorasComponent implements OnInit {
       else
         this.horarios.noche.hasta = moment.utc().hours(this.horarios.noche.hasta.toString().split(':')[0]).minutes(this.horarios.noche.hasta.toString().split(':')[1]).toDate();
 
-      debugger;
       this.stepEmit.emit({
         configHoras: horariosFinal
       });

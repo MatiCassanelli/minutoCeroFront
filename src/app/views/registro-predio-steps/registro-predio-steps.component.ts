@@ -65,7 +65,7 @@ export class RegistroPredioStepsComponent implements OnInit, AfterViewInit {
       this.horarios = event.infoContacto.horarios;
       this.nombrePredio = event.infoContacto.nombre;
       this.telefono = event.infoContacto.telefono;
-      this.predioService.createPredio({nombre: this.nombrePredio, telefono: this.telefono, step: 1}).subscribe((res) => {
+      this.predioService.createPredio({nombrePredio: this.nombrePredio, telefono: this.telefono, step: 1}).subscribe((res) => {
         this.predioService.setHorarios(this.horarios, 1).subscribe((asd) => {
           this._actualizarStep(1);
         });
