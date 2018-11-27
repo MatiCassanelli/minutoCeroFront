@@ -10,9 +10,7 @@ import {CalificacionService} from '../../../services/calificacionService';
 export class CalificacionDesdePredioComponent implements OnInit {
 
   @Input() jugador: Jugador;
-  asistio = false;
   @Output() sendCalificacion: EventEmitter<any> = new EventEmitter<any>();
-  dataSource: Object;
   constructor() {
   }
 
@@ -20,7 +18,7 @@ export class CalificacionDesdePredioComponent implements OnInit {
   }
 
   setPuntaje(respuesta) {
-    this.sendCalificacion.emit({puntuacion: this.asistio, jugador: this.jugador});
+    this.sendCalificacion.emit({puntuacion: respuesta, jugador: this.jugador});
   }
 
 }

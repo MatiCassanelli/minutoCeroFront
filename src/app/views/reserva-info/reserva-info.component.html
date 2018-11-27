@@ -8,20 +8,20 @@
       <label for="datos" class="col-sm-2 col-form-label"><strong>Datos jugador</strong></label>
       <div id="datos" class="col-sm-10">
         <mat-form-field>
-          <input matInput placeholder="Nombre" [readonly]="editable" required [value]="jugador?.nombre">
+          <input matInput placeholder="Nombre" [readonly]="true" required [value]="jugador?.nombre">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Apellido" required [value]="jugador?.apellido" [readonly]="editable">
+          <input matInput placeholder="Apellido" required [value]="jugador?.apellido" [readonly]="true">
         </mat-form-field>
         <mat-form-field>
           <input matInput placeholder="Teléfono de Contacto" required [value]="jugador?.telefono"
-                 [readonly]="editable">
+                 [readonly]="true">
         </mat-form-field>
       </div>
     </div>
 
     <div readonly="editable">
-      <app-fecha-hora *ngIf="reserva" [readOnly]="editable" [fecha]="reserva.dia"></app-fecha-hora>
+      <app-fecha-hora *ngIf="reserva" [readOnly]="true" [fecha]="reserva.dia"></app-fecha-hora>
     </div>
 
     <div class="form-group row">
