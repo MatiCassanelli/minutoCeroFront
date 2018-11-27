@@ -1,4 +1,5 @@
-<div style="margin: 3%;" (swipeLeft)="restarNotificacion.emit('')" (swipeRight)="restarNotificacion.emit('')">
+<div style="margin: 3%;" (swipeLeft)="reserva.estado !== 'PreReserva' || restarNotificacion.emit('')"
+     (swipeRight)="reserva.estado !== 'PreReserva' || restarNotificacion.emit('')">
   <mat-card>
     <mat-card-title style="font-size: 16px">
       {{mensaje}} <br>
@@ -9,7 +10,7 @@
     </mat-card-subtitle>
     <mat-card-subtitle *ngIf="reserva.estado === 'Solicitada'">
       <p *ngIf="reserva?.jugador?.calificacionPredio?.cantCalificaciones > 0; else noCalificacion">% Asistencia a
-        Reservas Previas: {{reserva?.jugador?.calificacionPredio?.porcentajeCalificacionesPositivas}}</p>
+        Reservas Previas: {{reserva?.jugador?.calificacionPredio?.porcentajeCalificacionesPositivas.toFixed(2)}}</p>
       <ng-template #noCalificacion>
         <p>El jugador todavia no posee ninguna referencia de su asistencia a reservas previas</p>
       </ng-template>

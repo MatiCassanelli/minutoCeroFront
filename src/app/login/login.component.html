@@ -1,34 +1,23 @@
-<div class="container-fluid cuerpo ui-xl-4 ui-lg-4 ui-md-6 ui-sm-9">
-  <p-card class="ui-xl-4 ui-lg-4 ui-md-4 ui-sm-12" title="{{tipo}}">
-    <div class="container ui-fluid">
-      <div class="row">
-        <!--<button pButton type="button" class="ui-button facebook" label="Facebook"-->
-        <!--onclick="location.href= global.serverURL + '/auth/login/facebook/jugador/'"></button>-->
-        <!--<a href="{{facebook}}" class="ui-button facebook">Facebook</a>-->
-      </div>
-      <div class="row">
-        <!--<button pButton type="button" class="ui-button google" label="Google"-->
-        <!--onclick="location.href= global.serverURL + '/auth/login/google/jugador/'"></button>-->
-        <!--<a (click)="loggingIn()" href="{{google}}" class="ui-button google">Google</a>-->
-        <button mat-raised-button (click)="loggingInGl()" class="ui-grid-col-12 google">Google</button>
-        <br>
-        <button mat-raised-button (click)="loggingInFb()" class="ui-grid-col-12 facebook">Facebook</button>
-      </div>
-      <!--<br>-->
+<!--<div class="container-fluid cuerpo ui-xl-4 ui-lg-4 ui-md-6 ui-sm-9">-->
+  <!--<p-card class="ui-xl-4 ui-lg-4 ui-md-4 ui-sm-12" title="{{tipo}}">-->
+    <!--<div class="container ui-fluid">-->
       <!--<div class="row">-->
-        <!--&lt;!&ndash;<button pButton type="button" class="ui-button-secondary" label="Logout"&ndash;&gt;-->
-        <!--&lt;!&ndash;onclick="location.href= global.serverURL + '/auth/logout'" type="button"></button>&ndash;&gt;-->
-        <!--<a href="{{logout}}" type="button" class="ui-button ui-button-secondary">Logout</a>-->
       <!--</div>-->
-    </div>
-  </p-card>
-  <br>
+      <!--<div class="row">-->
+        <!--<button mat-raised-button (click)="loggingInGl()" class="ui-grid-col-12 google">Google</button>-->
+        <!--<br>-->
+        <!--<button mat-raised-button (click)="loggingInFb()" class="ui-grid-col-12 facebook">Facebook</button>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</p-card>-->
+  <!--<br>-->
 
-  <!--<div *ngIf="predio; else SiPredio">-->
-    <!--<button mat-raised-button (click)="setPredio('predio')">Ingresar como Predio</button>-->
-  <!--</div>-->
+<!--</div>-->
+
+<div class="container-fluid cuerpo ui-xl-4 ui-lg-4 ui-md-6 ui-sm-9">
+  <button mat-raised-button (click)="loggingInGl()" class="ui-grid-col-12 google">Google</button>
+  <button mat-raised-button (click)="loggingInFb()" class="ui-grid-col-12 facebook">Facebook</button>
   <ng-template #SiPredio>
     <button mat-raised-button (click)="setPredio('jugador')">Ingresar como Jugador</button>
   </ng-template>
-
 </div>
