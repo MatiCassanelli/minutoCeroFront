@@ -15,7 +15,7 @@ const httpOptions = {
 
 @Injectable()
 export class DeporteService {
-  private api = environment.baseUrl + '/deporte/';
+  private api = environment.baseUrl + '/deporte';
 
   constructor(private http: HttpClient) {
   }
@@ -25,6 +25,6 @@ export class DeporteService {
   }
 
   getDeporteById(id) {
-    return this.http.get<Deporte>(this.api + id, httpOptions);
+    return this.http.get<Deporte>(this.api + '/' + id, httpOptions);
   }
 }

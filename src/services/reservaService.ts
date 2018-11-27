@@ -8,7 +8,7 @@ import {Reserva} from '../app/models/reserva';
 @Injectable()
 export class ReservaService {
 
-  private api = environment.baseUrl + '/reservas/';
+  private api = environment.baseUrl + '/reservas';
 
   constructor(private http: HttpClient) {
   }
@@ -18,23 +18,23 @@ export class ReservaService {
   }
 
   getReservaById (idReserva) {
-    return this.http.get<Reserva>(this.api + idReserva, global.httpOptions);
+    return this.http.get<Reserva>(this.api + '/' + idReserva, global.httpOptions);
   }
 
   getMisReservas() {
-    return this.http.get<any>(this.api + 'misReservas', global.httpOptions);
+    return this.http.get<any>(this.api + '/misReservas', global.httpOptions);
   }
 
   getNotificacionesReserva() {
-    return this.http.get<any>(this.api + 'notificaciones', global.httpOptions);
+    return this.http.get<any>(this.api + '/notificaciones', global.httpOptions);
   }
 
   getCantNotificacionesReserva() {
-    return this.http.get<number>(this.api + 'notificaciones/cantidad', global.httpOptions);
+    return this.http.get<number>(this.api + '/notificaciones/cantidad', global.httpOptions);
   }
 
   putEstado(idReserva, estado) {
-    return this.http.put<any>(this.api + idReserva + '/estado', {estado: estado}, global.httpOptions);
+    return this.http.put<any>(this.api + '/' + idReserva + '/estado', {estado: estado}, global.httpOptions);
   }
 
   getByEstado(estado) {
@@ -50,6 +50,6 @@ export class ReservaService {
   }
 
   updateCancha(idReserva, idCancha) {
-    return this.http.put<Reserva>(this.api + idReserva + '/ubicacion', {cancha: idCancha}, global.httpOptions);
+    return this.http.put<Reserva>(this.api + '/' + idReserva + '/ubicacion', {cancha: idCancha}, global.httpOptions);
   }
 }

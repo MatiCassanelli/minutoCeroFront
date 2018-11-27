@@ -7,7 +7,7 @@ import {environment} from "../environments/environment";
 @Injectable()
 export class EquipoService {
 
-  private api = environment.baseUrl + '/equipo/';
+  private api = environment.baseUrl + '/equipo';
 
   constructor(private http: HttpClient) {
   }
@@ -17,22 +17,22 @@ export class EquipoService {
   }
 
   invitarJugadores(jugadores, idEquipo) {
-    return this.http.post<Equipo>(this.api + idEquipo + '/invitar', jugadores, global.httpOptions);
+    return this.http.post<Equipo>(this.api + '/' + idEquipo + '/invitar', jugadores, global.httpOptions);
   }
 
   getEquipo(id) {
-    return this.http.get<Equipo>(this.api + 'info/' + id, global.httpOptions);
+    return this.http.get<Equipo>(this.api + '/info/' + id, global.httpOptions);
   }
 
   getMiEquipo() {
-    return this.http.get<Equipo>(this.api + 'miEquipo', global.httpOptions);
+    return this.http.get<Equipo>(this.api + '/miEquipo', global.httpOptions);
   }
 
   eliminarJugador(idEquipo, idJugador) {
-    return this.http.delete(this.api + idEquipo + '/' + idJugador, global.httpOptions);
+    return this.http.delete(this.api + '/' + idEquipo + '/' + idJugador, global.httpOptions);
   }
 
   eliminarEquipo(idEquipo) {
-    return this.http.delete(this.api + idEquipo, global.httpOptions);
+    return this.http.delete(this.api + '/' + idEquipo, global.httpOptions);
   }
 }

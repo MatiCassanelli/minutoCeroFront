@@ -8,13 +8,13 @@ import {Cancha} from '../app/models/cancha';
 @Injectable()
 export class PredioService {
 
-  private api = environment.baseUrl + '/predio/';
+  private api = environment.baseUrl + '/predio';
 
   constructor(private http: HttpClient) {
   }
 
   createPredio(predio, step = null) {
-    return this.http.put<Predio>(this.api + 'crear', predio, global.httpOptions);
+    return this.http.put<Predio>(this.api + '/crear', {predio: predio, step: step}, global.httpOptions);
   }
 
   setUbicacion(ub, step = null) {
@@ -25,22 +25,22 @@ export class PredioService {
           lng: ub.lng,
           direccion: res['results'][0].formatted_address
         };
-        this.http.put<Predio>(this.api + 'ubicacion', {ubicacion: ub, step: step}, global.httpOptions).subscribe(respredio => {
+        this.http.put<Predio>(this.api + '/ubicacion', {ubicacion: ub, step: step}, global.httpOptions).subscribe(respredio => {
           return respredio;
         });
       });
   }
 
   setCanchas(canchas, step = null) {
-    return this.http.post<Predio>(this.api + 'canchas/crear', {canchas: canchas, step: step}, global.httpOptions);
+    return this.http.post<Predio>(this.api + '/canchas/crear', {canchas: canchas, step: step}, global.httpOptions);
   }
 
   setConfiguracionHorarios(horarios, step = null) {
-    return this.http.put<Predio>(this.api + 'configuracionDiaNoche', {configHorario: horarios, step: step}, global.httpOptions);
+    return this.http.put<Predio>(this.api + '/configuracionDiaNoche', {configHorario: horarios, step: step}, global.httpOptions);
   }
 
   setHorarios(horarios, step = null) {
-    return this.http.put<Predio>(this.api + 'horario', {horario: horarios, step: step}, global.httpOptions);
+    return this.http.put<Predio>(this.api + '/horario', {horario: horarios, step: step}, global.httpOptions);
   }
 
   updateStep(step) {
@@ -53,19 +53,19 @@ export class PredioService {
   }
 
   getAllPredios() {
-    return this.http.get<Array<Predio>>(this.api + 'all', global.httpOptions);
+    return this.http.get<Array<Predio>>(this.api + '/all', global.httpOptions);
   }
 
   getCanchasWithPredio(idPredio) {
-    return this.http.get<Array<Cancha>>(this.api + idPredio + '/canchas', global.httpOptions);
+    return this.http.get<Array<Cancha>>(this.api + '/' + idPredio + '/canchas', global.httpOptions);
   }
 
   getCanchas() {
-    return this.http.get<Array<Cancha>>(this.api + 'canchas', global.httpOptions);
+    return this.http.get<Array<Cancha>>(this.api + '/canchas', global.httpOptions);
   }
 
   getPredio(idPredio) {
-    return this.http.get<Predio>(this.api + idPredio + '/info', global.httpOptions);
+    return this.http.get<Predio>(this.api + '/' + idPredio + '/info', global.httpOptions);
   }
 
   getMisCanchasDisponibles(dia) {
