@@ -157,7 +157,7 @@ export class PlantelComponent implements OnInit {
       let index: number = this.plantelLocal.jugadoresConfirmados.indexOf(jugador);
       if (!this.noIds) { // para cuando entro a un partido ya organizado a invitar nuevos jugadores
         return this.plantelService.updatePlantel(this.plantelLocal._id, [jugador._id]).subscribe(() => {
-          this.plantelLocal.jugadoresConfirmados.splice(index, 1);
+          // this.plantelLocal.jugadoresConfirmados.splice(index, 1);
           this.deshabilitarConfirmar('local');
         });
       } else {
@@ -169,7 +169,7 @@ export class PlantelComponent implements OnInit {
       let index: number = this.plantelVisitante.jugadoresConfirmados.indexOf(jugador);
       if (!this.noIds) {
         this.plantelService.updatePlantel(this.plantelVisitante._id, [jugador._id]).subscribe(() => {
-          this.plantelVisitante.jugadoresConfirmados.splice(index, 1);
+          // this.plantelVisitante.jugadoresConfirmados.splice(index, 1);
           this.deshabilitarConfirmar('visitante');
         });
       } else {

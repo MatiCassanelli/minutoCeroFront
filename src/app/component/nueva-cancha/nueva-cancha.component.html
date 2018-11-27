@@ -46,7 +46,7 @@
     <span matPrefix>$&nbsp;</span>
   </mat-form-field>
   <button mat-stroked-button *ngIf="(!precioNoche && cancha.nombreCancha && cancha.deporte &&
-  cancha.tipoSuelo && cancha.precioDia) || (cancha.nombreCancha && cancha.deporte &&
+  cancha.tipoSuelo && cancha.precioDia && imprime) || (cancha.nombreCancha && cancha.deporte &&
   cancha.tipoSuelo && cancha.precioDia && cancha.precioNoche && imprime)" (click)="nuevaSubCancha(cancha)"
           style="margin-bottom: 2%">
     <small>Contiene canchas internas</small>
