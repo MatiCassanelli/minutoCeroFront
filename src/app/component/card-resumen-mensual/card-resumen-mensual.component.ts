@@ -11,9 +11,13 @@ export class CardResumenMensualComponent implements OnInit {
 
   @Input() resumen: ResumenCuenta;
   mesFacturacion: string;
+  periodoDesde = moment();
+  periodoHasta = moment();
   constructor() { }
 
   ngOnInit() {
+    this.periodoDesde = moment.utc(this.resumen.periodoDesde);
+    this.periodoHasta = moment.utc(this.resumen.periodoHasta);
     this.mesFacturacion = moment(this.resumen.periodoHasta).locale('es').format('MMMM');
     this.mesFacturacion = this.mesFacturacion.replace(this.mesFacturacion[0], this.mesFacturacion[0].toUpperCase());
   }

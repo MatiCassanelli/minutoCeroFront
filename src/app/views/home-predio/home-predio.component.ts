@@ -123,7 +123,8 @@ export class HomePredioComponent implements OnInit {
           },
           agenda: {
             titleFormat: 'DD MMMM YYYY',
-            nowIndicator: true
+            nowIndicator: true,
+            allDaySlot: false
           },
           day: {
             titleFormat: 'DD MMMM YYYY',
