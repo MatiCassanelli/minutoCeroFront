@@ -4,7 +4,7 @@
     <mat-icon *ngIf="resumen.estado === 'Pagado'" style="position: absolute; right: 0; top: 0; color: green">check_circle</mat-icon>
   </mat-card-header>
   <mat-card-content style="position: relative;">
-    <p>{{periodoDesde | date:'dd/MM/yyyy'}} - {{periodoHasta | date:'dd/MM/yyyy'}}</p>
+    <p>{{periodoDesde}} - {{periodoHasta}}</p>
     <p style="position: absolute; right: 0; top: 0; font-size: 20px;"><span matPrefix>$ &nbsp;</span>{{resumen.detalle.total}}</p>
   </mat-card-content>
 </mat-card>

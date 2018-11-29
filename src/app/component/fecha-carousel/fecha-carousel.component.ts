@@ -51,8 +51,8 @@ export class FechaCarouselComponent implements OnInit {
           }
         }
       }
-      if (window.location.href.includes('registro'))
-        this.sendHorarios();
+      // if (window.location.href.includes('registro'))
+      //   this.sendHorarios();
     });
   }
 
