@@ -30,10 +30,11 @@ export class HomePredioComponent implements OnInit {
   reservas: any[];
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
   reservasCalendar: ReservaCalendar[] = [
-    {text: 'PreReserva', color: 'lightblue'},
-    {text: 'Two', color: 'lightgreen'},
-    {text: 'Three', color: 'lightpink'},
-    {text: 'Four', color: '#DDBDF1'},
+    {text: 'PreReserva', color: '#B3E5FC'},
+    {text: 'Vista', color: '#B3E5FC'},
+    {text: 'Completada', color: 'CFD8DC'},
+    {text: 'Solicitada', color: '#FFD54F'},
+    {text: 'Reservada', color: '#C8E6C9'},
   ];
   fileNameDialogRef: MatDialogRef<ReservaDialogComponent>;
 
@@ -48,9 +49,10 @@ export class HomePredioComponent implements OnInit {
     forkJoin(this.reservaService.getByEstado('PreReserva'),
       this.reservaService.getByEstado('Reservada'),
       this.reservaService.getByEstado('Completada'),
-      this.reservaService.getByEstado('Solicitada')).subscribe(res => {
+      this.reservaService.getByEstado('Solicitada'),
+    this.reservaService.getByEstado('Vista')).subscribe(res => {
 
-      this.reservas = res[0].concat(res[1]).concat(res[2]).concat(res[3]);
+      this.reservas = res[0].concat(res[4]).concat(res[1]).concat(res[2]).concat(res[3]);
       let color: string;
       for (let reserva of this.reservas) {
         switch (reserva.estado) {
@@ -58,6 +60,12 @@ export class HomePredioComponent implements OnInit {
             color = '#B3E5FC';
             this.reservasCalendar[0].color = color;
             this.reservasCalendar[0].text = reserva.estado;
+            break;
+          }
+          case 'Vista': {
+            color = '#B3E5FC';
+            this.reservasCalendar[4].color = color;
+            this.reservasCalendar[4].text = 'PreReserva';
             break;
           }
           case 'Solicitada': {
